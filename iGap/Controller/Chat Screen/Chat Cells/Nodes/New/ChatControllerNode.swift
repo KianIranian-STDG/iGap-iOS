@@ -4638,36 +4638,36 @@ class ChatControllerNode: ASCellNode {
             }
         }
         if message!.linkInfo == nil {
+            var labeltmpcolor = UIColor()
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme != "IGAPClassic" {
+                
+                if currentTheme == "IGAPDay" {
+                    if currentColorSetLight == "IGAPBlack" {
+                        labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                    } else {
+                        labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                    }
+                }
+                if currentTheme == "IGAPNight" {
+                    if currentColorSetDark == "IGAPBlack" {
+                        labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                    } else {
+                        labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                    }
+
+                }
+            } else {
+                labeltmpcolor = ThemeManager.currentTheme.LabelColor
+
+            }
             if !isTextMessageNode {
                 IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             } else {
-                var labeltmpcolor = UIColor()
-                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-                if currentTheme != "IGAPClassic" {
-                    
-                    if currentTheme == "IGAPDay" {
-                        if currentColorSetLight == "IGAPBlack" {
-                            labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                        } else {
-                            labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                        }
-                    }
-                    if currentTheme == "IGAPNight" {
-                        if currentColorSetDark == "IGAPBlack" {
-                            labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                        } else {
-                            labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                        }
-
-                    }
-                } else {
-                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
-
-                }
 
                 IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
