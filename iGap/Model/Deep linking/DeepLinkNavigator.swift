@@ -50,11 +50,6 @@ class DeeplinkNavigator {
             break
             
         case .payment(message: let message, status: let st, orderId: let id):
-            
-            if IGStickerViewController.waitingGiftCardInfo.orderId == id {
-                SwiftEventBus.post(EventBusManager.giftCardPayment, sender: st)
-            }
-            
             self.showPaymentView(message: message, status: st, orderId: id)
             break
             
@@ -113,7 +108,7 @@ class DeeplinkNavigator {
                     paymentView.reloadPaymentResult(status: status, message: message, RRN: "\(paymentStatus.info?.rrn ?? 0)")
                 } else {
                     // get data
-                    paymentView.showPaymentResult(on: UIApplication.shared.keyWindow!, paymentStatusData: paymentStatus, message: message)
+                    paymentView.showPaymentResult(on: UIApplication.shared.keyWindow!, paymentStatusData: paymentStatus, paymentStatus: status, message: message)
                 }
                 
             } else {

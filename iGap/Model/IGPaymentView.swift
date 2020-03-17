@@ -9,6 +9,7 @@
  */
 
 import Foundation
+import SwiftEventBus
 
 enum PaymentStatus: String {
     case canceledByUser = "CANCELED_BY_USER"
@@ -51,6 +52,8 @@ class IGPaymentView: UIView {
     private var title: String!
     private var paymentData: IGStructPayment!
     private var giftCardPaymentData: IGStructGiftCardPayment!
+    private var paymentStatus: PaymentStatus? = nil
+    private var orderId: String? = nil
     
     // MARK: - Init functions
     override init(frame: CGRect) {
@@ -164,7 +167,11 @@ class IGPaymentView: UIView {
     }
     
     /// show paymentview with payment result
-    func showPaymentResult(on parentView: UIView, paymentStatusData: IGStructPaymentStatus, message: String) {
+    func showPaymentResult(on parentView: UIView, paymentStatusData: IGStructPaymentStatus, paymentStatus: PaymentStatus? = nil, message: String) {
+        
+        self.paymentStatus = paymentStatus
+        self.orderId = paymentStatusData.info?.orderId
+        
         parentView.endEditing(true)
         self.parentView = parentView
         self.title = paymentStatusData.info?.product?.title
@@ -327,6 +334,12 @@ class IGPaymentView: UIView {
             self.frame.origin.y += self.frame.height
         }) { (_) in
             self.removeFromSuperview()
+        }
+        
+        if self.paymentStatus != nil && self.orderId != nil && IGStickerViewController.waitingGiftCardInfo.orderId == self.orderId {
+            SwiftEventBus.post(EventBusManager.giftCardPayment, sender: paymentStatus)
+            self.paymentStatus = nil
+            self.orderId = nil
         }
     }
     

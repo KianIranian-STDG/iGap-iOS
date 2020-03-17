@@ -146,7 +146,7 @@ class IGHelperForward {
         }).send()
     }
     
-    private static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], isFromCloud: Bool = false, viewController: UIViewController){
+    public static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], isFromCloud: Bool = false, viewController: UIViewController){
         DispatchQueue.main.async {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController

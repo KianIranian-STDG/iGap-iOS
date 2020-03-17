@@ -292,7 +292,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     static var highlightMessageId: Int64 = 0 // highlight message and show fast return to message icon
     static var highlightWithoutFastReturn: Int64 = 0 // highlight message after click on fast return to message icon
     static var returnToMessage: IGRoomMessage? // after click on reply header, save clicked message for fast return to message position again
-    static var giftRoomId: Int64? // use this variable for detect send message to room
+    static var giftUserId: Int64? // use this variable for detect send message to room
     
     private var cellSizeLimit: CellSizeLimit!
     
@@ -1060,42 +1060,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         SwiftEventBus.onMainThread(self, name: EventBusManager.disableMultiSelect) { [weak self] (result) in
             self?.diselect()
-        }
-        
-        SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardSendMessage) { [weak self] (result) in
-            if IGMessageViewController.giftRoomId != self?.finalRoomId {return}
-            if !(self?.allowSendGiftCard ?? false) {return}
-            self?.allowSendGiftCard = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                self?.allowSendGiftCard = true
-            }
-            
-            if let stickerItem = result?.object as? IGRealmStickerItem {
-                if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
-                    let message = IGRoomMessage(body: stickerItem.name!)
-                    message.type = .sticker
-                    message.roomId = self?.room?.id ?? 0
-                    message.attachment = attachment
-                    
-                    var type = AdditionalType.STICKER.rawValue
-                    if stickerItem.giftAmount != 0 {
-                        type = AdditionalType.GIFT_STICKER.rawValue
-                    }
-                    message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: type)
-                    IGAttachmentManager.sharedManager.add(attachment: attachment)
-                    
-                    self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)
-                    
-                    self?.sendMessageState(enable: false)
-                    self?.messageTextView.text = ""
-                    self?.currentAttachment = nil
-                    IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-                    self?.selectedMessageToReply = nil
-                    self?.setInputBarHeight()
-                } else {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
-                }
-            }
         }
         
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
@@ -4041,7 +4005,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self?.didtapOutSide()
                 IGGlobal.prgHide()
                 if !success {return}
-                IGMessageViewController.giftRoomId = self?.finalRoomId
+                IGMessageViewController.giftUserId = self?.room?.chatRoom?.peer?.id
                 let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 stickerController.stickerPageType = .CATEGORY
                 stickerController.isGift = true

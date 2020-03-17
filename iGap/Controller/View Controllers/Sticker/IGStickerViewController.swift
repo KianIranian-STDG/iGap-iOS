@@ -267,13 +267,49 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             }
             
             SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardPayment) { result in
-                if IGMessageViewController.giftRoomId == nil || IGMessageViewController.giftRoomId == 0 { // opened this page from discovery so shouldn't be send message to chat
+                if IGMessageViewController.giftUserId == nil || IGMessageViewController.giftUserId == 0 { // opened this page from discovery so shouldn't be send message to chat
                     return
                 }
                 if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
                     IGStickerViewController.waitingGiftCardInfo.stickerStruct?.giftId = IGStickerViewController.waitingGiftCardInfo.giftId
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardSendQuestion.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, done: {
-                        SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
+                        
+                        guard
+                            let nationalCode = IGSessionInfo.getNationalCode(), !nationalCode.isEmpty,
+                            let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0),
+                            let stickerItem = IGStickerViewController.waitingGiftCardInfo.stickerStruct
+                            else {return}
+                        
+                        IGGlobal.prgShow()
+                        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
+                            IGGlobal.prgHide()
+                            if !success {
+                                return
+                            }
+                            
+                            if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token ?? "") {
+                                let message = IGRoomMessage(body: stickerItem.name ?? "")
+                                message.type = .sticker
+                                message.attachment = attachment
+                                message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
+                                IGAttachmentManager.sharedManager.add(attachment: attachment)
+                                
+                                IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
+                                    DispatchQueue.main.async {
+                                        IGGlobal.prgShow()
+                                        IGApiSticker.shared.giftStickerForward(userId: "\(IGMessageViewController.giftUserId ?? 0)", stickerId: stickerItem.giftId ?? "") { [weak self] success in
+                                            if self == nil {return}
+                                            IGGlobal.prgHide()
+                                            if success {
+                                                if let room = IGRoom.existRoomInLocal(userId: IGMessageViewController.giftUserId ?? 0) {
+                                                    IGHelperForward.openChat(room: room, messageArray: [message], isFromCloud: true, viewController: self!)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     })
                 }
             }
