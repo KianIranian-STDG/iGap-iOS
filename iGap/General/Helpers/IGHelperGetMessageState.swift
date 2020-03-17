@@ -17,33 +17,28 @@ class IGHelperGetMessageState: UICollectionViewCell {
     private var isWaiting = false // when 'checkLoop' is waiting for call don't run this method again for avoid from run multiple 'DispatchQueue'
     private var getViews: [Int64] = []
     private var getViewsMessage: [Int64: [Int64]] = [:]
-    private var syncroniseViewMessageQueue = DispatchQueue(label: "thread-safe-view-message-obj", attributes: .concurrent)
+    
+    private var syncroniseViewMessageQueue = DispatchQueue(label: "thread-safe-view-message-obj", qos: .userInteractive)
     
     /* add messageId to list for send to server for update to latest message state */
     public func getMessageState(roomId: Int64, messageId: Int64) {
+        
         syncroniseViewMessageQueue.sync(flags: .barrier) {
             if getViews.contains(messageId) {
                 return
             }
-        }
-        if !isWaiting {
-            checkTimeOut()
-        }
-        syncroniseViewMessageQueue.sync(flags: .barrier) {[weak self] in
-            guard let sSelf = self else {
-                return
+            if !isWaiting {
+                checkTimeOut()
             }
+        
             getViews.append(messageId)
             if getViewsMessage[roomId] == nil {
-                sSelf.getViewsMessage[roomId] = [messageId]
-            }
-            if getViewsMessage[roomId] != nil {
-                var messageIdList: [Int64]?
-                    messageIdList = getViewsMessage[roomId]
-                
+                getViewsMessage[roomId] = [messageId]
+            } else {
+                var messageIdList = getViewsMessage[roomId]
                 if !(messageIdList?.contains(messageId))! {
                     messageIdList?.append(messageId)
-                        sSelf.getViewsMessage[roomId] = messageIdList
+                    getViewsMessage[roomId] = messageIdList
                 }
             }
         }
@@ -52,14 +47,12 @@ class IGHelperGetMessageState: UICollectionViewCell {
     /* send saved messageIdList to server for update state */
     private func sendMessageState() {
         
+        
         for roomId in getViewsMessage.keys {
             var messageIdList: [Int64]?
-            syncroniseViewMessageQueue.sync(flags: .barrier) {[weak self] in
-                guard let sSelf = self else {
-                    return
-                }
+            syncroniseViewMessageQueue.sync(flags: .barrier){
                 messageIdList = getViewsMessage[roomId]
-                sSelf.getViewsMessage.removeValue(forKey: roomId)
+                getViewsMessage.removeValue(forKey: roomId)
             }
             if (messageIdList?.count)! > 0 {
                 IGChannelGetMessagesStatsRequest.sendRequest(roomId: roomId, messageIdList: messageIdList!)
