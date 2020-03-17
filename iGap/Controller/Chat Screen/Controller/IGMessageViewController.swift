@@ -904,10 +904,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGMessageLoader.removeInstance(roomId: self.room!.id)
     }
     
-    deinit {
-        tableViewNode.removeFromSupernode()
-        print("Deinit IGMessageViewController")
-    }
+//    deinit {
+//        tableViewNode.recursivelyClearContents()
+//        print("Deinit IGMessageViewController")
+//    }
     
     private func initTheme() {
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
@@ -8049,15 +8049,15 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             if sSelf.finalRoom.type == .group || sSelf.finalRoom.type == .chat || sSelf.finalRoom.type == .channel  {
                 shouldShowAvatar = true
                 
-                if msg!.type != .log {
-                    if sSelf.messages!.indices.contains(indexPath.row + 1){
-                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
-                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-                            isFromSameSender = false // should be true for next version
-                        }
-                    }
-                    
-                }
+//                if msg!.type != .log {
+//                    if sSelf.messages!.indices.contains(indexPath.row + 1){
+//                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
+//                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+//                            isFromSameSender = false // should be true for next version
+//                        }
+//                    }
+//                    
+//                }
             }
             var img = UIImage()
             

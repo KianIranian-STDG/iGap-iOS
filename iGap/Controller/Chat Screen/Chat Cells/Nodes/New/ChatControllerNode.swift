@@ -191,10 +191,11 @@ class ChatControllerNode: ASCellNode {
     override init() {
         super.init()
     }
-    deinit {
-//        ForceFreeUPMemory()
-        print("deinit is being called fr chatcontrollerNode")
-    }
+//    deinit {
+////        ForceFreeUPMemory()
+//        recursivelyClearContents()
+//        print("deinit is being called fr chatcontrollerNode")
+//    }
     private func ForceFreeUPMemory() {
         if finalRoom != nil {
             finalRoom = nil
