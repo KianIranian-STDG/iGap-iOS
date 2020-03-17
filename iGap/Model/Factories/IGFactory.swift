@@ -1084,68 +1084,6 @@ class IGFactory: NSObject {
     //MARK: --------------------------------------------------------
     //MARK: ▶︎▶︎ Rooms
 
-    /* change isDeleted value to "true" for rooms that not exist in server response */
-    func markRoomsAsDeleted(igpRooms : [IGPRoom]){
-        let task = IGFactoryTask()
-        task.task = {
-            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-
-                try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.objects(IGRoom.self).filter("isDeleted == 0").setValue(true, forKey: "isDeleted")
-                }
-
-                // Hint : don't need fetch difference list and set all isDeleted params. now we just set all data just with one query
-                /*
-                 var array1: Array<Int64> = Array()
-                 var array2: Array<Int64> = Array()
-
-                 for room in igpRooms {
-                 array1.append(room.igpID)
-                 }
-
-                 let predicate = NSPredicate(format: "isParticipant == 1")
-                 for room in IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate) {
-                 array2.append(room.id)
-                 }
-
-                 let differenceRoomId = array1.difference(from: array2)
-
-                 try! IGDatabaseManager.shared.realm.write {
-                 for roomId in differenceRoomId {
-                 let predicate = NSPredicate(format: "id = %lld", roomId)
-                 if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                 roomInDb.isParticipant = false //roomInDb.isDeleted = true
-                 }
-
-                 /*
-                 let predicateShareInfo = NSPredicate(format: "id = %lld AND type != %d", roomId, 4)
-                 /* set "isParticipant = false" and after get all rooms clear all share info if yet "isParticipant == false" */
-                 if let shareInfoInDb = IGDatabaseManager.shared.realm.objects(IGShareInfo.self).filter(predicateShareInfo).first {
-                 shareInfoInDb.isParticipant = false
-                 }
-                 */
-                 }
-                 }
-                 */
-
-                IGFactory.shared.performInFactoryQueue {
-                    self.setFactoryTaskSuccess(task: task)
-                }
-            }
-        }
-        self.doFactoryTask(task: task)
-    }
-
-    /*
-    func removeDeletedRooms(){
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            try! IGDatabaseManager.shared.realm.write {
-                IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
-            }
-        }
-    }
-    */
-
     /* clear share info if "isParticipant == false" */
     func deleteShareInfo(removeRoom: Bool = true){
         /*
@@ -1218,25 +1156,21 @@ class IGFactory: NSObject {
          */
     }
 
-    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false, enableCache: Bool = false) {
+    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, enableCache: Bool = false) {
 
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                do {
-                    try! IGDatabaseManager.shared.realm.write {
-                        for igpRoom in rooms {
-                            IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
-                        }
-
-                        IGFactory.shared.performInFactoryQueue {
-                            self.setFactoryTaskSuccess(task: task)
-                        }
+                try! IGDatabaseManager.shared.realm.write {
+                    for igpRoom in rooms {
+                        IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
                     }
-                    self.rewriteRoomInfo()
-                } catch let error as NSError {
-                    print("RLM EXEPTION ERR HAPPENDED SAVE ROOMS TO DB:",String(describing: self),error)
+                    
+                    IGFactory.shared.performInFactoryQueue {
+                        self.setFactoryTaskSuccess(task: task)
+                    }
                 }
+                self.rewriteRoomInfo()
             }
         }
         task.success ({
@@ -1245,23 +1179,7 @@ class IGFactory: NSObject {
             self.removeTaskFromQueueAndPerformNext(task)
         }).addToQueue()
 
-        if removeDeleted {
-            let task = IGFactoryTask()
-            task.task = {
-                IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                    try! IGDatabaseManager.shared.realm.write {
-                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
-                    }
-
-                    IGFactory.shared.performInFactoryQueue {
-                        self.setFactoryTaskSuccess(task: task)
-                    }
-                }
-            }
-            self.doFactoryTask(task: task)
-        } else {
-            self.performNextFactoryTaskIfPossible()
-        }
+        self.performNextFactoryTaskIfPossible()
     }
 
     /* rewrite room info with "IGGlobal.rewriteRoomInfo" array */

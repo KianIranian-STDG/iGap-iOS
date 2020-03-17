@@ -553,7 +553,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                     let fetchedCount = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
                     
                     if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
-                        IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
                         IGClientGetPromoteRequest.fetchPromotedRooms()
                         IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
                         if getRoomListResponse.igpRooms.count == 0 {
