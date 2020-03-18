@@ -343,19 +343,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     // MARK:- TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
         return giftCardList.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 2
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
@@ -372,12 +360,12 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GiftCardListCell", for: indexPath) as! IGGiftStickerListCell
-        cell.setInfo(giftCard: giftCardList[indexPath.section])
+        cell.setInfo(giftCard: giftCardList[indexPath.row], listType: self.giftCardType)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let giftSticker = giftCardList[indexPath.section]
+        let giftSticker = giftCardList[indexPath.row]
         if self.giftCardType == .new {
             getCardStatus(stickerId: giftSticker.id, date: giftSticker.createdAt)
         } else if self.giftCardType == .active {
@@ -386,7 +374,10 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if let userId = giftCardList[indexPath.row].toUserId, !userId.isEmpty {
+            return 140
+        }
+        return 85
     }
     
  }

@@ -17,6 +17,10 @@ class IGGiftStickerListCell: UITableViewCell {
     @IBOutlet weak var imgSticker: UIImageView!
     @IBOutlet weak var txtRRN: UILabel!
     @IBOutlet weak var txtAmount: UILabel!
+    @IBOutlet weak var userInfoAvatarView: IGAvatarView!
+    @IBOutlet weak var txtUserInfo: UILabel!
+    
+    private var userInfo: IGRegisteredUser?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,11 +30,48 @@ class IGGiftStickerListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func setInfo(giftCard: IGStructGiftCardListData){
+    public func setInfo(giftCard: IGStructGiftCardListData, listType: GiftStickerListType){
         customizeView(view: mainCellView)
         showSticker(token: giftCard.sticker.token)
         txtRRN.text = IGStringsManager.WalletRrnNumber.rawValue.localized + " : " + String(describing: giftCard.rrn).inLocalizedLanguage()
         txtAmount.text = String(describing: giftCard.amount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+        if let userId = giftCard.toUserId, !userId.isEmpty {
+            
+           let avatarTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAvatar(_:)))
+            userInfoAvatarView.addGestureRecognizer(avatarTap)
+            userInfoAvatarView.isUserInteractionEnabled = true
+            
+            if let userInfo = IGRegisteredUser.getUserInfo(id: Int64(userId)!) {
+                self.userInfoAvatarView.isHidden = false
+                self.txtUserInfo.isHidden = false
+                self.userInfo = userInfo
+                userInfoAvatarView.setUser(userInfo)
+                if listType == .new {
+                    txtUserInfo.text = IGStringsManager.ReceivedFrom.rawValue.localized + " " + userInfo.displayName
+                } else {
+                    txtUserInfo.text = IGStringsManager.PostedTo.rawValue.localized + " " + userInfo.displayName
+                }
+            } else {
+                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: Int64(userId)!) { [weak self] userInfo in
+                    DispatchQueue.main.async {
+                        self?.userInfoAvatarView.isHidden = false
+                        self?.txtUserInfo.isHidden = false
+                        self?.userInfo = IGRegisteredUser(igpUser: userInfo)
+                        if self?.userInfo != nil {
+                            self?.userInfoAvatarView.setUser((self?.userInfo!)!)
+                        }
+                        if listType == .new {
+                            self?.txtUserInfo.text = IGStringsManager.ReceivedFrom.rawValue.localized + " " + userInfo.igpDisplayName
+                        } else {
+                            self?.txtUserInfo.text = IGStringsManager.PostedTo.rawValue.localized + " " + userInfo.igpDisplayName
+                        }
+                    }
+                }
+            }
+        } else {
+            userInfoAvatarView.isHidden = true
+            txtUserInfo.isHidden = true
+        }
     }
     
     private func customizeView(view: UIView){
@@ -65,4 +106,11 @@ class IGGiftStickerListCell: UITableViewCell {
             }
         }
     }
+    
+    @objc func didTapOnAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
+        if let userInfo = self.userInfo {
+            IGHelperChatOpener.openUserProfile(user: userInfo)
+        }
+    }
+    
 }

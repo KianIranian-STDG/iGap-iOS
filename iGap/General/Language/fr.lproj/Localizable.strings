@@ -6370,3 +6370,5 @@
 "gift_card_send_question" = "Voulez-vous envoyer la carte à l'utilisateur souhaité?\nSi vous ne l'envoyez pas, vous pouvez voir votre carte-cadeau dans la section des cartes utilisables et l'activer ou l'envoyer à un autre utilisateur.";
 "buy_with_score" = "Shopping avec des points";
 "payment_spentScore" = "Points de consommation:";
+"posted_to" = "Publié par";
+"received_from" = "Posté à";

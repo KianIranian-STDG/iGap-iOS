@@ -798,7 +798,8 @@ enum IGStringsManager : String {
     case Emails = "emails"
     case BuyWithScore = "buy_with_score"
     case PaymentSpentScore = "payment_spentScore"
-
+    case PostedTo = "posted_to"
+    case ReceivedFrom = "received_from"
 }
 
 
