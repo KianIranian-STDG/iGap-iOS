@@ -3141,8 +3141,7 @@ class ChatControllerNode: ASCellNode {
         } else {
             tmpcolor = ThemeManager.currentTheme.LabelColor
         }
-
-        IGGlobal.makeAsyncText(for: txtSizeNode!, with: msg.attachment!.name!, textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
+        IGGlobal.makeAsyncText(for: txtSizeNode!, with: msg.attachment!.sizeToString(), textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
 
         IGGlobal.makeAsyncText(for: txtTitleNode!, with: msg.attachment!.name!, textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
         
