@@ -1291,41 +1291,10 @@ class ChatControllerNode: ASCellNode {
             txtTimeNode?.style.maxWidth = ASDimensionMake(.points, 50)
             txtTimeNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             var tmpcolor = UIColor()
-            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-            if currentTheme != "IGAPClassic" {
-                
-                if currentTheme == "IGAPDay" {
-                    if currentColorSetLight == "IGAPBlack" {
-                        if message?.type == .sticker {
-                            tmpcolor = .white
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
-                        }
-                    } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
-                    }
-                }
-                if currentTheme == "IGAPNight" {
-                    if currentColorSetDark == "IGAPBlack" {
-                        if message?.type == .sticker {
-                            tmpcolor = .white
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
-                        }
-                    } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
-                    }
-
-                }
+            if message?.type == .sticker {
+                tmpcolor = .white
             } else {
-                if message?.type == .sticker {
-                    tmpcolor = .white
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
-                }
+                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
             }
 
             IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
