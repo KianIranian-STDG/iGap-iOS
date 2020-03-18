@@ -15,12 +15,19 @@ struct IGStructPayment: Decodable {
         var vendor: String?
         var orderId: String?
         
-        struct Product: Decodable {
-            var title: String?
-            var description: String?
-            var tel_num: String?
-            var type: String?
-            var vendor: String?
+        struct Product: Codable {
+            let title, productDescription, telNum, telCharger: String
+            let type, vendor, productRefType, refType: String
+
+            enum CodingKeys: String, CodingKey {
+                case title
+                case productDescription = "description"
+                case telNum = "tel_num"
+                case telCharger = "tel_charger"
+                case type, vendor
+                case productRefType = "ref_type"
+                case refType
+            }
         }
         
         enum CodingKeys: String, CodingKey {
@@ -30,12 +37,21 @@ struct IGStructPayment: Decodable {
     }
     
     var info: Info
+    var features: [Feature]?
     var redirectUrl: String?
     
     enum CodingKeys: String, CodingKey {
         case info
+        case features
         case redirectUrl = "redirect_url"
     }
+}
+
+struct Feature: Codable {
+    let ceil, unit, floor, spent: Int
+    let type: String
+    let discount, userScore, priceWithFeature: Int
+    let title: String
 }
 
 struct IGStructPaymentStatus: Decodable {
@@ -76,11 +92,11 @@ struct IGStructPaymentStatus: Decodable {
 /********************* Sticker Payment Struct *********************/
 struct IGStructGiftCardPayment: Codable {
     let info: IGStructGiftCardPaymentInfo
-    //let features: [String]
+    let features: [Feature]?
     let redirectURL: String
 
     enum CodingKeys: String, CodingKey {
-        case info//, features
+        case info, features
         case redirectURL = "redirect_url"
     }
 }

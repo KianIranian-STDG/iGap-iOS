@@ -202,6 +202,7 @@ enum IGStringsManager : String {
     case AmountToPay = "amount_to_pay"
     case TotalAmount = "total_amount"
     case DiscountAmount = "discount_amount"
+    case Discount = "discount"
     case ClubCardBalance = "club_balance"
     case UserWalletBalance = "wallet_balance"
     case Wallet = "wallet_card"
@@ -796,6 +797,7 @@ enum IGStringsManager : String {
     case PhoneNumbers = "phone_numbers"
     case Emails = "emails"
     case BuyWithScore = "buy_with_score"
+    case PaymentSpentScore = "payment_spentScore"
 
 }
 

@@ -7142,6 +7142,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         if finalMessage.type == .sticker {
             if finalMessage.additional?.dataType == AdditionalType.GIFT_STICKER.rawValue {
+                self.view.endEditing(true)
                 if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
                     manageGiftStickerAction(stickerId: sticker.giftId)
                 }

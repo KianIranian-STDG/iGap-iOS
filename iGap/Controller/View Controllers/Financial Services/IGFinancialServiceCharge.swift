@@ -59,6 +59,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
          "0919":IGOperator.mci,
          "0990":IGOperator.mci,
          "0991":IGOperator.mci,
+         "0992":IGOperator.mci,
          
          "0901":IGOperator.irancell,
          "0902":IGOperator.irancell,
@@ -94,7 +95,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
     private func initTheme() {
         txtOperatorTransport.textColor = ThemeManager.currentTheme.LabelColor
-        edtPhoneNubmer.backgroundColor = .white
+        edtPhoneNubmer.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         btnOperator.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnBuy.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnPrice.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)

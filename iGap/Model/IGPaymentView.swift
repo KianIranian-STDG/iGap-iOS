@@ -58,12 +58,15 @@ class IGPaymentView: UIView {
     @IBOutlet var statusDescriptionLbl: UILabel!
     @IBOutlet var statusCodeLbl: UILabel!
     @IBOutlet var errorMessageLbl: UILabel!
+    @IBOutlet weak var discountSeparatorLbl: UILabel!
     
     // MARK: - Variables
     private var parentView: UIView!
     /// define a variable to store initial touch position on pan gesture
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     var payToken: String!
+    private var mainPrice: Int!
+    private var priceWithFeature: Int!
     private var title: String!
     private var paymentData: IGStructPayment!
     private var giftCardPaymentData: IGStructGiftCardPayment!
@@ -98,18 +101,21 @@ class IGPaymentView: UIView {
             DiscountBottomSV.isHidden = true
             btnCheck.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
             btnCheck.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-        }
-        else {
+            self.amountLbl.text = String(describing: self.mainPrice).onlyDigitChars().inRialFormat()
+        } else {
             DiscountBottomSV.isHidden = false
-
             btnCheck.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
             btnCheck.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
+            self.amountLbl.text = String(describing: self.priceWithFeature).onlyDigitChars().inRialFormat()
         }
         isChecked = !isChecked
 
     }
 
     private func initDiscountView() {
+        DiscountSV.isHidden = false
+        discountSeparatorLbl.isHidden = false
+        discountSeparatorLbl.text = IGStringsManager.Discount.rawValue.localized
         btnCheck.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
         btnCheck.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnCheck.titleLabel?.font = UIFont.iGapFonticon(ofSize: 24)
@@ -117,8 +123,13 @@ class IGPaymentView: UIView {
         DiscountBottomSV.isHidden = true
         lblBuyWithScore.text = IGStringsManager.BuyWithScore.rawValue.localized
         lblBuyWithScore.font = UIFont.igFont(ofSize: 12, weight: .bold)
-        
     }
+    
+    private func hideDiscountView(){
+        DiscountSV.isHidden = true
+        discountSeparatorLbl.isHidden = true
+    }
+    
     private func setupInitialUI() {
         self.topIconView.layer.cornerRadius = self.topIconView.bounds.height / 2
         self.acceptBtn.layer.cornerRadius = self.acceptBtn.bounds.height / 2
@@ -134,6 +145,7 @@ class IGPaymentView: UIView {
         self.parentView = parentView
         self.title = title
         self.giftCardPaymentData = payment
+        self.isChecked = false
         parentView.addSubview(self)
         parentView.addMaskView() {
             self.hideView()
@@ -162,6 +174,16 @@ class IGPaymentView: UIView {
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
         
         self.errorMessageLbl.isHidden = true
+        if let features = payment.features, features.count > 0 {
+            let feature = features[0]
+            initDiscountView()
+            self.priceWithFeature = feature.priceWithFeature
+            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " \(feature.userScore)".inLocalizedLanguage()
+            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
+        } else {
+            hideDiscountView()
+        }
     }
     
     /// show payment view modal
@@ -171,6 +193,7 @@ class IGPaymentView: UIView {
         self.title = title
         self.payToken = payToken
         self.paymentData = payment
+        self.isChecked = false
         parentView.addSubview(self)
         parentView.addMaskView() {
             // on maske view hide
@@ -190,11 +213,12 @@ class IGPaymentView: UIView {
         if let apiTitle = payment.info.product?.title {
             self.subTitleLbl.text = apiTitle
         }
-        if let description = payment.info.product?.description {
+        if let description = payment.info.product?.productDescription {
             self.descriptionLbl.text = description
         }
         self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
         if let price = payment.info.price {
+            self.mainPrice = price
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
         
@@ -206,11 +230,22 @@ class IGPaymentView: UIView {
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
         
         self.errorMessageLbl.isHidden = true
+        
+        if let features = payment.features, features.count > 0{
+            let feature = features[0]
+            initDiscountView()
+            self.priceWithFeature = feature.priceWithFeature
+            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " \(feature.userScore)".inLocalizedLanguage()
+            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
+        } else {
+            hideDiscountView()
+        }
     }
     
     /// show paymentview with payment result
     func showPaymentResult(on parentView: UIView, paymentStatusData: IGStructPaymentStatus, paymentStatus: PaymentStatus? = nil, message: String) {
-        
+        hideDiscountView()
         self.paymentStatus = paymentStatus
         self.orderId = paymentStatusData.info?.orderId
         
@@ -249,6 +284,7 @@ class IGPaymentView: UIView {
     
     /// reload payment view on payment result
     func reloadPaymentResult(status: PaymentStatus, message: String, RRN: String) {
+        hideDiscountView()
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
         self.statusDescriptionLbl.text = message
@@ -295,6 +331,7 @@ class IGPaymentView: UIView {
     
     /// show payment view modal with error
     func showOnErrorMessage(on parentView: UIView, title: String, message: String, payToken: String? = nil) {
+        hideDiscountView()
         parentView.endEditing(true)
         self.parentView = parentView
         self.title = title
@@ -394,8 +431,14 @@ class IGPaymentView: UIView {
     
     @IBAction func payTapped(_ sender: UIButton) {
         var url = paymentData?.redirectUrl
+        var type = self.paymentData?.features?[0].type
         if url == nil {
             url = giftCardPaymentData?.redirectURL
+            type = giftCardPaymentData?.features?[0].type
+        }
+        
+        if self.isChecked ,let FeatureType = type { // features is enable
+            url = url! + "?feature=\(FeatureType)"
         }
         
         if url != nil {
