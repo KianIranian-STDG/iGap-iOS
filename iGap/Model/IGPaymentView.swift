@@ -431,10 +431,15 @@ class IGPaymentView: UIView {
     
     @IBAction func payTapped(_ sender: UIButton) {
         var url = paymentData?.redirectUrl
-        var type = self.paymentData?.features?[0].type
+        var type: String!
+        if let features = paymentData?.features, features.count > 0{
+            type = self.paymentData?.features?[0].type
+        }
         if url == nil {
             url = giftCardPaymentData?.redirectURL
-            type = giftCardPaymentData?.features?[0].type
+            if let features = giftCardPaymentData?.features, features.count > 0{
+                type = giftCardPaymentData?.features?[0].type
+            }
         }
         
         if self.isChecked ,let FeatureType = type { // features is enable
