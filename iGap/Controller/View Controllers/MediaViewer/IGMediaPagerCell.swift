@@ -108,7 +108,7 @@ class IGMediaPagerCell: FSPagerViewCell {
             progress.delegate = self
             progress?.setState(attachment.status)
         }
-        if attachment.status == .downloading {
+        if attachment.status == .downloading && attachment.downloadUploadPercent != 1.0 {
             progress?.setPercentage(attachment.downloadUploadPercent)
         } else {
             progress?.setFileType(.download)
