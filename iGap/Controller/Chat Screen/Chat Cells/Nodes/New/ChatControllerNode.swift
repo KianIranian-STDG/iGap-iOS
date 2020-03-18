@@ -605,8 +605,10 @@ class ChatControllerNode: ASCellNode {
                 stack.horizontalAlignment = isIncomming ? .left : .right
                 
                 if isShowingAvatar {
+                    baseBubbleBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 100)
                     stack.children = isIncomming ? [sSelf.checkNode!, sSelf.avatarNode! ,baseBubbleBox] : [sSelf.checkNode!, baseBubbleBox, sSelf.avatarNode!]
                 }else {
+                    baseBubbleBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 60)
                     stack.children = [sSelf.checkNode!, baseBubbleBox]
                 }
                 stack.style.flexShrink = 1.0
@@ -652,8 +654,10 @@ class ChatControllerNode: ASCellNode {
                 stack.verticalAlignment = .bottom
                 stack.horizontalAlignment = isIncomming ? .left : .right
                 if isShowingAvatar {
+                    contentItemsBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 100)
                     stack.children = isIncomming ? [sSelf.checkNode!, sSelf.avatarNode! ,contentItemsBox] : [sSelf.checkNode!, contentItemsBox, sSelf.avatarNode!]
                 }else {
+                    contentItemsBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 60)
                     stack.children = [sSelf.checkNode!, contentItemsBox]
                 }
                 
