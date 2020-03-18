@@ -545,6 +545,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initAvatarObserver()
         eventBusInitialiser()
         
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        
         let attributes = [
             NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ,
             NSAttributedString.Key.font: UIFont.igFont(ofSize: 13) // Note the !
