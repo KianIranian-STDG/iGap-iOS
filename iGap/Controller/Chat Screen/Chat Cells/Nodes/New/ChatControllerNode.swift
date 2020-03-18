@@ -185,6 +185,8 @@ class ChatControllerNode: ASCellNode {
     private var actorUser: IGRegisteredUser?
     private var targetUser: IGRegisteredUser?
     
+    private var editTextNode: ASTextNode?
+    
     override func didLoad() {
         super.didLoad()
     }
@@ -1201,37 +1203,76 @@ class ChatControllerNode: ASCellNode {
     private func makeBottomBubbleItems(contentStack: ASLayoutSpec) {
         
         setTime()
-//        makeVoteItems(contentStack: contentStack)
+        
         if finalRoomType! == .channel {
                    
-                   var likeDislikeStack = ASStackLayoutSpec()
-                   if hasReAction {
-                       likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!,lblLikeIcon!,lblLikeText!,lblDisLikeIcon!,lblDisLikeText!])
-                       likeDislikeStack.verticalAlignment = .center
-                   } else {
-                       likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
-                       likeDislikeStack.verticalAlignment = .center
-                       
-                   }
-                   
-                   let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
-                   contentStack.children?.append(holderStack)
-                   return
-                   
-               }
+            var likeDislikeStack = ASStackLayoutSpec()
+            if hasReAction {
+               likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!,lblLikeIcon!,lblLikeText!,lblDisLikeIcon!,lblDisLikeText!])
+               likeDislikeStack.verticalAlignment = .center
+            } else {
+               likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
+               likeDislikeStack.verticalAlignment = .center
+               
+            }
+
+            if message!.isEdited {
+                
+                if editTextNode == nil {
+                    editTextNode = ASTextNode()
+                    IGGlobal.makeAsyncText(for: editTextNode!, with: IGStringsManager.Edited.rawValue.localized, textColor: isIncomming ? ThemeManager.currentTheme.MessageTextReceiverColor : UIColor.chatTimeTextColor(), size: 9, font: .igapFont, alignment: .center)
+                }
+                
+                let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack, editTextNode!, txtTimeNode!])
+                contentStack.children?.append(holderStack)
+            }else {
+                let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
+                contentStack.children?.append(holderStack)
+            }
+
+            return
+           
+       }
         
         if isIncomming  {} else {
             setMessageStatus()
         }
         
         if isIncomming {
-            contentStack.children?.append(txtTimeNode!)
-            txtTimeNode?.style.alignSelf = .end
-        } else {
-            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode!,txtStatusNode!])
-            timeStatusStack.verticalAlignment = .center
             
-            contentStack.children?.append(timeStatusStack)
+            if message!.isEdited {
+                if editTextNode == nil {
+                    editTextNode = ASTextNode()
+                    IGGlobal.makeAsyncText(for: editTextNode!, with: IGStringsManager.Edited.rawValue.localized, textColor: isIncomming ? ThemeManager.currentTheme.MessageTextReceiverColor : UIColor.chatTimeTextColor(), size: 9, font: .igapFont, alignment: .center)
+                }
+                
+                let hStack = ASStackLayoutSpec(direction: .horizontal, spacing: 2, justifyContent: .end, alignItems: .notSet, children: [editTextNode!, txtTimeNode!])
+                
+                contentStack.children?.append(hStack)
+            }else {
+                contentStack.children?.append(txtTimeNode!)
+                txtTimeNode?.style.alignSelf = .end
+            }
+            
+            
+            
+        } else {
+            
+            if message!.isEdited {
+                if editTextNode == nil {
+                    editTextNode = ASTextNode()
+                    IGGlobal.makeAsyncText(for: editTextNode!, with: IGStringsManager.Edited.rawValue.localized, textColor: isIncomming ? ThemeManager.currentTheme.MessageTextReceiverColor : UIColor.chatTimeTextColor(), size: 9, font: .igapFont, alignment: .center)
+                }
+//                contentStack.children?.append(txtTimeNode!)
+                let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode!,txtStatusNode!, editTextNode!])
+                timeStatusStack.verticalAlignment = .center
+                contentStack.children?.append(timeStatusStack)
+            } else {
+                let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode!,txtStatusNode!])
+                timeStatusStack.verticalAlignment = .center
+                contentStack.children?.append(timeStatusStack)
+            }
+            
         }
         
         
