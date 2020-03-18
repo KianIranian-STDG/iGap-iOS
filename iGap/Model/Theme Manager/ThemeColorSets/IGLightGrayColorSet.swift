@@ -12,7 +12,8 @@ import UIKit
 
 class LightGrayColorSet: DayNightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorLightGray")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
     
@@ -183,7 +184,8 @@ class LightGrayColorSet: DayNightColorSetProtocol {
 
 class LightGrayColorSetNight: NightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorLightGray")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColorNight")!
     

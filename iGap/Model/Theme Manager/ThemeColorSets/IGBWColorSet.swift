@@ -11,6 +11,7 @@
 import UIKit
 
 class BWColorSet: DayNightColorSetProtocol {
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorBW")!
 
     
     
@@ -183,7 +184,8 @@ class BWColorSet: DayNightColorSetProtocol {
 
 class BWColorSetNight: NightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorBW")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColorNight")!
     

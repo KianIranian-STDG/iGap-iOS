@@ -12,7 +12,8 @@ import UIKit
 
 class GoldColorSet: DayNightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorGold")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
     
@@ -182,6 +183,7 @@ class GoldColorSet: DayNightColorSetProtocol {
 }
 
 class GoldColorSetNight: NightColorSetProtocol {
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorGold")!
 
     
     

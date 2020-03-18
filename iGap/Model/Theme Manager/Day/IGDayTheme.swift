@@ -10,7 +10,9 @@
 
 import UIKit
 
-class DayTheme: ThemeProtocol {    
+class DayTheme: ThemeProtocol {
+    var TopViewHolderBGColor: UIColor = DayColorSetManager.currentColorSet.TopViewHolderBGColor
+    
     
     
     var TVCellTitleColor: UIColor  = DayColorSetManager.currentColorSet.TVCellTitleColor

@@ -11,6 +11,7 @@
 import UIKit
 
 class RedColorSet: DayNightColorSetProtocol {
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorRed")!
 
     
     
@@ -182,6 +183,7 @@ class RedColorSet: DayNightColorSetProtocol {
 }
 
 class RedColorSetNight: NightColorSetProtocol {
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorRed")!
 
     
     

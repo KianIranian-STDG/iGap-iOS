@@ -1530,6 +1530,10 @@ class ChatControllerNode: ASCellNode {
         //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
+        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        
+        btnShowMore?.style.width = ASDimensionMake(.points, 250)
+
         //
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {
@@ -1795,6 +1799,8 @@ class ChatControllerNode: ASCellNode {
         //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
+        btnShowMore?.style.width = ASDimensionMake(.points, 250)
+
         //
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {

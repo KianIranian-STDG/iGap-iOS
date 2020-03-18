@@ -12,6 +12,8 @@ import UIKit
 
 class GreenColorSet: DayNightColorSetProtocol {
 
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorGreen")!
+
     
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
@@ -182,7 +184,8 @@ class GreenColorSet: DayNightColorSetProtocol {
 
 class GreenColorSetNight: NightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorGreen")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColorNight")!
     
@@ -283,6 +286,8 @@ class GreenColorSetNight: NightColorSetProtocol {
     var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
 
     var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
+    
+
 
     //tabbarIcons
 
@@ -295,6 +300,7 @@ class GreenColorSetNight: NightColorSetProtocol {
     var TabIconRoomIland: UIImage = UIImage(named: "igIlandGreenLight")!
     
     var TabIconRoomSettings: UIImage = UIImage(named: "igSettingGreenLight")!
+    
 
     
     

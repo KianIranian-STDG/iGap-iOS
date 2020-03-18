@@ -13,6 +13,7 @@ import UIKit
 
 
 protocol ThemeProtocol {
+    var TopViewHolderBGColor : UIColor { get }
     //*****Labels*********//
     var LabelMainTextColor : UIColor { get }
     var LabelSecondaryTextColor : UIColor { get }

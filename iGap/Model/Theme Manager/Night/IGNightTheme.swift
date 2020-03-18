@@ -11,6 +11,8 @@
 import UIKit
 
 class NightTheme: ThemeProtocol {
+    var TopViewHolderBGColor: UIColor = NightColorSetManager.currentColorSet.TopViewHolderBGColor
+    
     
     
     var TVCellTitleColor: UIColor  = NightColorSetManager.currentColorSet.TVCellTitleColor

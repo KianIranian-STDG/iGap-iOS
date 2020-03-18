@@ -955,7 +955,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.iconReplyBar.textColor = ThemeManager.currentTheme.LabelColor
         self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.TopViewHolderBGColor
     }
 
     override func viewWillDisappear(_ animated: Bool) {

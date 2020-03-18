@@ -12,7 +12,8 @@ import UIKit
 
 class ClassicTheme: ThemeProtocol {
     
-    
+    var TopViewHolderBGColor : UIColor = DefaultColorSet().TopViewHolderBGColor
+
     var TVCellTitleColor: UIColor  = DefaultColorSet().TVCellTitleColor
     
     var CellFavouriteChannellBGColor: UIColor = DefaultColorSet().CellFavouriteChannellBGColor

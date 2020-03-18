@@ -12,7 +12,8 @@ import UIKit
 
 class PinkColorSet: DayNightColorSetProtocol {
 
-    
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorPink")!
+
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
     
@@ -184,6 +185,8 @@ class PinkColorSet: DayNightColorSetProtocol {
 
 
 class PinkColorSetNight: NightColorSetProtocol {
+    var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorPink")!
+    
 
     
     
