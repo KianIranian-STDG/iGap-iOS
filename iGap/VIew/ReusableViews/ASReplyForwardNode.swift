@@ -15,9 +15,9 @@ class ASReplyForwardNode: ASDisplayNode {
 
     var isReply : Bool = true //if false means it's Forward
     private var verticalView : ASDisplayNode?
-    private var txtRepOrForwardNode : MsgTextTextNode?
-    private var txtReplyMsgForwardSource: MsgTextTextNode?
-    private var txtReplyAttachment: MsgTextTextNode?
+    private var txtRepOrForwardNode : OnlyTextNode?
+    private var txtReplyMsgForwardSource: OnlyTextNode?
+    private var txtReplyAttachment: OnlyTextNode?
     private var imgReplyAttachment : ASNetworkImageNode?
     private var isIncomming : Bool = false
     override init() {
@@ -35,13 +35,13 @@ class ASReplyForwardNode: ASDisplayNode {
             self.verticalView = ASDisplayNode()
         }
         if txtRepOrForwardNode == nil {
-            self.txtRepOrForwardNode = MsgTextTextNode()
+            self.txtRepOrForwardNode = OnlyTextNode()
         }
         if txtReplyMsgForwardSource == nil {
-            self.txtReplyMsgForwardSource = MsgTextTextNode()
+            self.txtReplyMsgForwardSource = OnlyTextNode()
         }
         if txtReplyAttachment == nil {
-            self.txtReplyAttachment = MsgTextTextNode()
+            self.txtReplyAttachment = OnlyTextNode()
         }
         if imgReplyAttachment == nil {
             self.imgReplyAttachment = ASNetworkImageNode()
@@ -140,7 +140,8 @@ class ASReplyForwardNode: ASDisplayNode {
 
                 imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
-
+                txtReplyMsgForwardSource!.truncationMode = .byTruncatingTail
+                
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
