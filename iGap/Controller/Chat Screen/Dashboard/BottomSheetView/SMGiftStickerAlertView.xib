@@ -51,7 +51,7 @@
                         <constraint firstAttribute="height" constant="50" id="pFc-yt-5oV"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                 </textField>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f19-Qv-itu">
                     <rect key="frame" x="20" y="140" width="335" height="50"/>

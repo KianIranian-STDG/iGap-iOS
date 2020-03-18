@@ -3052,7 +3052,7 @@
                                             <constraint firstAttribute="height" constant="45" id="e92-W6-4Zg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJ4-9Z-ikO">
                                         <rect key="frame" x="20" y="125" width="274" height="45"/>
