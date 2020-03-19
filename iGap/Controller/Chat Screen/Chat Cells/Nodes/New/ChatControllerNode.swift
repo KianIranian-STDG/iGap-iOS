@@ -3860,7 +3860,7 @@ class ChatControllerNode: ASCellNode {
         imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
-        
+        imgNode!.style.alignSelf = .center
         imgNode!.layer.cornerRadius = 15
         
         if msg.type == .image {
@@ -3871,9 +3871,12 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 0
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
+
+            
             let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
-            
+            insetSpecImage.style.flexGrow = 1.0
+            insetSpecImage.style.alignSelf = .center
             verticalSpec.children?.append(insetSpecImage)
             
             if indicatorViewAbs == nil {
