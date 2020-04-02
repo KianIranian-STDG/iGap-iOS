@@ -187,6 +187,8 @@ class ChatControllerNode: ASCellNode {
     
     private var editTextNode: ASTextNode?
     
+    private var channelForwardBtnNode : ASImageNode?
+    
     override func didLoad() {
         super.didLoad()
     }
@@ -1026,8 +1028,6 @@ class ChatControllerNode: ASCellNode {
         return false
         
     }
-    
-    private var channelForwardBtnNode : ASImageNode?
     
     private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
         if bubbleImgNode == nil {
@@ -3195,7 +3195,7 @@ class ChatControllerNode: ASCellNode {
                     
                 }
             } else {
-                indicatorViewAbs?.removeFromSupernode()
+//                indicatorViewAbs?.removeFromSupernode()
                 indicatorViewAbs = nil
                 attachment?.status = .ready
             }
