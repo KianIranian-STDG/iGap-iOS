@@ -594,6 +594,19 @@ class ChatControllerNode: ASCellNode {
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             let isShowingAvatar = makeAvatarIfNeeded()
             
+            if self.finalRoomType! == .channel {
+                if channelForwardBtnNode == nil {
+                    channelForwardBtnNode = ASImageNode()
+                }
+                
+                channelForwardBtnNode?.contentMode = .scaleAspectFit
+                channelForwardBtnNode?.image = UIImage(named: "ig_message_forward")
+                
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+                channelForwardBtnNode?.view.addGestureRecognizer(tap)
+                channelForwardBtnNode?.view.isUserInteractionEnabled = true
+            }
+            
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
                 guard let sSelf = self else {
                     return ASLayoutSpec()
@@ -609,7 +622,18 @@ class ChatControllerNode: ASCellNode {
                     stack.children = isIncomming ? [sSelf.checkNode!, sSelf.avatarNode! ,baseBubbleBox] : [sSelf.checkNode!, baseBubbleBox, sSelf.avatarNode!]
                 }else {
                     baseBubbleBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 60)
-                    stack.children = [sSelf.checkNode!, baseBubbleBox]
+                    
+                    if sSelf.finalRoomType! == .channel {
+                        sSelf.channelForwardBtnNode?.style.preferredSize = CGSize(width: 35, height: 35)
+                        
+                        let baseBubbleBoxWithForwardBtn = ASStackLayoutSpec(direction: .horizontal, spacing: 4, justifyContent: .start, alignItems: .start, children: [baseBubbleBox, sSelf.channelForwardBtnNode!])
+                        baseBubbleBoxWithForwardBtn.verticalAlignment = .bottom
+                        stack.children = [sSelf.checkNode!, baseBubbleBoxWithForwardBtn]
+                    } else {
+                        stack.children = [sSelf.checkNode!, baseBubbleBox]
+                    }
+                    
+                    
                 }
                 stack.style.flexShrink = 1.0
                 
@@ -1002,6 +1026,8 @@ class ChatControllerNode: ASCellNode {
         return false
         
     }
+    
+    private var channelForwardBtnNode : ASImageNode?
     
     private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
         if bubbleImgNode == nil {
