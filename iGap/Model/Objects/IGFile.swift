@@ -209,6 +209,8 @@ public class IGFile: Object {
     func detach() -> IGFile {
         let detachedFile = IGFile(value: self)
         
+        detachedFile.status = self.status
+        
         if let smallThumbnail = self.smallThumbnail {
             let detachedThumbnail = smallThumbnail.detach()
             detachedFile.smallThumbnail = detachedThumbnail

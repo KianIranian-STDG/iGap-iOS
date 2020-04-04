@@ -3997,7 +3997,7 @@ class ChatControllerNode: ASCellNode {
 
         }
         if msg.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.attachment!.status != .ready {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.attachment!.isInUploadLevels() {
 
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
