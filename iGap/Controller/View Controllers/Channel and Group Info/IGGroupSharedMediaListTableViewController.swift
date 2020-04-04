@@ -203,7 +203,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                     break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedImage.text = "\(0)"
+                        self.sizeOfSharedImage.text = "\(0)".inLocalizedLanguage()
                     }
                     break
                 default:
@@ -237,7 +237,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
 
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedAudiosLabel.text = "\(0)"
+                        self.sizeOfSharedAudiosLabel.text = "\(0)".inLocalizedLanguage()
                     }
                     break
                 default:
@@ -269,7 +269,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                     break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedVideos.text = "\(0)"
+                        self.sizeOfSharedVideos.text = "\(0)".inLocalizedLanguage()
 
                     }
                     break
@@ -307,7 +307,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                     break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedFiles.text = "\(0)"
+                        self.sizeOfSharedFiles.text = "\(0)".inLocalizedLanguage()
                     }
                     break
                 default:
@@ -339,7 +339,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                     break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedVoice.text = "\(0)"
+                        self.sizeOfSharedVoice.text = "\(0)".inLocalizedLanguage()
                     }
                     break
                 default:
@@ -371,7 +371,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                     break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
-                        self.sizeOfSharedLinksLabel.text = "\(0)"
+                        self.sizeOfSharedLinksLabel.text = "\(0)".inLocalizedLanguage()
                     }
                     break
                 default:
