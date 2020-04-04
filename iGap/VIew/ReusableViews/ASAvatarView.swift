@@ -154,11 +154,12 @@ class ASAvatarView: ASDisplayNode {
            
                 // remove imageview from download list on t on cell reuse
 //        DispatchQueue.main.async {
-        
-            let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as! [String]
-            keys.forEach { (key) in
-                ASNetworkimagesMap.removeValue(forKey: key)
-            }
+        avatarThread.sync {
+                let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as! [String]
+                keys.forEach { (key) in
+                    ASNetworkimagesMap.removeValue(forKey: key)
+                }
+        }
 //        }
         
         var file : IGFile!
@@ -193,11 +194,16 @@ class ASAvatarView: ASDisplayNode {
                     
                 } else {
                     file = file.detach()
-                    ASNetworkimagesMap[file.token!] = networkAvatarNode
+                    avatarThread.sync {
+                        ASNetworkimagesMap[file.token!] = networkAvatarNode
+                    }
                     DispatchQueue.main.async {
                         
-                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
-                            DispatchQueue.main.async {
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: {[weak self] (attachment) -> Void in
+                            guard let sSelf = self else {
+                                return
+                            }
+                            sSelf.avatarThread.async {
                                 if let imageMain = ASNetworkimagesMap[attachment.token!] {
                                     let path = attachment.localUrl
                                     //imageMain.sd_setImage(with: path)
