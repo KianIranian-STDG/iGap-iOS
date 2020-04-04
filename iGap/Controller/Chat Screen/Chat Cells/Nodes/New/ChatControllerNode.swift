@@ -4318,8 +4318,7 @@ class ChatControllerNode: ASCellNode {
             return
         }
 
-        if let attach = msg.attachment , !(attach.isInvalidated) {
-            var attachment = attach.detach()
+        if var attachment = msg.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {

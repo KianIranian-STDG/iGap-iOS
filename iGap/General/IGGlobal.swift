@@ -1435,27 +1435,29 @@ extension ASImageNode {
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
 
+            let detachedAttachment = attachment.detach()
+            
             let MAX_IMAGE_SIZE = 256 // max size for show main image at view
             
             /* when fileNameOnDisk is added into the attachment just check file existance without check file size
              * because file size after upload is different with file size before upload
              * Hint: mabye change this kind of check for file existance change later
              */
-            let fileSizeKB = attachment.size/1024
+            let fileSizeKB = detachedAttachment.size/1024
             var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
-            if attachment.type == .image {
+            if detachedAttachment.type == .image {
                 /* for big images show largeThumbnail if exist, even main file was downloaded before.
                  * currently check size for 256 KB
                  */
                 
-                showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
+                showBestPreview = IGGlobal.isFileExist(path: detachedAttachment.localPath, fileSize: detachedAttachment.size)
             }
             
             if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
                 print("CHECK THRED1-1:",Thread.isMainThread)
                 DispatchQueue.global(qos:.userInteractive).async {
                     
-                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                    if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                         if let image = UIImage(data: data) {
                             self.image = image
                         }
@@ -1463,17 +1465,17 @@ extension ASImageNode {
                 }
                 print("CHECK THRED1:",Thread.isMainThread)
                 
-            } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+            } else if detachedAttachment.smallThumbnail != nil || detachedAttachment.largeThumbnail != nil {
                 
                 var fileType: PreviewType = .smallThumbnail
-                var finalFile: IGFile = attachment.smallThumbnail!.detach()
+                var finalFile: IGFile = detachedAttachment.smallThumbnail!.detach()
                 
                 if showMain {
                     fileType = .originalFile
-                    finalFile = attachment.detach()
-                } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
+                    finalFile = detachedAttachment
+                } else if showBestPreview || detachedAttachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                     fileType = .largeThumbnail
-                    finalFile = attachment.largeThumbnail!.detach()
+                    finalFile = detachedAttachment.largeThumbnail!.detach()
                 }
                 
                 do {
@@ -1509,17 +1511,17 @@ extension ASImageNode {
                     }
                     IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
-                            
+                            let detachedAttachment = attachment.detach()
                             var image: ASImageNode!
                             IGGlobal.syncroniseImageQueue.sync {
-                                image = ASimagesMap[attachment.token!]
-                                ASimagesMap.removeValue(forKey: attachment.token!)
+                                image = ASimagesMap[detachedAttachment.token!]
+                                ASimagesMap.removeValue(forKey: detachedAttachment.token!)
                             }
                             
                             if image != nil {
                                 DispatchQueue.global(qos:.userInteractive).async {
                                     
-                                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                    if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                         if let image = UIImage(data: data) {
                                             print("CHECK THRED3-1:",Thread.isMainThread)
                                             
@@ -1536,12 +1538,12 @@ extension ASImageNode {
                     }, failure: {})
                 }
             } else {
-                switch attachment.type {
+                switch detachedAttachment.type {
                 case .image:
-                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                    if IGGlobal.isFileExist(path: detachedAttachment.localPath, fileSize: detachedAttachment.size) {
                         DispatchQueue.global(qos:.userInteractive).async {
                             
-                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                            if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                 if let image = UIImage(data: data) {
                                     print("CHECK THRED4-1:",Thread.isMainThread)
                                     
@@ -1561,10 +1563,10 @@ extension ASImageNode {
                 case .gif:
                     break
                 case .video:
-                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                    if IGGlobal.isFileExist(path: detachedAttachment.localPath, fileSize: detachedAttachment.size) {
                         DispatchQueue.global(qos:.userInteractive).async {
 
-                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                            if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                 if let image = UIImage(data: data) {
                                     print("CHECK THRED5-1:",Thread.isMainThread)
                                     
