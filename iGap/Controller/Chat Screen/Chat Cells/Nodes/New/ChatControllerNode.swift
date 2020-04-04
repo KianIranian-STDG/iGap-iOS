@@ -3981,6 +3981,9 @@ class ChatControllerNode: ASCellNode {
         makeTopBubbleItems(stack: contentSpec)
         var prefferedSize : CGSize = CGSize(width: 0, height: 0)
         prefferedSize = NodeExtension.fetchMediaFrame(media: msg.attachment!)
+        if prefferedSize.height <= 150 {
+            prefferedSize = CGSize(width: 250, height: 250)
+        }
         if imgNode == nil {
             imgNode = ASImageNode()
             imgNode!.contentMode = .scaleAspectFill
@@ -4358,7 +4361,13 @@ class ChatControllerNode: ASCellNode {
             switch (msg.type) {
             case .image, .imageAndText, .video, .videoAndText :
                 if !(attachment.isInvalidated) {
-                    
+                    if msg.type == .image ||  msg.type == .imageAndText {
+                        imgNode!.image = UIImage(named: "igap_default_image")
+
+                    } else {
+                        imgNode!.image = UIImage(named: "igap_default_video")
+
+                    }
                     imgNode!.setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {
