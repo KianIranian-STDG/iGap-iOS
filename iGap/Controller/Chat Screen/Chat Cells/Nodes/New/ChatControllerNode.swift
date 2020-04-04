@@ -5020,7 +5020,7 @@ class ChatControllerNode: ASCellNode {
         if message!.type == .audio || message!.type == .audioAndText {
             IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!, justUpdate: true, room: finalRoom)
         }else {
-            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode?.view as! UISlider), timer: txtCurrentTimeNode!, roomMessage: message!, justUpdate: true, room: finalRoom)
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode?.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: message!, justUpdate: true, room: finalRoom)
         }
         
     }
@@ -5041,7 +5041,7 @@ class ChatControllerNode: ASCellNode {
         }else {
             IGGlobal.isVoice = true
             IGGlobal.clickedAudioCellIndexPath = index
-            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode!.view as! UISlider), timer: txtCurrentTimeNode!, roomMessage: message!,room: finalRoom)
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode!.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: message!,room: finalRoom)
         }
         
         
