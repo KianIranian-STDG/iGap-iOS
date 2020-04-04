@@ -539,6 +539,7 @@ class IGFactory: NSObject {
                     messageInDb.message = message
                     messageInDb.type = IGRoomMessageType.unknown.fromIGP(messageType)
                     messageInDb.messageVersion = messageVersion
+                    messageInDb.linkInfo = ActiveLabelJsonify.toJson(message)
                 }
                 SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageInDb.roomId)", sender: (action: ChatMessageAction.edit, messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion))
             }
