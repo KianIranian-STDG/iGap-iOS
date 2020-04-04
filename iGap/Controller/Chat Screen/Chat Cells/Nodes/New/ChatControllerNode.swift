@@ -5029,7 +5029,11 @@ class ChatControllerNode: ASCellNode {
         if message!.type == .audio || message!.type == .audioAndText {
             IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!, justUpdate: true, room: finalRoom)
         }else {
-            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode?.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: message!, justUpdate: true, room: finalRoom)
+            guard let slideer = (sliderNode)  else {
+                return
+            }
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: slideer.view as! UISlider, timer: txtCurrentTimeNode, roomMessage: message!, justUpdate: true, room: finalRoom)
+
         }
         
     }
