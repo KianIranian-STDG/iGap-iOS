@@ -974,7 +974,7 @@ class ChatControllerNode: ASCellNode {
     
     private func makeAvatarIfNeeded() -> Bool {
         
-        if finalRoomType == .channel {
+        if finalRoomType == .channel || finalRoomType == .chat {
             return false
         }
         
