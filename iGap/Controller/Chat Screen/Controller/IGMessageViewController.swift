@@ -7177,8 +7177,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         var attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.cacheID!)
         if attachmetVariableInCache == nil {
-            let attachmentRef = ThreadSafeReference(to: finalMessage.attachment!)
-            IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
+            guard let attachment = finalMessage.attachment?.detach() else {
+                return
+            } //ThreadSafeReference(to: finalMessage.attachment!)
+            IGAttachmentManager.sharedManager.add(attachment: attachment)
             attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.cacheID!)
         }
         
