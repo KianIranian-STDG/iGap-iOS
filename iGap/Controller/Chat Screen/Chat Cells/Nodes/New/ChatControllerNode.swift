@@ -3257,6 +3257,10 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(verticalSpec)
             
         }
+        if msg.status == IGRoomMessageStatus.failed {
+//            indicatorViewAbs?.backgroundColor = .red
+
+        }
         
         makeBottomBubbleItems(contentStack: contentSpec)
         let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
@@ -4363,10 +4367,8 @@ class ChatControllerNode: ASCellNode {
                 if !(attachment.isInvalidated) {
                     if msg.type == .image ||  msg.type == .imageAndText {
                         imgNode!.image = UIImage(named: "igap_default_image")
-
                     } else {
                         imgNode!.image = UIImage(named: "igap_default_video")
-
                     }
                     imgNode!.setThumbnail(for: attachment)
                     
@@ -4432,8 +4434,11 @@ class ChatControllerNode: ASCellNode {
                     btnPlay?.isHidden = false
                     indicatorViewAbs?.isHidden = true
                 }
-                
-                (indicatorViewAbs?.view as? IGProgress)?.setState(.ready)
+                if message?.status == IGRoomMessageStatus.failed {
+                    (indicatorViewAbs?.view as? IGProgress)?.setState(.uploadFailed)
+                } else {
+                    (indicatorViewAbs?.view as? IGProgress)?.setState(.ready)
+                }
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {

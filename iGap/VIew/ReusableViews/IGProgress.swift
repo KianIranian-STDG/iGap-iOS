@@ -92,6 +92,7 @@ class IGProgress: UIView {
             
             sSelf.makeActionButton()
             sSelf.isHidden = false
+            
             switch state {
             case .readyToDownload:
                 sSelf.setPercentage(0.0)
