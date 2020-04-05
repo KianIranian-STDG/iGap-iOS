@@ -599,6 +599,7 @@ class ChatControllerNode: ASCellNode {
             if self.finalRoomType! == .channel {
                 if channelForwardBtnNode == nil {
                     channelForwardBtnNode = ASImageNode()
+                    channelForwardBtnNode?.alpha = 0.5
                 }
                 
                 channelForwardBtnNode?.contentMode = .scaleAspectFit
@@ -626,7 +627,7 @@ class ChatControllerNode: ASCellNode {
                     baseBubbleBox.style.maxWidth = ASDimension(unit: .points, value: (UIScreen.main.bounds.width) - 60)
                     
                     if sSelf.finalRoomType! == .channel {
-                        sSelf.channelForwardBtnNode?.style.preferredSize = CGSize(width: 35, height: 35)
+                        sSelf.channelForwardBtnNode?.style.preferredSize = CGSize(width: 28, height: 28)
                         
                         let baseBubbleBoxWithForwardBtn = ASStackLayoutSpec(direction: .horizontal, spacing: 4, justifyContent: .start, alignItems: .start, children: [baseBubbleBox, sSelf.channelForwardBtnNode!])
                         baseBubbleBoxWithForwardBtn.verticalAlignment = .bottom
@@ -4987,7 +4988,7 @@ class ChatControllerNode: ASCellNode {
             self.bounds = bounds
             
             if let swipeToReplyNode = self.swipeToReplyNode {
-                swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
+                swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: frame.height - 40), size: CGSize(width: 28, height: 28))
                 
                 swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
                 
