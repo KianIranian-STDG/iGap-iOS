@@ -294,7 +294,18 @@ class IGRoomMessageLog: Object {
             }
 
         case .memberJoinedByInviteLink:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.JoinedByInvite.rawValue.localized
+//            bodyString = actorUsernameTitle + " " + IGStringsManager.JoinedByInvite.rawValue.localized
+            
+
+            if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.JoinedByInvite.rawValue.localized)"
+                
+            } else {
+                bodyString = "‏\(IGStringsManager.JoinedByInvite.rawValue.localized) \(actorUsernameTitle)"
+            }
+
+
+            
         case .roomDeleted:
             bodyString = IGStringsManager.DeletedRoom.rawValue.localized
         case .missedVoiceCall:
@@ -322,7 +333,11 @@ class IGRoomMessageLog: Object {
                 bodyString = "Missed secret chat"
             }
         case .pinnedMessage:
+
             bodyString = IGRoomMessage.detectPinMessage(message: message)//IGRoom.getPinnedMessage(roomId: message.roomId)
+            if bodyString.count >= 40 {
+                bodyString = bodyString.substring(0, 35) + "..."
+            }
         }
         
 //        if let target = message.log?.targetUser {

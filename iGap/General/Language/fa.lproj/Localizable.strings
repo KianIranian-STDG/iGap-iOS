@@ -2206,7 +2206,7 @@ Page 4 introduce app */
 "ROOM_CONVERTED_TO_PRIVATE" = "صفحه را به خصوصی تبدیل کرد";
 
 /*  */
-"MEMBER_JOINED_BY_INVITE_LINK" = "با دعوت به";
+"MEMBER_JOINED_BY_INVITE_LINK" = "با دعوت به گروه افزوده شد";
 
 /*  */
 "Room_Deleted_log" = "حذف شد";

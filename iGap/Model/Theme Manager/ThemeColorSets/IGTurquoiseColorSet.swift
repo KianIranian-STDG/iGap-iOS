@@ -12,7 +12,7 @@ import UIKit
 
 class TorquoiseColorSet: DayNightColorSetProtocol {
 
-    var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorTorquoise")!
+    var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorTurquoise")!
 
     
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
