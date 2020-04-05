@@ -87,12 +87,13 @@ class IGNodePlayer {
                 if justUpdate {
                     if sSelf.roomMessage != nil && !sSelf.roomMessage!.isInvalidated && sSelf.roomMessage!.id == roomMessage.id {
     //                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
-                        
-                        IGGlobal.makeAsyncButton(for: btnPlayPause!, with: sSelf.latestButtonValue, textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+                        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+                        IGGlobal.makeAsyncButton(for: btnPlayPause!, with: sSelf.latestButtonValue, textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
                         
                         slider!.value = sSelf.latestSliderValue ?? 0
     //                    timer!.text = latestTimeValue
-                        IGGlobal.makeAsyncText(for: timer!, with: sSelf.latestTimeValue?.inLocalizedLanguage() ?? "", textColor: UIColor.black, size: 13, font: .igapFont, alignment: .center)
+                        IGGlobal.makeAsyncText(for: timer!, with: sSelf.latestTimeValue?.inLocalizedLanguage() ?? "", textColor: UIColor.darkGray, size: 13, font: .igapFont, alignment: .center)
                         
                         
                         sSelf.btnPlayPause = btnPlayPause
@@ -134,7 +135,9 @@ class IGNodePlayer {
         if btnPlayPause != nil {
             self.latestButtonValue = ""
 //            self.btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
-            IGGlobal.makeAsyncButton(for: btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+            let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+            IGGlobal.makeAsyncButton(for: btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
             self.slider.value = 0.0
             latestSliderValue = 0.0
             updateTimer(currentTime: Float(0))
@@ -309,7 +312,7 @@ class IGNodePlayer {
         let remainingMiuntes = valueInt/60
         let finalValue = "\(remainingMiuntes):\(remainingSeconds) / \(attachmentStringTime ?? "00:00")".inLocalizedLanguage()
 //        timer.text = finalValue
-        IGGlobal.makeAsyncText(for: timer, with: finalValue, textColor: .black, size: 13, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: timer, with: finalValue, textColor: .darkGray, size: 13, font: .igapFont, alignment: .center)
         latestTimeValue = finalValue
     }
     
@@ -392,7 +395,9 @@ class IGNodePlayer {
             IGGlobal.songState = .playing
             let files = [file]
             self.latestButtonValue = ""
-            IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+            let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+            IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
             
             
 //            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
@@ -417,7 +422,9 @@ class IGNodePlayer {
         IGGlobal.songState = .paused
         
         self.latestButtonValue = ""
-        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
         
         
 //        UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
@@ -431,7 +438,9 @@ class IGNodePlayer {
     func stopMedia(){
         
         self.latestButtonValue = ""
-        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
         
         
 //        UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
@@ -446,7 +455,9 @@ class IGNodePlayer {
         IGGlobal.songState = .paused
         
         self.latestButtonValue = ""
-        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+        IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
         
         
         
@@ -467,7 +478,9 @@ class IGNodePlayer {
             SwiftEventBus.post(EventBusManager.changePlayState,sender: true)
             
             self.latestButtonValue = ""
-            IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+            let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
+
+            IGGlobal.makeAsyncButton(for: self.btnPlayPause, with: "", textColor: tmpcolor, size: 35, font: .fontIcon, alignment: .center)
 
 //            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
 //                self.latestButtonValue = ""

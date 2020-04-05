@@ -235,7 +235,35 @@ class IGGlobal {
     //        }
     //    }
     
-    
+    internal static func makeCustomColor(OtherThemesColor: UIColor,BlackThemeColor: UIColor) -> UIColor {
+        var tmpcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = BlackThemeColor
+                } else {
+                    tmpcolor = OtherThemesColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = BlackThemeColor
+                } else {
+                    tmpcolor = OtherThemesColor
+                }
+
+            }
+        } else {
+            tmpcolor = OtherThemesColor
+        }
+        
+        return tmpcolor
+    }
     /********************************************/
     /******************ASTEXT********************/
     internal static func makeAsyncText(for node: ASTextNode, with text: String, textColor: UIColor = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
