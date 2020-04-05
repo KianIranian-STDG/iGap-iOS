@@ -5192,109 +5192,111 @@ extension ChatControllerNode: ASTextNodeDelegate {
 extension ChatControllerNode: UIGestureRecognizerDelegate {
     
     func manageGestureRecognizers() {
-        if !IGGlobal.shouldMultiSelect  {
-            
-            let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
-            tapAndHold.minimumPressDuration = 0.2
-            view.addGestureRecognizer(tapAndHold)
-            
-            view.isUserInteractionEnabled = true
-            var tmppmsg : IGRoomMessage
-            if message?.forwardedFrom != nil {
-                tmppmsg = message!.forwardedFrom!
-            } else {
-                tmppmsg = message!
-            }
+        DispatchQueue.global(qos: .userInteractive).sync {
+            if !IGGlobal.shouldMultiSelect  {
+                
+                let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
+                tapAndHold.minimumPressDuration = 0.2
+                view.addGestureRecognizer(tapAndHold)
+                
+                view.isUserInteractionEnabled = true
+                var tmppmsg : IGRoomMessage
+                if message?.forwardedFrom != nil {
+                    tmppmsg = message!.forwardedFrom!
+                } else {
+                    tmppmsg = message!
+                }
 
-            if message?.repliedTo != nil {
-                let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
-                replyForwardViewNode?.view.addGestureRecognizer(onReplyClick)
-                replyForwardViewNode?.isUserInteractionEnabled = true
-                if !(IGGlobal.shouldMultiSelect) {
+                if message?.repliedTo != nil {
+                    let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
+                    replyForwardViewNode?.view.addGestureRecognizer(onReplyClick)
                     replyForwardViewNode?.isUserInteractionEnabled = true
-                }else {
-                    replyForwardViewNode?.isUserInteractionEnabled = false
+                    if !(IGGlobal.shouldMultiSelect) {
+                        replyForwardViewNode?.isUserInteractionEnabled = true
+                    }else {
+                        replyForwardViewNode?.isUserInteractionEnabled = false
+                        
+                    }
+                }
+                
+                if message?.forwardedFrom != nil {
+                    let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
+                    replyForwardViewNode?.view.addGestureRecognizer(onForwardClick)
+                    if !(IGGlobal.shouldMultiSelect) {
+                        replyForwardViewNode?.isUserInteractionEnabled = true
+                    }else {
+                        replyForwardViewNode?.isUserInteractionEnabled = false
+                    }
+                }
+                
+                if tmppmsg.type == .file || tmppmsg.type == .fileAndText {
+                    let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                    view.addGestureRecognizer(onFileClick)
+                    
+                    if !(IGGlobal.shouldMultiSelect) {
+                        view.isUserInteractionEnabled = true
+                    }
+                    else {
+                        view.isUserInteractionEnabled = false
+                    }
+                }
+                
+                
+                if tmppmsg.type == .image || tmppmsg.type == .imageAndText || tmppmsg.type == .video || tmppmsg.type == .videoAndText {
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                    imgNode?.view.addGestureRecognizer(tap)
+                    if !(IGGlobal.shouldMultiSelect) {
+                        imgNode?.isUserInteractionEnabled = true
+                    }
+                    else {
+                        imgNode?.isUserInteractionEnabled = false
+                    }
                     
                 }
-            }
-            
-            if message?.forwardedFrom != nil {
-                let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
-                replyForwardViewNode?.view.addGestureRecognizer(onForwardClick)
-                if !(IGGlobal.shouldMultiSelect) {
-                    replyForwardViewNode?.isUserInteractionEnabled = true
-                }else {
-                    replyForwardViewNode?.isUserInteractionEnabled = false
-                }
-            }
-            
-            if tmppmsg.type == .file || tmppmsg.type == .fileAndText {
-                let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                view.addGestureRecognizer(onFileClick)
                 
-                if !(IGGlobal.shouldMultiSelect) {
-                    view.isUserInteractionEnabled = true
-                }
-                else {
-                    view.isUserInteractionEnabled = false
-                }
-            }
-            
-            
-            if tmppmsg.type == .image || tmppmsg.type == .imageAndText || tmppmsg.type == .video || tmppmsg.type == .videoAndText {
-                let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                imgNode?.view.addGestureRecognizer(tap)
-                if !(IGGlobal.shouldMultiSelect) {
-                    imgNode?.isUserInteractionEnabled = true
-                }
-                else {
-                    imgNode?.isUserInteractionEnabled = false
+                if tmppmsg.type == .location {
+                    let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                    view.addGestureRecognizer(onLocationClick)
+                    
+                    if !(IGGlobal.shouldMultiSelect) {
+                        isUserInteractionEnabled = true
+                    }
+                    else {
+                        isUserInteractionEnabled = false
+                    }
                 }
                 
-            }
-            
-            if tmppmsg.type == .location {
-                let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                view.addGestureRecognizer(onLocationClick)
                 
-                if !(IGGlobal.shouldMultiSelect) {
-                    isUserInteractionEnabled = true
+                if tmppmsg.type == .sticker {
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                    view.addGestureRecognizer(tap)
+                    
+                    if !(IGGlobal.shouldMultiSelect) {
+                        isUserInteractionEnabled = true
+                    }
+                    else {
+                        isUserInteractionEnabled = false
+                    }
                 }
-                else {
-                    isUserInteractionEnabled = false
-                }
-            }
-            
-            
-            if tmppmsg.type == .sticker {
-                let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                view.addGestureRecognizer(tap)
                 
-                if !(IGGlobal.shouldMultiSelect) {
-                    isUserInteractionEnabled = true
-                }
-                else {
-                    isUserInteractionEnabled = false
-                }
+                //            if btnReturnToMessageAbs != nil {
+                //                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+                //                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
+                //            }
+                
+                txtStatusNode?.addTarget(self, action: #selector(didTapOnFailedStatus(_:)), forControlEvents: .touchUpInside)
+                
+                lblLikeIcon?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+                lblLikeText?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+                
+                lblDisLikeIcon?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+                lblDisLikeText?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+                
+                let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
+                avatarNode?.view.addGestureRecognizer(gesture)
+                
+                
             }
-            
-            //            if btnReturnToMessageAbs != nil {
-            //                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
-            //                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
-            //            }
-            
-            txtStatusNode?.addTarget(self, action: #selector(didTapOnFailedStatus(_:)), forControlEvents: .touchUpInside)
-            
-            lblLikeIcon?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
-            lblLikeText?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
-            
-            lblDisLikeIcon?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
-            lblDisLikeText?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
-            
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
-            avatarNode?.view.addGestureRecognizer(gesture)
-            
-            
         }
     }
     
