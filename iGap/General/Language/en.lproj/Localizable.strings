@@ -2220,7 +2220,8 @@ TODO:// complete */
 "join" = "Join";
 
 /*  */
-"do_you_want_to_join_to_this" = "Do you want to join this";
+"do_you_want_to_join_to_this" = "Do you want to join this Room?";
+"you_can_not_join_this_room" = "You dont have permission to join this room";
 
 /*  */
 "block_user" = "Block User";

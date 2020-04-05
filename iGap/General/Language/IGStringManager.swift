@@ -526,6 +526,7 @@ enum IGStringsManager : String {
     case ConvertedToPublic = "ROOM_CONVERTED_TO_PUBLIC"
     case ConvertedToPrivate = "ROOM_CONVERTED_TO_PRIVATE"
     case JoinedByInvite = "MEMBER_JOINED_BY_INVITE_LINK"
+    case YouCanNotJoin = "you_can_not_join_this_room"
     case DeletedRoom = "Room_Deleted_log"
     case DeleteGroup = "delete_group"
     case SomeOne = "someone"

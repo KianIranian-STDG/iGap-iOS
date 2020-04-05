@@ -11,6 +11,7 @@
 import UIKit
 
 class LightGrayColorSet: DayNightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorLightGray")!
 
@@ -183,6 +184,7 @@ class LightGrayColorSet: DayNightColorSetProtocol {
 }
 
 class LightGrayColorSetNight: NightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorLightGray")!
 

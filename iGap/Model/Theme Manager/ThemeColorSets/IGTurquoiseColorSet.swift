@@ -11,6 +11,7 @@
 import UIKit
 
 class TorquoiseColorSet: DayNightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorTurquoise")!
 
@@ -182,6 +183,7 @@ class TorquoiseColorSet: DayNightColorSetProtocol {
 }
 
 class TorquoiseColorSetNight: NightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorTorquoise")!
 

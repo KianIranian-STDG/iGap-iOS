@@ -11,6 +11,7 @@
 import UIKit
 
 class PinkColorSet: DayNightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorPink")!
 
@@ -185,6 +186,8 @@ class PinkColorSet: DayNightColorSetProtocol {
 
 
 class PinkColorSetNight: NightColorSetProtocol {
+    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
+
     var TopViewHolderBGColor: UIColor = UIColor(named: "TopViewHolderBGColorPink")!
     
 

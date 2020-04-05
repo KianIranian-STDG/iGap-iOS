@@ -2140,7 +2140,8 @@ Page 4 introduce app */
 "join" = "عضویت";
 
 /*  */
-"do_you_want_to_join_to_this" = "آیا مایلید در این";
+"do_you_want_to_join_to_this" = "آیا مایلید در این صفحه عضو شوید؟";
+"you_can_not_join_this_room" = "شما اجازه عضویت در این صفحه را ندارید";
 
 /*  */
 "txt_draft" = "پیش نویس:";

@@ -13,6 +13,7 @@ import UIKit
 
 
 protocol DefaultColorSetProtocol {
+    var timeColor : UIColor { get }
     var TopViewHolderBGColor : UIColor { get }
 
     //*****Labels*********//
@@ -105,6 +106,8 @@ protocol DefaultColorSetProtocol {
 }
 
 protocol DayNightColorSetProtocol {
+    var timeColor : UIColor { get }
+
     var TopViewHolderBGColor : UIColor { get }
 
     //*****Labels*********//
@@ -210,6 +213,8 @@ protocol DayNightColorSetProtocol {
 
 
 protocol NightColorSetProtocol {
+    var timeColor : UIColor { get }
+
     var TopViewHolderBGColor: UIColor { get }
     //*****Labels*********//
     var LabelMainTextColor : UIColor { get }

@@ -11,7 +11,7 @@
 import UIKit
 
 class ClassicTheme: ThemeProtocol {
-    
+    var timeColor : UIColor = DefaultColorSet().timeColor
     var TopViewHolderBGColor : UIColor = DefaultColorSet().TopViewHolderBGColor
 
     var TVCellTitleColor: UIColor  = DefaultColorSet().TVCellTitleColor
