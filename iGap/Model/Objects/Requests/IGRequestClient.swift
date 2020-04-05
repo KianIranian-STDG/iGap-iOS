@@ -267,7 +267,7 @@ class IGClinetCheckInviteLinkRequest: IGRequest {
         class func interpret( response responseProtoMessage : IGPClientCheckInviteLinkResponse) {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    _ = IGRoom.putOrUpdate(responseProtoMessage.igpRoom)
+                    IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(responseProtoMessage.igpRoom))
                 }
             }
         }
