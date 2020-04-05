@@ -2911,7 +2911,13 @@ class ChatControllerNode: ASCellNode {
                     bottom: 0,
                     right: 0), child: LiveStickerView!)
                 
-                return insetSpec
+                let tmpV = ASStackLayoutSpec()
+                tmpV.direction = .vertical
+                makeTopBubbleItems(stack: tmpV)
+                tmpV.children?.append(insetSpec)
+                addStickerBottomItems(spec: tmpV)
+                
+                return tmpV
                 
             } else {
                 let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
