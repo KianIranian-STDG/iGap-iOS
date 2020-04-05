@@ -11,7 +11,10 @@
 import UIKit
 
 class BlueColorSet: DayNightColorSetProtocol {
-    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
+    
+    var replyMSGColor : UIColor = UIColor.hexStringToUIColor(hex: "474747")
+
+    var timeColor : UIColor = UIColor.hexStringToUIColor(hex: "202020")
 
     
     var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorBlue")!
@@ -183,7 +186,9 @@ class BlueColorSet: DayNightColorSetProtocol {
 
 
 class BlueColorSetNight: NightColorSetProtocol {
-    var timeColor : UIColor = UIColor(named: "IGTimeColor")!
+    var replyMSGColor : UIColor = UIColor.hexStringToUIColor(hex: "474747")
+
+    var timeColor : UIColor = UIColor.hexStringToUIColor(hex: "202020")
 
     var TopViewHolderBGColor: UIColor  = UIColor(named: "TopViewHolderBGColorBlue")!
 

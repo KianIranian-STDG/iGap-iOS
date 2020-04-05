@@ -1324,7 +1324,7 @@ class ChatControllerNode: ASCellNode {
             if message?.type == .sticker {
                 tmpcolor = .white
             } else {
-                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                tmpcolor = ThemeManager.currentTheme.timeColor
             }
 
             IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -3344,19 +3344,19 @@ class ChatControllerNode: ASCellNode {
                 if currentColorSetLight == "IGAPBlack" {
                     tmpcolor = UIColor.white
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.timeColor
                 }
             }
             if currentTheme == "IGAPNight" {
                 if currentColorSetDark == "IGAPBlack" {
                     tmpcolor = UIColor.white
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.timeColor
                 }
 
             }
         } else {
-            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+            tmpcolor = ThemeManager.currentTheme.timeColor
         }
 
         //make current time text
@@ -3533,19 +3533,19 @@ class ChatControllerNode: ASCellNode {
                         if currentColorSetLight == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.timeColor
                         }
                     }
                     if currentTheme == "IGAPNight" {
                         if currentColorSetDark == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.timeColor
                         }
 
                     }
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.timeColor
                 }
 
                 IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: tmpcolor, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
@@ -3567,19 +3567,19 @@ class ChatControllerNode: ASCellNode {
                     if currentColorSetLight == "IGAPBlack" {
                         tmpcolor = UIColor.white
                     } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        tmpcolor = ThemeManager.currentTheme.timeColor
                     }
                 }
                 if currentTheme == "IGAPNight" {
                     if currentColorSetDark == "IGAPBlack" {
                         tmpcolor = UIColor.white
                     } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        tmpcolor = ThemeManager.currentTheme.timeColor
                     }
 
                 }
             } else {
-                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                tmpcolor = ThemeManager.currentTheme.timeColor
             }
 
             IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: tmpcolor, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)

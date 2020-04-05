@@ -158,21 +158,21 @@ class ASReplyForwardNode: ASDisplayNode {
                     
                     if currentTheme == "IGAPDay" {
                         if currentColorSetLight == "IGAPBlack" {
-                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.replyMSGColor
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
                     }
                     if currentTheme == "IGAPNight" {
                         if currentColorSetDark == "IGAPBlack" {
-                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.replyMSGColor
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
 
                     }
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                 }
 
                 IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
@@ -207,19 +207,19 @@ class ASReplyForwardNode: ASDisplayNode {
                                 if currentColorSetLight == "IGAPBlack" {
                                     tmpcolor = UIColor.white
                                 } else {
-                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                                 }
                             }
                             if currentTheme == "IGAPNight" {
                                 if currentColorSetDark == "IGAPBlack" {
                                     tmpcolor = UIColor.white
                                 } else {
-                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                                 }
 
                             }
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
 
                         switch extraMessage.type {
@@ -249,19 +249,19 @@ class ASReplyForwardNode: ASDisplayNode {
                                 if currentColorSetLight == "IGAPBlack" {
                                     tmpcolor = UIColor.white
                                 } else {
-                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                                 }
                             }
                             if currentTheme == "IGAPNight" {
                                 if currentColorSetDark == "IGAPBlack" {
                                     tmpcolor = UIColor.white
                                 } else {
-                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                                 }
 
                             }
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
 
                         IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
@@ -279,19 +279,19 @@ class ASReplyForwardNode: ASDisplayNode {
                             if currentColorSetLight == "IGAPBlack" {
                                 tmpcolor = UIColor.white
                             } else {
-                                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                tmpcolor = ThemeManager.currentTheme.replyMSGColor
                             }
                         }
                         if currentTheme == "IGAPNight" {
                             if currentColorSetDark == "IGAPBlack" {
                                 tmpcolor = UIColor.white
                             } else {
-                                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                tmpcolor = ThemeManager.currentTheme.replyMSGColor
                             }
 
                         }
                     } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        tmpcolor = ThemeManager.currentTheme.replyMSGColor
                     }
 
                     switch extraMessage.type {
@@ -336,19 +336,19 @@ class ASReplyForwardNode: ASDisplayNode {
                         if currentColorSetLight == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
                     }
                     if currentTheme == "IGAPNight" {
                         if currentColorSetDark == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
 
                     }
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                 }
                 switch extraMessage.type {
                     
@@ -389,19 +389,19 @@ class ASReplyForwardNode: ASDisplayNode {
                         if currentColorSetLight == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
                     }
                     if currentTheme == "IGAPNight" {
                         if currentColorSetDark == "IGAPBlack" {
                             tmpcolor = UIColor.white
                         } else {
-                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
                         }
 
                     }
                 } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
                 }
 
                 IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: message, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message

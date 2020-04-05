@@ -13,6 +13,8 @@ import UIKit
 
 
 protocol ThemeProtocol {
+    var replyMSGColor : UIColor { get }
+    
     var timeColor : UIColor { get }
 
     var TopViewHolderBGColor : UIColor { get }

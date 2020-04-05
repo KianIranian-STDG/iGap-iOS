@@ -11,6 +11,8 @@
 import UIKit
 
 class DayTheme: ThemeProtocol {
+    var replyMSGColor : UIColor = DayColorSetManager.currentColorSet.replyMSGColor
+    
     var timeColor : UIColor = DayColorSetManager.currentColorSet.timeColor
 
     var TopViewHolderBGColor: UIColor = DayColorSetManager.currentColorSet.TopViewHolderBGColor

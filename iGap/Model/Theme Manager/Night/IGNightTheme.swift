@@ -11,6 +11,8 @@
 import UIKit
 
 class NightTheme: ThemeProtocol {
+    var replyMSGColor : UIColor = NightColorSetManager.currentColorSet.replyMSGColor
+
     var timeColor : UIColor = NightColorSetManager.currentColorSet.timeColor
 
     var TopViewHolderBGColor: UIColor = NightColorSetManager.currentColorSet.TopViewHolderBGColor
