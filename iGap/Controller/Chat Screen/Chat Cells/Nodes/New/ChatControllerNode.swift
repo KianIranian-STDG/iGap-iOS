@@ -4958,8 +4958,10 @@ class ChatControllerNode: ASCellNode {
     //******************************************************//
     
     private func makeSwipeToReply() {// Telegram Func
-        let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
-        view.addGestureRecognizer(replyRecognizer)
+        DispatchQueue.global(qos: .userInteractive).sync {
+            let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
+            view.addGestureRecognizer(replyRecognizer)
+        }
     }
     
     @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
