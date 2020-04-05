@@ -6972,6 +6972,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
+        let copy = UIAlertAction(title: IGStringsManager.Copy.rawValue.localized, style: .default, handler: { (action) in
+            self.copyMessage(cellMessage)
+        })
+        
         let delete = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive, handler: { (action) in
             if let attachment = cellMessage.attachment {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.cacheID, hasAttachment: true)
@@ -6987,6 +6991,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alertC.addAction(resend)
+        if let text = cellMessage.getFinalMessage().message, !text.isEmpty {
+            alertC.addAction(copy)
+        }
         alertC.addAction(delete)
         alertC.addAction(cancel)
         

@@ -6571,7 +6571,7 @@ Page 4 introduce app */
 "minimum_number_of_letters" = "تعداد حروغ وارد شده کمتر از ۵ حرف می باشد";
 "already_taken_username" = "این نام کاربری قبلا توسط کاربری دیگر انتخاب شده است";
 "msg_update_username_forbidden" = ".کاربران می توانند توسط این لینک به کانال شما ملحق شوند.در آینده می توانید این لینک را نیز تفییر دهید";
-"new_channels_rules_private" = "People can join your channel by following this link.you can change the link at any time.";
+"new_channels_rules_private" = "افراد می توانند با دنبال کردن این لینک به کانال شما بپیوندند. شما می توانید پیوند را در هر زمان تغییر دهید.";
 "add_member" = "افزودن کاربر";
 "add_member_to" = "افزودن کاربر به";
 "please_choose_a_member" = "لطفا یک کاربر را انتخاب نمایید";
