@@ -13,7 +13,7 @@ import UIKit
 class DefaultColorSet: DefaultColorSetProtocol {
     var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
-    var TopViewHolderBGColor : UIColor = UIColor(named: "TopViewHolder!BGColorGreen")!
+    var TopViewHolderBGColor : UIColor = UIColor(named: "TopViewHolderBGColorGreen")!
 
     var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
     
