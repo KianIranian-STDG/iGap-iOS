@@ -5313,8 +5313,10 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                     if !(IGGlobal.shouldMultiSelect) {
                         
                         LiveStickerView?.view.isUserInteractionEnabled = true
-                    }
-                    else {
+                        NormalGiftStickerView?.view.isUserInteractionEnabled = true
+                        
+                    }else {
+                        LiveStickerView?.view.isUserInteractionEnabled = false
                         NormalGiftStickerView?.view.isUserInteractionEnabled = false
                     }
                 }
