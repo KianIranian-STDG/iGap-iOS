@@ -605,9 +605,12 @@ class ChatControllerNode: ASCellNode {
                 channelForwardBtnNode?.contentMode = .scaleAspectFit
                 channelForwardBtnNode?.image = UIImage(named: "ig_message_forward")
                 
-                let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
-                channelForwardBtnNode?.view.addGestureRecognizer(tap)
-                channelForwardBtnNode?.view.isUserInteractionEnabled = true
+                DispatchQueue.global(qos: .userInteractive).sync {
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+                    channelForwardBtnNode?.view.addGestureRecognizer(tap)
+                    channelForwardBtnNode?.view.isUserInteractionEnabled = true
+                }
+                
             }
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
@@ -2719,9 +2722,11 @@ class ChatControllerNode: ASCellNode {
             
 //            txtLogMessage!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
             
-            txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
-            txtLogMessage?.view.isUserInteractionEnabled = true
-            txtLogMessage?.isUserInteractionEnabled = true
+            DispatchQueue.global(qos: .userInteractive).sync {
+                txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
+                txtLogMessage?.view.isUserInteractionEnabled = true
+                txtLogMessage?.isUserInteractionEnabled = true
+            }
             
             
         }
