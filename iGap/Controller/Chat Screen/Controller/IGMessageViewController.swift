@@ -675,7 +675,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if room!.isReadOnly {
             if room!.isParticipant == false {
                 mainHolder.isHidden = true
-                joinButton.isHidden = false
+                showJoinButton()
             } else {
                 mainHolder.isHidden = true
                 collectionViewTopInsetOffset = 8.0
@@ -696,14 +696,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
             if messagesCount == 0 {
                 mainHolder.isHidden = true
-                joinButton.isHidden = false
-                joinButton.setTitle(IGStringsManager.Start.rawValue.localized, for: UIControl.State.normal)
-                joinButton.layer.cornerRadius = 5
-                joinButton.layer.masksToBounds = false
-                joinButton.layer.shadowColor = UIColor.black.cgColor
-                joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-                joinButton.layer.shadowRadius = 4.0
-                joinButton.layer.shadowOpacity = 0.15
+                showJoinButton()
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.manageKeyboard(firstEnter: true)
@@ -792,6 +785,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
+    private func showJoinButton(){
+        joinButton.isHidden = false
+        joinButton.setTitle(IGStringsManager.Start.rawValue.localized, for: UIControl.State.normal)
+        joinButton.layer.cornerRadius = 5
+        joinButton.layer.masksToBounds = false
+        joinButton.layer.shadowColor = UIColor.black.cgColor
+        joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        joinButton.layer.shadowRadius = 4.0
+        joinButton.layer.shadowOpacity = 0.15
+    }
     
 
     private func initASCollectionNode() {
