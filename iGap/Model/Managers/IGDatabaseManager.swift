@@ -67,7 +67,6 @@ class IGDatabaseManager: NSObject {
             return
         }
         databaseThread!.suspend()
-//        databaseThread = nil
     }
     
 }
