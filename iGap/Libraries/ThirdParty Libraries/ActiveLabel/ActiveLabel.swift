@@ -410,7 +410,7 @@ open class ActiveLabel: UILabel {
                 
             case .bold:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = boldColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
             }
             

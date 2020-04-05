@@ -5127,15 +5127,41 @@ extension ChatControllerNode: ASTextNodeDelegate {
             labeltmpcolor = ThemeManager.currentTheme.LabelColor
 
         }
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        //MARK:- BOLD handling
+        var textWithMarkup = Array(text)
+        for aItem in activeItems {
+            
+            switch aItem.type {
+            case "bold":
+                
+                textWithMarkup[aItem.offset] = "‎"
+                textWithMarkup[aItem.offset+1] = "‎"
+                textWithMarkup[aItem.offset + aItem.limit - 1] = "‎"
+                textWithMarkup[aItem.offset + aItem.limit - 2] = "‎"
+                break
+            default:
+                break
+            }
+            
+        }
+        let finalText = String(textWithMarkup)
+        
+       
+
+        let attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
         for itm in activeItems {
             let st = NSMutableParagraphStyle()
             st.lineSpacing = 0
             st.maximumLineHeight = 20
-            
+            var sizee = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
+            if itm.type == "bold" {
+                tmpcolor = labeltmpcolor
+                sizee = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+                
+            }
             let range = NSMakeRange(itm.offset, itm.limit)
-            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: text, range: range)), NSAttributedString.Key.paragraphStyle: st], range: range)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:sizee], range: range)
         }
         return attributedString
         
