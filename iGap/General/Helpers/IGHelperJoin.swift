@@ -27,11 +27,11 @@ class IGHelperJoin {
                 IGGlobal.prgHide()
                 var bodyString = ""
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
+                    IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
                     bodyString = IGStringsManager.SureToJoin.rawValue.localized + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)"
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message: bodyString ,doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, showIconView: true, showDoneButton: true, showCancelButton: true, message: bodyString ,doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: token)
                     })
-
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -52,7 +52,8 @@ class IGHelperJoin {
     private func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
         IGGlobal.prgShow()
         IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                IGGlobal.prgHide()
                 if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
                     IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
                     let predicate = NSPredicate(format: "id = %lld", room.igpID)
@@ -60,17 +61,15 @@ class IGHelperJoin {
                         self.openChatAfterJoin(room: roomInfo)
                     }
                 }
-                IGGlobal.prgHide()
             }
         }).error ({ (errorCode, waitTime) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-
                     break
-                case .clientJoinByInviteLinkForbidden:
                     
+                case .clientJoinByInviteLinkForbidden:
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GroupNotExist.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
@@ -94,7 +93,7 @@ class IGHelperJoin {
         DispatchQueue.main.async {
                         
             let msg = IGStringsManager.YouJoined.rawValue.localized + " " + beforeString + IGStringsManager.To.rawValue.localized + room.title!
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: IGStringsManager.OpenNow.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: msg,doneText: IGStringsManager.OpenNow.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
 
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
