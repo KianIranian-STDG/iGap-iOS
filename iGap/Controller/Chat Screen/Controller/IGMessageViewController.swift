@@ -3271,7 +3271,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if (message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) ||
             (self.room!.type == .channel && self.room!.channelRoom!.role == .owner) ||
             (self.room!.type == .group && self.room!.groupRoom!.role == .owner) {
-            if (self.room!.type == .chat) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
+            if (self.room!.type == .chat && !(self.room?.isCloud() ?? false)) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
                 bothDelete = true
             }
             singleDelete = true
@@ -6882,7 +6882,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         var deleteTitle = ""
-        if self.room!.type == .group || self.room!.type == .channel {
+        if self.room!.type == .group || self.room!.type == .channel || self.room!.isCloud() {
             deleteTitle =  IGStringsManager.Delete.rawValue.localized
         } else {
             deleteTitle =  IGStringsManager.DeleteForMe.rawValue.localized

@@ -106,7 +106,9 @@ class IGStickerToolbar: UIGestureRecognizer {
                 DispatchQueue.main.async {
                     if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
                         if isLiveStricker {
-                            animationView.setLiveSticker(for: fileInfo)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                animationView.setLiveSticker(for: fileInfo)
+                            }
                         } else {
                             imageView.setSticker(for: fileInfo)
                         }

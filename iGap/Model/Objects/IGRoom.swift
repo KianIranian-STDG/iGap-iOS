@@ -664,6 +664,14 @@ extension IGRoom {
 
 
 extension IGRoom {
+    
+    func isCloud() -> Bool {
+        if !self.isInvalidated, self.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
+            return true
+        }
+        return false
+    }
+    
     func saveDraft( _ body: String?, replyToMessage: IGRoomMessage?) {
         let finalBody = body?.trimmingCharacters(in: .whitespacesAndNewlines)
         
