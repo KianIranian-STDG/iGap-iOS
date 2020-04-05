@@ -5257,13 +5257,13 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 
                 if tmppmsg.type == .file || tmppmsg.type == .fileAndText {
                     let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                    view.addGestureRecognizer(onFileClick)
+                    txtAttachmentNode?.view.addGestureRecognizer(onFileClick)
                     
                     if !(IGGlobal.shouldMultiSelect) {
-                        view.isUserInteractionEnabled = true
+                        txtAttachmentNode?.view.isUserInteractionEnabled = true
                     }
                     else {
-                        view.isUserInteractionEnabled = false
+                        txtAttachmentNode?.view.isUserInteractionEnabled = false
                     }
                 }
                 
@@ -5295,13 +5295,16 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 
                 if tmppmsg.type == .sticker {
                     let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                    view.addGestureRecognizer(tap)
+//                    view.addGestureRecognizer(tap)
+                    LiveStickerView?.view.addGestureRecognizer(tap)
+                    NormalGiftStickerView?.view.addGestureRecognizer(tap)
                     
                     if !(IGGlobal.shouldMultiSelect) {
-                        isUserInteractionEnabled = true
+                        
+                        LiveStickerView?.view.isUserInteractionEnabled = true
                     }
                     else {
-                        isUserInteractionEnabled = false
+                        NormalGiftStickerView?.view.isUserInteractionEnabled = false
                     }
                 }
                 
