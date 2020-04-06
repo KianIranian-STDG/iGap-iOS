@@ -32,7 +32,7 @@
                             <constraint firstAttribute="width" constant="54" id="DcK-HW-QsP"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uw-vs-heE">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8uw-vs-heE">
                         <rect key="frame" x="76" y="15.5" width="256" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="4ad-qZ-NwY"/>
