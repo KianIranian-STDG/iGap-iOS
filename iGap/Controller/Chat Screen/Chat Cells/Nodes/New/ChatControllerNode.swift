@@ -2960,7 +2960,11 @@ class ChatControllerNode: ASCellNode {
                 top: 0,
                 left: 0,
                 bottom: 0,
-                right: 0), child: NormalGiftStickerView!)
+                right: 0), child: NormalGiftStickerView ?? ASDisplayNode { () -> UIView in
+                    let animationView = UIImageView()
+                    animationView.contentMode = .scaleAspectFit
+                    return animationView
+                })
             
             return insetSpec
             
