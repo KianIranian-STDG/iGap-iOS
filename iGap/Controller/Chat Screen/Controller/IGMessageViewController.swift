@@ -2590,7 +2590,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int, repeatCount: Int = 0) -> IGRoomMessage? {
         if index < 0 || repeatCount == 3 {return nil}
         if visibleCells.count > 0 {
-            if let visibleMessage = visibleCells[index] as? ChatControllerNode {
+            if let visibleMessage = visibleCells[index] as? ChatControllerNode, let type = visibleMessage.message?.type, type != .progress, type != .unread, type != .time {
                 return visibleMessage.message?.detach()
             }
         }
