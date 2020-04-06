@@ -5511,7 +5511,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     previousMessage = (messages?[latestIndexPath.row + 1].detach())!
                 }
                 
-                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
+                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .progress , message.type != .unread {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
