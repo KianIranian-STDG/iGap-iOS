@@ -23,7 +23,7 @@ github "realm/realm-cocoa" "v3.18.0"
 github "Alamofire/Alamofire" "4.9.0"
 github "SDWebImage/SDWebImage" "4.4.5"
 github "IcaliaLabs/Presentr" "1.9"
-github "KianIranian-STDG/IGProtoBuffLibrary" "proto129"
+github "KianIranian-STDG/IGProtoBuffLibrary" "proto130"
 github "KianIranian-STDG/swift-protobuf" "1.5.0_iGap"
 github "yannickl/QRCodeReader.swift" "10.1.0"
 github "andreamazz/AMPopTip" "4.1.0"
@@ -37,13 +37,9 @@ github "cesarferreira/SwiftEventBus" "5.0.0"
 github "WenchaoD/FSPagerView" "0.8.3"
 github "airbnb/lottie-ios" "9d37b62452ae6e5f5f0d1c2857a60cc0fb62f966"
 github "JohnSundell/Files" "4.1.1"
-<<<<<<< HEAD
 git "https://chromium.googlesource.com/webm/libwebp" "v0.6.0"
 github "pinterest/PINCache" "3.0.1-beta.6"
 github "pinterest/PINOperation" "1.1.2"
 github "pinterest/PINRemoteImage" "3.0.0-beta.13"
 github "texturegroup/texture" "2.8.1"
-
-=======
 github "KianIranian-STDG/MediaPicker" "4c3f2e26dfe78715ee4389f9b45df93a48463a8b"
->>>>>>> iGap
