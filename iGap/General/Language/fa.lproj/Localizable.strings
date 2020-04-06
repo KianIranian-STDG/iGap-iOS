@@ -6735,3 +6735,5 @@ Page 4 introduce app */
 "payment_spentScore" = "امتیاز مصرفی:";
 "posted_to" = "ارسال شده به";
 "received_from" = "دریافت شده از";
+"enter_national_code" = "کد ملی خود را وارد نمایید";
+"national_code_inquiry_error" = "استعلام کد ملی با خطا مواجه شد. لطفاً دوباره تلاش کنید.";

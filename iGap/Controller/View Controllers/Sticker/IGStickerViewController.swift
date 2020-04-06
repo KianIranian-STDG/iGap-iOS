@@ -275,7 +275,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardSendQuestion.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, done: {
                         
                         guard
-                            let nationalCode = IGSessionInfo.getNationalCode(), !nationalCode.isEmpty,
+                            let nationalCode = IGSessionInfo.getNationalCode(),
                             let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0),
                             let stickerItem = IGStickerViewController.waitingGiftCardInfo.stickerStruct
                             else {return}

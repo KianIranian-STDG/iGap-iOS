@@ -3911,7 +3911,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             return
         } else if giftStickerAlertView != nil {
-            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
             
             didtapOutSide(keepBackground : false)
             
@@ -3999,7 +3999,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         } else if giftStickerModal != nil {
             
-            guard let nationalCode = giftStickerModal.edtInternationalCode.text?.inEnglishNumbersNew(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            guard let nationalCode = giftStickerModal.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
             
             self.messageTextView.text = ""
             self.currentAttachment = nil
@@ -4020,7 +4020,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         
         IGGlobal.prgShow()
         IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in

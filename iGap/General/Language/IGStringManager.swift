@@ -307,6 +307,8 @@ enum IGStringsManager : String {
     case InternetPin2 = "internet_pin_2"
     case ClickForCopy = "click_for_copy_title"
     case NationalCodeInquiry = "national_code_inquiry"
+    case EnterNationalCode = "enter_national_code"
+    case NationalCodeInquiryError = "national_code_inquiry_error"
     case GiftCardSentNote = "gift_card_sent_note"
     case GiftCardAlreadyUsed = "gift_card_already_used"
     case GiftCardSendQuestion = "gift_card_send_question"

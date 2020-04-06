@@ -256,7 +256,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
                 self.showActiveOrForward()
             }
         } else if giftStickerAlertView != nil {
-            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
             
             didtapOutSide(keepBackground : false)
             
@@ -297,7 +297,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
     
     @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         
         didtapOutSide(keepBackground: false)
         

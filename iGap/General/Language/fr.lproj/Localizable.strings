@@ -6372,3 +6372,5 @@
 "payment_spentScore" = "Points de consommation:";
 "posted_to" = "Publié par";
 "received_from" = "Posté à";
+"enter_national_code" = "Entrez votre code national";
+"national_code_inquiry_error" = "L'enquête sur le code national était erronée. Veuillez réessayer.";

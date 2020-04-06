@@ -6726,3 +6726,5 @@ TODO:// complete */
 "payment_spentScore" = "Spending Score:";
 "posted_to" = "Posted to";
 "received_from" = "Received from";
+"enter_national_code" = "Enter your national code";
+"national_code_inquiry_error" = "The national code inquiry was erroneous. Please try again.";

@@ -102,7 +102,7 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
     
     
     @IBAction func btnNationalCode(_ sender: UIButton) {
-        guard let nationalCode = edtNationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+        guard let nationalCode = edtNationalCode.text, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         
         IGGlobal.prgShow()
         IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] (success) in

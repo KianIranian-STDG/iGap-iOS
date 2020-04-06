@@ -6747,3 +6747,5 @@ TODO:// translate */
 "payment_spentScore" = "نقاط الاستهلاك:";
 "posted_to" = "تم النشر على";
 "received_from" = "تم الاستلام من";
+"enter_national_code" = "أدخل رمزك الوطني";
+"national_code_inquiry_error" = "كان التحقيق في القانون الوطني خاطئًا. يرجى المحاولة مرة أخرى.";
