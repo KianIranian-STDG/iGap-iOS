@@ -297,32 +297,32 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
     
     @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
-        
         didtapOutSide(keepBackground: false)
         
+        if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: self.giftCardInfo.sticker.token) {
+            let message = IGRoomMessage(body: self.giftCardInfo.sticker.name)
+            message.type = .sticker
+            message.attachment = attachment
+            let stickerItem = IGRealmStickerItem(sticker: self.giftCardInfo.sticker, giftId: self.giftCardInfo.id)
+            message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
+            IGAttachmentManager.sharedManager.add(attachment: attachment)
+            
+            IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
+                DispatchQueue.main.async {
+                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self?.giftCardInfo.id ?? "")
+                }
+            }
+        }
+        /*
+        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         IGGlobal.prgShow()
         IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
             IGGlobal.prgHide()
             if !success {
                 return
             }
-            
-            if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: (self?.giftCardInfo.sticker.token)!) {
-                let message = IGRoomMessage(body: (self?.giftCardInfo.sticker.name)!)
-                message.type = .sticker
-                message.attachment = attachment
-                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!, giftId: (self?.giftCardInfo.id)!)
-                message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
-                IGAttachmentManager.sharedManager.add(attachment: attachment)
-                
-                IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
-                    DispatchQueue.main.async {
-                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self?.giftCardInfo.id ?? "")
-                    }
-                }
-            }
         }
+        */
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
