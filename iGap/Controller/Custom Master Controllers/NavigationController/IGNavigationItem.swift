@@ -104,7 +104,11 @@ class IGNavigationItem: UINavigationItem {
             
             callItemLabel.textColor = .white
             backArrowLabel.textColor = .white
-            backViewContainer?.addSubview(callItemLabel)
+            if userId != IGAppManager.sharedManager.userID() { // don't show call item for cloud profile
+                if !(IGRegisteredUser.getUserInfo(id: userId)?.isBot ?? true) {
+                    backViewContainer?.addSubview(callItemLabel)
+                }
+            }
             backViewContainer1?.addSubview(backArrowLabel)
             let backBarButton = UIBarButtonItem(customView: backViewContainer!)
             let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)

@@ -655,6 +655,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             return 1
 
         case 1:
+            if isBotRoom() {
+                return 1
+            }
+            
             return 2
 
         case 2:
@@ -673,7 +677,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
 
         case 4:
             if isCloud() { // hide block contact for mine profile and convert chat to group
-                return 2
+                return 1
             }
             
             if isBotRoom() {
@@ -842,6 +846,9 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             return IGStringsManager.Information.rawValue.localized
 
         case 2:
+            if isBotRoom() {
+                return ""
+            }
             return IGStringsManager.SharedMedia.rawValue.localized
         default:
             return ""
@@ -851,9 +858,19 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         switch section {
         case 0:
             return 80
+            
+        case 2:
+            return 50
+            
         case 3:
+            if isBotRoom() {
+                return 0
+            }
             return 25
         case 4:
+            if isBotRoom() || isCloud() {
+                return 0
+            }
             return 25
 
         default:
@@ -864,8 +881,14 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 3:
+            if isBotRoom() {
+                return 0
+            }
             return 30
         case 4:
+            if isBotRoom() {
+                return 0
+            }
             return 30
 
         default:
