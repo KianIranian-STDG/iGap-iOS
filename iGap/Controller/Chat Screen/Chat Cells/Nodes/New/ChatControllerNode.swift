@@ -10,6 +10,7 @@ import AsyncDisplayKit
 import IGProtoBuff
 import SwiftEventBus
 import Lottie
+import SnapKit
 
 class ChatControllerNode: ASCellNode {
     
@@ -2610,30 +2611,34 @@ class ChatControllerNode: ASCellNode {
             
             if progressNode == nil {
                 progressNode = ASDisplayNode { () -> UIView in
-                    let animationView = AnimationView()
-                    return animationView
+                    let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+                    loading.stopAnimating()
+                    loading.startAnimating()
+
+                    return loading
+
                 }
+
             }
-            progressNode!.style.height = ASDimensionMake(.points, 50)
-            progressNode!.style.width = ASDimensionMake(.points, 50)
-            progressNode!.backgroundColor = UIColor.white
-            progressNode!.layer.cornerRadius = 25
-            DispatchQueue.main.async {[weak self] in
-                guard let sSelf = self else {
-                    return
-                }
-                (sSelf.progressNode!.view as! AnimationView).play()
-                (sSelf.progressNode!.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
-                let animation = Animation.named("messageLoader")
-                (sSelf.progressNode!.view as! AnimationView).animation = animation
-                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
-                (sSelf.progressNode!.view as! AnimationView).play()
-                (sSelf.progressNode!.view as! AnimationView).loopMode = .loop
-                (sSelf.progressNode!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
-                (sSelf.progressNode!.view as! AnimationView).forceDisplayUpdate()
-                
-            }
+            progressNode?.style.height = ASDimensionMake(.points, 30)
+            progressNode?.style.width = ASDimensionMake(.points, 30)
+            progressNode?.view.center = CGPoint(x: 15, y: 15)
+//            DispatchQueue.main.async {[weak self] in
+//                guard let sSelf = self else {
+//                    return
+//                }
+//                (sSelf.progressNode!.view as! AnimationView).play()
+//                (sSelf.progressNode!.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+//                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
+//                let animation = Animation.named("messageLoader")
+//                (sSelf.progressNode!.view as! AnimationView).animation = animation
+//                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
+//                (sSelf.progressNode!.view as! AnimationView).play()
+//                (sSelf.progressNode!.view as! AnimationView).loopMode = .loop
+//                (sSelf.progressNode!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
+//                (sSelf.progressNode!.view as! AnimationView).forceDisplayUpdate()
+//
+//            }
             progressNode!.alpha = 0.8
             
         } else if logType == .emptyBox {} else {
@@ -2789,6 +2794,7 @@ class ChatControllerNode: ASCellNode {
         bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.unreadBackground()
     }
+    
     private func layoutLog(logType: logMessageType = .log) -> ASLayoutSpec {
         
         
@@ -2796,13 +2802,42 @@ class ChatControllerNode: ASCellNode {
             if progressNode == nil {
                 progressNode = ASDisplayNode()
             }
-            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode!)
+
+            let v = ASDisplayNode()
+
+            v.style.height = ASDimensionMake(.points, 50)
+            v.style.width = ASDimensionMake(.points, 50)
+            v.backgroundColor = .white
+            v.cornerRadius = 25
+            let fakeStackBottomItemOne = ASDisplayNode()
+            let fakeStackBottomItemTwo = ASDisplayNode()
+
+            fakeStackBottomItemOne.style.height = ASDimension(unit: .points, value: 10)
+            fakeStackBottomItemTwo.style.height = ASDimension(unit: .points, value: 10)
+
+            let playTxtCenterSpec : ASCenterLayoutSpec
             
+
+            playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: progressNode!)
+
+            // Setting Duration lbl Size
+
+            // Setting Container Stack
+            let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .spaceBetween, alignItems: .start, children: [fakeStackBottomItemOne, playTxtCenterSpec, fakeStackBottomItemTwo])
+            itemsStackSpec.style.height = ASDimension(unit: .points, value: 50)
+            
+            let overlaySpec = ASOverlayLayoutSpec(child: v, overlay: itemsStackSpec)
+            
+            
+            
+//            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode!)
+
+//            let bgBox = ASBackgroundLayoutSpec(child: centerBoxText, background: view)
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,
                 left: 0,
                 bottom: 10,
-                right: 0), child: centerBoxText)
+                right: 0), child: overlaySpec)
             
             
             return insetSpec
