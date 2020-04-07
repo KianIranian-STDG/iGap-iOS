@@ -35,7 +35,7 @@ class IGRealmMember: Object {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 for member in members {
-                    putOrUpdate(roomId: roomId, userId: member.igpUserID, role: member.igpRole.rawValue)
+                    putOrUpdateNoTransaction(roomId: roomId, userId: member.igpUserID, role: member.igpRole.rawValue, roomAccess: member.igpPermission)
                 }
             }
         }
@@ -45,13 +45,13 @@ class IGRealmMember: Object {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 for member in members {
-                    putOrUpdate(roomId: roomId, userId: member.igpUserID, role: member.igpRole.rawValue)
+                    putOrUpdateNoTransaction(roomId: roomId, userId: member.igpUserID, role: member.igpRole.rawValue, roomAccess: member.igpPermission)
                 }
             }
         }
     }
     
-    public static func putOrUpdate(roomId: Int64, userId: Int64, role: Int){
+    public static func putOrUpdate(roomId: Int64, userId: Int64, role: Int, roomAccess: IGPRoomAccess = IGPRoomAccess()){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
@@ -65,8 +65,24 @@ class IGRealmMember: Object {
                 member?.user = IGRegisteredUser.getUserInfo(id: userId)
                 
                 IGDatabaseManager.shared.realm.add(member!)
+                IGRealmRoomAccess.putOrUpdateNoTransaction(userId: userId, roomAccess: roomAccess)
             }
         }
+    }
+    
+    public static func putOrUpdateNoTransaction(roomId: Int64, userId: Int64, role: Int, roomAccess: IGPRoomAccess = IGPRoomAccess()){
+        let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
+        var member = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(predicate).first
+        if member == nil {
+            member = IGRealmMember()
+            member?.roomId = roomId
+            member?.userId = userId
+        }
+        member?.role = role
+        member?.user = IGRegisteredUser.getUserInfo(id: userId)
+        
+        IGDatabaseManager.shared.realm.add(member!)
+        IGRealmRoomAccess.putOrUpdateNoTransaction(userId: userId, roomAccess: roomAccess)
     }
     
     public static func removeMember(roomId: Int64, memberId: Int64){
@@ -93,7 +109,7 @@ class IGRealmMember: Object {
         }
     }
     
-    public static func updateMemberRole(roomId: Int64, memberId: Int64, role: Int){
+    public static func updateMemberRole(roomId: Int64, memberId: Int64, role: Int, roomAccess: IGPRoomAccess = IGPRoomAccess()){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, memberId)
@@ -103,6 +119,8 @@ class IGRealmMember: Object {
                 }
             }
         }
+        
+        IGRealmRoomAccess.putOrUpdate(userId: memberId, roomAccess: roomAccess)
         IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId, role: role)
     }
     

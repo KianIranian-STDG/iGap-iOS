@@ -69,17 +69,18 @@ class IGChannelAddMemberRequest : IGRequest {
 
 class IGChannelAddAdminRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (roomID: Int64 , memberID : Int64) -> IGRequestWrapper {
+        class func generate (roomID: Int64 , memberID : Int64, roomAccess: IGPRoomAccess) -> IGRequestWrapper {
             var channelAddAdminRequestMessage = IGPChannelAddAdmin()
             channelAddAdminRequestMessage.igpRoomID = roomID
             channelAddAdminRequestMessage.igpMemberID = memberID
+            channelAddAdminRequestMessage.igpPermission = roomAccess
             return IGRequestWrapper(message: channelAddAdminRequestMessage, actionID: 402)
         }
     }
     
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPChannelAddAdminResponse) {
-            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.admin.rawValue)
+            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.admin.rawValue, roomAccess: responseProtoMessage.igpPermission)
         }
         
         override class func handlePush(responseProtoMessage: Message) {
@@ -102,7 +103,7 @@ class IGChannelAddModeratorRequest : IGRequest {
     
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPChannelAddModeratorResponse){
-            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.moderator.rawValue)
+            //IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.moderator.rawValue)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

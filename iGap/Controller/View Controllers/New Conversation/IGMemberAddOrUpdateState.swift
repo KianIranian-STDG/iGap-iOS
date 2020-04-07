@@ -351,7 +351,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let channelRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
+                IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id, roomAccess: IGPRoomAccess()).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         self?.manageClosePage()
@@ -431,7 +431,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let groupRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
+                IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.registredUser.id, roomAccess: IGPRoomAccess()).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         self?.manageClosePage()

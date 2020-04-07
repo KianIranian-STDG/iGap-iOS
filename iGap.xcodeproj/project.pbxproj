@@ -421,6 +421,7 @@
 		D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */; };
 		D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */; };
 		D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */; };
+		D6606496243C4FAA00A49DC7 /* IGRealmRoomAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6606495243C4E3F00A49DC7 /* IGRealmRoomAccess.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
@@ -1367,6 +1368,7 @@
 		D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftCardInfo.swift; sourceTree = "<group>"; };
 		D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerSecurityManager.swift; sourceTree = "<group>"; };
 		D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwCrypt.swift; sourceTree = "<group>"; };
+		D6606495243C4E3F00A49DC7 /* IGRealmRoomAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmRoomAccess.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
@@ -3243,6 +3245,7 @@
 				FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */,
 				FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */,
 				D622149F23586DD2000E48B1 /* IGRealmMember.swift */,
+				D6606495243C4E3F00A49DC7 /* IGRealmRoomAccess.swift */,
 				D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */,
 			);
 			path = Objects;
@@ -4284,6 +4287,7 @@
 				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
 				FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */,
 				FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */,
+				D6606496243C4FAA00A49DC7 /* IGRealmRoomAccess.swift in Sources */,
 				FA8DD02121A401F200BBB1B3 /* IGLookAndFindStruct.swift in Sources */,
 				D62214A0235871E5000E48B1 /* IGRealmMember.swift in Sources */,
 				8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */,

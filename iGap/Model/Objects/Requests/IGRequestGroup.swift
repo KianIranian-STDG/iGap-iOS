@@ -65,16 +65,17 @@ class IGGroupAddMemberRequest : IGRequest {
 
 class IGGroupAddAdminRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (roomID: Int64 , memberID: Int64) -> IGRequestWrapper {
+        class func generate (roomID: Int64 , memberID: Int64, roomAccess: IGPRoomAccess) -> IGRequestWrapper {
             var groupAddAdminRequestMessage = IGPGroupAddAdmin()
             groupAddAdminRequestMessage.igpRoomID = roomID
             groupAddAdminRequestMessage.igpMemberID = memberID
+            groupAddAdminRequestMessage.igpPermission = roomAccess
             return IGRequestWrapper(message: groupAddAdminRequestMessage, actionID: 302)
         }
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPGroupAddAdminResponse) {
-            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPGroupRoom.IGPRole.admin.rawValue)
+            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPGroupRoom.IGPRole.admin.rawValue, roomAccess: responseProtoMessage.igpPermission)
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let groupAddAdminResponse = responseProtoMessage as? IGPGroupAddAdminResponse {
