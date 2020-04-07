@@ -14,6 +14,8 @@ import FSPagerView
 import IGProtoBuff
 
 class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSource {
+
+    
     
     public var ownerId: Int64!
     public var messageId: Int64?
@@ -95,7 +97,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         topView.isUserInteractionEnabled = true
         self.view.backgroundColor = .black
         
-        manageLink()
+        manageLink(txtMessage: txtMessage)
         
     }
     
@@ -357,52 +359,53 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     // MARK:- Link Detection
     
-    private func manageLink(){
+    private func manageLink(txtMessage: ActiveLabel?){
         txtMessage!.font = UIFont.igFont(ofSize: fontDefaultSize)
     
-        txtMessage!.customize {[weak self](lable) in
-            guard let sSelf = self else {
-                return
+        txtMessage!.customize {(lable) in
+
+            if delegate == nil {
+                self.delegate = self
             }
-            
             lable.EmailColor = UIColor.iGapLink()
             lable.hashtagColor = UIColor.iGapLink()
             lable.mentionColor = UIColor.iGapLink()
             lable.URLColor = UIColor.iGapLink()
             lable.botColor = UIColor.iGapLink()
-            
+            lable.boldColor = .white
+
             lable.handleURLTap { url in
-                sSelf.delegate?.didTapOnURl(url: url)
+                self.delegate?.didTapOnURl(url: url)
                 return
             }
 
             lable.handleDeepLinkTap({ (deepLink) in
-                sSelf.delegate?.didTapOnDeepLink(url: deepLink)
+                self.delegate?.didTapOnDeepLink(url: deepLink)
                 return
             })
 
             lable.handleEmailTap { email in
-                sSelf.delegate?.didTapOnEmail(email: email.absoluteString)
+                self.delegate?.didTapOnEmail(email: email.absoluteString)
                 return
             }
 
             lable.handleBotTap {bot in
-                sSelf.delegate?.didTapOnBotAction(action: bot)
+                self.delegate?.didTapOnBotAction(action: bot)
                 return
             }
 
             lable.handleMentionTap { mention in
-                sSelf.delegate?.didTapOnMention(mentionText: mention )
+                self.delegate?.didTapOnMention(mentionText: mention )
                 return
             }
 
             lable.handleHashtagTap { hashtag in
-                sSelf.delegate?.didTapOnHashtag(hashtagText: hashtag)
+                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
                 return
             }
             
             lable.handleNoneTap {
-                sSelf.didTapOnBottomView()
+                self.didTapOnBottomView()
             }
         }
     }
@@ -413,5 +416,111 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
         return true
     }
+    
+}
+extension IGMediaPager : IGMessageGeneralCollectionViewCellDelegate {
+    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, index: IndexPath) {
+        return
+    }
+    
+    func swipToReply(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnAttachment(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnForwardedAttachment(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnSenderAvatar(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnReply(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnForward(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, isFromCloud: Bool) {
+        return
+    }
+    
+    func didTapOnFailedStatus(cellMessage: IGRoomMessage) {
+        return
+    }
+    
+    func didTapOnReturnToMessage() {
+        return
+    }
+    
+    func didTapOnHashtag(hashtagText: String) {
+        return
+    }
+    
+    func didTapOnMention(mentionText: String) {
+        
+        var finalString = mentionText.trimmingCharacters(in: .whitespaces)
+        
+        if finalString[finalString.startIndex] == "@" {
+            finalString.remove(at: finalString.startIndex)
+        }
+        
+        IGHelperChatOpener.checkUsernameAndOpenRoom(username: finalString)
+        
+    }
+    
+    func didTapOnEmail(email: String) {
+        if let url = URL(string: "mailto:\(email)") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
+    func didTapOnURl(url: URL) {
+        var urlString = url.absoluteString
+        let urlStringLower = url.absoluteString.lowercased()
+        
+        if urlStringLower.contains("https://igap.net/join") || urlStringLower.contains("http://igap.net/join") ||  urlStringLower.contains("igap.net/join") {
+            didTapOnRoomLink(link: urlString)
+            return
+        }
+        
+        if !(urlStringLower.contains("https://")) && !(urlStringLower.contains("http://")) {
+            urlString = "http://" + urlString
+        }
+        
+        IGHelperOpenLink.openLink(urlString: urlString)
+    }
+    
+    func didTapOnDeepLink(url: URL) {
+        DeepLinkManager.shared.handleDeeplink(url: url)
+        DeepLinkManager.shared.checkDeepLink()
+    }
+    
+    func didTapOnRoomLink(link: String) {
+        return
+    }
+    
+    func didTapOnBotAction(action: String) {
+        return
+    }
+    
+    func didTapOnContactDetail(contact: IGRoomMessageContact) {
+        return
+    }
+    
+    func didTapOnUserName(user: IGRegisteredUser) {
+        return
+    }
+    
     
 }
