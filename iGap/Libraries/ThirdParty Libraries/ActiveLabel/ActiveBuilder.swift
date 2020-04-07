@@ -63,6 +63,9 @@ struct ActiveBuilder {
             let word = nsstring.substring(with: match.range).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if filterPredicate?(word) ?? true {
                 let element = ActiveElement.create(with: type, text: word)
+                if type != .bold && ActiveLabelJsonify.isBold(candidate: word){
+                    continue
+                }
                 elements.append((match.range, element, type))
             }
         }

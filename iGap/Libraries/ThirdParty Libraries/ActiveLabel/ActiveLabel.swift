@@ -373,6 +373,10 @@ open class ActiveLabel: UILabel {
         for (type, elements) in activeElements {
 
             switch type {
+            case .bold:
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = boldColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
+                break
             case .mention:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = mentionColor
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
@@ -405,11 +409,6 @@ open class ActiveLabel: UILabel {
                 
             case .bot:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = botColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
-                break
-                
-            case .bold:
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = boldColor
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
             }

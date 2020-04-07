@@ -13,7 +13,8 @@ class ActiveLabelJsonify {
   
     static func toJson(_ text: String) -> Data? {
         
-        let lbl = ActiveLabel(frame: .zero)
+        let lbl = ActiveLabel()
+        lbl.enabledTypes = [.bold, .mention, .hashtag, .url, .deepLink , .bot , .email]
         lbl.text = text
         var itemHolder = ActiveItemsHolder(items: [ActiveLabelItem]())
         if lbl.activeElements.count == 0 {
@@ -24,25 +25,54 @@ class ActiveLabelJsonify {
             var key = keyy
             if (value.count != 0){
                 for val in value {
+                    var isBold : Bool
                     
-                    if key == .url {
+                    if keyy == .bold {
                         
-                        let str = getStringAtRange(string: text, range: NSRange(location: val.range.location, length: val.range.length))
-                        
-                        if isEmail(candidate: str) {
-                            
-                            key = .email
-                            
-                        } else if URL(string: str) == nil{
-                            
-                            continue
-                            
+                        isBold = true
+                        let str = getStringAtRange(string: text, range: NSRange(location: val.range.location + 2, length: val.range.length - 4))
+
+                        let boldLbl = ActiveLabel()
+                        boldLbl.text = str
+                        boldLbl.enabledTypes = [.email, .mention, .hashtag, .url, .deepLink, .bot]
+
+                        for (boldKey, boldValue) in boldLbl.activeElements {
+                            if (value.count != 0) {
+                                for boldVal in boldValue {
+                                    key = boldKey
+                                    if boldKey == .url {
+                                        key = .url
+                                        let boldStr = getStringAtRange(string: str, range: NSRange(location: boldVal.range.location, length: boldVal.range.length))
+
+                                        if isEmail(candidate: boldStr) {
+                                            key = .email
+                                        } else if URL(string: boldStr) == nil{
+                                            continue
+                                        }
+
+                                    }
+                                }
+                            }
                         }
                         
                         
+                    } else {
+                        isBold = false
+                        if key == .url {
+                            
+                            let str = getStringAtRange(string: text, range: NSRange(location: val.range.location, length: val.range.length))
+                            
+                            if isEmail(candidate: str) {
+                                key = .email
+                            } else if URL(string: str) == nil{
+                                continue
+                            }
+                            
+                        }
+                        
                     }
                     
-                    let item = ActiveLabelItem(type: typeToString(type: key), offset: val.range.location, limit: val.range.length)
+                    let item = ActiveLabelItem(type: typeToString(type: key), offset: val.range.location, limit: val.range.length, isBold: isBold)
                     itemHolder.items.append(item)
                 }
             }
@@ -56,6 +86,7 @@ class ActiveLabelJsonify {
         }
         
     }
+    
     
     static func toObejct(_ json: Data) -> [ActiveLabelItem]?{
         do {
@@ -87,6 +118,11 @@ class ActiveLabelJsonify {
         }
     }
     
+    static func isBold(candidate: String) -> Bool {
+        let emailRegex = "\\*\\*(.*?)\\*\\*"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: candidate)
+    }
+    
 }
 
 fileprivate struct ActiveItemsHolder: Codable {
@@ -99,6 +135,7 @@ struct ActiveLabelItem: Codable {
     var type: String
     var offset: Int
     var limit: Int
+    var isBold: Bool
 }
 
 

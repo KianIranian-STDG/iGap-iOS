@@ -10,7 +10,6 @@ import AsyncDisplayKit
 import IGProtoBuff
 import SwiftEventBus
 import Lottie
-import SnapKit
 
 class ChatControllerNode: ASCellNode {
     
@@ -606,11 +605,17 @@ class ChatControllerNode: ASCellNode {
                 channelForwardBtnNode?.contentMode = .scaleAspectFit
                 channelForwardBtnNode?.image = UIImage(named: "ig_message_forward")
                 
-                DispatchQueue.global(qos: .userInteractive).sync {
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
-                    channelForwardBtnNode?.view.addGestureRecognizer(tap)
-                    channelForwardBtnNode?.view.isUserInteractionEnabled = true
+                self.onDidLoad {[weak self] (node) in
+                    guard let sSelf = self else {
+                        return
+                    }
+//                    DispatchQueue.global(qos: .userInteractive).sync {
+                        let tap = UITapGestureRecognizer(target: self, action: #selector(sSelf.onMultiForwardTap(_:)))
+                        sSelf.channelForwardBtnNode?.view.addGestureRecognizer(tap)
+                        sSelf.channelForwardBtnNode?.view.isUserInteractionEnabled = true
+//                    }
                 }
+                
                 
             }
             
@@ -740,7 +745,13 @@ class ChatControllerNode: ASCellNode {
         
         
         if msg.type != .wallet {
-            manageGestureRecognizers()
+            self.onDidLoad {[weak self] (node) in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.manageGestureRecognizers()
+            }
+            
         }
         
         if !(IGGlobal.shouldMultiSelect) && finalRoomType != .channel && msg.type != .unread && msg.type != .progress && msg.type != .time && msg.type != .wallet{
@@ -2728,10 +2739,15 @@ class ChatControllerNode: ASCellNode {
             
 //            txtLogMessage!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
             
-            DispatchQueue.global(qos: .userInteractive).sync {
-                txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
-                txtLogMessage?.view.isUserInteractionEnabled = true
-                txtLogMessage?.isUserInteractionEnabled = true
+            self.onDidLoad {[weak self] (node) in
+                guard let sSelf = self else {
+                    return
+                }
+//                DispatchQueue.global(qos: .userInteractive).sync {
+                    sSelf.txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(sSelf.didTapOnLog(_:))))
+                    sSelf.txtLogMessage?.view.isUserInteractionEnabled = true
+                    sSelf.txtLogMessage?.isUserInteractionEnabled = true
+//                }
             }
             
             
@@ -5014,9 +5030,14 @@ class ChatControllerNode: ASCellNode {
     //******************************************************//
     
     private func makeSwipeToReply() {// Telegram Func
-        DispatchQueue.global(qos: .userInteractive).sync {
-            let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
-            view.addGestureRecognizer(replyRecognizer)
+        self.onDidLoad {[weak self] (node) in
+            guard let sSelf = self else {
+                return
+            }
+//            DispatchQueue.global(qos: .userInteractive).sync {
+                let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(sSelf.swipeToReplyGesture(_:)))
+                sSelf.view.addGestureRecognizer(replyRecognizer)
+//            }
         }
     }
     
@@ -5183,42 +5204,37 @@ extension ChatControllerNode: ASTextNodeDelegate {
             labeltmpcolor = ThemeManager.currentTheme.LabelColor
 
         }
-//        //MARK:- BOLD handling
-//        var textWithMarkup = Array(text)
-//        for aItem in activeItems {
-//
-//            switch aItem.type {
-//            case "bold":
-//
-//                textWithMarkup[aItem.offset] = "‎"
-//                textWithMarkup[aItem.offset+1] = "‎"
-//                textWithMarkup[aItem.offset + aItem.limit - 1] = "‎"
-//                textWithMarkup[aItem.offset + aItem.limit - 2] = "‎"
-//                break
-//            default:
-//                break
-//            }
-//
-//        }
-//        let finalText = String(textWithMarkup)
-        
-       
-
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
-
-        for itm in activeItems {
-            let st = NSMutableParagraphStyle()
-            st.lineSpacing = 0
-            st.maximumLineHeight = 20
-            var sizee = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
-            if itm.type == "bold" {
-                tmpcolor = labeltmpcolor
-                sizee = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-                
+        //MARK:- BOLD handling
+        var nsText: NSString = (text as NSString)
+        for aItem in activeItems {
+            if aItem.isBold {
+                nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset, 1), with: "‎") as NSString
+                nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset+1, 1), with: "‎") as NSString
+                nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset + aItem.limit - 1, 1), with: "‎") as NSString
+                nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset + aItem.limit - 2, 1), with: "‎") as NSString
             }
-            let range = NSMakeRange(itm.offset, itm.limit)
-            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: text, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:sizee], range: range)
         }
+        
+        let finalText = String(nsText)
+
+        let attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+
+        let st = NSMutableParagraphStyle()
+        st.lineSpacing = 0
+        st.maximumLineHeight = 20
+        
+        for itm in activeItems where !itm.isBold {
+            let range = NSMakeRange(itm.offset, itm.limit)
+            let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
+        }
+        
+        for itm in activeItems where itm.isBold {
+            let range = NSMakeRange(itm.offset, itm.limit)
+            let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
+        }
+        
         return attributedString
         
     }
@@ -5234,25 +5250,27 @@ extension ChatControllerNode: ASTextNodeDelegate {
             return
         }
         
+        let str = (type.1).replacingOccurrences(of: "‎", with: "")
+        
         if !IGGlobal.shouldMultiSelect {
             switch type.0 {
             case "url":
-                delegate?.didTapOnURl(url: URL(string: type.1)!)
+                delegate?.didTapOnURl(url: URL(string: str)!)
                 break
             case "deepLink":
-                delegate?.didTapOnDeepLink(url: URL(string: type.1)!)
+                delegate?.didTapOnDeepLink(url: URL(string: str)!)
                 break
             case "email":
-                delegate?.didTapOnEmail(email: type.1)
+                delegate?.didTapOnEmail(email: str)
                 break
             case "bot":
-                delegate?.didTapOnBotAction(action: type.1)
+                delegate?.didTapOnBotAction(action: str)
                 break
             case "mention":
-                delegate?.didTapOnMention(mentionText: type.1)
+                delegate?.didTapOnMention(mentionText: str)
                 break
             case "hashtag":
-                delegate?.didTapOnHashtag(hashtagText: type.1)
+                delegate?.didTapOnHashtag(hashtagText: str)
                 break
             default:
                 break
@@ -5274,7 +5292,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
 extension ChatControllerNode: UIGestureRecognizerDelegate {
     
     func manageGestureRecognizers() {
-        DispatchQueue.global(qos: .userInteractive).sync {
+//        DispatchQueue.global(qos: .userInteractive).sync {
             if !IGGlobal.shouldMultiSelect  {
                 
                 let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
@@ -5384,7 +5402,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 
                 
             }
-        }
+//        }
     }
     
     @objc func didTapAndHoldOnCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
