@@ -472,6 +472,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user
                 adminRights.room = room
+                adminRights.isAdmin = false
                 self.navigationController!.pushViewController(adminRights, animated: true)
             }
         })
@@ -481,6 +482,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user
                 adminRights.room = room
+                adminRights.isAdmin = true
                 self.navigationController!.pushViewController(adminRights, animated: true)
             }
         })
@@ -606,7 +608,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()

@@ -18,6 +18,7 @@ import IGProtoBuff
 class IGRealmRoomAccess: Object {
 
     @objc dynamic var userId: Int64 = -1
+    @objc dynamic var roomId: Int64 = -1
     @objc dynamic var modifyRoom: Bool = false
     @objc dynamic var postMessage: Bool = false
     @objc dynamic var editMessage: Bool = false
@@ -28,17 +29,22 @@ class IGRealmRoomAccess: Object {
     @objc dynamic var getMember: Bool = false
     @objc dynamic var addAdmin: Bool = false
     
-    
-    public static func getRoomAccess(userId: Int64) -> IGRealmRoomAccess? {
-        return IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(NSPredicate(format: "userId = %lld", userId)).first
+    override public static func indexedProperties() -> [String] {
+        return ["userId", "roomId"]
     }
     
-    public static func putOrUpdateNoTransaction(userId: Int64, roomAccess: IGPRoomAccess) {
-        let predicate = NSPredicate(format: "userId = %lld", userId)
+    public static func getRoomAccess(roomId: Int64, userId: Int64) -> IGRealmRoomAccess? {
+        let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
+        return IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
+    }
+    
+    public static func putOrUpdateNoTransaction(roomId: Int64, userId: Int64, roomAccess: IGPRoomAccess) {
+        let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
         var realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
         if realmRoomAccess == nil {
             realmRoomAccess = IGRealmRoomAccess()
             realmRoomAccess?.userId = userId
+            realmRoomAccess?.roomId = roomId
         }
         realmRoomAccess?.modifyRoom = roomAccess.igpModifyRoom
         realmRoomAccess?.postMessage = roomAccess.igpPostMessage
@@ -53,19 +59,20 @@ class IGRealmRoomAccess: Object {
         IGDatabaseManager.shared.realm.add(realmRoomAccess!)
     }
     
-    public static func putOrUpdate(userId: Int64, roomAccess: IGPRoomAccess) {
+    public static func putOrUpdate(roomId: Int64, userId: Int64, roomAccess: IGPRoomAccess) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                putOrUpdateNoTransaction(userId: userId, roomAccess: roomAccess)
+                putOrUpdateNoTransaction(roomId: roomId, userId: userId, roomAccess: roomAccess)
             }
         }
     }
     
     
-    public static func clearRoomAccess(userId: Int64){
+    public static func clearRoomAccess(roomId: Int64, userId: Int64){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                if let realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(NSPredicate(format: "userId = %lld", userId)).first {
+                let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
+                if let realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first {
                     IGDatabaseManager.shared.realm.delete(realmRoomAccess)
                 }
             }
@@ -75,7 +82,8 @@ class IGRealmRoomAccess: Object {
     
     func convertRealmToProto() -> IGPRoomAccess? {
         
-        if let realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(NSPredicate(format: "userId = %lld", userId)).first {
+        let predicate = NSPredicate(format: "roomId = %lld AND userId = %lld", roomId, userId)
+        if let realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first {
             var roomAccess = IGPRoomAccess()
             roomAccess.igpModifyRoom = realmRoomAccess.modifyRoom
             roomAccess.igpPostMessage = realmRoomAccess.postMessage

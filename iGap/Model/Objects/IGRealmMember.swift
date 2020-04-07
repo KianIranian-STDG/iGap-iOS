@@ -65,7 +65,7 @@ class IGRealmMember: Object {
                 member?.user = IGRegisteredUser.getUserInfo(id: userId)
                 
                 IGDatabaseManager.shared.realm.add(member!)
-                IGRealmRoomAccess.putOrUpdateNoTransaction(userId: userId, roomAccess: roomAccess)
+                IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: roomId, userId: userId, roomAccess: roomAccess)
             }
         }
     }
@@ -82,7 +82,7 @@ class IGRealmMember: Object {
         member?.user = IGRegisteredUser.getUserInfo(id: userId)
         
         IGDatabaseManager.shared.realm.add(member!)
-        IGRealmRoomAccess.putOrUpdateNoTransaction(userId: userId, roomAccess: roomAccess)
+        IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: roomId, userId: userId, roomAccess: roomAccess)
     }
     
     public static func removeMember(roomId: Int64, memberId: Int64){
@@ -120,7 +120,7 @@ class IGRealmMember: Object {
             }
         }
         
-        IGRealmRoomAccess.putOrUpdate(userId: memberId, roomAccess: roomAccess)
+        IGRealmRoomAccess.putOrUpdate(roomId: roomId, userId: memberId, roomAccess: roomAccess)
         IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId, role: role)
     }
     

@@ -37,6 +37,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     var userInfo: IGRegisteredUser!
     var room: IGRoom!
+    var isAdmin: Bool!
     private var roomAccessDefault: IGPRoomAccess!
     
     @IBAction func OnPostMessageChange(_ sender: UISwitch) {
@@ -70,14 +71,14 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             txtEditMessage.textColor = txtModifyRoom.textColor
         } else {
             txtEditMessage.textColor = UIColor.gray
-            editView.backgroundColor = UIColor.swipeBlueGray()
+            editView.backgroundColor = UIColor.lightGray
             switchEditMessage.setOn(false, animated: true)
         }
         switchEditMessage.isUserInteractionEnabled = state
     }
     
     private func fillRoomAccess(){
-        if let roomAccess = IGRealmRoomAccess.getRoomAccess(userId: userInfo.id) {
+        if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo.id) {
             switchModifyRoom.isOn = roomAccess.modifyRoom
             switchPostMessage.isOn = roomAccess.postMessage
             switchEditMessage.isOn = roomAccess.editMessage
@@ -107,6 +108,27 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     func requestToAddAdminInChannel() {
+        
+        // show kick admin view if all options was disabled
+        if !switchModifyRoom.isOn &&
+            !switchPostMessage.isOn &&
+            !switchEditMessage.isOn &&
+            !switchDeleteMessage.isOn &&
+            !switchPinMessage.isOn &&
+            !switchAddMember.isOn &&
+            !switchBanMember.isOn &&
+            !switchGetMember.isOn &&
+            !switchAddAdmin.isOn {
+            
+            if isAdmin {
+                kickAdmin()
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+            return
+        }
+        
         if room.type == .group {
             IGGlobal.prgShow(self.view)
             IGGroupAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, roomAccess: makeRoomAccess()).success({ [weak self] (protoResponse) in
@@ -227,7 +249,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         if section == 0 {
             return 1
         } else if section == 1 {
-            return 7
+            return 9
         } else if section == 2 {
             return 1
         }
@@ -235,18 +257,24 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .white
-        let headerTitle = UILabel()
-        headerView.addSubview(headerTitle)
-        headerTitle.font = UIFont.igFont(ofSize: 17, weight: .bold)
-        headerTitle.textColor = UIColor.iGapBlue()
-        headerTitle.text = "What can this admin do?"
-        headerTitle.snp.makeConstraints { (make) in
-            make.leading.equalTo(headerView.snp.leading).offset(20)
-            make.height.equalTo(25)
-            make.centerY.equalTo(headerView.snp.centerY)
+        if section == 1 {
+            let headerView = UIView()
+            headerView.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+            let headerTitle = UILabel()
+            headerView.addSubview(headerTitle)
+            headerTitle.font = UIFont.igFont(ofSize: 17, weight: .bold)
+            headerTitle.textColor = UIColor.iGapBlue()
+            headerTitle.text = "What can this admin do?"
+            headerTitle.snp.makeConstraints { (make) in
+                make.leading.equalTo(headerView.snp.leading).offset(20)
+                make.height.equalTo(25)
+                make.centerY.equalTo(headerView.snp.centerY)
+            }
+            return headerView
         }
+        
+        let headerView = UIView()
+        headerView.backgroundColor = .clear
         return headerView
     }
     
@@ -257,14 +285,22 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 || section == 2 {
+        if section == 0 {
+            return 20
+        } else if section == 1 {
+            return 35
+        } else if section == 2 {
             return 0
         }
-        return 35
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
