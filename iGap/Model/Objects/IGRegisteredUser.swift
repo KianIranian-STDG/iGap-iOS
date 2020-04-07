@@ -46,6 +46,34 @@ class IGRegisteredUser: Object {
                 return .longTimeAgo
             }
         }
+        
+        static func fromIGP(status: IGLastSeenStatus?, lastSeen: Date?) -> String {
+            if status == nil {
+                return ""
+            }
+            
+            switch status! {
+            case .longTimeAgo:
+                return IGStringsManager.LongTimeAgo.rawValue.localized
+            case .lastMonth:
+                return IGStringsManager.LastMonth.rawValue.localized
+            case .lastWeek:
+                return IGStringsManager.Lastweak.rawValue.localized
+            case .online:
+                return IGStringsManager.Online.rawValue.localized
+            case .exactly:
+                if lastSeen == nil {
+                    return ""
+                }
+                return "\(lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
+            case .recently:
+                return IGStringsManager.NavLastSeenRecently.rawValue.localized
+            case .support:
+                return IGStringsManager.IgapSupport.rawValue.localized
+            case .serviceNotification:
+                return IGStringsManager.NotificationServices.rawValue.localized
+            }
+        }
     }
     
     //properties

@@ -93,21 +93,24 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         /**
          * don't need to save members and show offline so before load each time, first clear all members and fetch from server
          */
-        IGRealmMember.clearMembers {
+        IGRealmMember.clearMembers { [weak self] in
+            if self == nil {
+                return
+            }
             DispatchQueue.main.async {
-                let predicate = NSPredicate(format: "roomId == %lld", self.roomId) //AND role == %d
-                self.realmMembers = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(predicate)
-                self.realmNotificationToken = self.realmMembers.observe { (changes: RealmCollectionChange) in
+                let predicate = NSPredicate(format: "roomId == %lld", self!.roomId) //AND role == %d
+                self!.realmMembers = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(predicate)
+                self!.realmNotificationToken = self!.realmMembers.observe { (changes: RealmCollectionChange) in
                     switch changes {
                     case .initial:
-                        self.tableView.reloadData()
+                        self!.tableView.reloadData()
                         break
                     case .update(_, let deletions, let insertions, let modifications):
-                        self.tableView.beginUpdates()
-                        self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self.tableView.endUpdates()
+                        self!.tableView.beginUpdates()
+                        self!.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                        self!.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                        self!.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                        self!.tableView.endUpdates()
                         break
                     case .error(let err):
                         fatalError("\(err)")
@@ -115,7 +118,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     }
                 }
                 
-                self.fetchMemberFromServer()
+                self!.fetchMemberFromServer()
             }
         }
         
@@ -313,46 +316,58 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         allowFetchMore = false
         if self.roomType == .group {
             IGGlobal.prgShow(self.view)
-            IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ (protoResponse) in
+            IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ [weak self] (protoResponse) in
                 IGGlobal.prgHide()
+                if self == nil {
+                    return
+                }
                 if let getGroupMemberList = protoResponse as? IGPGroupGetMemberListResponse {
                     if getGroupMemberList.igpMember.count != 0 {
-                        self.allowFetchMore = true
+                        self!.allowFetchMore = true
                     }
-                    IGGroupGetMemberListRequest.Handler.interpret(response: getGroupMemberList, roomId: self.roomId)
-                    self.allRealmMembers = self.realmMembers
+                    IGGroupGetMemberListRequest.Handler.interpret(response: getGroupMemberList, roomId: self!.roomId)
+                    self!.allRealmMembers = self!.realmMembers
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 IGGlobal.prgHide()
+                if self == nil {
+                    return
+                }
                 DispatchQueue.main.async {
                     if errorCode == .timeout {
-                        self.allowFetchMore = true
-                        self.fetchMemberFromServer()
+                        self!.allowFetchMore = true
+                        self!.fetchMemberFromServer()
                     }
                 }
             }).send()
         } else if self.roomType == .channel {
             IGGlobal.prgShow(self.view)
-            IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ (protoResponse) in
+            IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ [weak self] (protoResponse) in
                 IGGlobal.prgHide()
-                self.fetchedMember = true
+                if self == nil {
+                    return
+                }
+                self!.fetchedMember = true
                 DispatchQueue.main.async {
                     if let getChannelMemberList = protoResponse as? IGPChannelGetMemberListResponse {
                         if getChannelMemberList.igpMember.count != 0 {
-                            self.allowFetchMore = true
-                        } else if self.realmMembers.count == 0 {
-                            self.manageEmptyMessage()
+                            self!.allowFetchMore = true
+                        } else if self!.realmMembers.count == 0 {
+                            self!.manageEmptyMessage()
                         }
-                        IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self.roomId)
-                        self.allRealmMembers = self.realmMembers
+                        IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self!.roomId)
+                        self!.allRealmMembers = self!.realmMembers
                     }
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 IGGlobal.prgHide()
+                if self == nil {
+                    return
+                }
                 DispatchQueue.main.async {
                     if errorCode == .timeout {
-                        self.allowFetchMore = true
-                        self.fetchMemberFromServer()
+                        self!.allowFetchMore = true
+                        self!.fetchMemberFromServer()
                     }
                 }
             }).send()
@@ -445,7 +460,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         
         let addAdmin = UIAlertAction(title: IGStringsManager.AssignAdmin.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
-                self.requestToAddAdminInChannel(member)
+                if let user = member.user {
+                    let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    adminRights.userInfo = user
+                    self.navigationController!.pushViewController(adminRights, animated: true)
+                }
             } else {
                 self.requestToAddAdminInGroup(member)
             }
