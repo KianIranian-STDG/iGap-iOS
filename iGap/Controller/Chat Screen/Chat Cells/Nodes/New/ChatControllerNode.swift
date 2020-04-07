@@ -4711,56 +4711,66 @@ class ChatControllerNode: ASCellNode {
                 nodeOnlyText = OnlyTextNode()
             }
         }
-        if message!.linkInfo == nil {
-            var labeltmpcolor = UIColor()
-            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        if let forwardedFrom = message!.forwardedFrom {
 
-            if currentTheme != "IGAPClassic" {
+            if forwardedFrom.linkInfo == nil {
+
+                let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
                 
-                if currentTheme == "IGAPDay" {
-                    if currentColorSetLight == "IGAPBlack" {
-                        labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                    } else {
-                        labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                    }
+                if !isTextMessageNode {
+                    IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
+                } else {
+
+                    IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
                 }
-                if currentTheme == "IGAPNight" {
-                    if currentColorSetDark == "IGAPBlack" {
-                        labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                    } else {
-                        labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                    }
-
+                return
+            }
+            if let itms = ActiveLabelJsonify.toObejct(forwardedFrom.linkInfo!) {
+                if isTextMessageNode {
+                    nodeOnlyText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
+                    nodeOnlyText!.isUserInteractionEnabled = true
+                    nodeOnlyText!.delegate = self
+                } else {
+                    nodeText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
+                    nodeText!.isUserInteractionEnabled = true
+                    nodeText!.delegate = self
                 }
-            } else {
-                labeltmpcolor = ThemeManager.currentTheme.LabelColor
-
-            }
-            if !isTextMessageNode {
-                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
-                
-            } else {
-
-                IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             }
-            return
-        }
-        
-        if let itms = ActiveLabelJsonify.toObejct(message!.linkInfo!) {
-            if isTextMessageNode {
-                nodeOnlyText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
-                nodeOnlyText!.isUserInteractionEnabled = true
-                nodeOnlyText!.delegate = self
-            } else {
-                nodeText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
-                nodeText!.isUserInteractionEnabled = true
-                nodeText!.delegate = self
+
+        } else {
+
+            if message!.linkInfo == nil {
+
+                let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
+                
+                if !isTextMessageNode {
+                    IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
+                } else {
+
+                    IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
+                }
+                return
             }
-            
+            if let itms = ActiveLabelJsonify.toObejct(message!.linkInfo!) {
+                if isTextMessageNode {
+                    nodeOnlyText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
+                    nodeOnlyText!.isUserInteractionEnabled = true
+                    nodeOnlyText!.delegate = self
+                } else {
+                    nodeText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
+                    nodeText!.isUserInteractionEnabled = true
+                    nodeText!.delegate = self
+                }
+                
+            }
         }
+
+
         
     }
     
