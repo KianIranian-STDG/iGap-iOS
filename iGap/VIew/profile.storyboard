@@ -368,6 +368,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="Imh-rx-ILb"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="OnPostMessageChange:" destination="8gw-mA-22z" eventType="valueChanged" id="jDU-xb-V3T"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -633,6 +636,8 @@
                     <navigationItem key="navigationItem" title="Title" id="Orz-p7-z45" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="avatarView" destination="tai-AZ-hPs" id="9QM-10-SyX"/>
+                        <outlet property="editView" destination="FCV-hT-XII" id="htE-eg-yBn"/>
+                        <outlet property="modifyRoomView" destination="HSF-IH-88i" id="9gS-vC-Oii"/>
                         <outlet property="switchAddAdmin" destination="Sta-Jj-Syu" id="gGS-Lp-ArW"/>
                         <outlet property="switchAddMember" destination="pVA-pz-38s" id="p0l-Cg-L7K"/>
                         <outlet property="switchBanMember" destination="h8n-GO-dvf" id="OJa-4C-Nje"/>
@@ -645,6 +650,8 @@
                         <outlet property="txtContactName" destination="Y1O-7b-hoO" id="HVi-hC-bWb"/>
                         <outlet property="txtContactStatus" destination="X0o-WK-jxL" id="Zci-vm-YUE"/>
                         <outlet property="txtDismissAdmin" destination="LIv-G5-Qfp" id="VGE-GK-FRe"/>
+                        <outlet property="txtEditMessage" destination="MM8-h8-rQU" id="ybX-Aj-XTC"/>
+                        <outlet property="txtModifyRoom" destination="PqZ-fC-YPK" id="Ki5-bw-CDU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHd-K7-vLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
