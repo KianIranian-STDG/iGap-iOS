@@ -1077,7 +1077,8 @@ class ChatControllerNode: ASCellNode {
                     txtNameNode!.style.minHeight = ASDimensionMake(.points, 20)
                 }
                 setSenderName() // set text for txtNameNode(sender name)
-                stack.children?.insert(txtNameNode!, at: 0)
+                let insetBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), child: txtNameNode!)
+                stack.children?.insert(insetBox, at: 0)
                 
             }
         }
@@ -3898,9 +3899,15 @@ class ChatControllerNode: ASCellNode {
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
         imgNode!.style.alignSelf = .center
-        imgNode!.layer.cornerRadius = 15
-        
+
         if msg.type == .image {
+            if finalRoomType == .group {
+                imgNode!.layer.cornerRadius = isIncomming ? 0 : 15
+            } else {
+                imgNode!.layer.cornerRadius =  15
+            }
+            imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
             RemoveNodeText()
             
             let verticalSpec = ASStackLayoutSpec()
@@ -3926,13 +3933,24 @@ class ChatControllerNode: ASCellNode {
             }
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets:
+                isIncomming ?
+                UIEdgeInsets(top: 2, left: 8, bottom: 5, right: 3)
+                :
+                UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 8),
+                                                   child: contentSpec)
             
             return finalInsetSpec
             
             
         } else {
-            
+            if finalRoom?.type == .channel {
+                imgNode!.layer.cornerRadius =  15
+                imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            } else {
+                imgNode!.layer.cornerRadius =  0
+            }
+
             let verticalSpec = ASStackLayoutSpec()
             verticalSpec.direction = .vertical
             verticalSpec.spacing = 5
@@ -3941,7 +3959,7 @@ class ChatControllerNode: ASCellNode {
             let insetsImage : UIEdgeInsets
             
             if finalRoom?.type == .channel {
-                insetsImage = UIEdgeInsets(top: 5, left: -3, bottom: 0, right: 0)
+                insetsImage = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
                 
             } else {
                 insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
@@ -3962,7 +3980,12 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+            let finalInsetSpec : ASInsetLayoutSpec
+            if finalRoomType == .channel {
+                finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 3), child: contentSpec)
+            } else {
+                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 5, left: 4, bottom: 5, right: 8), child: contentSpec)
+            }
             
             return finalInsetSpec
             
@@ -3976,7 +3999,8 @@ class ChatControllerNode: ASCellNode {
         
         nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         nodeText!.style.minHeight = ASDimensionMake(.points, 20)
-        spec.children?.append(nodeText!)
+        let insetBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), child: nodeText!)
+        spec.children?.append(insetBox)
         
         setMessage()
         
@@ -4045,10 +4069,16 @@ class ChatControllerNode: ASCellNode {
         imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
-        
-        imgNode!.layer.cornerRadius = 10
-        
+                
         if msg.type == .video {
+            if finalRoomType == .group {
+                imgNode!.layer.cornerRadius = isIncomming ? 0 : 15
+            } else {
+                imgNode!.layer.cornerRadius =  15
+            }
+            imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+
             RemoveNodeText()
             
             let timeTxtNode = ASTextNode()
@@ -4082,7 +4112,7 @@ class ChatControllerNode: ASCellNode {
             }
             
             // Setting Duration lbl Size
-            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5), child: timeTxtNode)
             
             // Setting Container Stack
             let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
@@ -4098,23 +4128,35 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(overlaySpec)
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets:
+                isIncomming ?
+                UIEdgeInsets(top: 2, left: 8, bottom: 5, right: 3)
+                :
+                UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 8),
+                                                   child: contentSpec)
             
             return finalInsetSpec
             
             
         } else {
-            
+            if finalRoom?.type == .channel {
+                imgNode!.layer.cornerRadius =  15
+                imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            } else {
+                imgNode!.layer.cornerRadius =  0
+            }
+
             let timeTxtNode = ASTextNode()
             let fakeStackBottomItem = ASDisplayNode()
             
-            timeTxtNode.layer.cornerRadius = 10
+            timeTxtNode.layer.cornerRadius = 7.5
             timeTxtNode.clipsToBounds = true
             timeTxtNode.layer.borderColor = UIColor.white.cgColor
             timeTxtNode.layer.borderWidth = 0.5
             timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
             
-            timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
+            timeTxtNode.style.height = ASDimension(unit: .points, value: 15)
+            timeTxtNode.style.width = ASDimension(unit: .points, value: 80)
             fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
             
             let playTxtCenterSpec : ASCenterLayoutSpec
@@ -4137,7 +4179,7 @@ class ChatControllerNode: ASCellNode {
             }
             
             // Setting Duration lbl Size
-            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5), child: timeTxtNode)
             
             // Setting Container Stack
             let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
@@ -4167,18 +4209,14 @@ class ChatControllerNode: ASCellNode {
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            if finalRoom?.type == .channel {
-                let finalInsetSpec = ASInsetLayoutSpec(insets:  UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10), child: contentSpec)
-                
-                return finalInsetSpec
-
+            let finalInsetSpec : ASInsetLayoutSpec
+            if finalRoomType == .channel {
+                finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 2, left: 3, bottom: 5, right: 3), child: contentSpec)
             } else {
-                let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
-                
-                return finalInsetSpec
-
+                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 5, left: 4, bottom: 5, right: 8), child: contentSpec)
             }
-            
+
+            return finalInsetSpec
             
         }
         
@@ -4644,6 +4682,7 @@ class ChatControllerNode: ASCellNode {
         }
         
         nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 200)
         nodeOnlyText!.style.minHeight = ASDimensionMake(.points, 20)
         makeTextNodeBottomBubbleItems()
         
@@ -4664,7 +4703,8 @@ class ChatControllerNode: ASCellNode {
         }
         
         if msg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
-            
+            nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 70)
+
             if finalRoomType! == .channel {
                 spec.children?.append(nodeOnlyText!)
 
