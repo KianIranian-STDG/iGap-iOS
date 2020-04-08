@@ -555,6 +555,7 @@ enum ChatMessageAction {
     case userInfo
     case addProgress
     case removeProgress
+    case none
 }
 
 enum BaseFilePathType: Int {

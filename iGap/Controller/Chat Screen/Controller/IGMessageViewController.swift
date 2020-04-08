@@ -396,8 +396,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     sSelf.btnForward.isHidden = true
                     sSelf.btnAttachmentNew.isHidden = true
                     
-                    
-//                    self.reloadCollection()
                     sSelf.btnTrash.isHidden = !isDelete!
                     IGGlobal.shouldMultiSelect = true
                     
@@ -458,8 +456,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.btnForward.isHidden = true
                 self.btnAttachmentNew.isHidden = false
                 
-                
-//                self.reloadCollection()
                 self.btnTrash.isHidden = true
 
                 let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
@@ -1181,7 +1177,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if self?.room?.id == onChannelGetMessageState.roomId {
                         
-//                        self?.reloadCollection()
                         let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self!.tableViewNode)
                         
                         for nodeIndex in allIndexes {
@@ -1237,7 +1232,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
                         if let position = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1]?.firstIndex(of: onMessageEdit.messageId) {
                             self?.updateMessageArray(cellPosition: position, message: newMessage.detach())
-                            self?.updateItem(cellPosition: position)
+                            self?.updateItem(cellPosition: position,action: .edit )
                         }
                     }
                 }
@@ -1246,11 +1241,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onMessageDelete = result?.object as? (action: ChatMessageAction, roomId: Int64, messageId: Int64), onMessageDelete.action == ChatMessageAction.delete {
                 //DispatchQueue.main.async {
                 self?.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[onMessageDelete.roomId]?.firstIndex(of: onMessageDelete.messageId))
-                
-                
-                
-//                self?.reloadCollection()
-                
+                                
                 
             } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
                 /* fetch user info and notify collection item if exist in visible items into the collection */
@@ -1557,16 +1548,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-//    @objc func keyboardWillAppear() {
-//        //Do something here
-//    }
-    
-//    @objc func keyboardWillDisappear() {
-//        disableStickerView(delay: 0.4)
-//        if isBotRoom() {
-//            self.reloadCollection()
-//        }
-//    }
     
     @objc func tapOnMainView(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -7327,7 +7308,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         if finalString.starts(with: "\n@") { //check if fetched mention name incorrectly
             
-            finalString = String(finalString.dropFirst(3))
+            finalString = String(finalString.dropFirst(2))
         }
 
         IGHelperChatOpener.checkUsernameAndOpenRoom(username: finalString)
@@ -7727,13 +7708,17 @@ extension IGMessageViewController {
         }
     }
     
-    private func updateItem(cellPosition: Int){
+    private func updateItem(cellPosition: Int,action: ChatMessageAction = .none){
         if self.messages!.count <= cellPosition  {
             return
         }
         print("COMES HERE 001")
 //        self.tableViewNode.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
-        self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
+    
+        switch action {
+            default:
+                self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
+        }
         print("COMES HERE 002")
 
     }

@@ -5175,7 +5175,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
         let finalText = String(nsText)
         let attributedString : NSMutableAttributedString
         if text == "❤️" {
-             attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 100), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+             attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 50), NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
         } else {
              attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
