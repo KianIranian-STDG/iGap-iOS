@@ -28,8 +28,8 @@ class IGRoomListNode: ASCellNode {
 
 
         node.backgroundColor = .red
-//        node.style.width = ASDimensionMake(.points, UIScreen.main.bounds.width)
-//        node.style.height = ASDimensionMake(.points, 100)
+        node.style.width = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        node.style.height = ASDimensionMake(.points, 80)
 
         return node
 
@@ -42,7 +42,6 @@ class IGRoomListNode: ASCellNode {
     let avatarImageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
         node.contentMode = .scaleAspectFill
-        node.backgroundColor = .blue
         node.style.width = ASDimensionMake(.points, 80)
         node.style.height = ASDimensionMake(.points, 80)
         // Set the imageModificationBlock for a rounded avatar
@@ -103,10 +102,18 @@ class IGRoomListNode: ASCellNode {
 //            ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForFooter, child: footerStack)
 //        ]
         
-        let headerStack = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: .center, alignItems: .center, flexWrap: .noWrap, alignContent: .center, lineSpacing: 0, children: [fakedisplay,avatarImageNode])
 
-        let verticalStack = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .center, alignItems: .center, flexWrap: .noWrap, alignContent: .center, lineSpacing: 0, children: [bgPin])
-        let overlayStack = ASOverlayLayoutSpec(child: verticalStack, overlay: headerStack)
+        
+        let horizentalStackOne = ASStackLayoutSpec()
+        horizentalStackOne.alignContent = .start
+        horizentalStackOne.justifyContent = .center
+        horizentalStackOne.verticalAlignment = .center
+        horizentalStackOne.children = [fakedisplay,avatarImageNode]
+        
+        let pinBGStack = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 50), child: bgPin)
+        let verticalStack = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .center, alignItems: .center, flexWrap: .noWrap, alignContent: .center, lineSpacing: 0, children: [pinBGStack])
+        
+        let overlayStack = ASOverlayLayoutSpec(child: verticalStack, overlay: horizentalStackOne)
 
         return overlayStack
     }

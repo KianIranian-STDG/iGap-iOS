@@ -235,8 +235,13 @@ class IGGlobal {
     //        }
     //    }
     internal static func isOnlySpecialEmoji(text: String) -> Bool {
-        if text == "😂" || text == "🤣" || text == "😁" || text == "😍" || text == "🥰" || text == "😘" || text == "🤗" || text == "🤩" || text == "😭" || text == "😡" || text == "❤️" {
-            return true
+        
+        if text.count == 1 {
+            if text.containsEmoji {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
@@ -2631,9 +2636,9 @@ extension String {
             !$0.isEmoji()
         })
     }
-    var containsEmoji: Bool {
-        return (unicodeScalars.contains { !$0.isEmoji })
-    }
+//    var containsEmoji: Bool {
+//        return (unicodeScalars.contains { !$0.isEmoji })
+//    }
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
@@ -2678,6 +2683,35 @@ extension Character {
 //        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
 //            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
     }
+}
+
+extension String {
+    /// Note: This method is part of Swift 5, so you can omit this.
+    /// See: https://developer.apple.com/documentation/swift/unicode/scalar
+    var containsEmoji: Bool {
+        for scalar in unicodeScalars {
+            switch scalar.value {
+            case 0x1F600...0x1F64F, // Emoticons
+            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+            0x1F680...0x1F6FF, // Transport and Map
+            0x1F1E6...0x1F1FF, // Regional country flags
+            0x2600...0x26FF, // Misc symbols
+            0x2700...0x27BF, // Dingbats
+            0xE0020...0xE007F, // Tags
+            0xFE00...0xFE0F, // Variation Selectors
+            0x1F900...0x1F9FF, // Supplemental Symbols and Pictographs
+            0x1F018...0x1F270, // Various asian characters
+            0x238C...0x2454, // Misc items
+            0x20D0...0x20FF: // Combining Diacritical Marks for Symbols
+                return true
+            default:
+                continue
+            }
+        }
+        return false
+    }
+    
+    
 }
 extension UnicodeScalar {
     /// Note: This method is part of Swift 5, so you can omit this.
