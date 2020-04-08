@@ -110,9 +110,8 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     func requestToAddAdminInChannel() {
         
         // show kick admin view if all options was disabled
-        if !switchModifyRoom.isOn &&
-            !switchPostMessage.isOn &&
-            !switchEditMessage.isOn &&
+        if ((room.type == .channel && !switchPostMessage.isOn && !switchEditMessage.isOn) || (room.type == .group)) &&
+            !switchModifyRoom.isOn &&
             !switchDeleteMessage.isOn &&
             !switchPinMessage.isOn &&
             !switchAddMember.isOn &&
@@ -187,7 +186,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     func kickAdmin() {
         if room.type == .group {
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: { [weak self] in
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: { [weak self] in
                 if self == nil {
                     return
                 }
@@ -244,12 +243,27 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if room.type == .group && indexPath.section == 1 {
+            if indexPath.row >= 1 {
+                return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 2, section: 1))
+            }
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
+    }
+
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else if section == 1 {
-            return 9
+            if room.type == .channel {
+                return 9
+            } else if room.type == .group {
+                return 7
+            }
         } else if section == 2 {
             return 1
         }
