@@ -49,8 +49,8 @@ class ASReplyForwardNode: ASDisplayNode {
 
         self.verticalView!.style.width = ASDimension(unit: .points, value: 3.0)
         self.verticalView?.layer.cornerRadius = 1.5
-        self.imgReplyAttachment?.style.width = ASDimension(unit: .points, value: 50.0)
-        self.imgReplyAttachment?.style.height = ASDimension(unit: .points, value: 50.0)
+        self.imgReplyAttachment?.style.width = ASDimension(unit: .points, value: 30.0)
+        self.imgReplyAttachment?.style.height = ASDimension(unit: .points, value: 30.0)
         self.imgReplyAttachment?.layer.cornerRadius = 10.0
 
         
@@ -92,44 +92,11 @@ class ASReplyForwardNode: ASDisplayNode {
     func setReplyForward(isReply: Bool,extraMessage : IGRoomMessage,isIncomming : Bool = false) {
         self.isReply = isReply
         self.isIncomming = isIncomming
-        var tmpcolor = UIColor()
-        var tmpbgcolor = UIColor()
-        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-        if currentTheme != "IGAPClassic" {
-            
-            if currentTheme == "IGAPDay" {
-                if currentColorSetLight == "IGAPBlack" {
-                    tmpcolor = UIColor.white
-                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor.lighter()!
-
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
-                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
-
-                }
-            }
-            if currentTheme == "IGAPNight" {
-                if currentColorSetDark == "IGAPBlack" {
-                    tmpcolor = UIColor.white
-                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor.lighter()!
-
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
-                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
-                    
-                }
-
-            }
-        } else {
-            tmpcolor = ThemeManager.currentTheme.SliderTintColor
-            tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.SliderTintColor, BlackThemeColor: .white)
+        let tmpbgcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.ReceiveMessageBubleBGColor, BlackThemeColor: ThemeManager.currentTheme.ReceiveMessageBubleBGColor.lighter()!)
 
 
-        }
-
+        
         verticalView?.backgroundColor = isIncomming ? tmpcolor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
         self.backgroundColor = isIncomming ? tmpbgcolor : ThemeManager.currentTheme.SendMessageBubleBGColor
 
@@ -149,31 +116,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
-                var tmpcolor = UIColor()
-                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-                if currentTheme != "IGAPClassic" {
-                    
-                    if currentTheme == "IGAPDay" {
-                        if currentColorSetLight == "IGAPBlack" {
-                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.replyMSGColor
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
-                    }
-                    if currentTheme == "IGAPNight" {
-                        if currentColorSetDark == "IGAPBlack" {
-                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.replyMSGColor
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
-
-                    }
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                }
+                let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.replyMSGColor, BlackThemeColor: .white)
 
                 IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
             } else if extraMessage.type == .image || extraMessage.type == .imageAndText || extraMessage.type == .video || extraMessage.type == .videoAndText || extraMessage.type == .gif || extraMessage.type == .gifAndText{ // if reply or forward message has image/Video attachment
@@ -196,31 +139,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 if extraMessage.message != nil { //if has message
 
                     if extraMessage.message == "" {
-                        var tmpcolor = UIColor()
-                        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-                        if currentTheme != "IGAPClassic" {
-                            
-                            if currentTheme == "IGAPDay" {
-                                if currentColorSetLight == "IGAPBlack" {
-                                    tmpcolor = UIColor.white
-                                } else {
-                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                                }
-                            }
-                            if currentTheme == "IGAPNight" {
-                                if currentColorSetDark == "IGAPBlack" {
-                                    tmpcolor = UIColor.white
-                                } else {
-                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                                }
-
-                            }
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
+                        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.replyMSGColor, BlackThemeColor: .white)
 
                         switch extraMessage.type {
                             
@@ -238,61 +157,14 @@ class ASReplyForwardNode: ASDisplayNode {
                         }
 
                     } else {
-                        var tmpcolor = UIColor()
-                        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-                        if currentTheme != "IGAPClassic" {
-                            
-                            if currentTheme == "IGAPDay" {
-                                if currentColorSetLight == "IGAPBlack" {
-                                    tmpcolor = UIColor.white
-                                } else {
-                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                                }
-                            }
-                            if currentTheme == "IGAPNight" {
-                                if currentColorSetDark == "IGAPBlack" {
-                                    tmpcolor = UIColor.white
-                                } else {
-                                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                                }
-
-                            }
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
+                        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.replyMSGColor, BlackThemeColor: .white)
 
                         IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
 
                     }
                 } else {
-                    var tmpcolor = UIColor()
-                    let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                    let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                    let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+                    let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.replyMSGColor, BlackThemeColor: .white)
 
-                    if currentTheme != "IGAPClassic" {
-                        
-                        if currentTheme == "IGAPDay" {
-                            if currentColorSetLight == "IGAPBlack" {
-                                tmpcolor = UIColor.white
-                            } else {
-                                tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                            }
-                        }
-                        if currentTheme == "IGAPNight" {
-                            if currentColorSetDark == "IGAPBlack" {
-                                tmpcolor = UIColor.white
-                            } else {
-                                tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                            }
-
-                        }
-                    } else {
-                        tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                    }
 
                     switch extraMessage.type {
                         
@@ -312,9 +184,9 @@ class ASReplyForwardNode: ASDisplayNode {
 
             } else if extraMessage.type == .voice || extraMessage.type == .audio || extraMessage.type == .audioAndText  || extraMessage.type == .file || extraMessage.type == .contact || extraMessage.type == .fileAndText   {
                 imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
-                txtReplyAttachment!.style.preferredSize = CGSize(width: 50.0, height: 50.0)
+                txtReplyAttachment!.style.preferredSize = CGSize(width: 30.0, height: 30.0)
                 if extraMessage.attachment != nil {
-                    txtReplyAttachment!.setThumbnail(for: extraMessage.attachment!)
+                    txtReplyAttachment!.setThumbnail(for: extraMessage.attachment!,size: 33.0)
                 } else {
                     txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 }
@@ -325,31 +197,9 @@ class ASReplyForwardNode: ASDisplayNode {
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
-                var tmpcolor = UIColor()
-                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
-                if currentTheme != "IGAPClassic" {
-                    
-                    if currentTheme == "IGAPDay" {
-                        if currentColorSetLight == "IGAPBlack" {
-                            tmpcolor = UIColor.white
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
-                    }
-                    if currentTheme == "IGAPNight" {
-                        if currentColorSetDark == "IGAPBlack" {
-                            tmpcolor = UIColor.white
-                        } else {
-                            tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                        }
-
-                    }
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.replyMSGColor
-                }
+                let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.replyMSGColor, BlackThemeColor: .white)
+                
                 switch extraMessage.type {
                     
                 case .unknown:

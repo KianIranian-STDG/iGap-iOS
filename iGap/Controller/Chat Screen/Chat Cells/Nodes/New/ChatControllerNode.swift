@@ -3216,31 +3216,7 @@ class ChatControllerNode: ASCellNode {
         txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
         txtAttachmentNode!.setThumbnail(for: msg.attachment!)
         
-        var tmpcolor = UIColor()
-        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-        if currentTheme != "IGAPClassic" {
-            
-            if currentTheme == "IGAPDay" {
-                if currentColorSetLight == "IGAPBlack" {
-                    tmpcolor = UIColor.white
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelColor
-                }
-            }
-            if currentTheme == "IGAPNight" {
-                if currentColorSetDark == "IGAPBlack" {
-                    tmpcolor = UIColor.white
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.LabelColor
-                }
-
-            }
-        } else {
-            tmpcolor = ThemeManager.currentTheme.LabelColor
-        }
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
         IGGlobal.makeAsyncText(for: txtSizeNode!, with: msg.attachment!.sizeToString(), textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
 
         IGGlobal.makeAsyncText(for: txtTitleNode!, with: msg.attachment!.name!, textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
@@ -4128,7 +4104,7 @@ class ChatControllerNode: ASCellNode {
             }
             
             // Setting Duration lbl Size
-            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 5, bottom: 5, right: 5), child: timeTxtNode)
             
             // Setting Container Stack
             let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
@@ -4558,6 +4534,7 @@ class ChatControllerNode: ASCellNode {
 
         return addAdditionalButtons(contentSpec: contentSpec,message: msg)
     }
+
     
     private func addAdditionalButtons(contentSpec: ASLayoutSpec, message: IGRoomMessage) -> ASLayoutSpec {
                //check if msg has additional data of type bot buttons
@@ -4778,7 +4755,12 @@ class ChatControllerNode: ASCellNode {
                     
                 } else {
 
-                    IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    if msg == "❤️" {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: 50 , numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
+                    } else {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    }
                     
                 }
                 return
@@ -4806,8 +4788,13 @@ class ChatControllerNode: ASCellNode {
                     IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                     
                 } else {
+                    if msg == "❤️" {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: 50, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
 
-                    IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    } else {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
+                    }
                     
                 }
                 return
@@ -5171,39 +5158,9 @@ extension ChatControllerNode: ASTextNodeDelegate {
         paragraphStyle.alignment = text.isRTL() ? .right : .left
         paragraphStyle.lineBreakMode = .byWordWrapping
         
-        
-        var labeltmpcolor = UIColor()
-        var tmpcolor = UIColor()
-        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor)
+        let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.SliderTintColor, BlackThemeColor: isIncomming ? UIColor.white : .black)
 
-        if currentTheme != "IGAPClassic" {
-            
-            if currentTheme == "IGAPDay" {
-                if currentColorSetLight == "IGAPBlack" {
-                    tmpcolor = isIncomming ? UIColor.white : .black
-                    labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
-                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                }
-            }
-            if currentTheme == "IGAPNight" {
-                if currentColorSetDark == "IGAPBlack" {
-                    tmpcolor = UIColor.white
-                    labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
-                } else {
-                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
-                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
-                }
-
-            }
-        } else {
-            tmpcolor = ThemeManager.currentTheme.SliderTintColor
-            labeltmpcolor = ThemeManager.currentTheme.LabelColor
-
-        }
         //MARK:- BOLD handling
         var nsText: NSString = (text as NSString)
         for aItem in activeItems {
@@ -5216,8 +5173,14 @@ extension ChatControllerNode: ASTextNodeDelegate {
         }
         
         let finalText = String(nsText)
+        let attributedString : NSMutableAttributedString
+        if text == "❤️" {
+             attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 100), NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
-        let attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        } else {
+             attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+
+        }
 
         let st = NSMutableParagraphStyle()
         st.lineSpacing = 0

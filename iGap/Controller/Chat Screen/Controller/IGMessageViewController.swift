@@ -7325,7 +7325,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if finalString[finalString.startIndex] == "@" {
             finalString.remove(at: finalString.startIndex)
         }
-        
+        if finalString.starts(with: "\n@") { //check if fetched mention name incorrectly
+            
+            finalString = String(finalString.dropFirst(3))
+        }
+
         IGHelperChatOpener.checkUsernameAndOpenRoom(username: finalString)
     }
     

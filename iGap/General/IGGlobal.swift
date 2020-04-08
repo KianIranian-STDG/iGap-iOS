@@ -1901,40 +1901,22 @@ extension ASNetworkImageNode {
 }
 extension ASTextNode {
     
-    func setThumbnail(for attachment: IGFile,showMain: Bool = false) {
+    func setThumbnail(for attachment: IGFile,showMain: Bool = false , size: CGFloat = 50.0) {
         if !(attachment.isInvalidated) {
 
-            var tmpcolor = UIColor()
-            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
-            if currentTheme != "IGAPClassic" {
-                
-                if currentTheme == "IGAPDay" {
-                    if currentColorSetLight == "IGAPBlack" {
-                        tmpcolor = UIColor.white
-                    } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelColor
-                    }
-                }
-                if currentTheme == "IGAPNight" {
-                    if currentColorSetDark == "IGAPBlack" {
-                        tmpcolor = UIColor.white
-                    } else {
-                        tmpcolor = ThemeManager.currentTheme.LabelColor
-                    }
+            let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            paragraphStyle.lineBreakMode = .byWordWrapping
+            self.maximumNumberOfLines = 1
 
-                }
-            } else {
-                tmpcolor = ThemeManager.currentTheme.LabelColor
-            }
             
             let attribute = [NSAttributedString.Key.foregroundColor: tmpcolor,
-                             NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: 50)]
+                             NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size),NSAttributedString.Key.paragraphStyle: paragraphStyle]
             
             if attachment.type == .voice {
-                self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                self.attributedText = NSAttributedString(string: "☨", attributes: attribute)
                 
             } else if attachment.type == .file {
                 let filename: NSString = attachment.name! as NSString
@@ -1944,17 +1926,17 @@ extension ASTextNode {
                     if fileExtension == "doc" {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)
                     } else if fileExtension == "exe" {
-                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                        self.attributedText = NSAttributedString(string: "☪", attributes: attribute)
                     } else if fileExtension == "pdf" {
-                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                        self.attributedText = NSAttributedString(string: "☥", attributes: attribute)
                     } else if fileExtension == "txt" {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)
                     } else if fileExtension == "html" {
-                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                        self.attributedText = NSAttributedString(string: "☦", attributes: attribute)
                     } else if fileExtension == "png" {
-                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                        self.attributedText = NSAttributedString(string: "☩", attributes: attribute)
                     } else if fileExtension == "jpg" {
-                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                        self.attributedText = NSAttributedString(string: "☬", attributes: attribute)
                     } else {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)
                     }
@@ -1965,7 +1947,7 @@ extension ASTextNode {
                 }
                 
             } else if attachment.type == .audio {
-                self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                self.attributedText = NSAttributedString(string: "☨", attributes: attribute)
             }
         }
         else {
