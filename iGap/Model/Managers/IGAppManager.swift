@@ -212,6 +212,7 @@ class IGAppManager: NSObject {
     }
     
     public func setUserLoginSuccessful() {
+        RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
         isUserLoggedIn.accept(true)
         SwiftEventBus.postToMainThread(EventBusManager.login)
     }
