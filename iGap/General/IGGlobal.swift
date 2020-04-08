@@ -1122,7 +1122,7 @@ extension Date {
         let dateString = self.localizedDate()
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-        return dateString.inLocalizedLanguage() + IGStringsManager.At.rawValue.localized + timeString.inLocalizedLanguage()
+        return dateString.inLocalizedLanguage() + " " + IGStringsManager.At.rawValue.localized + " " + timeString.inLocalizedLanguage()
         
     }
 }

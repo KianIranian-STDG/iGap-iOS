@@ -807,10 +807,10 @@ class IGNavigationItem: UINavigationItem {
                     setLastSeenLabelForUser(peer, room: room)
                 }
             } else if let groupRoom = room.groupRoom, !groupRoom.isInvalidated {
-                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
+                self.centerViewSubLabel!.text = "\(groupRoom.participantCount)".inLocalizedLanguage() + " " + IGStringsManager.Member.rawValue.localized
                 
             } else if let channelRoom = room.channelRoom, !channelRoom.isInvalidated {
-                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
+                self.centerViewSubLabel!.text = "\(channelRoom.participantCount)".inLocalizedLanguage() + " " + IGStringsManager.Member.rawValue.localized
             }
         }
     }
@@ -963,9 +963,9 @@ class IGNavigationItem: UINavigationItem {
                 setLastSeenLabelForUser(peer , room: room)
             }
         } else if let groupRoom = room.groupRoom {
-            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + IGStringsManager.Member.rawValue.localized
+            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)".inLocalizedLanguage() + " " + IGStringsManager.Member.rawValue.localized
         } else if let channelRoom = room.channelRoom {
-            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + IGStringsManager.Member.rawValue.localized
+            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)".inLocalizedLanguage() + " " + IGStringsManager.Member.rawValue.localized
         }
     }
     
