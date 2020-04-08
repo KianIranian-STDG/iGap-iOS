@@ -275,12 +275,18 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             let headerView = UIView()
             headerView.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
             let headerTitle = UILabel()
+            if self.isRTL {
+                headerTitle.textAlignment = .right
+            } else {
+                headerTitle.textAlignment = .left
+            }
             headerView.addSubview(headerTitle)
             headerTitle.font = UIFont.igFont(ofSize: 17, weight: .bold)
             headerTitle.textColor = UIColor.iGapBlue()
             headerTitle.text = "What can this admin do?"
             headerTitle.snp.makeConstraints { (make) in
                 make.leading.equalTo(headerView.snp.leading).offset(20)
+                make.trailing.equalTo(headerView.snp.trailing).offset(-20)
                 make.height.equalTo(25)
                 make.centerY.equalTo(headerView.snp.centerY)
             }
