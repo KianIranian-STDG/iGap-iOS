@@ -520,44 +520,28 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    func report(room: IGRoom){
-        let roomType = room.type
-        
-        var title = ""
-        
-        if roomType == .chat {
-            title = IGStringsManager.Report.rawValue.localized
-        } else {
-            title = IGStringsManager.Report.rawValue.localized
-        }
-        
-        let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+    func report() {
+        let alertC = UIAlertController(title: IGStringsManager.Report.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let abuse = UIAlertAction(title: IGStringsManager.Abuse.rawValue.localized, style: .default, handler: { (action) in
-            
-                self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
+            self.reportUser(userId: (self.user?.id)!, reason: IGPUserReport.IGPReason.abuse)
         })
         
         let spam = UIAlertAction(title: IGStringsManager.Spam.rawValue.localized, style: .default, handler: { (action) in
-            
-                self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
+            self.reportUser(userId: (self.user?.id)!, reason: IGPUserReport.IGPReason.spam)
         })
         
         let fakeAccount = UIAlertAction(title: IGStringsManager.FakeAccount.rawValue.localized, style: .default, handler: { (action) in
-            self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
+            self.reportUser(userId: (self.user?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
-            
-        })
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alertC.addAction(abuse)
         alertC.addAction(spam)
         alertC.addAction(fakeAccount)
         alertC.addAction(cancel)
         
-        self.present(alertC, animated: true, completion: {
-            
-        })
+        self.present(alertC, animated: true, completion: nil)
     }
     
     func reportUser(userId: Int64, reason: IGPUserReport.IGPReason) {
@@ -702,7 +686,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             case 0 :
                 showClearHistoryActionSheet()
             case 1 :
-                self.report(room: room!)
+                self.report()
             case 2 :
 
                 if let selectedUser = user {
