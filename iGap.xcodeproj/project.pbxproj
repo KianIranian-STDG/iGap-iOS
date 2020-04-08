@@ -10,6 +10,8 @@
 		4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9386F71EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift */; };
 		4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9F3E691EBA0D91008E05C1 /* IGPushResponse.swift */; };
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
+		6879C689243DCB3700E3F2A8 /* IGRoomListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879C688243DCB3700E3F2A8 /* IGRoomListNode.swift */; };
+		6879C68B243DD83100E3F2A8 /* IGRoomListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879C68A243DD83100E3F2A8 /* IGRoomListNodeController.swift */; };
 		8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */; };
 		8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC822293F06F0001C757 /* IGCustomModal.swift */; };
 		8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E031745237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift */; };
@@ -934,6 +936,8 @@
 		4F9386F71EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift; sourceTree = "<group>"; };
 		4F9F3E691EBA0D91008E05C1 /* IGPushResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPushResponse.swift; sourceTree = "<group>"; };
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
+		6879C688243DCB3700E3F2A8 /* IGRoomListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListNode.swift; sourceTree = "<group>"; };
+		6879C68A243DD83100E3F2A8 /* IGRoomListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListNodeController.swift; sourceTree = "<group>"; };
 		8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomAlertView.swift; sourceTree = "<group>"; };
 		8E01BC822293F06F0001C757 /* IGCustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomModal.swift; sourceTree = "<group>"; };
 		8E031745237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillByDeviceTableViewCell.swift; sourceTree = "<group>"; };
@@ -3061,6 +3065,7 @@
 			children = (
 				FA5EC5D81E06728C006E2850 /* IGChatRoomListTableViewCell.swift */,
 				8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */,
+				6879C688243DCB3700E3F2A8 /* IGRoomListNode.swift */,
 				FA5EC5D91E06728C006E2850 /* IGChatRoomListTableViewCell.xib */,
 				FAE11244204E9813009F402B /* IGCallListTableViewCell.swift */,
 				FAE11246204E982D009F402B /* IGCallListTableViewCell.xib */,
@@ -3134,6 +3139,7 @@
 			isa = PBXGroup;
 			children = (
 				FA68A2101DD9B0E9003A6651 /* IGRecentsTableViewController.swift */,
+				6879C68A243DD83100E3F2A8 /* IGRoomListNodeController.swift */,
 				FAE11242204E96FA009F402B /* IGCallsTableViewController.swift */,
 			);
 			path = "Tabbar Sub Controllers";
@@ -4360,6 +4366,7 @@
 				8E599D7F2328BDB000D75376 /* IGContactListTableViewController.swift in Sources */,
 				8E96A311225B6DCC007D8A77 /* SMHistoryTableViewController.swift in Sources */,
 				FA8F22581DD89F7C005A90D1 /* IGAvatar.swift in Sources */,
+				6879C68B243DD83100E3F2A8 /* IGRoomListNodeController.swift in Sources */,
 				D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */,
 				8ECCA1F622BA3FED00D3A734 /* deviceSizeModel.swift in Sources */,
 				D67E984423A67962003C1516 /* CGPoint+valueInDirection.swift in Sources */,
@@ -4630,6 +4637,7 @@
 				FA0953581E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift in Sources */,
 				FA09536C1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell.swift in Sources */,
 				FA4CBBD322894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift in Sources */,
+				6879C689243DCB3700E3F2A8 /* IGRoomListNode.swift in Sources */,
 				FA0953641E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewController.swift in Sources */,
 				FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */,
 				8EA8551123A22A8800C9442F /* IGPinkColorSet.swift in Sources */,

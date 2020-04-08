@@ -234,7 +234,13 @@ class IGGlobal {
     //            Language.language = Language.english
     //        }
     //    }
-    
+    internal static func isOnlySpecialEmoji(text: String) -> Bool {
+        if text == "😂" || text == "🤣" || text == "😁" || text == "😍" || text == "🥰" || text == "😘" || text == "🤗" || text == "🤩" || text == "😭" || text == "😡" || text == "❤️" {
+            return true
+        } else {
+            return false
+        }
+    }
     internal static func makeCustomColor(OtherThemesColor: UIColor,BlackThemeColor: UIColor) -> UIColor {
         var tmpcolor = UIColor()
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"

@@ -18,7 +18,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         super.viewDidLoad()
         
         self.view.semanticContentAttribute = .forceLeftToRight
-//        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
+
         manageTheme()
         setNavigationGradient()
         
@@ -139,7 +139,6 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         case "IGAPNight" :
             ThemeManager.currentTheme = NightTheme()
             manageColorSet(mode: "IGAPNight")
-
         default:
             ThemeManager.currentTheme = ClassicTheme()
             manageColorSet(mode: "IGAPClassic")

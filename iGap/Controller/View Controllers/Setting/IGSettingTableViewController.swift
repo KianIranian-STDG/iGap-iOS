@@ -15,6 +15,7 @@ import RxSwift
 import Gifu
 import MapKit
 import SwiftEventBus
+import AsyncDisplayKit
 
 public var currentSize : Int!
 public var currentIndexOfImage : Int!
@@ -184,6 +185,10 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             }
             else {
                 showLogoutActionSheet()
+
+
+//                self.navigationController?.pushViewController(IGRoomListNodeController(), animated: true)
+
             }
         }
         self.tableView.deselectRow(at: indexPath, animated: false)
