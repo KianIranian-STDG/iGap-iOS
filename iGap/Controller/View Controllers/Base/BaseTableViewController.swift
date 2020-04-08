@@ -13,6 +13,7 @@ import maincore
 import RxSwift
 import AsyncDisplayKit
 
+
 class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
     let disposeBag = DisposeBag()
