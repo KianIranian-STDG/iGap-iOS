@@ -94,30 +94,10 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
          * don't need to save members and show offline so before load each time, first clear all members and fetch from server
          */
         IGRealmMember.clearMembers { [weak self] in
-            if self == nil {
-                return
-            }
             DispatchQueue.main.async {
-                let predicate = NSPredicate(format: "roomId == %lld", self!.roomId) //AND role == %d
-                self!.realmMembers = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(predicate)
-                self!.realmNotificationToken = self!.realmMembers.observe { [weak self] (changes: RealmCollectionChange) in
-                    switch changes {
-                    case .initial:
-                        self!.tableView.reloadData()
-                        break
-                    case .update(_, let deletions, let insertions, let modifications):
-                        self!.tableView.beginUpdates()
-                        self!.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self!.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self!.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                        self!.tableView.endUpdates()
-                        break
-                    case .error(let err):
-                        fatalError("\(err)")
-                        break
-                    }
-                }
-                
+                if self == nil {return}
+                self!.realmMembers = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(NSPredicate(format: "roomId == %lld", self!.roomId))
+                self!.initMemberObserver(members: self!.realmMembers)
                 self!.fetchMemberFromServer()
             }
         }
@@ -144,7 +124,30 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.realmMembers = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(NSPredicate(format: "roomId == %lld", self.roomId))
+            self.initMemberObserver(members: self.realmMembers)
+        }
+    }
+    
+    private func initMemberObserver(members: Results<IGRealmMember>){
+        self.realmNotificationToken = members.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self?.tableView.reloadData()
+                break
+            case .update(_, let deletions, let insertions, let modifications):
+                self?.tableView.beginUpdates()
+                self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.endUpdates()
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
     }
     
     deinit {
@@ -682,10 +685,12 @@ extension IGMemberTableViewController: UISearchResultsUpdating, UISearchBarDeleg
         let predicate = NSPredicate(format: "self.user.displayName CONTAINS[c] %@", searchString)
         if !searchString.isEmpty {
             realmMembers = allRealmMembers.filter(predicate).sorted(byKeyPath: "user.displayName", ascending: true)
+            initMemberObserver(members: realmMembers)
             isInSearchMode = true
             tableView.reloadData()
         } else {
             realmMembers = allRealmMembers
+            initMemberObserver(members: realmMembers)
             tableView.reloadData()
         }
 
