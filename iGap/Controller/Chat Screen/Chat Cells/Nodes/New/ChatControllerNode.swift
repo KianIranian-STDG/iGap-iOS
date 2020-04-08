@@ -5174,15 +5174,25 @@ extension ChatControllerNode: ASTextNodeDelegate {
         
         let finalText = String(nsText)
         let attributedString : NSMutableAttributedString
-        
+        var sizeT = fontDefaultSize
+
+        //MARK:-EMOJI detection for rxtrution
         if IGGlobal.isOnlySpecialEmoji(text: text) {
-            attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 50), NSAttributedString.Key.paragraphStyle: paragraphStyle])
-
+            switch text.count {
+            case 1 :
+                sizeT = 70
+            case 2 :
+                sizeT = 50
+            case 3 :
+                sizeT = 30
+            default :
+                sizeT = fontDefaultSize
+            }
         } else {
-            attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
-
+            sizeT = fontDefaultSize
         }
 
+        attributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: sizeT), NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
         let st = NSMutableParagraphStyle()
         st.lineSpacing = 0

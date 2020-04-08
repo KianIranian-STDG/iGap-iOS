@@ -236,12 +236,15 @@ class IGGlobal {
     //    }
     internal static func isOnlySpecialEmoji(text: String) -> Bool {
         
-        if text.count == 1 {
-            if text.containsEmoji {
-                return true
-            } else {
-                return false
+        if 1...3 ~= text.count{
+
+            for char in text {
+                if char.isEmoji() {} else {
+                    return false
+                }
             }
+         
+            return true
         } else {
             return false
         }
