@@ -27,6 +27,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     private var allRealmMembers: Results<IGRealmMember>!
     private var allowFetchMore = false
     private var fetchedMember = false // if one time or more than fetched member from server and received response
+    private var roomAccess = IGRealmRoomAccess()
     public static var updateMyRoleObserver: UpdateMyRoleObserver!
     
     var isInSearchMode : Bool = false
@@ -89,6 +90,8 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         } else {
             myRole = room?.groupRoom?.role.rawValue
         }
+        
+        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
         
         /**
          * don't need to save members and show offline so before load each time, first clear all members and fetch from server
@@ -160,7 +163,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        if self.showMembersFilter == .all {
+        if self.showMembersFilter == .all && self.roomAccess.addMember {
             navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
             navigationItem.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
@@ -442,22 +445,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 return (true, true, false, true, false)
             }
             
-        } else if myRole == IGPChannelRoom.IGPRole.admin.rawValue {
+        } else {
             
             if memberRole == IGPChannelRoom.IGPRole.moderator.rawValue {
-                return (false, false, true, false, false)
+                return (self.roomAccess.addMember, false, true, self.roomAccess.addAdmin, false)
             } else if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
-                return (true, true, false, false, false)
-            }
-            
-        } else if myRole == IGPChannelRoom.IGPRole.moderator.rawValue && roomType != .channel {
-            
-            if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
-                if self.room?.groupRoom?.publicExtra != nil { // for public group moderator can't kick member BUT in private group & in channel allow to kick member
-                    return (false, false, false, false, false)
-                } else {
-                    return (true, false, false, false, false)
-                }
+                return (self.roomAccess.addMember, true, false, self.roomAccess.addAdmin, false)
             }
         }
         
