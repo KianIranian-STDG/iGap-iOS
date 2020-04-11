@@ -49,6 +49,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
+    private var roomAccess = IGRealmRoomAccess()
     private var avatarObserver: NotificationToken?
 
     //MARK: -Outlets
@@ -67,7 +68,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         channelNameLabelTitle.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelUserCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelNameLabelTitle.textColor = .white
-
+        
+        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
+        
         initGradientView()
         channelFirstInitialiser()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
@@ -448,8 +451,6 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     default:
                         break
                     }
-//                    self.showChannelInfo()
-//                    self.tableView.reloadData()
                 }
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
@@ -589,18 +590,6 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         
     }
     
-//    func calculateHeight(inString:String) -> CGFloat {
-//
-//        let messageString = inString
-//        let attributes : [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 15.0)]
-//        let attributedString : NSAttributedString = NSAttributedString(string: messageString, attributes: attributes)
-//        let rect : CGRect = attributedString.boundingRect(with: CGSize(width: 222.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-//        let requredSize:CGRect = rect
-//        return requredSize.height
-//    }
-    
-    
-    // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -629,896 +618,160 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             self.channelImage.transform = scaledAndTranslatedTransform
             self.hasScaledDown = true
         })
-        //        let newHeaderViewHeight: CGFloat = heightConstraints.constant - y
-        
         self.view.layoutIfNeeded()
-        
-    }
-    // MARK: -TableViewDelegates and Datasource
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let channelType = room?.channelRoom?.type
-
-        switch myRole {
-            case .admin?:
-
-                switch channelType {
-                case .privateRoom?:
-                    switch indexPath.section {
-                    case 1 :
-                        switch indexPath.row {
-                        case 0 :
-                            return 0
-                        default :
-                            return UITableView.automaticDimension
-
-                        }
-
-                    default :
-                        return UITableView.automaticDimension
-
-                    }
-                case .none:
-                    return UITableView.automaticDimension
-        
-                case .some(.publicRoom):
-                    return UITableView.automaticDimension
-            }
-
-            case .owner?:
-                return UITableView.automaticDimension
-
-            case .member?:
-                return UITableView.automaticDimension
-
-            case .moderator?:
-                return UITableView.automaticDimension
-
-
-        default:
-            return UITableView.automaticDimension
-        }
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        let channelType = room?.channelRoom?.type
-        
-        switch myRole {
-        case .admin?:
-            
-            switch channelType {
-            case .privateRoom?:
-                switch indexPath.section {
-                case 1 :
-                    switch indexPath.row {
-                    case 0 :
-                        return 0
-                    default :
-                        return 100
-                        
-                    }
-                    
-                default :
-                    return 100
-                    
-                }
-            case .none:
-                return 100
-                
-            case .some(.publicRoom):
-                return 100
+    
+    private func detectCurrentSection(section: Int) -> Int {
+        if (channelLink == nil || channelLink!.isEmpty) {
+            if section >= 1 {
+                return section + 1 // return section plus one because of remove link section
             }
-            
-        case .owner?:
-            return 100
-            
-        case .member?:
-            return 100
-            
-        case .moderator?:
-            return 100
-            
-        default:
-            return 100
         }
-        
+        return section
     }
+    
+    // MARK: -TableViewDelegates and Datasource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
         let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
         let cellTypeRed = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCellTypeRed", for: indexPath as IndexPath) as! IGProfileUserCellTypeRed
-
-        let channelType = room?.channelRoom?.type
         
-        switch channelType {
-        case .privateRoom?:
+        let section = detectCurrentSection(section: indexPath.section)
+        var row = indexPath.row
+        if myRole != .owner {
+            if ((channelLink != nil && !channelLink!.isEmpty) && section == 4) ||
+                ((channelLink == nil || channelLink!.isEmpty) && section == 3) &&
+                !self.roomAccess.getMember {
+                row = 1
+            }
+        }
+        
+        switch section {
+        case 0:
+            if let desc = room?.channelRoom?.roomDescription , desc != ""{
+                cell.initLabels(nameLblString: desc)
+            } else {
+                cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
+            }
+            return cell
             
-            switch myRole {
-            case .admin?:
-                
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                        
-                    case 0:
-                        if let memberCount = room?.channelRoom?.participantCount {
-
-                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                        }
-                        return cell
-
-                    case 1:
-                        cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                            return cell
-
-                    case 2:
-                            cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                            return cell
-
-                    default:
-                        return cell
-                        
-                    }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                    
-     
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
-                }
-            case .member?:
-                
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
-                            cellTwo.lblActionDetail.isOn = true
-                        } else {
-                            cellTwo.lblActionDetail.isOn = false
-                        }
-                        cellTwo.delegate = self
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
-                    }
-                case 2:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                    
-                case 3:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
-                }
-            case .moderator?:
-                
-                switch indexPath.section {
-                                case 0:
-                                    
-                                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                                        cell.initLabels(nameLblString: desc)
-                                    } else {
-                                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                                    }
-                                    
-                                    
-                                    
-                                    return cell
-                                    
-                                case 1:
-                                    switch indexPath.row {
-                                    case 0:
-                                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
-                                            cellTwo.lblActionDetail.isOn = true
-                                        } else {
-                                            cellTwo.lblActionDetail.isOn = false
-                                        }
-                                        cellTwo.delegate = self
-                                        return cellTwo
-                                        
-                                    default:
-                                        return cell
-                                        
-                                    }
-                                case 2:
-                                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                                    return cell
-                                    
-                                case 3:
-                                    switch indexPath.row {
-                                    case 0 :
-                                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                                        return cellTypeRed
-                                        
-                                    case 1 :
-                                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                                        return cellTypeRed
-                                    default:
-                                        return cellTypeRed
-                                        
-                                    }
-                                default:
-                                    return cell
-                                }
-                
-            case .owner?:
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    
+        case 1:
+            if let channelType = room?.channelRoom?.type {
+                if channelType == .privateRoom {
                     cell.initLabels(nameLblString: channelLink)
-                    
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                        
-                    case 0:
-                        if let memberCount = room?.channelRoom?.participantCount {
-
-                            cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
-                        }
-                        return cell
-
-                    case 1:
-                            cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                            return cell
-
-                    case 2:
-                            cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                            return cell
-
-                    default:
-                        return cell
-                    
+                } else if channelType == .publicRoom {
+                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
                 }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                    
-
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteChannel.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
+            }
+            
+            return cell
+        case 2:
+            switch row {
+            case 0:
+                cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
+                if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                    cellTwo.lblActionDetail.isOn = true
+                } else {
+                    cellTwo.lblActionDetail.isOn = false
                 }
+                cellTwo.delegate = self
+                return cellTwo
                 
             default:
                 return cell
             }
-        case .publicRoom?:
             
-            switch myRole {
-            case .admin?:
-
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
-                    }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                case 4:
-                    switch indexPath.row {
-                            
-                        case 0:
-                            if let memberCount = room?.channelRoom?.participantCount {
-
-                                cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
-                            }
-                            return cell
-
-                        case 1:
-                                cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                                return cell
-
-                        case 2:
-                                cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                                return cell
-
-                        default:
-                            return cell
-                        
-                    }
-
-                case 5:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-
-                default:
-                    return cell
-                }
-            case .member?:
-                
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
-                            cellTwo.lblActionDetail.isOn = true
-                        } else {
-                            cellTwo.lblActionDetail.isOn = false
-                        }
-                        cellTwo.delegate = self
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
-                    }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-     
-                    
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
-                }
-            case .moderator?:
-                
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    return cell
-                    
-                case 1:
-                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
-                    }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                    
-                    
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                        
-                    case 1 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
-                }
-            case .owner?:
-                
-                switch indexPath.section {
-                case 0:
-                    
-                    if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                        cell.initLabels(nameLblString: desc)
-                    } else {
-                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
-                    }
-                    
-                    
-                    
-                    return cell
-                    
-                case 1:
-                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
-                    return cell
-                case 2:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
-                            cellTwo.lblActionDetail.isOn = true
-                        } else {
-                            cellTwo.lblActionDetail.isOn = false
-                        }
-                        cellTwo.delegate = self
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
-                    }
-                case 3:
-                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
-                    return cell
-                    
-                case 4:
-                    switch indexPath.row {
-                            
-                        case 0:
-                            if let memberCount = room?.channelRoom?.participantCount {
-
-                                cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
-                            }
-                            return cell
-
-                        case 1:
-                                cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                                return cell
-
-                        case 2:
-                                cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                                return cell
-
-                        default:
-                            return cell
-                        
-                    }
-                    
-                case 5:
-                    switch indexPath.row {
-                    case 0 :
-                        cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteChannel.rawValue.localized,changeColor: true)
-                        return cellTypeRed
-                    default:
-                        return cellTypeRed
-                        
-                    }
-                default:
-                    return cell
-                }
-            default:
-                cellTypeRed.initLabels(nameLblString: "",changeColor: true)
-                return cellTypeRed
-            }
-        case .none:
+        case 3:
+            cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
+            return cell
             
-            switch indexPath.section {
+        case 4:
+            switch row {
+                
             case 0:
-                
-                if let desc = room?.channelRoom?.roomDescription , desc != ""{
-                    cell.initLabels(nameLblString: desc)
-                } else {
-                    cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
+                if let memberCount = room?.channelRoom?.participantCount {
+                    cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                 }
-                
-                
-                
                 return cell
                 
             case 1:
-                cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
-
-                return cell
-            case 2:
-                switch indexPath.row {
-                case 0:
-                    cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
-                    return cellTwo
-                    
-                case 1:
-                    cell.initLabels(nameLblString: IGStringsManager.NotificationAndSound.rawValue.localized)
-                    return cell
-                    
-                default:
-                    return cell
-                    
-                }
-            case 3:
-                cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
+                cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                 return cell
                 
-            case 4:
-                switch indexPath.row {
-                case 0 :
-                    cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
-                    return cell
-                    
-                case 1 :
-                    cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
-                    return cell
-                    
-                default:
-                    return cell
-                    
-                }
-                
-            case 5:
-                switch indexPath.row {
-                case 0 :
-                    cell.initLabels(nameLblString: IGStringsManager.ClearHistory.rawValue.localized)
-                    return cell
-                    
-                case 1 :
-                    cell.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
-                    return cell
-                    
-                case 2 :
-                    cell.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
-                    return cell
-                default:
-                    return cell
-                    
-                }
             default:
                 return cell
             }
             
+        case 5:
+            switch row {
+            case 0 :
+                cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteChannel.rawValue.localized,changeColor: true)
+                return cellTypeRed
+            default:
+                return cellTypeRed
+            }
+            
+        default:
+            return cell
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        if let channelType = room?.channelRoom?.type {
-            switch channelType {
-            case .privateRoom:
-                switch myRole {
-                case .admin?:
-                    return 5
-
-                case .member?:
-                    if room!.isParticipant == false {
-                        return 2
-                    }else {
-                        return 4
-                    }
-                    
-                case .moderator?:
-                    return 4
-                    
-                case .owner?:
-                    return 6
-                    
-                default:
-                    return 4
-                }
-            case .publicRoom:
-
-                switch myRole {
-                case .admin?:
-                    return 6
-                    
-                    
-                case .member?:
-                    if room!.isParticipant == false {
-                        return 2
-                    }else {
-                        return 5
-                    }
-                    
-                    
-                case .moderator?:
-                    return 5
-                    
-                case .owner?:
-                    return 6
-                    
-                default:
-                    return 5
-                }
+        
+        if room!.isParticipant == false {
+            return 2
+        }
+        
+        switch myRole {
+            case .owner?:
+            return 6
+            
+        case .admin?, .moderator?, .member? :
+            var count = 4
+            if self.roomAccess.getMember || self.roomAccess.addAdmin {
+                count = 5
             }
-        } else {
+            
+            if channelLink == nil || channelLink!.isEmpty {
+                count = count - 1
+            }
+            return count
+            
+        default:
             return 5
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let channelType = room?.channelRoom?.type
-        switch channelType {
-        case .privateRoom?:
-            
-            switch myRole {
-            case .admin?:
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 0
-                case 2:
-                    return 2
-                case 3 :
-                    return 1
-                case 4 :
-                    return 2
-                default:
-                    return 0
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 2
-                case 3 :
-                    return 1
-                case 4 :
-                    return 2
-                default:
-                    return 0
-                }
-            case .member?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 1
-                case 3 :
-                    return 2
-                default:
-                    return 0
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 1
-                case 3 :
-                    return 2
-                default:
-                    return 0
-                }
-                
-            case .none:
-                return 5
-                
-            default:
-                return 0
+        switch detectCurrentSection(section: section) {
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            return 1
+        case 3 :
+            return 1
+        case 4 :
+            var count = 0
+            if self.roomAccess.getMember {
+                count = count + 1
             }
-            
-        case .publicRoom?:
-            
-            switch myRole {
-            case .admin?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 1
-                case 3 :
-                    return 1
-                case 4 :
-                    return 3
-                case 5 :
-                    return 1
-                default:
-                    return 0
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 1
-                case 3 :
-                    return 1
-                case 4 :
-                    return 3
-                case 5 :
-                    return 1
-                default:
-                    return 0
-                }
-            case .member?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return 1
-                case 3 :
-                    return 1
-                case 4 :
-                    return 2
-                default:
-                    return 0
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 2
-                case 2:
-                    return 1
-                case 3 :
-                    return 1
-                case 4 :
-                    return 2
-                default:
-                    return 0
-                }
-            case .none:
-                
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 2
-                case 2:
-                    return 1
-                case 3 :
-                    return 1
-                case 4 :
-                    return 1
-                default:
-                    return 0
-                }
-            default:
-                return 0
+            if self.roomAccess.addAdmin {
+                count = count + 1
             }
-                
-        case .none:
+            return count
+        case 5 :
+            return 1
+        default:
             return 0
         }
-
     }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
-
     }
 
     //MARK: -Header and Footer
@@ -1532,680 +785,80 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         default :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
             break
-            
         }
     }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let channelType = room?.channelRoom?.type
-        switch channelType {
-        case .privateRoom?:
-            
-            switch myRole {
-            case .admin?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return nil
-                case 2:
-                    return IGStringsManager.ManageMembers.rawValue.localized
-                case 3:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.Information.rawValue.localized
-                case 2:
-                    return IGStringsManager.ManageMembers.rawValue.localized
-                case 3:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-            case .member?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 2:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 2:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-                
-            default:
-                return ""
-            }
-        case .publicRoom?:
-            
-            switch myRole {
-            case .admin?:
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.Information.rawValue.localized
-                case 2:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 3:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                case 4:
-                    return IGStringsManager.AllMembers.rawValue.localized
-                default:
-                    return ""
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.Information.rawValue.localized
-                case 2:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 3:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                case 4:
-                    return IGStringsManager.AllMembers.rawValue.localized
+        switch detectCurrentSection(section: section) {
+        case 0:
+            return IGStringsManager.Desc.rawValue.localized
+        case 1:
+            return IGStringsManager.Information.rawValue.localized
+        case 2:
+            return IGStringsManager.NotificationAndSound.rawValue.localized
+        case 3:
+            return IGStringsManager.SharedMedia.rawValue.localized
+        case 4:
+            return IGStringsManager.AllMembers.rawValue.localized
 
-                default:
-                    return ""
-                }
-            case .member?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.Information.rawValue.localized
-                case 2:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 3:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return IGStringsManager.Desc.rawValue.localized
-                case 1:
-                    return IGStringsManager.NotificationAndSound.rawValue.localized
-                case 2:
-                    return IGStringsManager.SharedMedia.rawValue.localized
-                default:
-                    return ""
-                }
-                
-            default:
-                return ""
-            }
-
-        case .none:
-            switch section {
-            case 0:
-                return IGStringsManager.Desc.rawValue.localized
-            case 1:
-                return IGStringsManager.Information.rawValue.localized
-            case 2:
-                return IGStringsManager.NotificationAndSound.rawValue.localized
-            case 3:
-                return IGStringsManager.SharedMedia.rawValue.localized
-            default:
-                return ""
-            }
+        default:
+            return ""
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let channelType = room?.channelRoom?.type
-        switch channelType {
-        case .privateRoom?:
+        switch detectCurrentSection(section: section) {
+        case 0:
+            return 80
             
-            switch myRole {
-            case .admin?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 1:
-                    return 0
-                case 2:
-                    return 20
-                case 4:
-                    return 10
-                    
-                case 5:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 4:
-                    return 10
-                    
-                case 5:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-            case .member?:
-                if room!.isParticipant == false {
-                    switch section {
-                    case 0:
-                        return 80
-                    case 1:
-                        return 50
-                    default:
-                        return 0
-                    }
-                }else {
-                    switch section {
-                    case 0:
-                        return 80
-                    case 3:
-                        return 10
-                        
-                    case 4:
-                        return 10
-                        
-                    default:
-                        return 50
-                    }
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 3:
-                    return 10
-                    
-                case 4:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-            default:
-                return 5
-            }
-        case .publicRoom?:
+        case 5:
+            return 15
             
-            switch myRole {
-            case .admin?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 4:
-                    return 10
-                    
-                case 5:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-            case .owner?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 4:
-                    return 10
-                    
-                case 5:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-            case .member?:
-                
-                if room!.isParticipant == false {
-                    switch section {
-                    case 0:
-                        return 80
-                    case 1:
-                        return 50
-                    default:
-                        return 0
-                    }
-                }else {
-                    switch section {
-                    case 0:
-                        return 80
-                    case 3:
-                        return 10
-                        
-                    case 4:
-                        return 10
-                        
-                    default:
-                        return 50
-                    }
-                }
-            case .moderator?:
-                
-                switch section {
-                case 0:
-                    return 60
-                case 3:
-                    return 10
-                    
-                case 4:
-                    return 10
-                    
-                default:
-                    return 50
-                }
-                
-            default:
-                return 50
-            }
-        case .none:
-            switch section {
-            case 0:
-                return 80
-            case 4:
-                return 10
-                
-            case 5:
-                return 10
-                
-            default:
-                return 50
-            }
-            
+        default:
+            return 30
         }
-        
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let channelType = room?.channelRoom?.type
-        switch channelType {
-        case .privateRoom?:
-            
-            switch myRole {
-            case .admin?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    showChannelLinkAlert()
-                    break
-                case 2:
-                    switch indexPath.row {
-                        case 0 :
-                            memberRole = .all
-                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        case 1 :
-                            memberRole = .admin
-                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        case 2 :
-                            memberRole = .moderator
-                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        default:
-                            memberRole = .all
-                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    }
-                case 3:
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    break
-                    
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        break
-                        
-                    case 1 :
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        break
-                        
-                    default:
-                        break
-                    }
-                    
-                case 5:
-                    switch indexPath.row {
-                    case 0 :
-                        //ShowReportAlert
-                        report(room: self.room!)
-
-                        break
-                    case 1 :
-                        //ShowLeaveAlert
-                        showDeleteChannelActionSheet()
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
-            case .owner?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    showChannelLinkAlert()
-                    break
-                case 2:
-                    switch indexPath.row {
-                    case 0 :
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 1 :
-                        memberRole = .admin
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 2 :
-                        memberRole = .moderator
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        
-                    default:
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    }
-                case 3:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-//                    let sharedVC = IGProfileSharedMediaPageViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-//                    self.navigationController!.pushViewController(sharedVC, animated: true)
-
-                    break
-                    
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        //gotToAddMEmberPage
-                        break
-                    case 1 :
-                        //gotToMemberListPage
-//                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                case 5:
-                    
-                    switch indexPath.row {
-                    case 0 :
-                        //ShowReportAlert
-                        report(room: self.room!)
-
-                        break
-                    case 1 :
-                        //ShowLeaveAlert
-                        showDeleteChannelActionSheet()
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
-            case .member?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    switch indexPath.row {
-                    case 0 :
-//                        showChannelLinkAlert()
-                        break
-                    case 1 :
-                        //gotToNotificationSettings
-                        break
-                    default:
-                        break
-                    }
-                case 2:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    
-                    break
-                    
-                case 3:
-                    switch indexPath.row {
-                    case 0 :
-                        report(room: self.room!)
-                        break
-                    case 1 :
-                        showDeleteChannelActionSheet()
-                        break
-                    default:
-                        break
-                        
-                    }
     
-                default:
-                    break
-                }
-            case .moderator?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    switch indexPath.row {
-                    case 0 :
-                        showChannelLinkAlert()
-                        break
-                    case 1 :
-                        //gotToNotificationSettings
-                        break
-                    default:
-                        break
-                    }
-                case 2:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    
-                    break
-                    
-                case 3:
-                    switch indexPath.row {
-                    case 0 :
-                        //gotToAddMEmberPage
-                        break
-                    case 1 :
-                        //gotToMemberListPage
-//                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                case 4:
-                    
-                    switch indexPath.row {
-                    case 0 :
-                        //ShowReportAlert
-                        break
-                    case 1 :
-                        //ShowLeaveAlert
-                        showDeleteChannelActionSheet()
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch detectCurrentSection(section: indexPath.section) {
+        case 0:
+            break
+            
+        case 1:
+            showChannelLinkAlert()
+            break
+            
+        case 2:
+            break
+            
+        case 3:
+            self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+            break
+            
+        case 4:
+            switch indexPath.row {
+            case 0 :
+                memberRole = .all
+                self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+            case 1 :
+                memberRole = .admin
+                self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+            case 2 :
+                memberRole = .moderator
+                self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                 
             default:
-                break
+                memberRole = .all
+                self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
             }
-        case .publicRoom?:
-            switch myRole {
-            case .member?:
-
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    showChannelLinkAlert()
-                    break
-                case 2:
-                        break
-                case 3:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    break
-                    
-                case 4:
-                    switch indexPath.row {
-                    case 0 :
-                        report(room: self.room!)
-                        break
-                    case 1 :
-                        showDeleteChannelActionSheet()
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
-            case .moderator?:
+        case 5:
+            switch indexPath.row {
+            case 0 :
+                showDeleteChannelActionSheet()
                 break
-
-            case .admin?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    showChannelLinkAlert()
-                    break
-                case 2:
-                        break
-                case 3:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    break
-                    
-                case 4:
-                    //goToSharedMedia
-                    
-                    switch indexPath.row {
-                    case 0 :
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 1 :
-                        memberRole = .admin
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 2 :
-                        memberRole = .moderator
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        
-                    default:
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    }
-                case 5:
-                    switch indexPath.row {
-                    case 0 :
-                        showDeleteChannelActionSheet()
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
-
-            case .owner?:
-                
-                switch indexPath.section {
-                case 0:
-                    break
-                case 1:
-                    showChannelLinkAlert()
-                    break
-                case 2:
-                        break
-                case 3:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    break
-                    
-                case 4:
-                    //goToMemberLists
-                    
-                    switch indexPath.row {
-                    case 0 :
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 1 :
-                        memberRole = .admin
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    case 2 :
-                        memberRole = .moderator
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        
-                    default:
-                        memberRole = .all
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                    }
-                case 5:
-                    switch indexPath.row {
-                    case 0 :
-                        showDeleteChannelActionSheet()
-                        break
-                    default:
-                        break
-                        
-                    }
-                default:
-                    break
-                }
-
             default:
                 break
-
             }
         default:
             break

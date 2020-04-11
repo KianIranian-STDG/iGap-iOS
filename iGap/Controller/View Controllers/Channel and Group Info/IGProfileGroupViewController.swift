@@ -711,6 +711,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if room!.isParticipant == false {
+            return 2
+        }
+        
         switch myRole! {
         case .owner:
             return 6
