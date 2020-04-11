@@ -100,6 +100,22 @@ class ASReplyForwardNode: ASDisplayNode {
         verticalView?.backgroundColor = isIncomming ? tmpcolor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
         self.backgroundColor = isIncomming ? tmpbgcolor : ThemeManager.currentTheme.SendMessageBubleBGColor
 
+        if let msg = extraMessage.message {
+            var nsText: NSString = (msg as NSString)
+            if let linkInfo = extraMessage.linkInfo {
+                if let activeItems = ActiveLabelJsonify.toObejct(linkInfo) {
+                    for aItem in activeItems {
+                        if aItem.isBold {
+                            nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset, 1), with: "‎") as NSString
+                            nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset+1, 1), with: "‎") as NSString
+                            nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset + aItem.limit - 1, 1), with: "‎") as NSString
+                            nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset + aItem.limit - 2, 1), with: "‎") as NSString
+                        }
+                    }
+                }
+            }
+            extraMessage.message = String(nsText)
+        }
         
         if self.isReply { // isReply
             
