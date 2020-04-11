@@ -3942,43 +3942,49 @@ class ChatControllerNode: ASCellNode {
                 imgNode!.layer.cornerRadius =  15
                 imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             } else {
-                imgNode!.layer.cornerRadius =  0
+                    imgNode!.layer.cornerRadius =  15
+                    imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             }
 
             let verticalSpec = ASStackLayoutSpec()
             verticalSpec.direction = .vertical
             verticalSpec.spacing = 5
             verticalSpec.justifyContent = .start
-            verticalSpec.alignItems = isIncomming == true ? .end : .start
+  
             let insetsImage : UIEdgeInsets
             
             if finalRoom?.type == .channel {
                 insetsImage = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
                 
             } else {
-                insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+                insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             }
             
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             if indicatorViewAbs == nil {
                 verticalSpec.children?.append(insetSpecImage)
                 
+                
             } else {
                 let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
                 verticalSpec.children?.append(overlay)
                 
             }
-            
+//            verticalSpec.alignItems = isIncomming == true ? .end : .start
+            verticalSpec.alignItems = .center
+
+
             //
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+            nodeText?.style.minWidth = ASDimensionMake(.points, prefferedSize.width)
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec : ASInsetLayoutSpec
             if finalRoomType == .channel {
                 finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 3), child: contentSpec)
             } else {
-                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 5, left: 4, bottom: 5, right: 8), child: contentSpec)
+                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 3, left: 4, bottom: 5, right: 8), child: contentSpec)
             }
             
             return finalInsetSpec
