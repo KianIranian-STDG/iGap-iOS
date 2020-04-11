@@ -5199,32 +5199,55 @@ extension ChatControllerNode: ASTextNodeDelegate {
         st.lineSpacing = 0
         st.maximumLineHeight = 20
         
-        for itm in activeItems {
-            let isBold = itm.isBold ?? false
-            if isBold {
+        
+        for itm in activeItems where ((itm.isBold ?? false) == false){
+            let range = NSMakeRange(itm.offset, itm.limit)
+            let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
+        }
+        
+        for itm in activeItems where ((itm.isBold ?? false) == true) {
+            if itm.type == "bold" {
                 
-                if itm.type == "bold" {
-                    
-                    let range = NSMakeRange(itm.offset, itm.limit)
-                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: boldcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
-                    
-                }else {
-                    
-                    let range = NSMakeRange(itm.offset, itm.limit)
-                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
-                    
-                }
+                let range = NSMakeRange(itm.offset, itm.limit)
+                let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+                attributedString.addAttributes([NSAttributedString.Key.foregroundColor: boldcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
                 
             }else {
+                
                 let range = NSMakeRange(itm.offset, itm.limit)
-                let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
-                attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
+                let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+                attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
+                
             }
-            
-            
         }
+        
+//        for itm in activeItems {
+//            let isBold = itm.isBold ?? false
+//            if isBold {
+//
+//                if itm.type == "bold" {
+//
+//                    let range = NSMakeRange(itm.offset, itm.limit)
+//                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+//                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: boldcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
+//
+//                }else {
+//
+//                    let range = NSMakeRange(itm.offset, itm.limit)
+//                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
+//                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
+//
+//                }
+//
+//            }else {
+//                let range = NSMakeRange(itm.offset, itm.limit)
+//                let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
+//                attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
+//            }
+//
+//
+//        }
         
         return attributedString
         
