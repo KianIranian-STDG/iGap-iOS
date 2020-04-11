@@ -641,8 +641,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         let section = detectCurrentSection(section: indexPath.section)
         var row = indexPath.row
         if myRole != .owner {
-            if ((channelLink != nil && !channelLink!.isEmpty) && section == 4) ||
-                ((channelLink == nil || channelLink!.isEmpty) && section == 3) &&
+            if (((channelLink != nil && !channelLink!.isEmpty) && section == 4) || ((channelLink == nil || channelLink!.isEmpty) && section == 3)) &&
                 !self.roomAccess.getMember {
                 row = 1
             }
