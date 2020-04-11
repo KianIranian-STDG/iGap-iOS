@@ -605,16 +605,16 @@ class ChatControllerNode: ASCellNode {
                 channelForwardBtnNode?.contentMode = .scaleAspectFit
                 channelForwardBtnNode?.image = UIImage(named: "ig_message_forward")
                 
-                self.onDidLoad {[weak self] (node) in
-                    guard let sSelf = self else {
-                        return
-                    }
-//                    DispatchQueue.global(qos: .userInteractive).sync {
-                        let tap = UITapGestureRecognizer(target: self, action: #selector(sSelf.onMultiForwardTap(_:)))
-                        sSelf.channelForwardBtnNode?.view.addGestureRecognizer(tap)
-                        sSelf.channelForwardBtnNode?.view.isUserInteractionEnabled = true
+//                self.onDidLoad {[weak self] (node) in
+//                    guard let sSelf = self else {
+//                        return
 //                    }
+                DispatchQueue.global(qos: .userInteractive).sync {
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(onMultiForwardTap(_:)))
+                    channelForwardBtnNode?.view.addGestureRecognizer(tap)
+                    channelForwardBtnNode?.view.isUserInteractionEnabled = true
                 }
+//                }
                 
                 
             }
@@ -745,12 +745,14 @@ class ChatControllerNode: ASCellNode {
         
         
         if msg.type != .wallet {
-            self.onDidLoad {[weak self] (node) in
-                guard let sSelf = self else {
-                    return
-                }
-                sSelf.manageGestureRecognizers()
+//            self.onDidLoad {[weak self] (node) in
+//                guard let sSelf = self else {
+//                    return
+//                }
+            DispatchQueue.global(qos: .userInteractive).sync {
+                manageGestureRecognizers()
             }
+//            }
             
         }
         
@@ -2739,16 +2741,16 @@ class ChatControllerNode: ASCellNode {
             
 //            txtLogMessage!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
             
-            self.onDidLoad {[weak self] (node) in
-                guard let sSelf = self else {
-                    return
-                }
-//                DispatchQueue.global(qos: .userInteractive).sync {
-                    sSelf.txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(sSelf.didTapOnLog(_:))))
-                    sSelf.txtLogMessage?.view.isUserInteractionEnabled = true
-                    sSelf.txtLogMessage?.isUserInteractionEnabled = true
+//            self.onDidLoad {[weak self] (node) in
+//                guard let sSelf = self else {
+//                    return
 //                }
+            DispatchQueue.global(qos: .userInteractive).sync {
+                txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
+                txtLogMessage?.view.isUserInteractionEnabled = true
+                txtLogMessage?.isUserInteractionEnabled = true
             }
+//            }
             
             
         }
@@ -5017,15 +5019,15 @@ class ChatControllerNode: ASCellNode {
     //******************************************************//
     
     private func makeSwipeToReply() {// Telegram Func
-        self.onDidLoad {[weak self] (node) in
-            guard let sSelf = self else {
-                return
-            }
-//            DispatchQueue.global(qos: .userInteractive).sync {
-                let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(sSelf.swipeToReplyGesture(_:)))
-                sSelf.view.addGestureRecognizer(replyRecognizer)
+//        self.onDidLoad {[weak self] (node) in
+//            guard let sSelf = self else {
+//                return
 //            }
+        DispatchQueue.global(qos: .userInteractive).sync {
+                let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(swipeToReplyGesture(_:)))
+                view.addGestureRecognizer(replyRecognizer)
         }
+//        }
     }
     
     @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
@@ -5221,33 +5223,6 @@ extension ChatControllerNode: ASTextNodeDelegate {
                 
             }
         }
-        
-//        for itm in activeItems {
-//            let isBold = itm.isBold ?? false
-//            if isBold {
-//
-//                if itm.type == "bold" {
-//
-//                    let range = NSMakeRange(itm.offset, itm.limit)
-//                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-//                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: boldcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
-//
-//                }else {
-//
-//                    let range = NSMakeRange(itm.offset, itm.limit)
-//                    let boldFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-//                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:boldFont], range: range)
-//
-//                }
-//
-//            }else {
-//                let range = NSMakeRange(itm.offset, itm.limit)
-//                let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .regular)
-//                attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
-//            }
-//
-//
-//        }
         
         return attributedString
         
