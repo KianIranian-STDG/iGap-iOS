@@ -32,6 +32,7 @@ class SMCheckGiftSticker: UIView {
         self.infoLblOne.text = title
         self.txtBuyDetail.text = IGStringsManager.NationalCode.rawValue.localized
         self.confirmBtn.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
+        
         initTheme()
     }
     
@@ -40,10 +41,15 @@ class SMCheckGiftSticker: UIView {
         infoLblOne.textColor = ThemeManager.currentTheme.LabelColor
         txtBuyDetail.textColor = ThemeManager.currentTheme.LabelColor
         txtBuyDetail.font = UIFont.igFont(ofSize: 15)
-        
         confirmBtn.layer.cornerRadius = confirmBtn.bounds.height / 2
         confirmBtn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         confirmBtn.layer.borderWidth = 1.0
+        let tmplabelcolor = IGGlobal.makeCustomColor(OtherThemesColor: .white, BlackThemeColor: .black)
+        let tmpbgcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.SliderTintColor, BlackThemeColor: .white)
+
+        confirmBtn.backgroundColor = tmpbgcolor
+
+        confirmBtn.setTitleColor(tmplabelcolor, for: .normal)
     }
     
     @IBAction func closeModal(_ sender: UIButton) {

@@ -2866,7 +2866,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJ4-9Z-ikO">
                                         <rect key="frame" x="20" y="125" width="274" height="45"/>
-                                        <color key="backgroundColor" name="IGButtonBGColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="PN0-oS-5nF"/>
                                         </constraints>
@@ -2894,7 +2894,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iof-bB-o78">
                                 <rect key="frame" x="20" y="452" width="374" height="45"/>
-                                <color key="backgroundColor" name="IGButtonBGColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="0Eo-Ni-bYe"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="hAZ-OX-EVA"/>
@@ -2909,7 +2909,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCr-Ec-lTS">
                                 <rect key="frame" x="20" y="517" width="374" height="45"/>
-                                <color key="backgroundColor" name="IGButtonBGColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="m3e-wZ-YQN"/>
                                     <constraint firstAttribute="height" constant="45" id="rpZ-mA-cb1"/>
@@ -4001,9 +4001,6 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
         </namedColor>
         <namedColor name="IGBackGroundGrayColor">
             <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
-        <namedColor name="IGButtonBGColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGButtonTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

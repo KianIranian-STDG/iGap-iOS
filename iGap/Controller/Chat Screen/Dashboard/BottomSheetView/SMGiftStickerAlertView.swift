@@ -57,6 +57,14 @@ class SMGiftStickerAlertView: UIView {
         btnTwo.layer.cornerRadius = btnTwo.bounds.height / 2
         btnTwo.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         btnTwo.layer.borderWidth = 1.0
+        let tmplabelcolor = IGGlobal.makeCustomColor(OtherThemesColor: .white, BlackThemeColor: .white)
+
+        btnTwo.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnTwo.setTitleColor(tmplabelcolor, for: .normal)
+        
+        btnOne.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnOne.setTitleColor(tmplabelcolor, for: .normal)
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

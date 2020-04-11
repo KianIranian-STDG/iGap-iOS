@@ -21,7 +21,6 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
     @IBOutlet weak var btnNationalCode: UIButton!
     @IBOutlet weak var btnMyCards: UIButton!
     @IBOutlet weak var btnActivatedGiftCards: UIButton!
-    
     var pageInfo: IGStructGiftFirstPageInfo!
     
     override func viewDidLoad() {
@@ -59,6 +58,16 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
         if let url = URL(string: pageInfo.data[0].imageURL) {
             imgBanner?.sd_setImage(with: url, completed: nil)
         }
+        let tmplabelcolor = IGGlobal.makeCustomColor(OtherThemesColor: .white, BlackThemeColor: .white)
+        let tmpbgcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.SliderTintColor, BlackThemeColor: .white)
+        btnMyCards.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnMyCards.setTitleColor(tmplabelcolor, for: .normal)
+        btnNationalCode.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnNationalCode.setTitleColor(tmplabelcolor, for: .normal)
+        btnActivatedGiftCards.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnActivatedGiftCards.setTitleColor(tmplabelcolor, for: .normal)
+        txtGiftLabel.textColor = tmpbgcolor
+
     }
     
     func initNavigationBar(){
