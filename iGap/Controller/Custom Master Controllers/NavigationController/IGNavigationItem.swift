@@ -152,6 +152,8 @@ class IGNavigationItem: UINavigationItem {
                 currentRole = myRole
             }
             
+            let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: (roomValue?.id)!, userId: IGAppManager.sharedManager.userID()!)
+            
             let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
             backViewContainer = IGTappableView(frame: backViewFrame)
             let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
@@ -166,7 +168,7 @@ class IGNavigationItem: UINavigationItem {
             backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
             backArrowLabel.textAlignment = .left
             
-            if currentRole == .admin || currentRole == .owner {
+            if currentRole == .owner || roomAccess?.modifyRoom ?? false {
                 editItemLabel.isHidden = false
             } else {
                 editItemLabel.isHidden = true
@@ -202,7 +204,7 @@ class IGNavigationItem: UINavigationItem {
                     
                 }
             }
-            if currentRole == .admin || currentRole == .owner {
+            if currentRole == .owner || roomAccess?.modifyRoom ?? false {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
                     let editVC = IGEditProfileChannelAndGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
@@ -218,6 +220,7 @@ class IGNavigationItem: UINavigationItem {
             if let myRole = channelRole {
                 currentRole = myRole
             }
+            let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: (roomValue?.id)!, userId: IGAppManager.sharedManager.userID()!)
             
             let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
             backViewContainer = IGTappableView(frame: backViewFrame)
@@ -233,7 +236,7 @@ class IGNavigationItem: UINavigationItem {
             backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
             backArrowLabel.textAlignment = .left
             
-            if currentRole == .admin || currentRole == .owner {
+            if currentRole == .owner || roomAccess?.modifyRoom ?? false {
                 editItemLabel.isHidden = false
             } else {
                 editItemLabel.isHidden = true
@@ -269,7 +272,7 @@ class IGNavigationItem: UINavigationItem {
                     
                 }
             }
-            if currentRole == .admin || currentRole == .owner {
+            if currentRole == .owner || roomAccess?.modifyRoom ?? false {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
                     let editVC = IGEditProfileChannelAndGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)

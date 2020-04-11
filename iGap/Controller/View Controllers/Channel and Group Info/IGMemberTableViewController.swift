@@ -690,7 +690,9 @@ extension IGMemberTableViewController: UISearchResultsUpdating, UISearchBarDeleg
             tableView.reloadData()
         } else {
             realmMembers = allRealmMembers
-            initMemberObserver(members: realmMembers)
+            if realmMembers != nil {
+                initMemberObserver(members: realmMembers)
+            }
             tableView.reloadData()
         }
 

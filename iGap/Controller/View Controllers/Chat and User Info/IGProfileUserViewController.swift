@@ -59,7 +59,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
                 
-        navigaitonItem.setNavigationBarForProfileRoom(.chat, id: user?.id, groupRole: nil, channelRole: nil)
+        navigaitonItem.setNavigationBarForProfileRoom(.chat, id: user?.id)
 
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController

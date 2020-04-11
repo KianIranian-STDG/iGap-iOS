@@ -71,7 +71,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         initGradientView()
         channelFirstInitialiser()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room)
+        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room!)
 
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
