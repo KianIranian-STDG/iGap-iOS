@@ -167,6 +167,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             }
         } else {
             IGAppManager.sharedManager.setUserLoginSuccessful()
+             RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
         }
     }
     
@@ -218,6 +219,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             if let response = protoResponse as? IGPUserProfileSetRepresentativeResponse {
                 IGUserProfileSetRepresentativeRequest.Handler.interpret(response: response)
                 IGAppManager.sharedManager.setUserLoginSuccessful()
+                 RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
 
             }
         }).error ({ (errorCode, waitTime) in
