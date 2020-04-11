@@ -19,6 +19,8 @@ import CallKit
 class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate, CallHoldObserver, CallManagerDelegate {
     var pulseLayers = [CAShapeLayer]()
 
+    @IBOutlet weak var viewNameHolder: UIView!
+    @IBOutlet weak var viewNameCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var imgAvatarInner: UIImageViewX!
@@ -110,7 +112,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewDidLoad() {
-        
+        animateNameView(state: false)
+
         viewTransparent.backgroundColor = .clear
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
@@ -626,6 +629,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func changeBottomViewsVisibility(){
+        viewNameHolder.isHidden = !(viewNameHolder.isHidden)
+
         if !callIsConnected || callType == .voiceCalling {return}
         
         bottomViewsIsHidden = !bottomViewsIsHidden
@@ -708,10 +713,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             switch state {
                 
             case .Connecting:
+                self.animateNameView(state: false)
+
                 RTCClient.needNewInstance = false
                 break
                 
             case .Connected:
+                self.animateNameView(state: true)
                 self.addRemoteVideoTrack()
                 
                 IGCallEventListener.playHoldSound = false
@@ -775,6 +783,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .Finished, .Disconnected, .Accepted:
+                self.animateNameView(state: false)
                 self.txtCallState.text = IGStringsManager.Disconnected.rawValue.localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
@@ -824,23 +833,27 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .Ringing:
+                self.animateNameView(state: false)
                 self.txtCallState.text = IGStringsManager.Ringing.rawValue.localized
                 self.playSound(sound: "igap_ringing", repeatEnable: true)
                 break
                 
             case .Dialing:
+                self.animateNameView(state: false)
                 self.txtCallState.text = IGStringsManager.Dialing.rawValue.localized
                 self.playSound(sound: "igap_signaling", repeatEnable: true)
                 break
                 
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
                 
-                
+                self.animateNameView(state: false)
+
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorTalkingWithOther.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 break
                 
             case .signalingOfferForbiddenTheUserIsInConversation:
-                
+                self.animateNameView(state: false)
+
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorUserInConversation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
@@ -848,18 +861,24 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .signalingOfferForbiddenDialedNumberIsNotActive:
+                self.animateNameView(state: false)
+
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorDialedNumIsNotActive.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenUserIsBlocked:
+                self.animateNameView(state: false)
+
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorUserIsBlocked.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenIsNotAllowedToCommunicate:
+                self.animateNameView(state: false)
+
                 self.playSound(sound: "igap_disconnect")
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorAllowedNotToCommunicate.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
@@ -871,7 +890,34 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             }
         }
     }
-    
+    func animateNameView(state : Bool) {
+        if state {
+            txtCallTime.textColor = .black
+            txtCallState.textColor = .black
+            txtCallTime.textColor = .black
+
+            viewNameCenterConstraint.constant = 0
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+                self.viewNameHolder.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+
+            }
+
+        } else {
+            txtCallTime.textColor = ThemeManager.currentTheme.LabelColor
+            txtCallState.textColor = ThemeManager.currentTheme.LabelColor
+            txtCallTime.textColor = ThemeManager.currentTheme.LabelColor
+            viewNameHolder.backgroundColor = .clear
+
+            viewNameCenterConstraint.constant = imgAvatarView.bounds.height / 3
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+
+            }
+
+        }
+        
+    }
     func returnToCall() {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
