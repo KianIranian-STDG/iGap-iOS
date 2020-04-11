@@ -5160,6 +5160,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
         
         let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor)
         let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.SliderTintColor, BlackThemeColor: isIncomming ? UIColor.white : .black)
+        let boldcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: ThemeManager.currentTheme.LabelColor )
 
         //MARK:- BOLD handling
         var nsText: NSString = (text as NSString)
@@ -5207,7 +5208,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
         for itm in activeItems where itm.isBold {
             let range = NSMakeRange(itm.offset, itm.limit)
             let normalFont = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
-            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: boldcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: finalText, range: range)), NSAttributedString.Key.paragraphStyle: st , NSAttributedString.Key.font:normalFont], range: range)
         }
         
         return attributedString
