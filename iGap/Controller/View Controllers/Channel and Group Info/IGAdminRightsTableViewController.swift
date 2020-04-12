@@ -31,8 +31,14 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     @IBOutlet weak var modifyRoomView: UIView!
     @IBOutlet weak var editView: UIView!
+    @IBOutlet weak var addMemberView: UIView!
+    @IBOutlet weak var banMemberView: UIView!
+    @IBOutlet weak var addAdminView: UIView!
     @IBOutlet weak var txtModifyRoom: UILabel!
     @IBOutlet weak var txtEditMessage: UILabel!
+    @IBOutlet weak var txtAddMember: UILabel!
+    @IBOutlet weak var txtBanMember: UILabel!
+    @IBOutlet weak var txtAddAdmin: UILabel!
     @IBOutlet weak var txtDismissAdmin: UILabel!
     
     var userInfo: IGRegisteredUser!
@@ -42,6 +48,10 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     @IBAction func OnPostMessageChange(_ sender: UISwitch) {
         self.managePostAndEdit(state: sender.isOn)
+    }
+    
+    @IBAction func onGetMemberChange(_ sender: UISwitch) {
+        self.manageGetMemberAndOtherOptions(state: sender.isOn)
     }
     
     override func viewDidLoad() {
@@ -77,6 +87,30 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         switchEditMessage.isUserInteractionEnabled = state
     }
     
+    private func manageGetMemberAndOtherOptions(state: Bool){
+        if state {
+            addMemberView.backgroundColor = modifyRoomView.backgroundColor
+            banMemberView.backgroundColor = modifyRoomView.backgroundColor
+            addAdminView.backgroundColor = modifyRoomView.backgroundColor
+            txtAddMember.textColor = txtModifyRoom.textColor
+            txtBanMember.textColor = txtModifyRoom.textColor
+            txtAddAdmin.textColor = txtModifyRoom.textColor
+        } else {
+            addMemberView.backgroundColor = UIColor.lightGray
+            banMemberView.backgroundColor = UIColor.lightGray
+            addAdminView.backgroundColor = UIColor.lightGray
+            txtAddMember.textColor = UIColor.gray
+            txtBanMember.textColor = UIColor.gray
+            txtAddAdmin.textColor = UIColor.gray
+            switchAddMember.setOn(false, animated: true)
+            switchBanMember.setOn(false, animated: true)
+            switchAddAdmin.setOn(false, animated: true)
+        }
+        switchAddMember.isUserInteractionEnabled = state
+        switchBanMember.isUserInteractionEnabled = state
+        switchAddAdmin.isUserInteractionEnabled = state
+    }
+    
     private func fillRoomAccess(){
         if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo.id) {
             switchModifyRoom.isOn = roomAccess.modifyRoom
@@ -90,6 +124,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             switchAddAdmin.isOn = roomAccess.addAdmin
             
             managePostAndEdit(state: roomAccess.postMessage)
+            manageGetMemberAndOtherOptions(state: roomAccess.getMember)
         }
     }
     

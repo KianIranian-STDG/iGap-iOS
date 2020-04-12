@@ -54,6 +54,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     var userAvatar: IGAvatar?
     var maxNavHeight : CGFloat = 100
     private var roomAccess = IGRealmRoomAccess()
+    private var roomAccessObserver: NotificationToken?
+    private var navItem: IGNavigationItem!
     
     
     //MARK: -Outlets
@@ -69,14 +71,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         groupFirstInitialiser()
-        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
         maxNavHeight = self.heightConstraints.constant
         originalTransform = self.avatarView.transform
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
-        let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil,roomValue: self.room!)
+        navItem = (self.navigationItem as! IGNavigationItem)
+        navItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil,roomValue: self.room!)
         
-        navigaitonItem.navigationController = self.navigationController as? IGNavigationController
+        navItem.navigationController = self.navigationController as? IGNavigationController
         
         displayNameLabel.textAlignment = .right
         displayNameLabel.textColor = .white
@@ -84,6 +85,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         initTheme()
         initAvatarObserver()
+        initRoomAccessObserver()
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -135,6 +137,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.room!.id).observe({ (ObjectChange) in
             self.avatarView.setRoom(self.room!)
         })
+    }
+    
+    private func initRoomAccessObserver(){
+        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
+        self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+            DispatchQueue.main.async {
+                if self == nil {return}
+                self?.navItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: self!.room?.groupRoom?.role, channelRole: nil,roomValue: self!.room!)
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     func report(room: IGRoom){

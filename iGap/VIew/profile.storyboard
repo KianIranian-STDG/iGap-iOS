@@ -474,6 +474,40 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="48" id="MFO-TS-3L4">
+                                        <rect key="frame" x="0.0" y="404" width="414" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MFO-TS-3L4" id="gJY-AO-n8w">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Member" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFc-98-3We">
+                                                    <rect key="frame" x="20" y="14" width="94.5" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="Ews-ah-0K3"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D2m-gM-0hN">
+                                                    <rect key="frame" x="355" y="8.5" width="51" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="3Sm-xC-f5N"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="onGetMemberChange:" destination="8gw-mA-22z" eventType="valueChanged" id="tH7-Nb-Nx7"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DFc-98-3We" firstAttribute="leading" secondItem="gJY-AO-n8w" secondAttribute="leading" constant="20" id="Hcc-4e-ZSp"/>
+                                                <constraint firstItem="D2m-gM-0hN" firstAttribute="centerY" secondItem="gJY-AO-n8w" secondAttribute="centerY" id="d4G-lk-z20"/>
+                                                <constraint firstAttribute="trailing" secondItem="D2m-gM-0hN" secondAttribute="trailing" constant="10" id="dVR-qT-Z9e"/>
+                                                <constraint firstItem="DFc-98-3We" firstAttribute="centerY" secondItem="gJY-AO-n8w" secondAttribute="centerY" id="lqk-dK-m3Y"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="48" id="0o6-7F-C3z">
                                         <rect key="frame" x="0.0" y="404" width="414" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -533,37 +567,6 @@
                                                 <constraint firstItem="RnJ-73-rm4" firstAttribute="leading" secondItem="dQz-US-s0a" secondAttribute="leading" constant="20" id="P3z-Ow-B3Q"/>
                                                 <constraint firstItem="h8n-GO-dvf" firstAttribute="centerY" secondItem="dQz-US-s0a" secondAttribute="centerY" id="QJQ-Mq-pLc"/>
                                                 <constraint firstItem="RnJ-73-rm4" firstAttribute="centerY" secondItem="dQz-US-s0a" secondAttribute="centerY" id="TeM-i5-7Yz"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="48" id="MFO-TS-3L4">
-                                        <rect key="frame" x="0.0" y="500" width="414" height="48"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MFO-TS-3L4" id="gJY-AO-n8w">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Member" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFc-98-3We">
-                                                    <rect key="frame" x="20" y="14" width="94.5" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="Ews-ah-0K3"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D2m-gM-0hN">
-                                                    <rect key="frame" x="355" y="8.5" width="51" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="31" id="3Sm-xC-f5N"/>
-                                                    </constraints>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="DFc-98-3We" firstAttribute="leading" secondItem="gJY-AO-n8w" secondAttribute="leading" constant="20" id="Hcc-4e-ZSp"/>
-                                                <constraint firstItem="D2m-gM-0hN" firstAttribute="centerY" secondItem="gJY-AO-n8w" secondAttribute="centerY" id="d4G-lk-z20"/>
-                                                <constraint firstAttribute="trailing" secondItem="D2m-gM-0hN" secondAttribute="trailing" constant="10" id="dVR-qT-Z9e"/>
-                                                <constraint firstItem="DFc-98-3We" firstAttribute="centerY" secondItem="gJY-AO-n8w" secondAttribute="centerY" id="lqk-dK-m3Y"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -635,7 +638,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="Orz-p7-z45" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="addAdminView" destination="1Km-l3-0Ui" id="3dK-Ai-GJq"/>
+                        <outlet property="addMemberView" destination="Dib-Fi-eFZ" id="1ly-MZ-FCk"/>
                         <outlet property="avatarView" destination="tai-AZ-hPs" id="9QM-10-SyX"/>
+                        <outlet property="banMemberView" destination="dQz-US-s0a" id="PE3-nY-cXQ"/>
                         <outlet property="editView" destination="FCV-hT-XII" id="htE-eg-yBn"/>
                         <outlet property="modifyRoomView" destination="HSF-IH-88i" id="9gS-vC-Oii"/>
                         <outlet property="switchAddAdmin" destination="Sta-Jj-Syu" id="gGS-Lp-ArW"/>
@@ -647,6 +653,9 @@
                         <outlet property="switchModifyRoom" destination="u3O-EH-1jI" id="Evd-n4-XWo"/>
                         <outlet property="switchPinMessage" destination="AEe-UH-sBf" id="SUM-x3-Fe8"/>
                         <outlet property="switchPostMessage" destination="5kf-Pl-c78" id="2TV-zN-cha"/>
+                        <outlet property="txtAddAdmin" destination="2uG-Lm-hhf" id="HVW-Qs-Wwo"/>
+                        <outlet property="txtAddMember" destination="auT-uE-NKL" id="yJs-Lw-hvn"/>
+                        <outlet property="txtBanMember" destination="RnJ-73-rm4" id="Gg5-mE-AUu"/>
                         <outlet property="txtContactName" destination="Y1O-7b-hoO" id="HVi-hC-bWb"/>
                         <outlet property="txtContactStatus" destination="X0o-WK-jxL" id="Zci-vm-YUE"/>
                         <outlet property="txtDismissAdmin" destination="LIv-G5-Qfp" id="VGE-GK-FRe"/>

@@ -51,6 +51,8 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     var userAvatar: IGAvatar?
     private var roomAccess = IGRealmRoomAccess()
     private var avatarObserver: NotificationToken?
+    private var roomAccessObserver: NotificationToken?
+    private var navItem: IGNavigationItem!
 
     //MARK: -Outlets
     @IBOutlet weak var channelNameLabelTitle: UILabel!
@@ -69,14 +71,13 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         channelUserCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelNameLabelTitle.textColor = .white
         
-        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
         
         initGradientView()
         channelFirstInitialiser()
-        let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room!)
+        navItem = self.navigationItem as? IGNavigationItem
+        navItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room!)
 
-        navigaitonItem.navigationController = self.navigationController as? IGNavigationController
+        navItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
@@ -84,12 +85,14 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
 
         initTheme()
         initAvatarObserver()
+        initRoomAccessObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         avatarObserver?.invalidate()
         notificationToken?.invalidate()
+        roomAccessObserver?.invalidate()
     }
     
     deinit {
@@ -106,6 +109,19 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.room!.id).observe({ (ObjectChange) in
             self.channelImage.setRoom(self.room!)
         })
+    }
+    
+    private func initRoomAccessObserver(){
+        if room!.type == .group || room!.type == .channel {
+            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
+            self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+                DispatchQueue.main.async {
+                    if self == nil {return}
+                    self?.navItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: self!.room?.channelRoom?.role,roomValue: self!.room!)
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
     func channelFirstInitialiser() {
