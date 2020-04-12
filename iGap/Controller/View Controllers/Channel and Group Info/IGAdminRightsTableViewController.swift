@@ -81,7 +81,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             txtEditMessage.textColor = txtModifyRoom.textColor
         } else {
             txtEditMessage.textColor = UIColor.gray
-            editView.backgroundColor = UIColor.lightGray
+            editView.backgroundColor = UIColor.lightGray.lighter(by: 20)
             switchEditMessage.setOn(false, animated: true)
         }
         switchEditMessage.isUserInteractionEnabled = state
@@ -96,9 +96,9 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             txtBanMember.textColor = txtModifyRoom.textColor
             txtAddAdmin.textColor = txtModifyRoom.textColor
         } else {
-            addMemberView.backgroundColor = UIColor.lightGray
-            banMemberView.backgroundColor = UIColor.lightGray
-            addAdminView.backgroundColor = UIColor.lightGray
+            addMemberView.backgroundColor = UIColor.lightGray.lighter(by: 20)
+            banMemberView.backgroundColor = UIColor.lightGray.lighter(by: 20)
+            addAdminView.backgroundColor = UIColor.lightGray.lighter(by: 20)
             txtAddMember.textColor = UIColor.gray
             txtBanMember.textColor = UIColor.gray
             txtAddAdmin.textColor = UIColor.gray
