@@ -882,8 +882,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last seen recently" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eU-N9-Aim" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="90" y="40" width="86" height="12"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <rect key="frame" x="90" y="40" width="107" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -935,7 +935,7 @@
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="leading" secondItem="7XC-JO-cjJ" secondAttribute="trailing" constant="10" id="XKi-Ky-DCq"/>
                                         <constraint firstAttribute="trailing" secondItem="a4O-rB-QT4" secondAttribute="trailing" id="Z8h-Jc-CeI"/>
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="centerY" secondItem="7XC-JO-cjJ" secondAttribute="centerY" constant="-10" id="mhG-De-SY4"/>
-                                        <constraint firstItem="3eU-N9-Aim" firstAttribute="centerY" secondItem="7XC-JO-cjJ" secondAttribute="centerY" constant="8" id="o9T-Ak-bfJ"/>
+                                        <constraint firstItem="3eU-N9-Aim" firstAttribute="centerY" secondItem="7XC-JO-cjJ" secondAttribute="centerY" constant="10" id="o9T-Ak-bfJ"/>
                                         <constraint firstItem="3eU-N9-Aim" firstAttribute="leading" secondItem="7XC-JO-cjJ" secondAttribute="trailing" constant="10" id="oah-ch-Xvv"/>
                                         <constraint firstItem="7XC-JO-cjJ" firstAttribute="centerY" secondItem="qpw-4e-L9N" secondAttribute="centerY" id="uj9-jS-YOz"/>
                                     </constraints>
