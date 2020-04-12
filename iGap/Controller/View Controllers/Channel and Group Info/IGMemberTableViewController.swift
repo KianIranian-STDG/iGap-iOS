@@ -175,10 +175,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         let navigationController = self.navigationController as? IGNavigationController
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-        if self.showMembersFilter == .all && self.roomAccess.addMember {
+        if self.showMembersFilter == .all {
             navigationItem?.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
-            navigationItem?.rightViewContainer?.addAction {
-                self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+            if self.roomAccess.addMember {
+                navigationItem?.rightViewContainer?.addAction {
+                    self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+                }
             }
         } else {
             navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.ListAdmin.rawValue.localized)
