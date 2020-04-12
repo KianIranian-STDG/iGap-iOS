@@ -4701,14 +4701,14 @@ class ChatControllerNode: ASCellNode {
             layoutMsg = forwardedFrom.detach()
         } else {layoutMsg = message}
         
-        var msg = layoutMsg.message
+        var msg = layoutMsg.message ?? ""
         if let forwardMessage = message.forwardedFrom {
-            msg = forwardMessage.message
+            msg = forwardMessage.message ?? ""
         } else {
-            msg = message.message
+            msg = message.message ?? ""
         }
         
-        if msg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
+        if msg.count <= 10 { //10 is a random number u can change it to what ever value u want to
             nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 70)
 
             if finalRoomType! == .channel {
