@@ -201,6 +201,7 @@ enum IGStringsManager : String {
     case PinMessage = "pin_message_1";
     case RemoveUser = "remove_user";
     case EditAdminRights = "edit_admin_rights";
+    case ListAdmin = "list_admin";
     
     //MARK: - Wallet
     case ServerDown = "E_9006"

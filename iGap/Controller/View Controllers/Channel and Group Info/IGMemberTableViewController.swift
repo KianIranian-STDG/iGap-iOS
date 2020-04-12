@@ -181,7 +181,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
             }
         } else {
-            navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.AllMembers.rawValue.localized)
+            navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.ListAdmin.rawValue.localized)
         }
     }
     
