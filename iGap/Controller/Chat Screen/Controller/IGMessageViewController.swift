@@ -315,7 +315,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var activationGiftStickerId: String?
     private var needToNationalCode : Bool = false // TODO - check and do better structure
     private var waitingCardId: String? // TODO - check and do better structure
-    private var roomAccess = IGRealmRoomAccess()
+    private var roomAccess: IGRealmRoomAccess?
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -789,7 +789,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.room!.type == .chat {return}
         
         if !room!.isReadOnly && room!.isParticipant {
-            if !self.roomAccess.postMessage {
+            if !(self.roomAccess?.postMessage ?? false) {
                 joinButton.isHidden = false
                 mainHolder.isHidden = true
                 self.messageTextView.text = ""
@@ -797,7 +797,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else {
                 joinButton.isHidden = true
                 mainHolder.isHidden = false
-                if !self.roomAccess.editMessage {
+                if !(self.roomAccess?.editMessage ?? false) {
                     didTapOnCancelReplyOrForwardButton(UIButton())
                 }
             }
@@ -1032,8 +1032,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func initRoomAccessObserver(){
         if room!.type == .group || room!.type == .channel {
-            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
-            self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)
+            self.roomAccessObserver = self.roomAccess?.observe { [weak self] (ObjectChange) in
                 self?.detectWriteMessagePermission()
             }
         }
@@ -3219,14 +3219,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func groupPinGranted() -> Bool{
-        if room?.type == .group && self.roomAccess.pinMessage {
+        if room?.type == .group && (self.roomAccess?.pinMessage ?? false) {
             return true
         }
         return false
     }
     
     func channelPinGranted() -> Bool{
-        if room?.type == .channel && self.roomAccess.pinMessage {
+        if room?.type == .channel && (self.roomAccess?.pinMessage ?? false) {
             return true
         }
         return false
@@ -3277,7 +3277,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             message.type != .contact &&
             message.type != .location &&
             ((self.room?.type == .chat && message.authorHash == currentLoggedInUserAuthorHash) ||
-            ((self.room!.type == .group || self.room!.type == .channel) && self.roomAccess.editMessage)) {
+            ((self.room!.type == .group || self.room!.type == .channel) && (self.roomAccess?.editMessage ?? false))) {
             
             return true
         }
@@ -3288,7 +3288,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         var singleDelete = false
         var bothDelete = false
         
-        if ((message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) || ((self.room!.type == .group || self.room!.type == .channel) && self.roomAccess.deleteMessage)) {
+        if ((message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) || ((self.room!.type == .group || self.room!.type == .channel) && (self.roomAccess?.deleteMessage ?? false))) {
             
             if (self.room!.type == .chat && !(self.room?.isCloud() ?? false)) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
                 bothDelete = true
@@ -7955,8 +7955,6 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
-        print("Index Path ----", indexPath.row)
-        
         let msg = messages?[indexPath.row]
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             
@@ -7967,20 +7965,19 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             var isIncomming = true
             let authorHash = msg!.authorHash
             var shouldShowAvatar = false
-            var isFromSameSender = false
+            let isFromSameSender = false
             
             if sSelf.finalRoom.type == .group || sSelf.finalRoom.type == .chat || sSelf.finalRoom.type == .channel  {
                 shouldShowAvatar = true
                 
-//                if msg!.type != .log {
-//                    if sSelf.messages!.indices.contains(indexPath.row + 1){
-//                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
-//                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-//                            isFromSameSender = false // should be true for next version
-//                        }
-//                    }
-//                    
-//                }
+                // if msg!.type != .log {
+                //     if sSelf.messages!.indices.contains(indexPath.row + 1){
+                //         let previousMessage = sSelf.messages![(indexPath.row + 1)]
+                //         if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+                //             isFromSameSender = false // should be true for next version
+                //         }
+                //     }
+                // }
             }
             var img = UIImage()
             
@@ -8016,157 +8013,18 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                 
             }
             
-//            message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!
             let cellNode = ChatControllerNode()
             cellNode.selectionStyle = .none
             cellNode.delegate = self
             cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             return cellNode
-            
         }
             
         return cellnodeBlock
     }
             
-//            var isIncomming = true
-//            let authorHash = msg!.authorHash
-//            var shouldShowAvatar = false
-//            var isFromSameSender = false
-//
-//            if self?.finalRoom.type == .group || self?.finalRoom.type == .chat || self?.finalRoom.type == .channel  {
-//                shouldShowAvatar = true
-//
-//                if msg!.type != .log {
-//                    if sSelf.messages!.indices.contains(indexPath.row + 1){
-//                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
-//                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-//                            isFromSameSender = false // should be true for next version
-//                        }
-//                    }
-//
-//                }
-//            }
-//            var img = UIImage()
-//
-//            if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
-//                isIncomming = true
-//                img = tailLesImage
-//
-//            } else {
-//
-//                if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-//                    isIncomming = false
-//
-//                }
-//                if isFromSameSender {
-//                    if isIncomming {
-//                        img = tailLesImage
-//
-//                    } else {
-//                        img = mineTailLesImage
-//
-//                    }
-//
-//                } else {
-//
-//                    if isIncomming {
-//                        img = someoneImage
-//
-//                    } else {
-//                        img = mineImage
-//
-//                    }
-//                }
-//
-//            }
-//
-//
-//            if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
-//                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-//                node.selectionStyle = .none
-//
-//                return node
-//            }
-//
-//            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .gif ||  msg!.type == .gifAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
-//                //TODO: check detach
-//                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
-//
-//                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-//                   node.generalMessageDelegate = sSelf
-//                   node.selectionStyle = .none
-//                    node.neverShowPlaceholders = true
-//
-//                node.enableSubtreeRasterization()
-//
-//                   return node
-//
-//
-//               } /*else if msg!.type == .wallet {
-//
-//                   if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
-//
-//                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
-//
-//                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
-//
-//                   }
-//
-//
-//               }
-//    */
-//               else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
-//                   var logTypeTemp : logMessageType!
-//
-//
-//                   switch msg!.type {
-//                   case .log :
-//                       logTypeTemp = .log
-//                   case .time :
-//                       logTypeTemp = .time
-//                   case .unread :
-//                       logTypeTemp = .unread
-//
-//                   default:
-//                       break
-//                   }
-//
-//                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-//                   node.selectionStyle = .none
-//
-//                   return node
-//
-//
-//               } else if msg!.type == .progress {
-//
-//                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-//                             node.selectionStyle = .none
-//                      node.selectionStyle = .none
-//
-//                   return node
-//
-//               }else {
-//                       //Unread
-//                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-//                node.selectionStyle = .none
-//
-//                return node
-//
-//
-//            }
-//
-//        }
-           
-//            return chatNode
-
-           
-//       }
-    
-    
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         let width = collectionView.bounds.width;
-        // Assume horizontal scroll directions
         return ASSizeRangeMake(CGSize(width: width, height: 0), CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
     }
-    
 }

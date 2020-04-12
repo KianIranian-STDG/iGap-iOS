@@ -49,7 +49,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
-    private var roomAccess = IGRealmRoomAccess()
+    private var roomAccess: IGRealmRoomAccess?
     private var avatarObserver: NotificationToken?
     private var roomAccessObserver: NotificationToken?
     private var navItem: IGNavigationItem!
@@ -113,8 +113,8 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     
     private func initRoomAccessObserver(){
         if room!.type == .group || room!.type == .channel {
-            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
-            self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)
+            self.roomAccessObserver = self.roomAccess?.observe { [weak self] (ObjectChange) in
                 DispatchQueue.main.async {
                     if self == nil {return}
                     self?.navItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: self!.room?.channelRoom?.role,roomValue: self!.room!)
@@ -658,7 +658,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         var row = indexPath.row
         if myRole != .owner {
             if (((channelLink != nil && !channelLink!.isEmpty) && section == 4) || ((channelLink == nil || channelLink!.isEmpty) && section == 3)) &&
-                !self.roomAccess.getMember {
+                !(self.roomAccess?.getMember ?? false){
                 row = 1
             }
         }
@@ -745,7 +745,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             
         case .admin?, .moderator?, .member? :
             var count = 4
-            if self.roomAccess.getMember || self.roomAccess.addAdmin {
+            if self.roomAccess?.getMember ?? false || self.roomAccess?.addAdmin ?? false {
                 count = 5
             }
             
@@ -771,10 +771,10 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             return 1
         case 4 :
             var count = 0
-            if self.roomAccess.getMember {
+            if self.roomAccess?.getMember ?? false {
                 count = count + 1
             }
-            if self.roomAccess.addAdmin {
+            if self.roomAccess?.addAdmin ?? false {
                 count = count + 1
             }
             return count

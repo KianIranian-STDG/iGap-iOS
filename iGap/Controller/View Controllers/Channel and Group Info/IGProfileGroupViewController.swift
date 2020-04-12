@@ -53,7 +53,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     var maxNavHeight : CGFloat = 100
-    private var roomAccess = IGRealmRoomAccess()
+    private var roomAccess: IGRealmRoomAccess?
     private var roomAccessObserver: NotificationToken?
     private var navItem: IGNavigationItem!
     
@@ -140,8 +140,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     }
     
     private func initRoomAccessObserver(){
-        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
-        self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)
+        self.roomAccessObserver = self.roomAccess?.observe { [weak self] (ObjectChange) in
             DispatchQueue.main.async {
                 if self == nil {return}
                 self?.navItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: self!.room?.groupRoom?.role, channelRole: nil,roomValue: self!.room!)
@@ -655,7 +655,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         if myRole != .owner {
             if ((groupLink != nil && !groupLink!.isEmpty) && section == 4) ||
                 ((groupLink == nil || groupLink!.isEmpty) && section == 3) &&
-                !self.roomAccess.addMember {
+                !(self.roomAccess?.addMember ?? true) {
                 row = 1
             }
         }
@@ -735,7 +735,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             
         case .member, .admin, .moderator:
             var count = 4
-            if self.roomAccess.getMember || self.roomAccess.addMember {
+            if self.roomAccess?.getMember ?? false || self.roomAccess?.addMember ?? false {
                 count = 5
             }
             
@@ -764,10 +764,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 return 2
             }
             var count = 0
-            if self.roomAccess.getMember {
+            if self.roomAccess?.getMember ?? false {
                 count = count + 1
             }
-            if self.roomAccess.addMember {
+            if self.roomAccess?.addMember ?? false {
                 count = count + 1
             }
             return count
