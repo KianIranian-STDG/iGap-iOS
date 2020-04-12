@@ -5240,6 +5240,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iGap/Libraries/GoogleAnalytics",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassflac",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
 				MARKETING_VERSION = 2.0.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -5304,6 +5308,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iGap/Libraries/GoogleAnalytics",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassflac",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
+					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (

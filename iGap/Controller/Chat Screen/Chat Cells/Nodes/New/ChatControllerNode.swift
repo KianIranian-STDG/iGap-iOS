@@ -1334,15 +1334,20 @@ class ChatControllerNode: ASCellNode {
             }
             txtTimeNode?.style.minHeight = ASDimensionMake(.points, 10)
             txtTimeNode?.style.maxWidth = ASDimensionMake(.points, 50)
-            txtTimeNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             var tmpcolor = UIColor()
+
             if message?.type == .sticker {
                 tmpcolor = .white
+                txtTimeNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 0), bottom: 0, right: (isIncomming ? 0 : 0))
+
             } else {
                 tmpcolor = ThemeManager.currentTheme.timeColor
+                txtTimeNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
+
             }
 
-            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 11, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -3073,7 +3078,7 @@ class ChatControllerNode: ASCellNode {
             setMessageStatus()
         }
         
-        let timeAndStatusSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+        let timeAndStatusSpec = ASStackLayoutSpec(direction: .horizontal, spacing: isIncomming ? 5 : 0, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
         timeAndStatusSpec.verticalAlignment = .center
         let v = ASDisplayNode()
         v.style.preferredSize = CGSize(width: 100, height: 30)
@@ -3081,7 +3086,7 @@ class ChatControllerNode: ASCellNode {
         v.cornerRadius = 10
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: timeAndStatusSpec)
         let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [bgSpec])
+        let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: isIncomming ? 5 : 0, justifyContent: .end, alignItems: .end, children: [bgSpec])
         
         spec.children?.append(finalSpec)
         
