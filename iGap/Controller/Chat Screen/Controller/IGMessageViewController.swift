@@ -221,6 +221,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
     var avatarObserver: NotificationToken?
+    var roomAccessObserver: NotificationToken?
     
     var room : IGRoom?
     var forwardedMessageArray : [IGRoomMessage] = []
@@ -314,6 +315,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var activationGiftStickerId: String?
     private var needToNationalCode : Bool = false // TODO - check and do better structure
     private var waitingCardId: String? // TODO - check and do better structure
+    private var roomAccess = IGRealmRoomAccess()
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -539,6 +541,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
         initAvatarObserver()
+        initRoomAccessObserver()
         eventBusInitialiser()
         
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
@@ -779,6 +782,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
         tableViewNode.view.addGestureRecognizer(mainViewTap)
         
+        detectWriteMessagePermission()
+    }
+    
+    private func detectWriteMessagePermission(){
+        if self.room!.type == .chat {return}
+        
+        if !room!.isReadOnly && room!.isParticipant {
+            if !self.roomAccess.postMessage {
+                joinButton.isHidden = false
+                mainHolder.isHidden = true
+                self.messageTextView.text = ""
+                self.view.endEditing(true)
+            } else {
+                joinButton.isHidden = true
+                mainHolder.isHidden = false
+                if !self.roomAccess.editMessage {
+                    didTapOnCancelReplyOrForwardButton(UIButton())
+                }
+            }
+        }
     }
     
     private func showJoinButton(){
@@ -902,6 +925,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func deallocate(){
         avatarObserver?.invalidate()
+        roomAccessObserver?.invalidate()
         IGMessageLoader.removeInstance(roomId: self.room!.id)
     }
     
@@ -989,7 +1013,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-//        self.collectionViewNode!.collectionViewLayout.invalidateLayout()
         self.tableViewNode.invalidateCalculatedLayout()
     }
     
@@ -1005,6 +1028,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self!.setRightNavViewAction()
             }
         })
+    }
+    
+    private func initRoomAccessObserver(){
+        if room!.type == .group || room!.type == .channel {
+            self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
+            self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+                self?.detectWriteMessagePermission()
+            }
+        }
     }
     
     private func manageDraft(){
@@ -3172,7 +3204,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         })
         
         let unpinJustForMe = UIAlertAction(title: titleMe, style: .default, handler: { (action) in
-//            self.pinnedMessageView.isHidden = true
             self.stackTopViews.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
@@ -3188,14 +3219,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func groupPinGranted() -> Bool{
-        if room?.type == .group && room?.groupRoom?.role != .member {
+        if room?.type == .group && self.roomAccess.pinMessage {
             return true
         }
         return false
     }
     
     func channelPinGranted() -> Bool{
-        if room?.type == .channel && room?.channelRoom?.role != .member {
+        if room?.type == .channel && self.roomAccess.pinMessage {
             return true
         }
         return false
@@ -3240,7 +3271,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func allowEdit(_ message: IGRoomMessage) -> Bool {
-        if  (message.forwardedFrom == nil) && !self.room!.isReadOnly && message.authorHash == currentLoggedInUserAuthorHash && message.type != .sticker && message.type != .contact && message.type != .location {
+        if  (message.forwardedFrom == nil) &&
+            !self.room!.isReadOnly &&
+            message.type != .sticker &&
+            message.type != .contact &&
+            message.type != .location &&
+            ((self.room?.type == .chat && message.authorHash == currentLoggedInUserAuthorHash) ||
+            ((self.room!.type == .group || self.room!.type == .channel) && self.roomAccess.editMessage)) {
+            
             return true
         }
         return false
@@ -3249,12 +3287,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func allowDelete(_ message: IGRoomMessage) -> (singleDelete: Bool, bothDelete: Bool){
         var singleDelete = false
         var bothDelete = false
-        if (message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) ||
-            (self.room!.type == .channel && self.room!.channelRoom!.role == .owner) ||
-            (self.room!.type == .group && self.room!.groupRoom!.role == .owner) {
+        
+        if ((message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) || ((self.room!.type == .group || self.room!.type == .channel) && self.roomAccess.deleteMessage)) {
+            
             if (self.room!.type == .chat && !(self.room?.isCloud() ?? false)) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
                 bothDelete = true
             }
+            
             singleDelete = true
         }
         return (singleDelete,bothDelete)
@@ -4850,6 +4889,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.selectedMessageToEdit != nil {
             self.selectedMessageToEdit = nil
             self.messageTextView.text = ""
+            self.lblPlaceHolder.isHidden = false
+            self.showHideStickerButton(shouldShow: true)
             self.messageTextViewHeightConstraint.constant = 50
             self.view.layoutIfNeeded()
         }
@@ -4868,18 +4909,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
 
     }
-    private func keepPositioOfScroll() {
-        print("=-=-=-1=-=-=-=-")
-        print("MIDDLEINDEX",self.middleIndex)
-        print("=-=-=-2=-=-=-=-")
-        
-
-    }
+    
     private func scrollToBottom(){
-        print("=-=-=-3=-=-=-=-",self.tableViewNode.contentOffset.y)
         self.tableViewNode.setContentOffset(CGPoint(x: 0, y: -self.tableViewNode.contentInset.top) , animated: false)
-        print("=-=-=-4=-=-=-=-",self.tableViewNode.contentOffset.y)
-
     }
     
     @IBAction func didTapOnJoinButton(_ sender: UIButton) {
@@ -7656,7 +7688,6 @@ extension IGMessageViewController {
             } else {
                 self.lblUnreadArrieved.isHidden = false
             }
-            
         }
     }
     
@@ -7668,7 +7699,6 @@ extension IGMessageViewController {
                 arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
             }
             
-//            self.tableViewNode?.insertItems(at: arrayIndex)
             self.tableViewNode.insertRows(at: arrayIndex, with: .none)
         }, completion: nil)
     }
@@ -7683,7 +7713,6 @@ extension IGMessageViewController {
     
     private func removeItem(cellPosition: Int?){
         if cellPosition == nil {return}
-//        DispatchQueue.main.async {
         
         deleteThread.sync {
             self.removeMessageArrayByPosition(cellPosition: cellPosition)
@@ -7691,7 +7720,6 @@ extension IGMessageViewController {
                 self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .none)
             }, completion: nil)
         }
-//        }
     }
     
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
@@ -7712,15 +7740,10 @@ extension IGMessageViewController {
         if self.messages!.count <= cellPosition  {
             return
         }
-        print("COMES HERE 001")
-//        self.tableViewNode.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
-    
         switch action {
             default:
                 self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         }
-        print("COMES HERE 002")
-
     }
     
     /*********************************************************************************/
@@ -7806,8 +7829,6 @@ extension IGMessageViewController {
     private func reloadCollection(){
         _ = self.tableViewNode.numberOfRows(inSection: 0)
         self.tableViewNode.reloadData()
-//        self.tableViewNode.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
-        
     }
     
     /**
@@ -7818,13 +7839,7 @@ extension IGMessageViewController {
             DispatchQueue.main.async {
                 self.scrollToBottom()
             }
-        } else {
-            DispatchQueue.main.async {
-
-                self.keepPositioOfScroll()
-            }
         }
-        
     }
     
     /**
@@ -7833,9 +7848,7 @@ extension IGMessageViewController {
      */
     private func isNearToBottom() -> Bool {
         
-        
         let visibleCells = self.tableViewNode.indexPathsForVisibleRows().sorted(by:{
-//        let visibleCells = self.tableViewNode.indexPathsForVisibleItems.sorted(by:{
             $0.section < $1.section || $0.row < $1.row
         }).compactMap({
             self.tableViewNode.nodeForRow(at: $0)

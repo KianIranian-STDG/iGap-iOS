@@ -58,7 +58,7 @@ class IGRealmRoomAccess: Object {
         realmRoomAccess?.getMember = roomAccess.igpGetMember
         realmRoomAccess?.addAdmin = roomAccess.igpAddAdmin
         
-        IGDatabaseManager.shared.realm.add(realmRoomAccess!)
+        IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
     }
     
     public static func putOrUpdate(roomId: Int64, userId: Int64, roomAccess: IGPRoomAccess) {
