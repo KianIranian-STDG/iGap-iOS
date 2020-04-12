@@ -2757,7 +2757,7 @@ class ChatControllerNode: ASCellNode {
         txtLogMessage!.backgroundColor = UIColor.logBackground()
         txtLogMessage!.layer.cornerRadius = 10.0
         txtLogMessage!.clipsToBounds = true
-        let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
+        let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 11)))
         txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
     }
     

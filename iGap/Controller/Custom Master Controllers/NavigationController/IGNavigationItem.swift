@@ -860,7 +860,13 @@ class IGNavigationItem: UINavigationItem {
             make.top.equalTo(titleContainerView.snp.top)
             make.bottom.equalTo(titleContainerView.snp.bottom)
             make.trailing.equalTo(titleContainerView.snp.trailing)
-            make.width.equalTo(50)
+            if let groupRoom = room.groupRoom  {
+                make.width.equalTo(0)
+            } else if let channelRoom = room.channelRoom {
+                make.width.equalTo(0)
+            } else {
+                make.width.equalTo(50)
+            }
         }
         
         self.centerViewContainer?.snp.makeConstraints { (make) in

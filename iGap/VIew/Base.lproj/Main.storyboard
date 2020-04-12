@@ -2848,7 +2848,7 @@
                                 <rect key="frame" x="50" y="222" width="314" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Digital Gift Card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewl-jm-g4g">
-                                        <rect key="frame" x="78.333333333333357" y="20" width="157.66666666666663" height="30"/>
+                                        <rect key="frame" x="79.333333333333329" y="20" width="155.33333333333337" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5Yb-Eb-fKY"/>
                                         </constraints>
