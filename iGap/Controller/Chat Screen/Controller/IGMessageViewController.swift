@@ -7086,10 +7086,17 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
 //            self.tableViewNode.reloadItems(at: [indexPath])
 //            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
             if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
-                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
-                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
-                    cell.backgroundColor = UIColor.clear
-                }, completion: nil)
+                cell.backgroundColor = UIColor.clear
+                UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
+                    cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+
+                }, completion: { (finished: Bool) in
+                    UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
+                        cell.backgroundColor = .clear
+
+                    })
+                    
+                })
             }
             
         }
