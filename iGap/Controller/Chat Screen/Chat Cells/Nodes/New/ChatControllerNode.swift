@@ -4789,6 +4789,22 @@ class ChatControllerNode: ASCellNode {
                     nodeText!.delegate = self
                 }
                 
+            } else {
+                let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
+                
+                if !isTextMessageNode {
+                    IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
+                } else {
+
+                    if msg == "❤️" {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: 50 , numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
+                    } else {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    }
+                    
+                }
             }
 
         } else {
@@ -4823,6 +4839,22 @@ class ChatControllerNode: ASCellNode {
                     nodeText!.delegate = self
                 }
                 
+            }else {
+                let labeltmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.LabelColor, BlackThemeColor: .white)
+                
+                if !isTextMessageNode {
+                    IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    
+                } else {
+                    if msg == "❤️" {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: 50, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
+                    } else {
+                        IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
+                    }
+                    
+                }
             }
         }
 
