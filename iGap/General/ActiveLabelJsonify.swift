@@ -135,7 +135,7 @@ struct ActiveLabelItem: Codable {
     var type: String
     var offset: Int
     var limit: Int
-    var isBold: Bool
+    var isBold: Bool?
 }
 
 

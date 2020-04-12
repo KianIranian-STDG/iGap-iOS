@@ -5210,7 +5210,8 @@ extension ChatControllerNode: ASTextNodeDelegate {
         //MARK:- BOLD handling
         var nsText: NSString = (text as NSString)
         for aItem in activeItems {
-            if aItem.isBold {
+            let isBold = aItem.isBold ?? false
+            if isBold {
                 nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset, 1), with: "‎") as NSString
                 nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset+1, 1), with: "‎") as NSString
                 nsText = nsText.replacingCharacters(in: NSMakeRange(aItem.offset + aItem.limit - 1, 1), with: "‎") as NSString
