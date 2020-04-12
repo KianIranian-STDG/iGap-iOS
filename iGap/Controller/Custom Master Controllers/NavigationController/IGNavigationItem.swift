@@ -675,7 +675,7 @@ class IGNavigationItem: UINavigationItem {
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
         let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
         btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
-        btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 40)
+        btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 32)
 
         titleView.addSubview(btnLogo)
         
