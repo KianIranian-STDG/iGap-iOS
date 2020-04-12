@@ -256,19 +256,14 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     //MARK: - Creat Chat With User
     func createChat() {
         if let selectedUser = user {
-            let hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-            hud.mode = .indeterminate
+            IGGlobal.prgShow()
             IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        
-                        //HINT: -segue to created chat
                         if roomId == self?.previousRoomId {
                             _ = self?.navigationController?.popViewController(animated: true)
                         } else {
-                            //HINT: -segue
                             IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ [weak self] (protoResponse) in
                                 DispatchQueue.main.async {
                                     switch protoResponse {
@@ -283,25 +278,12 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                                     default:
                                         break
                                     }
-                                    self?.hud.hide(animated: true)
+                                    IGGlobal.prgHide()
                                 }
                             }).error ({ (errorCode, waitTime) in
-                                DispatchQueue.main.async {
-                                    switch errorCode {
-                                    case .timeout:
-                                        break
-                                    default:
-                                        break
-                                    }
-                                    self?.hud.hide(animated: true)
-                                }
+                                IGGlobal.prgHide()
                             }).send()
-                            
                         }
-                        hud.hide(animated: true)
-                        break
-                    default:
-                        break
                     }
                 }
                 
