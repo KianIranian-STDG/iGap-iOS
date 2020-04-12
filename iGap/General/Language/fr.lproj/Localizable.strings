@@ -6374,3 +6374,12 @@
 "received_from" = "Posté à";
 "enter_national_code" = "Entrez votre code national";
 "national_code_inquiry_error" = "L'enquête sur le code national était erronée. Veuillez réessayer.";
+"admin_rights" = "droits d'administrateur";
+"what_can_this_admin_do" = "Que peut faire cet administrateur?";
+"modify_room" = "modifier la salle";
+"post_message" = "Envoyer un message";
+"edit_message" = "Modifier le message";
+"delete_message" = "Supprimer le message";
+"pin_message_1" = "Épingle de message";
+"remove_user" = "Supprimer l'utilisateur";
+"edit_admin_rights" = "Modifier les droits d'administrateur";

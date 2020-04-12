@@ -149,7 +149,7 @@ enum IGStringsManager : String {
     
     //MARK: - Creat Room StoryBoard
     case ChannelInfo = "channel_info"
-    case ManageMembers = "show_member"
+    case ShowMember = "show_member"
     case Username = "st_username"
     case Referral = "ra_title"
     case DeleteChannel = "channel_delete"
@@ -192,6 +192,15 @@ enum IGStringsManager : String {
     case chooseMemberPlease = "please_choose_a_member"
     case AlreadyIsInTheMemberList = "existing_member"
     case AlreadyAreInTheMemberList = "existing_members"
+    case AdminRights = "admin_rights";
+    case WhatCanThisAdminDo = "what_can_this_admin_do";
+    case ModifyRoom = "modify_room";
+    case PostMessage = "post_message";
+    case EditMessage = "edit_message";
+    case DeleteMessage = "delete_message";
+    case PinMessage = "pin_message_1";
+    case RemoveUser = "remove_user";
+    case EditAdminRights = "edit_admin_rights";
     
     //MARK: - Wallet
     case ServerDown = "E_9006"

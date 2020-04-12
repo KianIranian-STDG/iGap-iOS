@@ -1551,7 +1551,7 @@ TODO:// complete */
 "Documents" = "Documents";
 
 /*  */
-"remove_admin" = "Remove Admin";
+"remove_admin" = "Dismiss Admin";
 
 /*  */
 "remove_moderator" = "Remove Moderator";
@@ -6728,3 +6728,12 @@ TODO:// complete */
 "received_from" = "Received from";
 "enter_national_code" = "Enter your national code";
 "national_code_inquiry_error" = "The national code inquiry was erroneous. Please try again.";
+"admin_rights" = "Admin Rights";
+"what_can_this_admin_do" = "What can this admin do?";
+"modify_room" = "Modify Room";
+"post_message" = "Post Message";
+"edit_message" = "Edit Message";
+"delete_message" = "Delete Message";
+"pin_message_1" = "Pin Message";
+"remove_user" = "Remove User";
+"edit_admin_rights" = "Edit Admin Rights";

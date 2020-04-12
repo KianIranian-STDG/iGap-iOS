@@ -25,6 +25,8 @@ class IGRoomListtCell: BaseTableViewCell {
         label.font = UIFont.igFont(ofSize: 14,weight: .bold)
         label.textColor = ThemeManager.currentTheme.LabelColor
         label.textAlignment = label.localizedDirection
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

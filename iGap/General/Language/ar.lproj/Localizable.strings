@@ -6749,3 +6749,12 @@ TODO:// translate */
 "received_from" = "تم الاستلام من";
 "enter_national_code" = "أدخل رمزك الوطني";
 "national_code_inquiry_error" = "كان التحقيق في القانون الوطني خاطئًا. يرجى المحاولة مرة أخرى.";
+"admin_rights" = "وصول المسؤول";
+"what_can_this_admin_do" = "ماذا يمكن أن يفعل هذا المسؤول؟";
+"modify_room" = "تحرير المعلومات";
+"post_message" = "أرسل رسالة";
+"edit_message" = "تحرير الرسالة";
+"delete_message" = "حذف الرسالة";
+"pin_message_1" = "حذف الرسالة";
+"remove_user" = "حذف المستخدم";
+"edit_admin_rights" = "تحرير وصول المسؤول";

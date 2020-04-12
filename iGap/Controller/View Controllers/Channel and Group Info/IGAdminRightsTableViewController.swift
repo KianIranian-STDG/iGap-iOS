@@ -34,8 +34,13 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     @IBOutlet weak var addMemberView: UIView!
     @IBOutlet weak var banMemberView: UIView!
     @IBOutlet weak var addAdminView: UIView!
+    
     @IBOutlet weak var txtModifyRoom: UILabel!
+    @IBOutlet weak var txtPostMessage: UILabel!
     @IBOutlet weak var txtEditMessage: UILabel!
+    @IBOutlet weak var txtDeleteMessage: UILabel!
+    @IBOutlet weak var txtPinMessage: UILabel!
+    @IBOutlet weak var txtGetMember: UILabel!
     @IBOutlet weak var txtAddMember: UILabel!
     @IBOutlet weak var txtBanMember: UILabel!
     @IBOutlet weak var txtAddAdmin: UILabel!
@@ -62,11 +67,22 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         txtContactName.text = userInfo.displayName
         txtContactStatus.text = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: userInfo?.lastSeenStatus, lastSeen: userInfo?.lastSeen)
         fillRoomAccess()
+        
+        txtModifyRoom.text = IGStringsManager.ModifyRoom.rawValue.localized
+        txtPostMessage.text = IGStringsManager.PostMessage.rawValue.localized
+        txtEditMessage.text = IGStringsManager.EditMessage.rawValue.localized
+        txtDeleteMessage.text = IGStringsManager.DeleteMessage.rawValue.localized
+        txtPinMessage.text = IGStringsManager.PinMessage.rawValue.localized
+        txtGetMember.text = IGStringsManager.ShowMember.rawValue.localized
+        txtAddMember.text = IGStringsManager.AddMember.rawValue.localized
+        txtBanMember.text = IGStringsManager.RemoveUser.rawValue.localized
+        txtAddAdmin.text = IGStringsManager.AddAdmin.rawValue.localized
+        txtDismissAdmin.text = IGStringsManager.RemoveAdmin.rawValue.localized
     }
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "Admin Rights", iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AdminRights.rawValue.localized, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -318,7 +334,10 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             headerView.addSubview(headerTitle)
             headerTitle.font = UIFont.igFont(ofSize: 17, weight: .bold)
             headerTitle.textColor = UIColor.iGapBlue()
-            headerTitle.text = "What can this admin do?"
+            headerTitle.text = IGStringsManager.WhatCanThisAdminDo.rawValue.localized
+            headerTitle.adjustsFontSizeToFitWidth = true
+            headerTitle.minimumScaleFactor = 0.5
+            
             headerTitle.snp.makeConstraints { (make) in
                 make.leading.equalTo(headerView.snp.leading).offset(20)
                 make.trailing.equalTo(headerView.snp.trailing).offset(-20)

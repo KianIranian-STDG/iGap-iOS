@@ -304,6 +304,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="tai-AZ-hPs" firstAttribute="leading" secondItem="EqV-v6-rUP" secondAttribute="leading" constant="10" id="5n9-cc-TwV"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Y1O-7b-hoO" secondAttribute="trailing" constant="10" id="ADf-E1-hbu"/>
                                                 <constraint firstItem="tai-AZ-hPs" firstAttribute="centerY" secondItem="EqV-v6-rUP" secondAttribute="centerY" id="P7Q-YT-rMf"/>
                                                 <constraint firstItem="Y1O-7b-hoO" firstAttribute="centerY" secondItem="tai-AZ-hPs" secondAttribute="centerY" constant="-13" id="Zmv-po-bUX"/>
                                                 <constraint firstItem="X0o-WK-jxL" firstAttribute="leading" secondItem="tai-AZ-hPs" secondAttribute="trailing" constant="10" id="nOj-I2-day"/>
@@ -540,7 +541,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="48" id="mrC-We-8Rz">
-                                        <rect key="frame" x="0.0" y="452" width="414" height="48"/>
+                                        <rect key="frame" x="0.0" y="500" width="414" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mrC-We-8Rz" id="dQz-US-s0a">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
@@ -658,9 +659,13 @@
                         <outlet property="txtBanMember" destination="RnJ-73-rm4" id="Gg5-mE-AUu"/>
                         <outlet property="txtContactName" destination="Y1O-7b-hoO" id="HVi-hC-bWb"/>
                         <outlet property="txtContactStatus" destination="X0o-WK-jxL" id="Zci-vm-YUE"/>
-                        <outlet property="txtDismissAdmin" destination="LIv-G5-Qfp" id="VGE-GK-FRe"/>
+                        <outlet property="txtDeleteMessage" destination="jfw-8Y-n73" id="q2c-4r-Skz"/>
+                        <outlet property="txtDismissAdmin" destination="LIv-G5-Qfp" id="ma4-Sq-Sdi"/>
                         <outlet property="txtEditMessage" destination="MM8-h8-rQU" id="ybX-Aj-XTC"/>
+                        <outlet property="txtGetMember" destination="DFc-98-3We" id="4vC-9D-5kN"/>
                         <outlet property="txtModifyRoom" destination="PqZ-fC-YPK" id="Ki5-bw-CDU"/>
+                        <outlet property="txtPinMessage" destination="XWw-N5-TON" id="pFQ-C9-zYm"/>
+                        <outlet property="txtPostMessage" destination="JuQ-FG-Ws6" id="P7v-p7-Ifx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHd-K7-vLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -882,16 +887,16 @@
                                             <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvz-sI-8gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="106" y="5" width="189" height="45"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kvz-sI-8gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="106" y="5" width="239" height="45"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331">
-                                            <rect key="frame" x="303" y="5" width="68" height="45"/>
+                                            <rect key="frame" x="350" y="38" width="24" height="0.0"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="68" id="fzM-F5-JgK"/>
+                                                <constraint firstAttribute="width" constant="24" id="fzM-F5-JgK"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -906,9 +911,9 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4O-rB-QT4">
-                                            <rect key="frame" x="376" y="8" width="30" height="60"/>
+                                            <rect key="frame" x="374" y="8" width="40" height="60"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="iTm-pm-UtV"/>
+                                                <constraint firstAttribute="width" constant="40" id="iTm-pm-UtV"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
                                             <state key="normal" title="">
@@ -923,14 +928,13 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="a4O-rB-QT4" secondAttribute="bottom" constant="8" id="7M5-AF-PRB"/>
                                         <constraint firstItem="a4O-rB-QT4" firstAttribute="top" secondItem="qpw-4e-L9N" secondAttribute="top" constant="8" id="7mu-9c-ZVO"/>
-                                        <constraint firstItem="a4O-rB-QT4" firstAttribute="leading" secondItem="ghF-y1-331" secondAttribute="trailing" constant="5" id="A04-KK-mAx"/>
-                                        <constraint firstItem="ghF-y1-331" firstAttribute="leading" secondItem="Kvz-sI-8gp" secondAttribute="trailing" constant="8" id="Icn-mk-wzX"/>
+                                        <constraint firstItem="a4O-rB-QT4" firstAttribute="leading" secondItem="ghF-y1-331" secondAttribute="trailing" id="A04-KK-mAx"/>
+                                        <constraint firstItem="ghF-y1-331" firstAttribute="leading" secondItem="Kvz-sI-8gp" secondAttribute="trailing" constant="5" id="Icn-mk-wzX"/>
+                                        <constraint firstItem="ghF-y1-331" firstAttribute="centerY" secondItem="a4O-rB-QT4" secondAttribute="centerY" id="RE5-Gt-ck9"/>
                                         <constraint firstItem="7XC-JO-cjJ" firstAttribute="leading" secondItem="qpw-4e-L9N" secondAttribute="leadingMargin" constant="8" id="Roy-QJ-fKl"/>
-                                        <constraint firstItem="ghF-y1-331" firstAttribute="bottom" secondItem="Kvz-sI-8gp" secondAttribute="bottom" id="SbS-57-m6K"/>
                                         <constraint firstItem="3eU-N9-Aim" firstAttribute="top" secondItem="Kvz-sI-8gp" secondAttribute="bottom" constant="2" id="Tqj-tx-tdw"/>
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="leading" secondItem="7XC-JO-cjJ" secondAttribute="trailing" constant="18" id="XKi-Ky-DCq"/>
-                                        <constraint firstAttribute="trailing" secondItem="a4O-rB-QT4" secondAttribute="trailing" constant="8" id="Z8h-Jc-CeI"/>
-                                        <constraint firstItem="ghF-y1-331" firstAttribute="top" secondItem="Kvz-sI-8gp" secondAttribute="top" id="aTA-HK-jqX"/>
+                                        <constraint firstAttribute="trailing" secondItem="a4O-rB-QT4" secondAttribute="trailing" id="Z8h-Jc-CeI"/>
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="top" secondItem="qpw-4e-L9N" secondAttribute="topMargin" constant="-6" id="eOY-rh-cdN"/>
                                         <constraint firstItem="7XC-JO-cjJ" firstAttribute="bottom" secondItem="Kvz-sI-8gp" secondAttribute="bottom" constant="15" id="n1V-pN-J99"/>
                                         <constraint firstItem="3eU-N9-Aim" firstAttribute="leading" secondItem="7XC-JO-cjJ" secondAttribute="trailing" constant="18" id="oah-ch-Xvv"/>

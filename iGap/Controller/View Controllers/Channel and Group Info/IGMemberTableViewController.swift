@@ -27,7 +27,9 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     private var allRealmMembers: Results<IGRealmMember>!
     private var allowFetchMore = false
     private var fetchedMember = false // if one time or more than fetched member from server and received response
+    private var navItem: IGNavigationItem!
     private var roomAccess = IGRealmRoomAccess()
+    private var roomAccessObserver: NotificationToken?
     public static var updateMyRoleObserver: UpdateMyRoleObserver!
     
     var isInSearchMode : Bool = false
@@ -91,8 +93,6 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             myRole = room?.groupRoom?.role.rawValue
         }
         
-        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
-        
         /**
          * don't need to save members and show offline so before load each time, first clear all members and fetch from server
          */
@@ -111,6 +111,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         
+        initRoomAccessObserver()
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,23 +154,34 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         }
     }
     
+    private func initRoomAccessObserver(){
+        self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)!
+        self.roomAccessObserver = self.roomAccess.observe { [weak self] (ObjectChange) in
+            DispatchQueue.main.async {
+                if self == nil {return}
+                self?.setNavigationItem()
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
     deinit {
         print("Deinit IGMemberTableViewController")
     }
     
     private func setNavigationItem(){
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
+        let navigationItem = self.navigationItem as? IGNavigationItem
+        navigationItem?.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as? IGNavigationController
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         if self.showMembersFilter == .all && self.roomAccess.addMember {
-            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
-            navigationItem.rightViewContainer?.addAction {
+            navigationItem?.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
+            navigationItem?.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
             }
         } else {
-            navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.AllMembers.rawValue.localized)
+            navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.AllMembers.rawValue.localized)
         }
     }
     
@@ -473,7 +485,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let editAdmin = UIAlertAction(title: "Edit Admin", style: .default, handler: { (action) in
+        let editAdmin = UIAlertAction(title: IGStringsManager.EditAdminRights.rawValue.localized, style: .default, handler: { (action) in
             if let user = member.user, let room = self.room {
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user

@@ -6737,3 +6737,12 @@ Page 4 introduce app */
 "received_from" = "دریافت شده از";
 "enter_national_code" = "کد ملی خود را وارد نمایید";
 "national_code_inquiry_error" = "استعلام کد ملی با خطا مواجه شد. لطفاً دوباره تلاش کنید.";
+"admin_rights" = "دسترسی های مدیر";
+"what_can_this_admin_do" = "این مدیر چه دسترسی هایی خواهد داشت؟";
+"modify_room" = "ویرایش اطلاعات";
+"post_message" = "ارسال پیام";
+"edit_message" = "ویرایش پیام";
+"delete_message" = "حذف پیام";
+"pin_message_1" = "سنجاق پیام";
+"remove_user" = "حذف کاربر";
+"edit_admin_rights" = "ویرایش دسترسی های مدیر";
