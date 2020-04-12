@@ -2704,8 +2704,23 @@ class ChatControllerNode: ASCellNode {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
+            
             txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 20)
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            
+            if IGRoomMessage.detectPinMessage(message: message).count > 60 {
+                IGGlobal.makeAsyncText(for: txtLogMessage!, with: "  " + IGRoomMessage.detectPinMessage(message: message).replacingOccurrences(of: "\n", with: " ").prefix(60) + " ... ", textColor: .white, size: 11, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else {
+                IGGlobal.makeAsyncText(for: txtLogMessage!, with: " " + IGRoomMessage.detectPinMessage(message: message) + " ", textColor: .white, size: 11, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            }
+
+            txtLogMessage!.backgroundColor = UIColor.logBackground()
+            txtLogMessage!.layer.cornerRadius = 10.0
+            txtLogMessage!.clipsToBounds = true
+
+            
             
         } else {
             if txtLogMessage == nil {
@@ -2713,7 +2728,13 @@ class ChatControllerNode: ASCellNode {
             }
             txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 20)
 
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            if IGRoomMessageLog.textForLogMessage(message).count > 60 {
+                IGGlobal.makeAsyncText(for: txtLogMessage!, with:" " + IGRoomMessageLog.textForLogMessage(message).prefix(60) + " ... ", textColor: .white, size: 11, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else {
+                IGGlobal.makeAsyncText(for: txtLogMessage!, with:" " + IGRoomMessageLog.textForLogMessage(message) + " ", textColor: .white, size: 11, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            }
             
             
             if let user = message.authorUser?.user {
@@ -2758,12 +2779,30 @@ class ChatControllerNode: ASCellNode {
 //            }
             
             
+            txtLogMessage!.backgroundColor = UIColor.logBackground()
+            txtLogMessage!.layer.cornerRadius = 10.0
+            txtLogMessage!.clipsToBounds = true
+            if message.log?.type == .pinnedMessage {
+                let logSize = (IGRoomMessage.detectPinMessage(message: message).replacingOccurrences(of: "\n", with: " ").width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 11)))
+                if logSize >= (UIScreen.main.bounds.width - 20) {
+                    txtLogMessage!.style.width =  ASDimensionMake(.points, UIScreen.main.bounds.width - 30)
+
+                } else {
+                    txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
+                }
+
+            } else {
+                let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 11)))
+                if logSize >= (UIScreen.main.bounds.width - 20) {
+                    txtLogMessage!.style.width =  ASDimensionMake(.points, UIScreen.main.bounds.width - 30)
+
+                } else {
+                    txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
+                }
+
+            }
+
         }
-        txtLogMessage!.backgroundColor = UIColor.logBackground()
-        txtLogMessage!.layer.cornerRadius = 10.0
-        txtLogMessage!.clipsToBounds = true
-        let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 11)))
-        txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
     }
     
     @objc private func didTapOnLog(_ gesture: UITapGestureRecognizer) {

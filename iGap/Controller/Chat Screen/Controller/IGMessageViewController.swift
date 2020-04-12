@@ -1199,6 +1199,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                             self?.middleIndex.item = indexItem
                                 
                                 self?.updateMessageArray(cellPosition: indexOfMessage, message: message.detach())
+                            print("::::::UPDATE ACTION :","UPDATE STATUS")
                             self?.updateItem(cellPosition: indexOfMessage)
                         }
                     }
@@ -7747,7 +7748,11 @@ extension IGMessageViewController {
         if self.messages!.count <= cellPosition  {
             return
         }
+//        print("::::::::::update action",action)
         switch action {
+        case .updateStatus :
+            self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
+
             default:
                 self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         }
