@@ -758,7 +758,7 @@ class IGGroupPinMessageRequest : IGRequest {
     }
 }
 
-class IGGroupChangeMemberRoleRequest : IGRequest {
+class IGGroupChangeMemberRightsRequest : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(roomId: Int64, userId: Int64, memberRights: IGPGroupChangeMemberRights.IGPMemberRights) -> IGRequestWrapper {
             var changeMemberRights = IGPGroupChangeMemberRights()

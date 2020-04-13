@@ -21,6 +21,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     @IBOutlet weak var switchModifyRoom: UISwitch!
     @IBOutlet weak var switchPostMessage: UISwitch!
+    @IBOutlet weak var switchSendTextMessage: UISwitch!
+    @IBOutlet weak var switchSendMediaMessage: UISwitch!
+    @IBOutlet weak var switchSendStickerMessage: UISwitch!
+    @IBOutlet weak var switchSendGifMessage: UISwitch!
+    @IBOutlet weak var switchSendLinkMessage: UISwitch!
     @IBOutlet weak var switchEditMessage: UISwitch!
     @IBOutlet weak var switchDeleteMessage: UISwitch!
     @IBOutlet weak var switchPinMessage: UISwitch!
@@ -37,6 +42,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     @IBOutlet weak var txtModifyRoom: UILabel!
     @IBOutlet weak var txtPostMessage: UILabel!
+    @IBOutlet weak var txtSendTextMessage: UILabel!
+    @IBOutlet weak var txtSendMediaMessage: UILabel!
+    @IBOutlet weak var txtSendStickerMessage: UILabel!
+    @IBOutlet weak var txtSendGifMessage: UILabel!
+    @IBOutlet weak var txtSendLinkMessage: UILabel!
     @IBOutlet weak var txtEditMessage: UILabel!
     @IBOutlet weak var txtDeleteMessage: UILabel!
     @IBOutlet weak var txtPinMessage: UILabel!
@@ -66,6 +76,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         avatarView.setUser(userInfo)
         txtContactName.text = userInfo.displayName
         txtContactStatus.text = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: userInfo?.lastSeenStatus, lastSeen: userInfo?.lastSeen)
+        if isRTL {
+            txtContactName.textAlignment = .right
+        } else {
+            txtContactName.textAlignment = .left
+        }
         fillRoomAccess()
         
         txtModifyRoom.text = IGStringsManager.ModifyRoom.rawValue.localized
@@ -130,7 +145,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     private func fillRoomAccess(){
         if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo.id) {
             switchModifyRoom.isOn = roomAccess.modifyRoom
-            switchPostMessage.isOn = roomAccess.postMessage
+            //switchPostMessage.isOn = roomAccess.postMessage
             switchEditMessage.isOn = roomAccess.editMessage
             switchDeleteMessage.isOn = roomAccess.deleteMessage
             switchPinMessage.isOn = roomAccess.pinMessage
@@ -139,23 +154,47 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             switchGetMember.isOn = roomAccess.getMember
             switchAddAdmin.isOn = roomAccess.addAdmin
             
-            managePostAndEdit(state: roomAccess.postMessage)
+            //managePostAndEdit(state: roomAccess.postMessage)
             manageGetMemberAndOtherOptions(state: roomAccess.getMember)
         }
     }
     
-    private func makeRoomAccess() -> IGPRoomAccess {
-        var roomAccess = IGPRoomAccess()
-        roomAccess.igpModifyRoom = switchModifyRoom.isOn
-        roomAccess.igpPostMessage = switchPostMessage.isOn
-        roomAccess.igpEditMessage = switchEditMessage.isOn
-        roomAccess.igpDeleteMessage = switchDeleteMessage.isOn
-        roomAccess.igpPinMessage = switchPinMessage.isOn
-        roomAccess.igpAddMember = switchAddMember.isOn
-        roomAccess.igpBanMember = switchBanMember.isOn
-        roomAccess.igpGetMember = switchGetMember.isOn
-        roomAccess.igpAddAdmin = switchAddAdmin.isOn
-        return roomAccess
+    private func makeChannelAdminRights() -> IGPChannelAddAdmin.IGPAdminRights {
+        var adminRights = IGPChannelAddAdmin.IGPAdminRights()
+        adminRights.igpModifyRoom = self.switchModifyRoom.isOn
+        adminRights.igpPostMessage = self.switchPostMessage.isOn
+        adminRights.igpEditMessage = self.switchEditMessage.isOn
+        adminRights.igpDeleteMessage = self.switchDeleteMessage.isOn
+        adminRights.igpPinMessage = self.switchPinMessage.isOn
+        adminRights.igpGetMember = self.switchGetMember.isOn
+        adminRights.igpAddMember = self.switchAddMember.isOn
+        adminRights.igpBanMember = self.switchBanMember.isOn
+        adminRights.igpAddAdmin = self.switchAddAdmin.isOn
+        return adminRights
+    }
+    
+    private func makeGroupAdminRights() -> IGPGroupAddAdmin.IGPAdminRights{
+        var adminRights = IGPGroupAddAdmin.IGPAdminRights()
+        adminRights.igpDeleteMessage = self.switchDeleteMessage.isOn
+        adminRights.igpPinMessage = self.switchPinMessage.isOn
+        adminRights.igpGetMember = self.switchGetMember.isOn
+        adminRights.igpAddMember = self.switchAddMember.isOn
+        adminRights.igpBanMember = self.switchBanMember.isOn
+        adminRights.igpAddAdmin = self.switchAddAdmin.isOn
+        return adminRights
+    }
+    
+    private func makeGroupMemberRights() -> IGPGroupChangeMemberRights.IGPMemberRights{
+        var memberRights = IGPGroupChangeMemberRights.IGPMemberRights()
+        memberRights.igpSendText = self.switchSendTextMessage.isOn
+        memberRights.igpSendMedia = self.switchSendMediaMessage.isOn
+        memberRights.igpSendSticker = self.switchSendStickerMessage.isOn
+        memberRights.igpSendGif = self.switchSendGifMessage.isOn
+        memberRights.igpSendLink = self.switchSendLinkMessage.isOn
+        memberRights.igpPinMessage = self.switchPinMessage.isOn
+        memberRights.igpGetMember = self.switchGetMember.isOn
+        memberRights.igpAddMember = self.switchAddMember.isOn
+        return memberRights
     }
     
     func requestToAddAdminInChannel() {
@@ -180,36 +219,62 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         }
         
         if room.type == .group {
-            IGGlobal.prgShow(self.view)
-            IGGroupAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, roomAccess: makeRoomAccess()).success({ [weak self] (protoResponse) in
-                IGGlobal.prgHide()
-                if let grouplAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
-                    IGGroupAddAdminRequest.Handler.interpret(response: grouplAddAdminResponse)
-                    DispatchQueue.main.async {
-                        self?.navigationController?.popViewController(animated: true)
+            if isAdmin {
+                IGGlobal.prgShow(self.view)
+                IGGroupAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, adminRights: makeGroupAdminRights()).success({ [weak self] (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let grouplAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
+                        IGGroupAddAdminRequest.Handler.interpret(response: grouplAddAdminResponse)
+                        DispatchQueue.main.async {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
                     }
-                }
-            }).error ({ (errorCode, waitTime) in
-                IGGlobal.prgHide()
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        }
+                    case .canNotAddThisUserAsAdminToGroup:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            
+                        }
+                    default:
+                        break
                     }
-                case .canNotAddThisUserAsAdminToGroup:
-                    DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
+                }).send()
+            } else {
+                IGGlobal.prgShow(self.view)
+                IGGroupChangeMemberRightsRequest.Generator.generate(roomId: room.id, userId: userInfo.id, memberRights: makeGroupMemberRights()).success({ [weak self] (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let memberRightsResponse = protoResponse as? IGPGroupChangeMemberRoleResponse {
+                        IGGroupChangeMemberRightsRequest.Handler.interpret(response: memberRightsResponse)
+                        DispatchQueue.main.async {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
                     }
-                default:
-                    break
-                }
-                
-            }).send()
-
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        }
+                    case .canNotAddThisUserAsAdminToGroup:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            
+                        }
+                    default:
+                        break
+                    }
+                }).send()
+            }
         } else if room.type == .channel {
             IGGlobal.prgShow(self.view)
-            IGChannelAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, roomAccess: makeRoomAccess()).success({ [weak self] (protoResponse) in
+            IGChannelAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, adminRights: makeChannelAdminRights()).success({ [weak self] (protoResponse) in
                 IGGlobal.prgHide()
                 if let channelAddAdminResponse = protoResponse as? IGPChannelAddAdminResponse {
                     IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
@@ -229,11 +294,10 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                 default:
                     break
                 }
-                
             }).send()
         }
-        
     }
+    
     
     func kickAdmin() {
         if room.type == .group {
@@ -296,11 +360,24 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if room.type == .group && indexPath.section == 1 {
-            if indexPath.row >= 1 {
-                return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 2, section: 1))
+        if indexPath.section == 1 {
+            if room.type == .group {
+                if isAdmin {
+                    return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 8, section: 1))
+                } else {
+                    if indexPath.row >= 7 {
+                        return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 4, section: 1))
+                    } else {
+                        return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 2, section: 1))
+                    }
+                }
             }
-            return super.tableView(tableView, cellForRowAt: indexPath)
+            
+            if room.type == .channel {
+                if indexPath.row >= 2 {
+                    return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 5, section: 1))
+                }
+            }
         }
         return super.tableView(tableView, cellForRowAt: indexPath)
     }
@@ -313,7 +390,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             if room.type == .channel {
                 return 9
             } else if room.type == .group {
-                return 7
+                if isAdmin {
+                    return 6
+                } else {
+                    return 8
+                }
             }
         } else if section == 2 {
             return 1

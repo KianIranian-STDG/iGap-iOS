@@ -69,11 +69,11 @@ class IGChannelAddMemberRequest : IGRequest {
 
 class IGChannelAddAdminRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (roomID: Int64 , memberID : Int64, roomAccess: IGPChannelAddAdmin.IGPAdminRights) -> IGRequestWrapper {
+        class func generate (roomID: Int64 , memberID : Int64, adminRights: IGPChannelAddAdmin.IGPAdminRights) -> IGRequestWrapper {
             var channelAddAdminRequestMessage = IGPChannelAddAdmin()
             channelAddAdminRequestMessage.igpRoomID = roomID
             channelAddAdminRequestMessage.igpMemberID = memberID
-            channelAddAdminRequestMessage.igpPermission = roomAccess
+            channelAddAdminRequestMessage.igpPermission = adminRights
             return IGRequestWrapper(message: channelAddAdminRequestMessage, actionID: 402)
         }
     }

@@ -91,7 +91,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         
         DeepLinkManager.shared.handleShortcut(item: shortcutItem)
     }
-    
+     
     func realmConfig() {
         let config = Realm.Configuration (
             schemaVersion: 55//HINT: change schemaVersion in 'ShareConfig'
