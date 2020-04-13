@@ -50,6 +50,18 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         navItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
+        txtCode.text = "+98"
+        txtCode.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+        txtCode.layer.cornerRadius = 5
+        txtCode.layer.borderWidth = 1.0
+        
+        tfReferralNumber.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+        tfReferralNumber.layer.cornerRadius = 5
+        tfReferralNumber.layer.borderWidth = 1.0
+        profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
+        tfReferralNumber.setLeftPaddingPoints(10)
+        tfReferralNumber.setRightPaddingPoints(10)
+
     }
     @IBAction func didTapOnBtnCountryCode(_ sender: UIButton) {
         IGGlobal.isPopView = true
@@ -69,10 +81,11 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         lblReferralHint.font = UIFont.igFont(ofSize: 13)
         txtCode.font = UIFont.igFont(ofSize: 15)
         lblReferralHint.textAlignment = lblReferralHint.localizedDirection
-        tfReferralNumber.textAlignment = .left
+        tfReferralNumber.textAlignment = .center
         nicknameTextField.textAlignment = nicknameTextField.localizedDirection
         FnameTextField.textAlignment = nicknameTextField.localizedDirection
         txtCode.textAlignment = .center
+        
     }
     @objc func showCountriesList() {}
     
@@ -81,10 +94,11 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         lblReferralHint.text = IGStringsManager.SetRefferalNumberHint.rawValue.localized
         nicknameTextField.placeholder = IGStringsManager.FirstName.rawValue.localized
         FnameTextField.placeholder = IGStringsManager.LastName.rawValue.localized
-        tfReferralNumber.placeholder = IGStringsManager.PhoneNumber.rawValue.localized
+        tfReferralNumber.placeholder =  IGStringsManager.PhoneNumber.rawValue.localized
         pagetitleLabel.text = IGStringsManager.Information.rawValue.localized
         titleLabel.text = IGStringsManager.EnterNameAndPhoto.rawValue.localized
 
+        
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -92,7 +106,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: keyboardFrame.size.height + 10, right: 0)
+            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 10, right: 0)
         })
     }
     
@@ -235,5 +249,17 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     func onSelectCountry(country: IGCountryInfo) {
         selectedCountry = country
         setCountryInfo(country: country)
+    }
+}
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+    func setRightPaddingPoints(_ amount:CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.rightView = paddingView
+        self.rightViewMode = .always
     }
 }
