@@ -155,8 +155,8 @@ class ASAvatarView: ASDisplayNode {
                 // remove imageview from download list on t on cell reuse
 //        DispatchQueue.main.async {
         avatarThread.sync {
-                let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as! [String]
-                keys.forEach { (key) in
+                let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as? [String]
+                keys?.forEach { (key) in
                     ASNetworkimagesMap.removeValue(forKey: key)
                 }
         }

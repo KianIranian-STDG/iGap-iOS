@@ -1352,68 +1352,144 @@ class ChatControllerNode: ASCellNode {
         }
         
     }
-    private func setMessageStatus() {
+    func updatMessage(action: ChatMessageAction = .none,status: IGRoomMessageStatus = .unknown,message: IGRoomMessage?) {
+
+        switch action {
+        case .updateStatus :
+            print("=-=-=-=-=-UPDATING CELL STATUS")
+            setMessageStatus(status: status)
+        case .edit :
+            print("=-=-=-=-=-UPDATING MESSAGE TEXT")
+            self.message = message
+            setMessage()
+        default :
+            print("=-=-=-=-=-UPDATING OTHER PARAMETERS")
+
+            break
+        }
+        
+    }
+    private func setMessageStatus(status: IGRoomMessageStatus = .unknown) {
         
         if txtStatusNode == nil {
             txtStatusNode = ASTextNode()
         }
         txtStatusNode?.style.minHeight = ASDimensionMake(.points, 10)
         txtStatusNode?.style.maxWidth = ASDimensionMake(.points, 20)
-        
-        switch message!.status {
-        case .sending:
-            if isIncomming {
-                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            } else {
-                let Color = ThemeManager.currentTheme.LabelColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            }
-            txtStatusNode!.backgroundColor = UIColor.clear
-            break
-        case .sent:
-            if isIncomming {
-                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            } else {
-                let Color = ThemeManager.currentTheme.LabelColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            }
-            txtStatusNode!.backgroundColor = UIColor.clear
-            break
-        case .delivered:
-            if isIncomming {
-                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            } else {
-                let Color = ThemeManager.currentTheme.LabelColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            }
-            txtStatusNode!.backgroundColor = UIColor.clear
-            break
-        case .seen,.listened:
-            if isIncomming {
-                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
-                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            } else {
-                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-                if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
-                    if currentColorSetLight == "IGAPBlack" {
-                        IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        if status != .unknown {
+
+            switch status {
+            case .sending:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .sent:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .delivered:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .seen,.listened:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                    let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+                    if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                        } else {
+                            IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                        }
                     } else {
                         IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                     }
-                } else {
-                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                 }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .failed, .unknown:
+                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .failedColor(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
             }
-            txtStatusNode!.backgroundColor = UIColor.clear
-            break
-        case .failed, .unknown:
-            IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .failedColor(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-            txtStatusNode!.backgroundColor = UIColor.clear
-            break
+        } else {
+
+            switch message!.status {
+            case .sending:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .sent:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .delivered:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .seen,.listened:
+                if isIncomming {
+                    let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                    IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                } else {
+                    let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                    let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+                    if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                        } else {
+                            IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                        }
+                    } else {
+                        IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                    }
+                }
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            case .failed, .unknown:
+                IGGlobal.makeAsyncText(for: txtStatusNode!, with: "", textColor: .failedColor(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                txtStatusNode!.backgroundColor = UIColor.clear
+                break
+            }
         }
     }
     private func setSenderName() {
@@ -4459,6 +4535,7 @@ class ChatControllerNode: ASCellNode {
                     } else {
                         imgNode!.image = UIImage(named: "igap_default_video")
                     }
+                    
                     imgNode!.setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {

@@ -1181,6 +1181,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                     self?.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: onMessageUpdate.message, roomId: onMessageUpdate.roomId).detach())
                     self?.updateItem(cellPosition: indexOfMessage)
+                    print("=-=-=-=- MESSAGE UPDATE GOT CLLLED")
                 }
                 
                 
@@ -1197,10 +1198,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         if let message = IGRoomMessage.getMessageWithId(messageId: onMessageUpdateStatus.messageId) {
                             let indexItem = (self?.middleIndex.item)! - 1
                             self?.middleIndex.item = indexItem
-                                
                                 self?.updateMessageArray(cellPosition: indexOfMessage, message: message.detach())
-                            print("::::::UPDATE ACTION :","UPDATE STATUS")
-                            self?.updateItem(cellPosition: indexOfMessage)
+                            self?.updateMessageStatus(cellPosition: indexOfMessage, status: message.status)
+                            print("=-=-=-=- MESSAGE UPDATE STATUS GOT CLLLED")
+
                         }
                     }
                 }
@@ -1227,7 +1228,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 }
                             }
                         }
-                        print("RELOAD COLLECTION DID CALLED")
 
                     }
                 }
@@ -1243,7 +1243,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: onLocalMessageUpdateStatus.localMessage.primaryKeyId!) {
                             self?.updateMessageArray(cellPosition: indexOfMessage, message: newMessage.detach())
                             self?.updateItem(cellPosition: indexOfMessage)
-                            
+                            print("=-=-=-=- LOCAL MESSAGE UPDATE GOT CLLLED")
+
                             if newMessage.status == IGRoomMessageStatus.sending {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     let message = IGRoomMessage.makeCopyOfMessage(message: newMessage.detach())
@@ -1264,8 +1265,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     /* this messageId updated so after get this message from realm it has latest update */
                     if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
                         if let position = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1]?.firstIndex(of: onMessageEdit.messageId) {
-                            self?.updateMessageArray(cellPosition: position, message: newMessage.detach())
-                            self?.updateItem(cellPosition: position,action: .edit )
+                            self?.updateMessageText(cellPosition: position, message: newMessage.detach())
+                            print("=-=-=-=- MESSAGE TEXT GOT EDITED")
+
                         }
                     }
                 }
@@ -7087,17 +7089,28 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
 //            self.tableViewNode.reloadItems(at: [indexPath])
 //            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
             if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
-                cell.backgroundColor = UIColor.clear
-                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                    cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+                
+//                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+//                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
+//                    cell.backgroundColor = UIColor.clear
+//                }, completion: nil)
+                UIView.animateKeyframes(withDuration: 3.0, delay: 0, options: [.calculationModeCubic], animations: {
+                    // Add animations
 
-                }, completion: { (finished: Bool) in
-                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                        cell.backgroundColor = .clear
-
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/5.0, animations: {
+                        cell.backgroundColor = UIColor.clear
                     })
-                    
+                    UIView.addKeyframe(withRelativeStartTime: 1.0/5.0, relativeDuration: 1.0/5.0, animations: {
+                        cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+                    })
+                    UIView.addKeyframe(withRelativeStartTime: 2.0/5.0, relativeDuration: 1.0/5.0, animations: {
+                        cell.backgroundColor = UIColor.clear
+                    })
+                
+                }, completion:{ _ in
+                    print("I'm done animating!")
                 })
+                
             }
             
         }
@@ -7748,14 +7761,30 @@ extension IGMessageViewController {
         if self.messages!.count <= cellPosition  {
             return
         }
-//        print("::::::::::update action",action)
-        switch action {
-        case .updateStatus :
-            self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
 
+        switch action {
             default:
                 self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         }
+    }
+    private func updateMessageText(cellPosition: Int,message: IGRoomMessage?) {
+//        for indexPath in [IndexPath(row: cellPosition, section: 0)] {
+//            let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode
+//            print("=-=-=-=- update called Message Edit")
+//            cell?.updatMessage(action: .edit,message: message!)
+//
+//        }
+        self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none) // the above method is commented bocoz of edite
+
+    }
+    private func updateMessageStatus(cellPosition: Int,status: IGRoomMessageStatus = .unknown) {
+        for indexPath in [IndexPath(row: cellPosition, section: 0)] {
+            let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode
+            print("=-=-=-=- update called Message status")
+            cell?.updatMessage(action: .updateStatus,status: status, message: nil)
+
+        }
+
     }
     
     /*********************************************************************************/

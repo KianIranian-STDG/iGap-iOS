@@ -1501,7 +1501,14 @@ extension ASImageNode {
                     
                     if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                         if let image = UIImage(data: data) {
-                            self.image = image
+
+                            UIView.transition(with: self.view,
+                            duration: 0.5,
+                            options: .transitionCrossDissolve,
+                            animations: { self.image = image },
+                            completion: nil)
+
+                            
                         }
                     }
                 }
@@ -1535,8 +1542,13 @@ extension ASImageNode {
                                     print("CHECK THRED2-1:",Thread.isMainThread)
                                     
                                     //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    UIView.transition(with: self.view,
+                                    duration: 0.5,
+                                    options: .transitionCrossDissolve,
+                                    animations: { self.image = image },
+                                    completion: nil)
+
                                     
-                                    self.image = image
                                     //                                }
                                 }
                             }
@@ -1568,7 +1580,13 @@ extension ASImageNode {
                                             print("CHECK THRED3-1:",Thread.isMainThread)
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                                self.image = image
+
+                                                UIView.transition(with: self.view,
+                                                duration: 0.5,
+                                                options: .transitionCrossDissolve,
+                                                animations: { self.image = image },
+                                                completion: nil)
+
                                             }
                                         }
                                     }
@@ -1591,7 +1609,13 @@ extension ASImageNode {
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                         
-                                        self.image = image
+
+                                        UIView.transition(with: self.view,
+                                        duration: 0.5,
+                                        options: .transitionCrossDissolve,
+                                        animations: { self.image = image },
+                                        completion: nil)
+
                                     }
                                 }
                             }
@@ -1614,7 +1638,13 @@ extension ASImageNode {
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                         
-                                        self.image = image
+
+                                        UIView.transition(with: self.view,
+                                        duration: 0.5,
+                                        options: .transitionCrossDissolve,
+                                        animations: { self.image = image },
+                                        completion: nil)
+
                                     }
                                 }
                             }
