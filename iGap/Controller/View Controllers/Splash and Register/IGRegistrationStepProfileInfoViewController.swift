@@ -59,8 +59,19 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         tfReferralNumber.layer.cornerRadius = 5
         tfReferralNumber.layer.borderWidth = 1.0
         profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
+        self.profileImageView.layer.masksToBounds = true
+
         tfReferralNumber.setLeftPaddingPoints(10)
         tfReferralNumber.setRightPaddingPoints(10)
+        nicknameTextField.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+        nicknameTextField.layer.cornerRadius = 5
+        nicknameTextField.layer.borderWidth = 1.0
+        
+        FnameTextField.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+        FnameTextField.layer.cornerRadius = 5
+        FnameTextField.layer.borderWidth = 1.0
+
+
 
     }
     @IBAction func didTapOnBtnCountryCode(_ sender: UIButton) {
@@ -82,8 +93,8 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         txtCode.font = UIFont.igFont(ofSize: 15)
         lblReferralHint.textAlignment = lblReferralHint.localizedDirection
         tfReferralNumber.textAlignment = .center
-        nicknameTextField.textAlignment = nicknameTextField.localizedDirection
-        FnameTextField.textAlignment = nicknameTextField.localizedDirection
+        nicknameTextField.textAlignment = .center
+        FnameTextField.textAlignment = .center
         txtCode.textAlignment = .center
         
     }
