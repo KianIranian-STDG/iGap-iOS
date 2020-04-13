@@ -609,11 +609,9 @@ class ChatControllerNode: ASCellNode {
 //                    guard let sSelf = self else {
 //                        return
 //                    }
-                DispatchQueue.global(qos: .userInteractive).sync {
                     let tap = UITapGestureRecognizer(target: self, action: #selector(onMultiForwardTap(_:)))
                     channelForwardBtnNode?.view.addGestureRecognizer(tap)
                     channelForwardBtnNode?.view.isUserInteractionEnabled = true
-                }
 //                }
                 
                 
