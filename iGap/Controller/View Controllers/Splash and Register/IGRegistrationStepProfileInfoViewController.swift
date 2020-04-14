@@ -76,6 +76,8 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     }
     @IBAction func didTapOnBtnCountryCode(_ sender: UIButton) {
         IGGlobal.isPopView = true
+        let countryPage = IGRegistrationStepSelectCountryTableViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
+        self.navigationController!.pushViewController(countryPage, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +93,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         tfReferralNumber.font = UIFont.igFont(ofSize: 15)
         lblReferralHint.font = UIFont.igFont(ofSize: 13)
         txtCode.font = UIFont.igFont(ofSize: 15)
-        lblReferralHint.textAlignment = lblReferralHint.localizedDirection
         tfReferralNumber.textAlignment = .center
         nicknameTextField.textAlignment = .center
         FnameTextField.textAlignment = .center
@@ -192,7 +193,11 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             }
         } else {
             IGAppManager.sharedManager.setUserLoginSuccessful()
-             RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
+            let tabbar = IGTabBarController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            UIApplication.topNavigationController()!.pushViewController(tabbar, animated: true)
+             self.dismiss(animated: false) {
+                 RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
+             }
         }
     }
     
@@ -244,13 +249,15 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             if let response = protoResponse as? IGPUserProfileSetRepresentativeResponse {
                 IGUserProfileSetRepresentativeRequest.Handler.interpret(response: response)
                 IGAppManager.sharedManager.setUserLoginSuccessful()
-                 RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
-
+                self.dismiss(animated: false) {
+                    RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
+                }
             }
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
-            DispatchQueue.main.async {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGAppManager.sharedManager.setUserLoginSuccessful()
+            self.dismiss(animated: false) {
+                RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
             }
         }).send()
     }
