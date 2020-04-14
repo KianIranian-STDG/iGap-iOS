@@ -193,8 +193,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             }
         } else {
             IGAppManager.sharedManager.setUserLoginSuccessful()
-            let tabbar = IGTabBarController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            UIApplication.topNavigationController()!.pushViewController(tabbar, animated: true)
              self.dismiss(animated: false) {
                  RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
              }
