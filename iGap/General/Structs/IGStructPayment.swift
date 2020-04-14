@@ -16,8 +16,8 @@ struct IGStructPayment: Decodable {
         var orderId: String?
         
         struct Product: Codable {
-            let title, productDescription, telNum, telCharger: String
-            let type, vendor, productRefType, refType: String
+            let title, productDescription, telNum, telCharger: String?
+            let type, vendor, productRefType, refType: String?
 
             enum CodingKeys: String, CodingKey {
                 case title

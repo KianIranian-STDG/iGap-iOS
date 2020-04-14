@@ -43,6 +43,8 @@ struct StickerTab: Codable {
     let isVip: Bool
     let sort: Int
     let status: String
+    let type: String?
+    let v: Int?
     let isInUserList, isGiftable, isNew, isReadonly: Bool?
     let stickers: [Sticker]
     
@@ -50,7 +52,8 @@ struct StickerTab: Codable {
         case id = "_id"
         case createdAt, updatedAt, categoryId
         case refID = "refId"
-        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers, isInUserList, isNew, isReadonly
+        case v = "__v"
+        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers, isInUserList, isNew, isReadonly,type
     }
 }
 
@@ -63,12 +66,14 @@ struct Sticker: Codable {
     let fileName: String
     let fileSize: Int
     let groupID: String
-    let sort: Int
+    let sort: Int?
     let createdAt: Int
     let updatedAt: Int
     let status: String
     let isFavorite: Bool
     let giftAmount: Int?
+    let v: Int?
+    let tags: [String]?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -76,7 +81,9 @@ struct Sticker: Codable {
         case refID = "refId"
         case name, token, fileName, fileSize, sort, giftAmount
         case groupID = "groupId"
+        case v = "__v"
         case status, isFavorite
+        case tags
     }
 }
 

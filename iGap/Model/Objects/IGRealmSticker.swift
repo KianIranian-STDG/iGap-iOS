@@ -90,7 +90,7 @@ class IGRealmStickerItem: Object {
         self.token = sticker.token
         self.fileName = sticker.fileName
         self.fileSize = sticker.fileSize
-        self.sort = sticker.sort
+        self.sort = sticker.sort ?? 0
         self.groupID = sticker.groupID
         self.giftAmount = sticker.giftAmount ?? 0
     }
