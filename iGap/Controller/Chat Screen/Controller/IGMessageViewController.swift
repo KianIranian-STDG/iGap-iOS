@@ -494,32 +494,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     private func setRightNavViewAction() {
-        weak var weakSelf = self
-        myNavigationItem.rightViewContainer?.addAction {
-            if weakSelf?.room?.type == .chat {
-                if let user = weakSelf?.room?.chatRoom?.peer, user.lastSeenStatus != .serviceNotification, user.lastSeenStatus != .support {
-                    weakSelf?.selectedUserToSeeTheirInfo = user
-                    weakSelf?.openUserProfile()
+        
+        if let myNav = myNavigationItem {
+            weak var weakSelf = self
+            myNav.rightViewContainer?.addAction {
+                if weakSelf?.room?.type == .chat {
+                    if let user = weakSelf?.room?.chatRoom?.peer, user.lastSeenStatus != .serviceNotification, user.lastSeenStatus != .support {
+                        weakSelf?.selectedUserToSeeTheirInfo = user
+                        weakSelf?.openUserProfile()
+                    }
+                }
+                if weakSelf?.room?.type == .channel {
+                    weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
+                    
+                    let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
+                    profile.room = weakSelf?.room
+                    profile.myRole = weakSelf?.room?.channelRoom?.role
+                    profile.hidesBottomBarWhenPushed = true
+                    weakSelf?.navigationController!.pushViewController(profile, animated: true)
+                }
+                if weakSelf?.room?.type == .group {
+                    
+                    let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    profile.selectedGroup = weakSelf?.room?.groupRoom
+                    profile.room = weakSelf?.room
+                    profile.hidesBottomBarWhenPushed = true
+                    weakSelf?.navigationController!.pushViewController(profile, animated: true)
                 }
             }
-            if weakSelf?.room?.type == .channel {
-                weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
-                
-                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
-                profile.room = weakSelf?.room
-                profile.myRole = weakSelf?.room?.channelRoom?.role
-                profile.hidesBottomBarWhenPushed = true
-                weakSelf?.navigationController!.pushViewController(profile, animated: true)
-            }
-            if weakSelf?.room?.type == .group {
-                
-                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = weakSelf?.room?.groupRoom
-                profile.room = weakSelf?.room
-                profile.hidesBottomBarWhenPushed = true
-                weakSelf?.navigationController!.pushViewController(profile, animated: true)
-            }
+
         }
     }
     
@@ -634,42 +638,46 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
          mainView.addGestureRecognizer(gesture)
          */
         var canBecomeFirstResponder: Bool { return true }
-        let navigationController = self.navigationController as! IGNavigationController
-        myNavigationItem = self.navigationItem as? IGNavigationItem
-        myNavigationItem.navigationController = navigationController
-        myNavigationItem.setNavigationBarForRoom(room!)
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-        
-        weak var weakSelf = self
-        myNavigationItem.backViewContainer?.addAction {
-            weakSelf?.deallocate()
-            weakSelf?.back()
-        }
-        
-        setRightNavViewAction()
-        
-        myNavigationItem.centerViewContainer?.addAction ({
-            if weakSelf?.room?.type == .chat {
-                if let user = weakSelf?.room?.chatRoom?.peer, user.lastSeenStatus != .serviceNotification, user.lastSeenStatus != .support {
-                    weakSelf?.selectedUserToSeeTheirInfo = user
-                    weakSelf?.openUserProfile()
-                }
-            } else if weakSelf?.room?.type == .channel {
-                weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
-                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
-                profile.room = weakSelf?.room
-                profile.myRole = weakSelf?.room?.channelRoom?.role
-                profile.hidesBottomBarWhenPushed = true
-                weakSelf?.navigationController!.pushViewController(profile, animated: true)
-            } else if weakSelf?.room?.type == .group {
-                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = weakSelf?.room?.groupRoom
-                profile.room = weakSelf?.room
-                profile.hidesBottomBarWhenPushed = true
-                weakSelf?.navigationController!.pushViewController(profile, animated: true)
+//        if let navigationController = self.navigationController as? IGNavigationController {
+         let navigationController = self.navigationController as? IGNavigationController
+            myNavigationItem = self.navigationItem as? IGNavigationItem
+            myNavigationItem.navigationController = navigationController
+            myNavigationItem.setNavigationBarForRoom(room!)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+            weak var weakSelf = self
+
+            myNavigationItem.backViewContainer?.addAction {
+                weakSelf?.deallocate()
+                weakSelf?.back()
             }
-        })
+
+            
+            setRightNavViewAction()
+            
+            myNavigationItem.centerViewContainer?.addAction ({
+                if weakSelf?.room?.type == .chat {
+                    if let user = weakSelf?.room?.chatRoom?.peer, user.lastSeenStatus != .serviceNotification, user.lastSeenStatus != .support {
+                        weakSelf?.selectedUserToSeeTheirInfo = user
+                        weakSelf?.openUserProfile()
+                    }
+                } else if weakSelf?.room?.type == .channel {
+                    weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
+                    let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
+                    profile.room = weakSelf?.room
+                    profile.myRole = weakSelf?.room?.channelRoom?.role
+                    profile.hidesBottomBarWhenPushed = true
+                    weakSelf?.navigationController!.pushViewController(profile, animated: true)
+                } else if weakSelf?.room?.type == .group {
+                    let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    profile.selectedGroup = weakSelf?.room?.groupRoom
+                    profile.room = weakSelf?.room
+                    profile.hidesBottomBarWhenPushed = true
+                    weakSelf?.navigationController!.pushViewController(profile, animated: true)
+                }
+            })
+//        }
+        
         
         if room!.isReadOnly {
             if room!.isParticipant == false {

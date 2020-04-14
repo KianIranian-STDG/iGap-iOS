@@ -1503,7 +1503,7 @@ extension ASImageNode {
                         if let image = UIImage(data: data) {
 
                             UIView.transition(with: self.view,
-                            duration: 0.5,
+                            duration: 0.2,
                             options: .transitionCrossDissolve,
                             animations: { self.image = image },
                             completion: nil)
@@ -1543,7 +1543,7 @@ extension ASImageNode {
                                     
                                     //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                     UIView.transition(with: self.view,
-                                    duration: 0.5,
+                                    duration: 0.2,
                                     options: .transitionCrossDissolve,
                                     animations: { self.image = image },
                                     completion: nil)
@@ -1582,7 +1582,7 @@ extension ASImageNode {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
 
                                                 UIView.transition(with: self.view,
-                                                duration: 0.5,
+                                                duration: 0.2,
                                                 options: .transitionCrossDissolve,
                                                 animations: { self.image = image },
                                                 completion: nil)
@@ -1611,7 +1611,7 @@ extension ASImageNode {
                                         
 
                                         UIView.transition(with: self.view,
-                                        duration: 0.5,
+                                        duration: 0.2,
                                         options: .transitionCrossDissolve,
                                         animations: { self.image = image },
                                         completion: nil)
@@ -1624,6 +1624,7 @@ extension ASImageNode {
 
                     } else {
                         self.image = UIImage(named:"igap_default_image")
+                        self.setImageColor(color: UIColor.purple)
                     }
                     break
                 case .gif:
@@ -1640,7 +1641,7 @@ extension ASImageNode {
                                         
 
                                         UIView.transition(with: self.view,
-                                        duration: 0.5,
+                                        duration: 0.2,
                                         options: .transitionCrossDissolve,
                                         animations: { self.image = image },
                                         completion: nil)
@@ -3145,4 +3146,18 @@ public extension UIDevice {
         }
         return Model.unrecognized
     }
+}
+extension UIImageView {
+  func setImageColor(color: UIColor) {
+    let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+    self.image = templateImage
+    self.tintColor = color
+  }
+}
+extension ASImageNode {
+  func setImageColor(color: UIColor) {
+    let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+    self.image = templateImage
+    self.tintColor = color
+  }
 }

@@ -28,7 +28,9 @@ import SwiftEventBus
 import AsyncDisplayKit
 
 
-class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationCenterDelegate {
+class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationCenterDelegate,UIViewControllerPreviewingDelegate {
+    
+    
     var headerHeight: CGFloat = 0
     var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -278,6 +280,10 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         self.hidesBottomBarWhenPushed = false
         
         eventBusInitialiser()
+        if self.traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: self.tableView)
+            
+        }
     }
     
     private func eventBusInitialiser() {
@@ -927,6 +933,37 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
             }).send()
         }
     }
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let indexPath = tableView.indexPathForRow(at: location) else {
+            return nil
+        }
+        selectedRoomForSegue = rooms![indexPath.row]
+        
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+
+        roomVC.room = selectedRoomForSegue
+        
+        
+        return roomVC
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let roomVC = viewControllerToCommit as? IGMessageViewController {
+            roomVC.room = selectedRoomForSegue
+//            navigationController?.pushViewController(viewControllerToCommit, animated: true)
+
+            UIApplication.topViewController()?.navigationController?.pushViewController(roomVC, animated: true)
+
+        } else {
+            return
+        }
+
+        
+    }
+
 }
 
 
@@ -1276,4 +1313,27 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
 }
 
 
-
+//extension IGRecentsTableViewController : UIViewControllerPreviewingDelegate {
+//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+//
+//            guard let indexPath = tableView.indexPathForRow(at: location) else {
+//            return nil
+//            }
+//            selectedRoomForSegue = rooms![indexPath.row]
+//
+//        let msgVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+//        msgVC.hidesBottomBarWhenPushed = true
+//        msgVC.room = selectedRoomForSegue
+//
+//
+//        return msgVC
+//
+//    }
+//
+//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+//            navigationController?.pushViewController(viewControllerToCommit, animated: true)
+//
+//    }
+//
+//
+//}

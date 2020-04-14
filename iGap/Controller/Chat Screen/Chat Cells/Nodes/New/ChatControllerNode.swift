@@ -4532,7 +4532,9 @@ class ChatControllerNode: ASCellNode {
             case .image, .imageAndText, .video, .videoAndText :
                 if !(attachment.isInvalidated) {
                     if msg.type == .image ||  msg.type == .imageAndText {
-                        imgNode!.image = UIImage(named: "igap_default_image")
+//                        imgNode!.image = UIImage(named: "igap_default_image")
+//                        imgNode!.setImageColor(color: UIColor.purple)
+
                     } else {
                         imgNode!.image = UIImage(named: "igap_default_video")
                     }
