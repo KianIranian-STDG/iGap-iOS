@@ -4597,19 +4597,24 @@ class ChatControllerNode: ASCellNode {
     }
     
     func updateAttachmentDownloadUploadIndicatorView() {
-        if message!.isInvalidated || (attachment?.isInvalidated) ?? (message!.attachment != nil) {
+        var msg = message
+        if let forwarded = message?.forwardedFrom {
+            msg = forwarded
+        }
+        
+        if msg!.isInvalidated || (attachment?.isInvalidated) ?? (msg!.attachment != nil) {
             return
         }
         
         if let attachment = attachment {
             let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
-                if message!.type == .video || message!.type == .videoAndText {
+                if msg!.type == .video || msg!.type == .videoAndText {
                     //                    makePlayButton()
                     btnPlay?.isHidden = false
                     indicatorViewAbs?.isHidden = true
                 }
-                if message?.status == IGRoomMessageStatus.failed {
+                if msg?.status == IGRoomMessageStatus.failed {
                     (indicatorViewAbs?.view as? IGProgress)?.setState(.uploadFailed)
                 } else {
                     (indicatorViewAbs?.view as? IGProgress)?.setState(.ready)
