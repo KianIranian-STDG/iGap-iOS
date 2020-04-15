@@ -1521,6 +1521,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @objc func keyboardWillHide(notification: NSNotification) {
         messageTextView.endEditing(true)
+        IGGlobal.isKeyboardPresented = false
+
         if MoneyInputModalIsActive {
             if let MoneyInput = MoneyInputModal {
                 self.view.addSubview(MoneyInput)
@@ -2155,7 +2157,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         let keyboardHeight = keyboardSize?.height
         let window = UIApplication.shared.keyWindow!
-        
+        IGGlobal.isKeyboardPresented = true
 //        if #available(iOS 11.0, *){
 //            self.messageTextViewBottomConstraint.constant = keyboardHeight!
 //        }
@@ -6817,6 +6819,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if cellMessage.status == IGRoomMessageStatus.failed {
             } else {
                 self.forwardOrReplyMessage(cellMessage.detach())
+            }
+            if !IGGlobal.isKeyboardPresented {
+                messageTextView.becomeFirstResponder()
             }
             
         }

@@ -4943,7 +4943,7 @@ class ChatControllerNode: ASCellNode {
                     }
                     messageAndTime.verticalAlignment = .center
                     
-                    let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+                    let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
 
                     spec.children?.append(nodeTextSpec)
 
@@ -5346,7 +5346,9 @@ class ChatControllerNode: ASCellNode {
                 self.delegate?.swipToReply(cellMessage: message!)
             }
             
-            
+
+
+        
             
         case .cancelled:
             self.swipeToReplyFeedback = nil

@@ -282,7 +282,6 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         btnCheckmarkPrivacy.transform = self.transform
         lblAcceptPrivacy.transform = self.transform
         tfPhoneNumber.placeholder =  IGStringsManager.PhoneNumber.rawValue.localized
-        tfPhoneNumber.textAlignment = .left
     }
     
     // MARK: - View Item Initializer

@@ -108,6 +108,7 @@ class IGGlobal {
     static var syncroniseImageQueue = DispatchQueue(label: "thread-safe-image-obj", attributes: .concurrent)
     static var carpinoAgreement : Bool = false
     static var barSpace : Int = 50
+    static var isKeyboardPresented : Bool = false
     static var chartIGPPollFields: [IGPPollField]! = []
     static var pageIDChartUpdate: Int32 = 0
     static var languageFileName: String = "localizationsFa"
