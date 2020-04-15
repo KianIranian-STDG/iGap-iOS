@@ -36,7 +36,7 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         navItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalClose.rawValue.localized, title: IGStringsManager.ChooseCountry.rawValue.localized)
         navItem.rightViewContainer?.addAction {
             IGRegistrationStepPhoneViewController.allowGetCountry = false
-            if self.popView {
+            if self.popView || IGGlobal.isPopView {
                 self.navigationController?.popViewController(animated: true)
             } else {
                 self.dismiss(animated: true, completion: nil)

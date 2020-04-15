@@ -300,11 +300,11 @@ class IGRoom: Object {
             room.chatRoom = IGChatRoom.putOrUpdate(realm: realm, igpChatRoom: igpRoom.igpChatRoomExtra, id: room.id)
         }
         if igpRoom.hasIgpGroupRoomExtra {
-            IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: room.id, userId: IGAppManager.sharedManager.userID()!, roomAccess: igpRoom.igpPermission)
+            IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: room.id, userId: IGAppManager.sharedManager.userID() ?? 0, roomAccess: igpRoom.igpPermission)
             room.groupRoom = IGGroupRoom.putOrUpdate(realm: realm, igpGroupRoom: igpRoom.igpGroupRoomExtra, id: room.id)
         }
         if igpRoom.hasIgpChannelRoomExtra {
-            IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: room.id, userId: IGAppManager.sharedManager.userID()!, roomAccess: igpRoom.igpPermission)
+            IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: room.id, userId: IGAppManager.sharedManager.userID() ?? 0, roomAccess: igpRoom.igpPermission)
             room.channelRoom = IGChannelRoom.putOrUpdate(realm: realm, igpChannelRoom: igpRoom.igpChannelRoomExtra, id: room.id)
         }
         if igpRoom.hasIgpPinnedMessage {
