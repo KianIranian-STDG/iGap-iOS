@@ -750,8 +750,11 @@ class ChatControllerNode: ASCellNode {
 //                guard let sSelf = self else {
 //                    return
 //                }
-            DispatchQueue.global(qos: .userInteractive).sync {
-                manageGestureRecognizers()
+            DispatchQueue.main.async {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.manageGestureRecognizers()
             }
 //            }
             
@@ -2848,10 +2851,13 @@ class ChatControllerNode: ASCellNode {
 //                guard let sSelf = self else {
 //                    return
 //                }
-            DispatchQueue.global(qos: .userInteractive).sync {
-                txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
-                txtLogMessage?.view.isUserInteractionEnabled = true
-                txtLogMessage?.isUserInteractionEnabled = true
+            DispatchQueue.main.async {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(sSelf.didTapOnLog(_:))))
+                sSelf.txtLogMessage?.view.isUserInteractionEnabled = true
+                sSelf.txtLogMessage?.isUserInteractionEnabled = true
             }
 //            }
             
@@ -5185,9 +5191,12 @@ class ChatControllerNode: ASCellNode {
 //            guard let sSelf = self else {
 //                return
 //            }
-        DispatchQueue.global(qos: .userInteractive).sync {
-                let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(swipeToReplyGesture(_:)))
-                view.addGestureRecognizer(replyRecognizer)
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(sSelf.swipeToReplyGesture(_:)))
+            sSelf.view.addGestureRecognizer(replyRecognizer)
         }
 //        }
     }
