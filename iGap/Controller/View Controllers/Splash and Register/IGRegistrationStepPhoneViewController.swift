@@ -90,6 +90,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         lbl.text = IGStringsManager.ChooseCountry.rawValue.localized
         lbl.numberOfLines = 1
         lbl.textAlignment = .left
+        lbl.font = UIFont.igFont(ofSize: 15)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
