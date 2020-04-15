@@ -826,12 +826,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
     private func initASCollectionNode() {
         //flips the tableview (and all cells) upside down
-
         let flowlayout = UICollectionViewFlowLayout.init()
         flowlayout.scrollDirection = .vertical
         flowlayout.minimumLineSpacing = 0.0
 
-//        self.collectionViewNode = ASCollectionNode.init(frame: CGRect.zero, collectionViewLayout:flowlayout)
         self.tableViewNode = ASTableNode.init(style: .plain)
         self.tableViewNode.backgroundColor = .clear
         self.tableviewMessagesView.backgroundColor = .clear
@@ -846,33 +844,27 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         tableViewNode.dataSource = self
 
         self.tableviewMessagesView.addSubnode(tableViewNode)
-//        self.tableviewMessagesView.backgroundColor = .red
         tableViewNode.view.translatesAutoresizingMaskIntoConstraints = false
         tableViewNode.view.topAnchor.constraint(equalTo: self.tableviewMessagesView.topAnchor).isActive = true
 
         tableViewNode.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
         tableViewNode.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
         tableViewNode.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
-
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         initNotificationsNewChatView()
-//        notification(register: true)
         self.addNotificationObserverForTapOnStatusBar()
         
         if self.room!.isInvalidated {
-            print("VVV || popViewController view will appear")
             self.navigationController?.popViewController(animated: true)
         }
         
         IGGlobal.isInChatPage = true
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
-//        setupNotifications()
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         getUserInfo()
         setBackground()
@@ -893,14 +885,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.createTopMusicPlayer()
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if self.room!.isInvalidated {
-            print("VVV || popViewController view did appear")
             self.navigationController?.popViewController(animated: true)
             return
         }
@@ -937,10 +927,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGMessageLoader.removeInstance(roomId: self.room!.id)
     }
     
-//    deinit {
-//        tableViewNode.recursivelyClearContents()
-//        print("Deinit IGMessageViewController")
-//    }
+    deinit {
+        print("Deinit IGMessageViewController")
+    }
     
     private func initTheme() {
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
@@ -996,7 +985,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
-//        unsetNotifications()
         saveMessagePosition()
         
         if !holderReplyBar.isHidden { // maybe has forward
@@ -1008,7 +996,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if let room = self.room, !room.isInvalidated {
-            room.saveDraft(messageTextView.text, replyToMessage: selectedMessageToReply)
+            room.saveDraft(messageTextView.text)
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
             if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
                 sendUnsubscribForRoom(roomId: room.id)
@@ -1048,21 +1036,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func manageDraft(){
-        if let draft = self.room!.draft {
-            if draft.message != "" || draft.replyTo != -1 {
-                messageTextView.text = draft.message
-                self.btnStickerWidthConstraint.constant = 0.0
-                
-                initChangeLanguegeNewChatView()
-                lblPlaceHolder.isHidden = true
-                if draft.replyTo != -1 {
-                    let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
-                    if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
-                        forwardOrReplyMessage(replyToMessage.detach())
-                    }
-                }
-                setSendAndRecordButtonStates()
-            }
+        if let draft = self.room!.draft, !draft.message.isEmpty {
+            messageTextView.text = draft.message
+            self.btnStickerWidthConstraint.constant = 0.0
+            initChangeLanguegeNewChatView()
+            lblPlaceHolder.isHidden = true
+            setSendAndRecordButtonStates()
         }
     }
     

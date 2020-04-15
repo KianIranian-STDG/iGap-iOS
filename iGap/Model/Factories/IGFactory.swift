@@ -1433,7 +1433,7 @@ class IGFactory: NSObject {
             let roomPredicate = NSPredicate(format: "id = %lld", draft.roomId)
             if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {
                 try! IGDatabaseManager.shared.realm.write {
-                    let draftInDb = IGRoomDraft.putOrUpdate(message: draft.message, replyTo: draft.replyTo, roomId: draft.roomId)
+                    let draftInDb = IGRoomDraft.putOrUpdate(message: draft.message, roomId: draft.roomId)
                     roomInDb.draft = draftInDb
                     if draftInDb.time != 0 { // if has draft time, update value to sortimgTimestamp fot sort in room list
                         roomInDb.sortimgTimestamp = Double(draftInDb.time)

@@ -674,14 +674,14 @@ extension IGRoom {
         return false
     }
     
-    func saveDraft( _ body: String?, replyToMessage: IGRoomMessage?) {
+    func saveDraft( _ body: String?) {
         let finalBody = body?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if (self.draft == nil || (self.draft?.message.isEmpty)!) && (finalBody == nil || (finalBody?.isEmpty)!) { //if before really has draft ro currently exist new draft
             return
         }
         
-        let draft = IGRoomDraft(message: finalBody, replyTo: replyToMessage?.id, roomId: self.id)
+        let draft = IGRoomDraft(message: finalBody, roomId: self.id) 
         IGFactory.shared.saveDraft(draft: draft)
         
         switch self.type {

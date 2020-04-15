@@ -560,7 +560,7 @@ class IGRoomListtCell: BaseTableViewCell {
             }
             self.lastMsgLabel.textAlignment = self.lastMsgLabel.localizedDirection
             
-            if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
+            if let draft = room.draft, !(room.draft?.message.isEmpty ?? true) {
                 
                 self.lastMsgLabel.text = IGStringsManager.Draft.rawValue.localized + " \(draft.message)"
             } else if let lastMessage = room.lastMessage {

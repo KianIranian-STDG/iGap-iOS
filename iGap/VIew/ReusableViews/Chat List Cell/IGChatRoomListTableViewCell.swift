@@ -229,16 +229,12 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             timeLabel.font = UIFont.igFont(ofSize: 12.0, weight: .regular)
             timeLabel.textColor = UIColor(red: 132.0/255.0, green: 132.0/255.0, blue: 132.0/255.0, alpha: 1.0)
         }
-        if room.draft != nil && (room.draft?.message != "" || room.draft?.replyTo != -1) {
+        if room.draft != nil && !(room.draft?.message.isEmpty ?? true) {
             lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
         }
         
-        
         self.nameLabel.text = room.title
-
-        
         setLastMessage(for: room)
-        
         
         if room.unreadCount > 0 {
             removeStatus()
@@ -329,7 +325,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         DispatchQueue.main.async {
             self.lastMessageLabel.textAlignment = self.lastMessageLabel.localizedDirection
 
-        if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
+            if let draft = room.draft, !(room.draft?.message.isEmpty ?? true) {
             if let lastMessage = room.lastMessage {
                 self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             } else {
