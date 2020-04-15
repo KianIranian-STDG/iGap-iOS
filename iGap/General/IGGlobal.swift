@@ -234,11 +234,11 @@ class IGGlobal {
     //            Language.language = Language.english
     //        }
     //    }
-    internal static func isOnlySpecialEmoji(text: String) -> Bool {
+    internal static func isOnlySpecialEmoji(txtMessage: String) -> Bool {
         
-        if 1...3 ~= text.count{
+        if 1...3 ~= txtMessage.count{
 
-            for char in text {
+            for char in txtMessage {
                 if char.isEmoji() {} else {
                     return false
                 }

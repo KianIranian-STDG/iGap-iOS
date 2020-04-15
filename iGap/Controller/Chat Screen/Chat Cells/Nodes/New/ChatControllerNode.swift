@@ -15,6 +15,8 @@ class ChatControllerNode: ASCellNode {
     
     var ASbuttonActionDic: [ASButtonNode : IGStructAdditionalButton] = [:]
     var ASbuttonViewDic: [ASButtonNode : ASDisplayNode] = [:]
+    // Check if isOnlyemoji and Count is One(One Emoji)
+    var isOneCharEmoji : Bool = false
 
     // Message Needed Data
     private(set) var message : IGRoomMessage?
@@ -580,7 +582,6 @@ class ChatControllerNode: ASCellNode {
         }
         
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet || msg.type == .location {
-            let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox : ASLayoutSpec
             if message.forwardedFrom != nil {
                 self.message = message
@@ -592,7 +593,10 @@ class ChatControllerNode: ASCellNode {
 
             }
             //            contentItemsBox.style.maxWidth = ASDimensionMake(.points, 50)
+
             
+            let baseBubbleBox = makeBubble(bubbleImage: bubbleImage,shouldShow: isOneCharEmoji ? false : true) // make bubble
+
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             let isShowingAvatar = makeAvatarIfNeeded()
             
@@ -1051,16 +1055,17 @@ class ChatControllerNode: ASCellNode {
         
     }
     
-    private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
+    private func makeBubble(bubbleImage : UIImage,shouldShow: Bool = true) -> ASLayoutSpec {
         if bubbleImgNode == nil {
             bubbleImgNode = ASImageNode()
         }
         if shadowImgNode == nil {
             shadowImgNode = ASImageNode()
         }
-        
-        bubbleImgNode!.image = bubbleImage
-        shadowImgNode!.image = bubbleImage
+        if shouldShow {
+            bubbleImgNode!.image = bubbleImage
+            shadowImgNode!.image = bubbleImage
+        }
         
         //        addSubnode(shadowImgNode!)//addshadow
         //        addSubnode(bubbleImgNode!)
@@ -1321,6 +1326,7 @@ class ChatControllerNode: ASCellNode {
                 timeStatusStack.verticalAlignment = .center
                 contentStack.children?.append(timeStatusStack)
             } else {
+                
                 let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode!,txtStatusNode!])
                 timeStatusStack.verticalAlignment = .center
                 contentStack.children?.append(timeStatusStack)
@@ -1351,7 +1357,7 @@ class ChatControllerNode: ASCellNode {
             }
 
 
-            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 11, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: isOneCharEmoji ? .white : tmpcolor ,size: 11, weight: isOneCharEmoji ? .bold : .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -3204,7 +3210,7 @@ class ChatControllerNode: ASCellNode {
         timeAndStatusSpec.verticalAlignment = .center
         let v = ASDisplayNode()
         v.style.preferredSize = CGSize(width: 100, height: 30)
-        v.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
+        v.backgroundColor = ThemeManager.currentTheme.LabelGrayColor.withAlphaComponent(0.5)
         v.cornerRadius = 8
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: timeAndStatusSpec)
         let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
@@ -4670,7 +4676,38 @@ class ChatControllerNode: ASCellNode {
     }
     
     private func setTextNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
-        makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
+
+        var layoutMsg = msg.detach()
+        
+        //check if has reply or Forward
+        if let repliedMessage = msg.repliedTo {
+            layoutMsg = repliedMessage.detach()
+        } else if let forwardedFrom = msg.forwardedFrom {
+            layoutMsg = forwardedFrom.detach()
+        } else {layoutMsg = msg}
+        
+        var msgT = layoutMsg.message ?? ""
+        if let forwardMessage = msg.forwardedFrom {
+            msgT = forwardMessage.message ?? ""
+        } else {
+            msgT = msg.message ?? ""
+        }
+
+        
+        if IGGlobal.isOnlySpecialEmoji(txtMessage: msgT) {
+            
+            switch msgT.count {
+            case 1 :
+                isOneCharEmoji = true
+            default :
+                isOneCharEmoji = false
+            }
+        } else {
+            isOneCharEmoji = false
+        }
+        if !isOneCharEmoji {
+            makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
+        }
         //MARK :-ADD SUBNODES TO CONTENT VERTICAL SPEC
         addTextAsSubnode(spec: contentSpec, msg: msg)
         setMessage() //set Text for TEXTNODE
@@ -4839,8 +4876,20 @@ class ChatControllerNode: ASCellNode {
         }
         
         if msg.count <= 10 { //10 is a random number u can change it to what ever value u want to
-            nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 70)
+            if IGGlobal.isOnlySpecialEmoji(txtMessage: msg) {
+                
+                switch msg.count {
+                case 1 :
+                    nodeOnlyText!.style.height = ASDimensionMake(.points, 110)
+                    isOneCharEmoji = true
+                default :
+                    isOneCharEmoji = false
+                }
+            } else {
+                isOneCharEmoji = false
+            }
 
+            nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 70)
             if finalRoomType! == .channel {
                 spec.children?.append(nodeOnlyText!)
 
@@ -4858,16 +4907,61 @@ class ChatControllerNode: ASCellNode {
                 spec.children?.append(holderStack)
 
             } else {
-                let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
-                txtTimeNode!.style.alignSelf = .end
-                if !isIncomming {
-                    txtStatusNode!.style.alignSelf = .end
-                }
-                messageAndTime.verticalAlignment = .center
                 
-                let nodeTextSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+                
+                
+                if isOneCharEmoji {
+                    let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: isIncomming ? 5 : 5, justifyContent: .center, alignItems: .center, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+                    messageAndTime.verticalAlignment = .center
+                    let v = ASDisplayNode()
+                    v.style.preferredSize = CGSize(width: 100, height: 30)
+                    v.backgroundColor = ThemeManager.currentTheme.LabelGrayColor.withAlphaComponent(0.3)
+                    v.cornerRadius = 8
+                    let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: messageAndTime)
+                    let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
+                    let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: isIncomming ? 5 : 5, justifyContent: .end, alignItems: .end, children: [bgSpec])
 
-                spec.children?.append(nodeTextSpec)
+                    
+                    txtTimeNode!.style.alignSelf = .end
+                    if !isIncomming {
+                        txtStatusNode!.style.alignSelf = .center
+                    }
+                    messageAndTime.verticalAlignment = .center
+
+                    let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: isIncomming ? .start : .end, children: [nodeOnlyText!,finalSpec])
+
+                    spec.children?.append(nodeTextSpec)
+
+                    
+                    
+                } else {
+
+                    let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+                    txtTimeNode!.style.alignSelf = .end
+                    if !isIncomming {
+                        txtStatusNode!.style.alignSelf = .end
+                    }
+                    messageAndTime.verticalAlignment = .center
+                    
+                    let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+
+                    spec.children?.append(nodeTextSpec)
+
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
             }
 
@@ -5355,20 +5449,24 @@ extension ChatControllerNode: ASTextNodeDelegate {
         let finalText = String(nsText)
         let attributedString : NSMutableAttributedString
         var sizeT = fontDefaultSize
-
         //MARK:-EMOJI detection for rxtrution
-        if IGGlobal.isOnlySpecialEmoji(text: text) {
+        if IGGlobal.isOnlySpecialEmoji(txtMessage: text) {
             switch text.count {
             case 1 :
-                sizeT = 70
+                isOneCharEmoji = true
+                sizeT = 90
             case 2 :
+                isOneCharEmoji = false
                 sizeT = 50
             case 3 :
+                isOneCharEmoji = false
                 sizeT = 30
             default :
+                isOneCharEmoji = false
                 sizeT = fontDefaultSize
             }
         } else {
+            isOneCharEmoji = false
             sizeT = fontDefaultSize
         }
 
@@ -5404,7 +5502,12 @@ extension ChatControllerNode: ASTextNodeDelegate {
         return attributedString
         
     }
-    
+    private func UpdateMessageBubble(contentSpec : ASStackLayoutSpec, shouldHide: Bool = false) {
+        if shouldHide {
+            
+        }
+        
+    }
     
     func textNode(_ textNode: ASTextNode!, shouldHighlightLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
         return true

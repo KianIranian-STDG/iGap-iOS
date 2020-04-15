@@ -476,7 +476,7 @@ Please wait 0:59</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZb-wY-XMy">
-                                <rect key="frame" x="45" y="168.5" width="285" height="21.5"/>
+                                <rect key="frame" x="45" y="168.5" width="285" height="20"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -487,14 +487,14 @@ Please wait 0:59</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AaE-ix-ALY">
-                                <rect key="frame" x="45" y="198" width="285" height="1"/>
+                                <rect key="frame" x="45" y="196.5" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sYs-Ni-RJj"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJ2-48-iYc">
-                                <rect key="frame" x="82.5" y="209" width="210" height="38"/>
+                                <rect key="frame" x="82.5" y="207.5" width="210" height="38"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="S9w-mw-BUk"/>
@@ -762,7 +762,7 @@ Please wait 0:59</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFZ-bt-RVj">
-                                <rect key="frame" x="45" y="169.5" width="285" height="21.5"/>
+                                <rect key="frame" x="45" y="169.5" width="285" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <userDefinedRuntimeAttributes>
@@ -772,7 +772,7 @@ Please wait 0:59</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-m0-XXy">
-                                <rect key="frame" x="45" y="199" width="285" height="1"/>
+                                <rect key="frame" x="45" y="197.5" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="79r-UI-IOm"/>
@@ -785,7 +785,7 @@ Please wait 0:59</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Lo-K9-lAT">
-                                <rect key="frame" x="45" y="292.5" width="285" height="21.5"/>
+                                <rect key="frame" x="45" y="294" width="285" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <userDefinedRuntimeAttributes>
@@ -947,9 +947,6 @@ Please wait 0:59</string>
             <point key="canvasLocation" x="-3279" y="2142"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="DbQ-vW-XCY"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="IG_Start_App_Logo" width="150" height="252"/>
         <image name="iGapVerticalLogo" width="170" height="78"/>
@@ -963,7 +960,7 @@ Please wait 0:59</string>
             <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGSplashBackgroundColor">
-            <color red="0.9570000171661377" green="0.93699997663497925" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.95686274509803926" green="0.93725490196078431" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -972,4 +969,7 @@ Please wait 0:59</string>
             <color red="0.67100000381469727" green="0.67100000381469727" blue="0.67100000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="DbQ-vW-XCY"/>
+    </inferredMetricsTieBreakers>
 </document>
