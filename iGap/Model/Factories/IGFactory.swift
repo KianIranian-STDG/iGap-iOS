@@ -776,6 +776,10 @@ class IGFactory: NSObject {
         var delay = 0.0
         var savedCount: Double = 0.0
         let registredUsersArray = igpRegistredUsers.chunks(25)
+        if registredUsersArray.count == 0 {
+            IGContactManager.sharedManager.contactExchangeLevel.accept(.completed)
+            return
+        }
         for registredUsers in registredUsersArray {
             delay += 0.1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
