@@ -52,6 +52,8 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, WKNavigation
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: pageTitle)
+        navigationItem.initNavBarWithIgapIcon()
+//        navigationItem.
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -362,7 +364,10 @@ extension IGiGapBrowser: WKScriptMessageHandler {
         if message.name == "iosJsHandler" {
             print(message.body)
             IGGlobal.prgShow()
-            IGApiPayment.shared.orderCheck(token: message.body as! String, completion: { (success, payment, errorMessage) in
+            IGApiPayment.shared.orderCheck(token: message.body as! String, completion: {[weak self] (success, payment, errorMessage) in
+                guard let sSelf = self else {
+                    return
+                }
                 IGGlobal.prgHide()
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
@@ -370,10 +375,14 @@ extension IGiGapBrowser: WKScriptMessageHandler {
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         return
                     }
-                    paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)
+                    paymentView.show(on: UIApplication.shared.keyWindow!, title: sSelf.pageTitle, payToken: message.body as! String, payment: paymentData)
+                    let navigationItem = sSelf.navigationItem as! IGNavigationItem
+                    navigationItem.addNavigationViewItems(rightItemText: nil, title: sSelf.pageTitle)
                 } else {
                     
-                    paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: self.pageTitle, message: errorMessage ?? "", payToken: message.body as! String)
+                    paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: sSelf.pageTitle, message: errorMessage ?? "", payToken: (message.body as! String))
+                    let navigationItem = sSelf.navigationItem as! IGNavigationItem
+                    navigationItem.addNavigationViewItems(rightItemText: nil, title: sSelf.pageTitle)
                 }
             })
         }
