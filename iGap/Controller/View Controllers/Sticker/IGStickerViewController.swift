@@ -51,7 +51,8 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.view.backgroundColor = backGroundColor
-        
+//        self.view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
         if stickerPageType == StickerPageType.MAIN {
             fetchMySticker()
             manageStickerPostion()

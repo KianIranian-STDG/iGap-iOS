@@ -18,10 +18,12 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
         super.viewDidLoad()
         let view = UIView()
         view.frame = self.tabBar.bounds
-
-        view.backgroundColor = UIColor(patternImage: gradientImage(withColours: [ThemeManager.currentTheme.NavigationFirstColor, ThemeManager.currentTheme.NavigationSecondColor], location: orangeGradientLocation, view: self.tabBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: self.tabBar.frame.size.width/2, bottom: 0, right: self.tabBar.frame.size.width/2), resizingMode: .stretch))
         
 
+//        view.backgroundColor = UIColor(patternImage: gradientImage(withColours: [ThemeManager.currentTheme.NavigationFirstColor, ThemeManager.currentTheme.NavigationSecondColor], location: orangeGradientLocation, view: self.tabBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: self.tabBar.frame.size.width/2, bottom: 0, right: self.tabBar.frame.size.width/2), resizingMode: .stretch))
+        
+
+        view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
         view.layer.borderWidth = 1
         view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
@@ -72,6 +74,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         selectedItemTitleMustbeBold()
+        
     }
     
     func selectedItemTitleMustbeBold(){
@@ -87,7 +90,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
                 item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)
             }
             if #available(iOS 10.0, *) {
-                self.tabBar.unselectedItemTintColor = UIColor.tabbarTextUnselectedColor()
+                self.tabBar.unselectedItemTintColor = UIColor.lightGray
             }
         }
     }
