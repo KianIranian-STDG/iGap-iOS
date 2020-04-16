@@ -769,7 +769,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dismiss Admin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIv-G5-Qfp">
-                                                    <rect key="frame" x="20" y="12" width="115" height="20"/>
+                                                    <rect key="frame" x="8" y="12" width="113.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="zW8-Dj-tjA"/>
                                                     </constraints>
@@ -798,8 +798,18 @@
                         <outlet property="addMemberView" destination="Dib-Fi-eFZ" id="1ly-MZ-FCk"/>
                         <outlet property="avatarView" destination="tai-AZ-hPs" id="9QM-10-SyX"/>
                         <outlet property="banMemberView" destination="dQz-US-s0a" id="PE3-nY-cXQ"/>
-                        <outlet property="editView" destination="FCV-hT-XII" id="htE-eg-yBn"/>
+                        <outlet property="contactInfoView" destination="EqV-v6-rUP" id="aEn-kK-P2m"/>
+                        <outlet property="deleteView" destination="1Zm-Bo-5eJ" id="5XK-Uu-htN"/>
+                        <outlet property="editView" destination="FCV-hT-XII" id="frc-hR-YSi"/>
                         <outlet property="modifyRoomView" destination="HSF-IH-88i" id="9gS-vC-Oii"/>
+                        <outlet property="pinView" destination="E4b-xZ-cOs" id="fbh-eW-mg0"/>
+                        <outlet property="postMessageView" destination="t2P-Rj-k0W" id="K5D-JY-8Gn"/>
+                        <outlet property="sendGifView" destination="2xV-b8-wx4" id="ImK-Ja-p4x"/>
+                        <outlet property="sendLinkView" destination="fD5-N9-OZH" id="Hi0-es-2yH"/>
+                        <outlet property="sendMediaView" destination="2OO-lf-cfY" id="IOW-eb-iEc"/>
+                        <outlet property="sendStickerView" destination="VfN-KW-CWl" id="a13-I3-giG"/>
+                        <outlet property="sendTextView" destination="VJf-pZ-ucn" id="pw1-aZ-WW7"/>
+                        <outlet property="showMemberView" destination="gJY-AO-n8w" id="Mgf-Qh-cY3"/>
                         <outlet property="switchAddAdmin" destination="Sta-Jj-Syu" id="gGS-Lp-ArW"/>
                         <outlet property="switchAddMember" destination="pVA-pz-38s" id="p0l-Cg-L7K"/>
                         <outlet property="switchBanMember" destination="h8n-GO-dvf" id="OJa-4C-Nje"/>
@@ -1820,13 +1830,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFE-OW-vsW">
-                                <rect key="frame" x="20" y="71.5" width="269" height="20.5"/>
+                                <rect key="frame" x="20" y="76.5" width="269" height="15.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpO-6N-qAL">
-                                <rect key="frame" x="257" y="108" width="32" height="20.5"/>
+                                <rect key="frame" x="257" y="108" width="32" height="15.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -1909,7 +1919,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EML-Re-XGD">
-                                                    <rect key="frame" x="16" y="0.0" width="5.5" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="5" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43.5" id="Si8-iP-fee"/>
                                                     </constraints>
@@ -1918,7 +1928,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1A-End">
-                                                    <rect key="frame" x="31.5" y="0.0" width="366.5" height="44"/>
+                                                    <rect key="frame" x="31" y="0.0" width="367" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43.5" id="mpF-BR-UfO"/>
                                                     </constraints>
@@ -2051,13 +2061,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loU-Jx-2vz">
-                                <rect key="frame" x="100" y="71.5" width="189" height="20.5"/>
+                                <rect key="frame" x="100" y="76.5" width="189" height="15.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofs-j1-gVt">
-                                <rect key="frame" x="257" y="108" width="32" height="20.5"/>
+                                <rect key="frame" x="257" y="108" width="32" height="15.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -2119,6 +2129,11 @@
             <point key="canvasLocation" x="1470" y="-8468"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="q09-lR-4pS"/>
+        <segue reference="TNb-0G-evg"/>
+        <segue reference="dNm-aC-Qqb"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="IG_New_Group_Deselect_User" width="20" height="20"/>
         <namedColor name="ButtonBGColorRed">
@@ -2143,9 +2158,4 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="q09-lR-4pS"/>
-        <segue reference="TNb-0G-evg"/>
-        <segue reference="dNm-aC-Qqb"/>
-    </inferredMetricsTieBreakers>
 </document>

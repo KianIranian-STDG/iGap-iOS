@@ -805,7 +805,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.room!.type == .chat {return}
         
         if !room!.isReadOnly && room!.isParticipant {
-            if !(self.roomAccess?.postMessage ?? false) {
+            if !(false) {//self.roomAccess?.postMessage ??
                 joinButton.isHidden = false
                 mainHolder.isHidden = true
                 self.messageTextView.text = ""

@@ -182,6 +182,7 @@ class IGGroupKickAdminRequest: IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret (response responseProtoMessage: IGPGroupKickAdminResponse) {
+            IGRealmRoomAccess.putOrUpdate(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID, memberRights: responseProtoMessage.igpPermission)
             IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPGroupRoom.IGPRole.member.rawValue)
         }
         override class func handlePush(responseProtoMessage : Message) {
@@ -224,6 +225,7 @@ class IGGroupKickMemberRequest: IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPGroupKickMemberResponse) {
+            IGRealmRoomAccess.deleteRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
             IGRealmMember.removeMember(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID)
         }
         override class func handlePush(responseProtoMessage : Message) {
@@ -244,6 +246,7 @@ class IGGroupLeftRequest : IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage : IGPGroupLeftResponse) {
+            IGRealmRoomAccess.deleteRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
             IGFactory.shared.leftRoomInDatabase(roomID: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID)
         }
         override class func handlePush(responseProtoMessage : Message) {
@@ -516,9 +519,7 @@ class IGGroupGetMemberListRequest : IGRequest {
             IGRealmMember.putOrUpdate(roomId: roomId, members: responseProtoMessage.igpMember)
         }
         
-        override class func handlePush(responseProtoMessage : Message) {
-
-        }
+        override class func handlePush(responseProtoMessage : Message) {}
     }
 }
 
@@ -770,12 +771,12 @@ class IGGroupChangeMemberRightsRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response: IGPGroupChangeMemberRoleResponse) {
+        class func interpret(response: IGPGroupChangeMemberRightsResponse) {
             IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: response.igpUserID, memberRights: response.igpPermission)
         }
         
         override class func handlePush(responseProtoMessage: Message) {
-            if let response = responseProtoMessage as? IGPGroupChangeMemberRoleResponse {
+            if let response = responseProtoMessage as? IGPGroupChangeMemberRightsResponse {
                 self.interpret(response: response)
             }
         }

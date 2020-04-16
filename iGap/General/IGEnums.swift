@@ -653,3 +653,9 @@ enum GiftStickerListType: String {
     case active = "active"
     case forwarded = "forwarded"
 }
+
+enum MemberEditTypes {
+    case AddAdmin
+    case EditAdmin
+    case EditMember
+}

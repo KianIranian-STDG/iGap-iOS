@@ -158,7 +158,30 @@ class IGRealmRoomAccess: Object {
         }
     }
     
-    public static func clearRoomAccess(roomId: Int64, userId: Int64){
+    public static func makeClearRoomAccess(roomId: Int64, userId: Int64){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))
+                var realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
+                if realmRoomAccess == nil {
+                    realmRoomAccess = IGRealmRoomAccess()
+                    realmRoomAccess?.id = makeId(roomId, userId)
+                }
+                realmRoomAccess?.modifyRoom = false
+                realmRoomAccess?.editMessage = false
+                realmRoomAccess?.deleteMessage = false
+                realmRoomAccess?.pinMessage = false
+                realmRoomAccess?.addMember = false
+                realmRoomAccess?.banMember = false
+                realmRoomAccess?.getMember = false
+                realmRoomAccess?.addAdmin = false
+                realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(false)
+            }
+        }
+    }
+    
+    
+    public static func deleteRoomAccess(roomId: Int64, userId: Int64){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))

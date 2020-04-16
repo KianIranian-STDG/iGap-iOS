@@ -453,17 +453,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             
             if memberRole == IGPChannelRoom.IGPRole.admin.rawValue {
                 return (false, false, false, false, true)
-            } else if memberRole == IGPChannelRoom.IGPRole.moderator.rawValue {
-                return (false, false, true, true, false)
             } else if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
                 return (true, true, false, true, false)
             }
             
         } else {
             
-            if memberRole == IGPChannelRoom.IGPRole.moderator.rawValue {
-                return (self.roomAccess.addMember, false, true, self.roomAccess.addAdmin, false)
-            } else if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
+            if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
                 return (self.roomAccess.addMember, true, false, self.roomAccess.addAdmin, false)
             }
         }
@@ -482,7 +478,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user
                 adminRights.room = room
-                adminRights.isAdmin = false
+                adminRights.memberEditType = .AddAdmin
                 self.navigationController!.pushViewController(adminRights, animated: true)
             }
         })
@@ -492,7 +488,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user
                 adminRights.room = room
-                adminRights.isAdmin = true
+                adminRights.memberEditType = .EditAdmin
                 self.navigationController!.pushViewController(adminRights, animated: true)
             }
         })
@@ -502,6 +498,16 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 self.kickAdminChannel(userId: member.userId)
             } else {
                 self.kickAdmin(userId: member.userId)
+            }
+        })
+        
+        let editMember = UIAlertAction(title: "Edit Member Rights", style: .default, handler: { (action) in
+            if let user = member.user, let room = self.room {
+                let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                adminRights.userInfo = user
+                adminRights.room = room
+                adminRights.memberEditType = .EditMember
+                self.navigationController!.pushViewController(adminRights, animated: true)
             }
         })
         
@@ -523,6 +529,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             alertController.addAction(removeAdmin)
         }
         if permissions.kickMember {
+            alertController.addAction(editMember)
             alertController.addAction(kickMember)
         }
         alertController.addAction(cancel)
