@@ -3825,14 +3825,11 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpI-kq-L62">
                                         <rect key="frame" x="0.0" y="734" width="414" height="40"/>
-                                        <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="0M5-yB-yd3"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="18"/>
-                                        <state key="normal" title="JOIN">
-                                            <color key="titleColor" name="IGLabelColor"/>
-                                        </state>
+                                        <state key="normal" title="JOIN"/>
                                         <connections>
                                             <action selector="didTapOnJoinButton:" destination="11U-JS-FNG" eventType="touchUpInside" id="Hnc-3m-TWM"/>
                                         </connections>

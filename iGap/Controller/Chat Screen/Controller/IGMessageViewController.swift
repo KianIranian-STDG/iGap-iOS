@@ -491,7 +491,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                self.initTheme()
+            }
+        }
+    }
     
     private func setRightNavViewAction() {
         
@@ -933,7 +941,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func initTheme() {
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
-        joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        joinButton.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
         self.holderRecordView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
@@ -947,7 +955,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.lblCenterIcon.textColor = .white
                 self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             } else {
-                joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+                joinButton.setTitleColor(.white, for: .normal)
                 self.txtPinnedMessage.textColor = .white
                 self.txtPinnedMessageTitle.textColor = .white
                 self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
@@ -955,7 +963,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             }
         } else {
-            joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+            joinButton.setTitleColor(.white, for: .normal)
             self.txtPinnedMessage.textColor = .white
             self.txtPinnedMessageTitle.textColor = .white
             self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
