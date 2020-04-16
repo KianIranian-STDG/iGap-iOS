@@ -3015,6 +3015,15 @@ class ChatControllerNode: ASCellNode {
             if bgTextNode == nil {
                 bgTextNode = ASDisplayNode()
             }
+            let bgView = ASDisplayNode()
+
+            bgView.style.height = ASDimensionMake(.points, 50)
+            bgView.style.width = ASDimensionMake(.points, UIScreen.main.bounds.width)
+            bgView.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
+            bgView.cornerRadius = 0
+
+            let fakeStackLeftItemOne = ASDisplayNode()
+            let fakeStackrightItemTwo = ASDisplayNode()
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
             let insetCSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 0,
@@ -3023,11 +3032,22 @@ class ChatControllerNode: ASCellNode {
                 right: 20), child: centerBoxText)
 
             let backTextBox = ASBackgroundLayoutSpec(child: insetCSpec, background: bgTextNode!)
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            let insetBGSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,
                 left: 0,
                 bottom: 10,
                 right: 0), child: backTextBox)
+
+            let itemsStackSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: .spaceBetween, alignItems: .start, children: [fakeStackLeftItemOne, insetBGSpec, fakeStackrightItemTwo])
+            
+            let overlaySpec = ASOverlayLayoutSpec(child: bgView, overlay: itemsStackSpec)
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: overlaySpec)
+                        
+
             
             
             return insetSpec
@@ -4724,7 +4744,7 @@ class ChatControllerNode: ASCellNode {
                    let buttonBox = makeBotNode(roomId: finalRoom!.id, additionalArrayMain: additionalStruct)
                    contentSpec.children?.append(buttonBox)
          
-                   let insetContentSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 10) : UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 20), child: contentSpec)
+                   let insetContentSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 4, left: 15, bottom: 10, right: 10) : UIEdgeInsets(top: 4, left: 10, bottom: 10, right: 20), child: contentSpec)
                    
                    return insetContentSpec
 
@@ -5118,7 +5138,10 @@ class ChatControllerNode: ASCellNode {
                     button.layer.cornerRadius = 10
                     button.contentVerticalAlignment = .center
                     button.contentHorizontalAlignment = .middle
-                    button.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+                    button.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor.darker(by: 20)
+                    
+//                    button.gradient(from: ThemeManager.currentTheme.NavigationFirstColor, to: ThemeManager.currentTheme.NavigationFirstColor)
+
                     button.titleNode.textContainerInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
                     img.style.height = ASDimensionMake(.points, 30)
                     img.style.width = ASDimensionMake(.points, 30)
@@ -5139,7 +5162,7 @@ class ChatControllerNode: ASCellNode {
                         
                     } else {
                         
-                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label, textColor: .white, weight: .regular, font: .igapFont, alignment: .center)
+                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label, textColor: .white, size: 11, weight: .bold, font: .igapFont, alignment: .center)
 
                     }
 
@@ -5815,4 +5838,25 @@ extension ChatControllerNode: IGProgressDelegate {
         }
     }
     
+}
+
+extension ASDisplayNode {
+    func gradient(from color1: UIColor, to color2: UIColor) {
+        DispatchQueue.main.async {
+
+            let size = self.view.frame.size
+            let width = size.width
+            let height = size.height
+
+
+            let gradient: CAGradientLayer = CAGradientLayer()
+            gradient.colors = [color1.cgColor, color2.cgColor]
+            gradient.locations = [0.0 , 1.0]
+            gradient.startPoint = CGPoint(x: 0.0, y: height/2)
+            gradient.endPoint = CGPoint(x: 1.0, y: height/2)
+            gradient.cornerRadius = 30
+            gradient.frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+            self.view.layer.insertSublayer(gradient, at: 0)
+        }
+    }
 }

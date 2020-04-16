@@ -10,7 +10,7 @@
 /**
  * This file includes internal extensions.
  */
-
+import AsyncDisplayKit
 /// Helper extension to allow removing layer animation based on AnimationKeys enum
 extension CALayer {
     func removeAnimation(forKey key: UICircularRing.AnimationKeys) {
@@ -52,4 +52,16 @@ extension UITextField {
             self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: newValue!])
         }
     }
+}
+extension UIView {
+
+   func gradient(color1: UIColor, color2: UIColor) -> CAGradientLayer {
+         let gradient: CAGradientLayer = CAGradientLayer()
+         gradient.colors = [color1.cgColor, color2.cgColor]
+         gradient.locations = [0.0 , 1.0]
+         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+         gradient.frame = CGRect(x: 0.0, y: 0.0, width: frame.size.width, height: frame.size.height)
+         return gradient
+      }
 }
