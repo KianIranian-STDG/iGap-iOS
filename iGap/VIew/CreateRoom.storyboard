@@ -230,7 +230,7 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="FOE-Rw-87J" secondAttribute="trailing" constant="14" id="Ids-h2-rWJ"/>
                                                 <constraint firstItem="FOE-Rw-87J" firstAttribute="top" secondItem="hl9-mo-e5X" secondAttribute="top" id="Sbm-UU-bvK"/>
