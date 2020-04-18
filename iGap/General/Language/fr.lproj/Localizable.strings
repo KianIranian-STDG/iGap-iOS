@@ -6377,6 +6377,8 @@
 "national_code_inquiry_error" = "L'enquête sur le code national était erronée. Veuillez réessayer.";
 "admin_rights" = "droits d'administrateur";
 "what_can_this_admin_do" = "Que peut faire cet administrateur?";
+"edit_room_rights" = "Déterminer l'accès public du groupe";
+"room_rights" = "Autorisations de salle";
 "modify_room" = "modifier la salle";
 "post_message" = "Envoyer un message";
 "edit_message" = "Modifier le message";
@@ -6392,3 +6394,4 @@
 "send_gif" = "Envoyer un Gif";
 "send_sticker" = "Envoyer l'autocollant";
 "send_link" = "Envoyer le lien";
+"fetching_info" = "Récupération des informations ...";

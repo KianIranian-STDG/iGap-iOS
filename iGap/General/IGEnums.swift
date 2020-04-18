@@ -658,4 +658,5 @@ enum MemberEditTypes {
     case AddAdmin
     case EditAdmin
     case EditMember
+    case EditRoom
 }

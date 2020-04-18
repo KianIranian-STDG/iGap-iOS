@@ -803,25 +803,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
         
-        if !room!.isReadOnly && room!.isParticipant {
-            if !(self.roomAccess?.postMessageRights.sendText ?? true) {
-                joinButton.isHidden = false
-                mainHolder.isHidden = true
-                self.messageTextView.text = ""
-                self.view.endEditing(true)
-            } else {
-                
-                btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
-                if !(self.roomAccess?.postMessageRights.sendMedia ?? false) {
-                    self.btnSticker.isHidden = true
-                    self.btnStickerWidthConstraint.constant = 0.0
-                }
-                
-                joinButton.isHidden = true
-                mainHolder.isHidden = false
-                if !(self.roomAccess?.editMessage ?? false) {
-                    didTapOnCancelReplyOrForwardButton(UIButton())
-                }
+        if !(self.roomAccess?.postMessageRights.sendText ?? true) {
+            joinButton.isHidden = false
+            joinButton.setTitle("You don't permitted send message!", for: UIControl.State.normal)
+            mainHolder.isHidden = true
+            self.messageTextView.text = ""
+            self.view.endEditing(true)
+        } else {
+            
+            btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
+            if !(self.roomAccess?.postMessageRights.sendMedia ?? false) {
+                self.btnSticker.isHidden = true
+                self.btnStickerWidthConstraint.constant = 0.0
+            }
+            
+            joinButton.isHidden = true
+            mainHolder.isHidden = false
+            if !(self.roomAccess?.editMessage ?? false) {
+                didTapOnCancelReplyOrForwardButton(UIButton())
             }
         }
     }

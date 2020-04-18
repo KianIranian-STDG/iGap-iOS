@@ -66,7 +66,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     @IBOutlet weak var txtAddAdmin: UILabel!
     @IBOutlet weak var txtDismissAdmin: UILabel!
     
-    var userInfo: IGRegisteredUser!
+    var userInfo: IGRegisteredUser?
     var room: IGRoom!
     var memberEditType: MemberEditTypes!
     var myRole: Int!
@@ -85,13 +85,15 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         
         initNavigationBar()
         manageStrings()
-        avatarView.setUser(userInfo)
-        txtContactName.text = userInfo.displayName
-        txtContactStatus.text = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: userInfo?.lastSeenStatus, lastSeen: userInfo?.lastSeen)
-        if isRTL {
-            txtContactName.textAlignment = .right
-        } else {
-            txtContactName.textAlignment = .left
+        if userInfo != nil {
+            avatarView.setUser(userInfo!)
+            txtContactName.text = userInfo!.displayName
+            txtContactStatus.text = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: userInfo?.lastSeenStatus, lastSeen: userInfo?.lastSeen)
+            if isRTL {
+                txtContactName.textAlignment = .right
+            } else {
+                txtContactName.textAlignment = .left
+            }
         }
         fillRoomAccess()
         manageEnableItems()
@@ -101,6 +103,8 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         var title = IGStringsManager.AdminRights.rawValue.localized
         if memberEditType == MemberEditTypes.EditMember {
             title = IGStringsManager.MemberRights.rawValue.localized
+        } else if memberEditType == MemberEditTypes.EditRoom {
+            title = IGStringsManager.RoomRights.rawValue.localized
         }
         
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -135,20 +139,20 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         view.backgroundColor = UIColor.lightGray.lighter(by: 20)
         label.textColor = UIColor.gray
         switchItem.setOn(false, animated: true)
-        switchAddMember.isUserInteractionEnabled = false
+        switchItem.isUserInteractionEnabled = false
     }
     
-    private func enableItem(view: UIView, label: UILabel) {
+    private func enableItem(view: UIView, label: UILabel, switchItem: UISwitch) {
         view.backgroundColor = contactInfoView.backgroundColor
         label.textColor = txtContactName.textColor
-        switchAddMember.isUserInteractionEnabled = true
+        switchItem.isUserInteractionEnabled = true
     }
     
     private func managePostAndEdit(state: Bool){
         if state {
             if let myAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: IGAppManager.sharedManager.userID()!) {
                 if myAccess.editMessage {
-                    enableItem(view: editView, label: txtEditMessage)
+                    enableItem(view: editView, label: txtEditMessage, switchItem: switchEditMessage)
                 }
             }
         } else {
@@ -160,19 +164,19 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         if state {
             if let myAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: IGAppManager.sharedManager.userID()!) {
                 if myAccess.addMember {
-                    enableItem(view: addMemberView, label: txtAddMember)
+                    enableItem(view: addMemberView, label: txtAddMember, switchItem: switchAddMember)
                 } else {
                     disableItem(view: addMemberView, label: txtAddMember, switchItem: switchAddMember)
                 }
                 
                 if myAccess.banMember {
-                    enableItem(view: banMemberView, label: txtBanMember)
+                    enableItem(view: banMemberView, label: txtBanMember, switchItem: switchBanMember)
                 } else {
                     disableItem(view: banMemberView, label: txtBanMember, switchItem: switchBanMember)
                 }
                 
                 if myAccess.addAdmin {
-                    enableItem(view: addAdminView, label: txtAddAdmin)
+                    enableItem(view: addAdminView, label: txtAddAdmin, switchItem: switchAddAdmin)
                 } else {
                     disableItem(view: addAdminView, label: txtAddAdmin, switchItem: switchAddAdmin)
                 }
@@ -214,33 +218,33 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                 if !myAccess.postMessageRights.sendLink {
                     disableItem(view: sendLinkView, label: txtSendLinkMessage, switchItem: switchSendLinkMessage)
                 }
-                if !myAccess.editMessage {
-                    disableItem(view: editView, label: txtEditMessage, switchItem: switchEditMessage)
-                }
-                if !myAccess.deleteMessage {
-                    disableItem(view: deleteView, label: txtDeleteMessage, switchItem: switchDeleteMessage)
-                }
-                if !myAccess.pinMessage {
-                    disableItem(view: pinView, label: txtPinMessage, switchItem: switchPinMessage)
-                }
-                if !myAccess.getMember {
-                    disableItem(view: showMemberView, label: txtGetMember, switchItem: switchGetMember)
-                }
-                if !myAccess.addMember {
-                    disableItem(view: addMemberView, label: txtAddMember, switchItem: switchAddMember)
-                }
-                if !myAccess.postMessageRights.sendLink {
-                    disableItem(view: banMemberView, label: txtBanMember, switchItem: switchBanMember)
-                }
-                if !myAccess.postMessageRights.sendLink {
-                    disableItem(view: addAdminView, label: txtAddAdmin, switchItem: switchAddAdmin)
-                }
+            }
+            if !myAccess.editMessage {
+                disableItem(view: editView, label: txtEditMessage, switchItem: switchEditMessage)
+            }
+            if !myAccess.deleteMessage {
+                disableItem(view: deleteView, label: txtDeleteMessage, switchItem: switchDeleteMessage)
+            }
+            if !myAccess.pinMessage {
+                disableItem(view: pinView, label: txtPinMessage, switchItem: switchPinMessage)
+            }
+            if !myAccess.getMember {
+                disableItem(view: showMemberView, label: txtGetMember, switchItem: switchGetMember)
+            }
+            if !myAccess.addMember {
+                disableItem(view: addMemberView, label: txtAddMember, switchItem: switchAddMember)
+            }
+            if !myAccess.postMessageRights.sendLink {
+                disableItem(view: banMemberView, label: txtBanMember, switchItem: switchBanMember)
+            }
+            if !myAccess.postMessageRights.sendLink {
+                disableItem(view: addAdminView, label: txtAddAdmin, switchItem: switchAddAdmin)
             }
         }
     }
     
     private func fillRoomAccess(){
-        if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo.id) {
+        if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo?.id ?? 0) {
             switchModifyRoom.isOn = roomAccess.modifyRoom
             if room.type == .channel {
                 switchPostMessage.isOn = roomAccess.postMessageRights.sendText
@@ -305,14 +309,15 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     func requestToAddAdminInChannel() {
         
         // show kick admin view if all options was disabled
-        if ((room.type == .channel && !switchPostMessage.isOn && !switchEditMessage.isOn) || (room.type == .group)) &&
+        if (((room.type == .channel && !switchPostMessage.isOn && !switchEditMessage.isOn) || (room.type == .group)) &&
             !switchModifyRoom.isOn &&
             !switchDeleteMessage.isOn &&
             !switchPinMessage.isOn &&
             !switchAddMember.isOn &&
             !switchBanMember.isOn &&
             !switchGetMember.isOn &&
-            !switchAddAdmin.isOn {
+            !switchAddAdmin.isOn) &&
+            memberEditType != .EditRoom {
             
             if memberEditType == .EditAdmin {
                 kickAdmin()
@@ -325,8 +330,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         
         if room.type == .group {
             if memberEditType == .EditAdmin || memberEditType == .AddAdmin {
+                if userInfo == nil {
+                    return
+                }
                 IGGlobal.prgShow(self.view)
-                IGGroupAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, adminRights: makeGroupAdminRights()).success({ [weak self] (protoResponse) in
+                IGGroupAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo!.id, adminRights: makeGroupAdminRights()).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     if let grouplAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
                         IGGroupAddAdminRequest.Handler.interpret(response: grouplAddAdminResponse)
@@ -352,7 +360,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                 }).send()
             } else {
                 IGGlobal.prgShow(self.view)
-                IGGroupChangeMemberRightsRequest.Generator.generate(roomId: room.id, userId: userInfo.id, memberRights: makeGroupMemberRights()).success({ [weak self] (protoResponse) in
+                IGGroupChangeMemberRightsRequest.Generator.generate(roomId: room.id, userId: userInfo?.id ?? 0, memberRights: makeGroupMemberRights()).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     if let memberRightsResponse = protoResponse as? IGPGroupChangeMemberRightsResponse {
                         IGGroupChangeMemberRightsRequest.Handler.interpret(response: memberRightsResponse)
@@ -378,8 +386,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                 }).send()
             }
         } else if room.type == .channel {
+            if userInfo == nil {
+                return
+            }
             IGGlobal.prgShow(self.view)
-            IGChannelAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo.id, adminRights: makeChannelAdminRights()).success({ [weak self] (protoResponse) in
+            IGChannelAddAdminRequest.Generator.generate(roomID: room.id, memberID: userInfo!.id, adminRights: makeChannelAdminRights()).success({ [weak self] (protoResponse) in
                 IGGlobal.prgHide()
                 if let channelAddAdminResponse = protoResponse as? IGPChannelAddAdminResponse {
                     IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
@@ -411,7 +422,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                     return
                 }
                 IGGlobal.prgShow(self!.view)
-                IGGroupKickAdminRequest.Generator.generate(roomID: self!.room.id, memberID: self!.userInfo.id).success({ (protoResponse) in
+                IGGroupKickAdminRequest.Generator.generate(roomID: self!.room.id, memberID: self!.userInfo?.id ?? 0).success({ (protoResponse) in
                     IGGlobal.prgHide()
                     if let groupKickAdminResponse = protoResponse as? IGPGroupKickAdminResponse {
                         IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
@@ -436,7 +447,7 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                     return
                 }
                 IGGlobal.prgShow(self!.view)
-                IGChannelKickAdminRequest.Generator.generate(roomId: self!.room.id, memberId: self!.userInfo.id).success({ [weak self] (protoResponse) in
+                IGChannelKickAdminRequest.Generator.generate(roomId: self!.room.id, memberId: self!.userInfo?.id ?? 0).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     if let channelKickAdminResponse = protoResponse as? IGPChannelKickAdminResponse {
                         let _ = IGChannelKickAdminRequest.Handler.interpret(response: channelKickAdminResponse)
@@ -459,6 +470,17 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            if memberEditType == .EditRoom {
+                return 0
+            }
+            return 80
+        } else {
+            return 48
+        }
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if memberEditType == .EditAdmin {
@@ -525,6 +547,8 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             headerTitle.textColor = UIColor.iGapBlue()
             if memberEditType == .EditMember {
                 headerTitle.text = IGStringsManager.WhatCanThisMemberDo.rawValue.localized
+            } else if memberEditType == .EditRoom {
+                headerTitle.text = IGStringsManager.EditRoomRights.rawValue.localized
             } else {
                 headerTitle.text = IGStringsManager.WhatCanThisAdminDo.rawValue.localized
             }
@@ -553,6 +577,9 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
+            if memberEditType == .EditRoom {
+                return 0
+            }
             return 20
         } else if section == 1 {
             return 35
@@ -572,7 +599,9 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            IGHelperChatOpener.openUserProfile(user: userInfo)
+            if userInfo != nil {
+                IGHelperChatOpener.openUserProfile(user: userInfo!)
+            }
         } else if indexPath.section == 2 {
             kickAdmin()
         }

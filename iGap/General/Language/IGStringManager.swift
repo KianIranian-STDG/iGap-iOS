@@ -50,6 +50,7 @@ enum IGStringsManager : String {
     case Edit = "edit"
     case ViewContact = "view_contact"
     case TextCopied = "text_copied"
+    case FetchingInfo = "fetching_info"
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"
@@ -194,6 +195,8 @@ enum IGStringsManager : String {
     case AlreadyAreInTheMemberList = "existing_members"
     case AdminRights = "admin_rights";
     case WhatCanThisAdminDo = "what_can_this_admin_do";
+    case EditRoomRights = "edit_room_rights";
+    case RoomRights = "room_rights";
     case ModifyRoom = "modify_room";
     case PostMessage = "post_message";
     case EditMessage = "edit_message";

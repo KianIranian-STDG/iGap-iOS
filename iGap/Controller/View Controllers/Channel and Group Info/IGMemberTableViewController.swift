@@ -269,7 +269,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if member.user == nil {
             fetchUserInfo(userId: member.userId)
         }
-        cell.setUser(member, myRole: myRole)
+        cell.setUser(member, myRole: myRole, allowManageAdmin: self.roomAccess.addAdmin)
         cell.delegate = self
         return cell
     }
@@ -450,23 +450,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
      * detect according to myRole and type of room which actions can i do?
      * Hint: 'IGPChannelRoom.IGPRole' & 'IGPGroupRoom.IGPRole' types are same with together so we just check values with one of them
      */
-    private func detectActionsPermission(memberRole: Int) -> (kickMember: Bool, addModerator: Bool, removeModerator: Bool, addAdmin: Bool, removeAdmin: Bool) {
-        if myRole == IGPChannelRoom.IGPRole.owner.rawValue {
-            
-            if memberRole == IGPChannelRoom.IGPRole.admin.rawValue {
-                return (false, false, false, false, true)
-            } else if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
-                return (true, true, false, true, false)
-            }
-            
-        } else {
-            
-            if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
-                return (self.roomAccess.addMember, true, false, self.roomAccess.addAdmin, false)
-            }
+    private func detectActionsPermission(memberRole: Int) -> (kickMember: Bool, addAdmin: Bool, removeAdmin: Bool) {
+        if memberRole == IGPChannelRoom.IGPRole.admin.rawValue {
+            return (false, false, self.roomAccess.addAdmin)
+        } else if memberRole == IGPChannelRoom.IGPRole.member.rawValue {
+            return (self.roomAccess.banMember, self.roomAccess.addAdmin, false)
         }
-        
-        return (false, false, false, false, false)
+        return (false, false, false)
     }
     
     private func showAlertMoreOptions(_ member: IGRealmMember) {

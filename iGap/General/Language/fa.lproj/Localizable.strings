@@ -6740,6 +6740,8 @@ Page 4 introduce app */
 "national_code_inquiry_error" = "استعلام کد ملی با خطا مواجه شد. لطفاً دوباره تلاش کنید.";
 "admin_rights" = "دسترسی های مدیر";
 "what_can_this_admin_do" = "این مدیر چه دسترسی هایی خواهد داشت؟";
+"edit_room_rights" = "دسترسی های عمومی گروه را تعیین کنید";
+"room_rights" = "دسترسی های گروه";
 "modify_room" = "ویرایش اطلاعات";
 "post_message" = "ارسال پیام";
 "edit_message" = "ویرایش پیام";
@@ -6755,3 +6757,4 @@ Page 4 introduce app */
 "send_gif" = "ارسال گیف";
 "send_sticker" = "ارسال برچسب";
 "send_link" = "ارسال پیوند";
+"fetching_info" = "دریافت اطلاعات ...";

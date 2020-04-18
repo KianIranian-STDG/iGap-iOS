@@ -6731,6 +6731,8 @@ TODO:// complete */
 "national_code_inquiry_error" = "The national code inquiry was erroneous. Please try again.";
 "admin_rights" = "Admin Rights";
 "what_can_this_admin_do" = "What can this admin do?";
+"edit_room_rights" = "Determine the group's public rights";
+"room_rights" = "Room Rights";
 "modify_room" = "Modify Room";
 "post_message" = "Post Message";
 "edit_message" = "Edit Message";
@@ -6746,3 +6748,4 @@ TODO:// complete */
 "send_gif" = "Send Gif";
 "send_sticker" = "Send Sticker";
 "send_link" = "Send Link";
+"fetching_info" = "Fetching Info ...";

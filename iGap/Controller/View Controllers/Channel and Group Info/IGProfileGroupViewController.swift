@@ -697,10 +697,14 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         case 4:
             switch indexPath.row {
             case 0 :
-                cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
+                cell.initLabels(nameLblString: IGStringsManager.RoomRights.rawValue.localized)
                 return cell
                 
             case 1 :
+                cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
+                return cell
+                
+            case 2 :
                 cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                 return cell
                 
@@ -761,7 +765,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             return 1
         case 4 :
             if myRole == .owner {
-                return 2
+                return 3
             }
             var count = 0
             if self.roomAccess?.getMember ?? false {
@@ -853,16 +857,33 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             break
             
         case 4:
-            switch indexPath.row {
+            
+            var row = indexPath.row
+            if myRole != .owner {
+                row = row + 1
+                if !(self.roomAccess?.getMember ?? true) {
+                    row = row + 1
+                }
+            }
+            
+            switch row {
             case 0 :
+                let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                adminRights.room = room
+                adminRights.memberEditType = .EditRoom
+                self.navigationController!.pushViewController(adminRights, animated: true)
+                break
+                
+            case 1 :
                 //gotToAddMEmberPage
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                 break
-            case 1 :
+                
+            case 2 :
                 //gotToMemberListPage
                 self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                
                 break
+                
             default:
                 break
             }

@@ -50,24 +50,26 @@ class IGMemberCell: UITableViewCell {
         self.btnMore.setTitle("", for: .normal)
     }
     
-    func setUser(_ member: IGRealmMember, myRole: Int) {
+    func setUser(_ member: IGRealmMember, myRole: Int, allowManageAdmin: Bool) {
         if member.isInvalidated {
             return
         }
-        user = member
+        self.user = member
         
         self.btnMore.isHidden = true
-        if myRole == IGPChannelRoom.IGPRole.owner.rawValue {
-            if member.role == IGPChannelRoom.IGPRole.admin.rawValue || member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue {
-                self.btnMore.isHidden = false
-            }
-        } else if myRole == IGPChannelRoom.IGPRole.admin.rawValue {
-            if member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue {
-                self.btnMore.isHidden = false
-            }
-        } else if myRole == IGPChannelRoom.IGPRole.moderator.rawValue {
-            if member.role == IGPChannelRoom.IGPRole.member.rawValue {
-                self.btnMore.isHidden = false // TODO - for public group set isHidden to true
+        if member.userId != IGAppManager.sharedManager.userID() {
+            if myRole == IGPChannelRoom.IGPRole.owner.rawValue {
+                if member.role == IGPChannelRoom.IGPRole.admin.rawValue || member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue {
+                    self.btnMore.isHidden = false
+                }
+            } else if myRole == IGPChannelRoom.IGPRole.admin.rawValue {
+                if member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue || (member.role == IGPChannelRoom.IGPRole.admin.rawValue && allowManageAdmin) {
+                    self.btnMore.isHidden = false
+                }
+            } else if myRole == IGPChannelRoom.IGPRole.moderator.rawValue {
+                if member.role == IGPChannelRoom.IGPRole.member.rawValue {
+                    self.btnMore.isHidden = false
+                }
             }
         }
         
@@ -127,7 +129,7 @@ class IGMemberCell: UITableViewCell {
         } else { // when user info not exist yet!
             groupMemberAvatarView.avatarImageView?.backgroundColor = UIColor.white
             groupMemberAvatarView.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-            groupMemberNameLabel.text = "fetching info..."
+            groupMemberNameLabel.text = IGStringsManager.FetchingInfo.rawValue.localized
             groupMemberRecentlyStatus.text = ""
         }
     }

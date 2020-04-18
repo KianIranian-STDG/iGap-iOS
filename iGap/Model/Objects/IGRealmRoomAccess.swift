@@ -36,7 +36,7 @@ class IGRealmRoomAccess: Object {
         return String(describing: roomId) + "_" + String(describing: userId)
     }
     
-    public static func getRoomAccess(roomId: Int64, userId: Int64) -> IGRealmRoomAccess? {
+    public static func getRoomAccess(roomId: Int64, userId: Int64 = 0) -> IGRealmRoomAccess? {
         let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))
         return IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
     }
