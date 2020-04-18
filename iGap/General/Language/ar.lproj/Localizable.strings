@@ -6759,3 +6759,11 @@ TODO:// translate */
 "pin_message_1" = "حذف الرسالة";
 "remove_user" = "حذف المستخدم";
 "edit_admin_rights" = "تحرير وصول المسؤول";
+"edit_member_rights" = "تحرير حقوق العضو";
+"member_rights" = "وصول المستخدم";
+"what_can_this_member_do" = "ماذا يمكن أن يفعل هذا العضو؟";
+"send_text" = "إرسال نص";
+"send_media" = "إرسال الوسائط";
+"send_gif" = "إرسال Gif";
+"send_sticker" = "إرسال ملصق";
+"send_link" = "إرسال الارتباط";

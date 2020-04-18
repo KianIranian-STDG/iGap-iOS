@@ -201,7 +201,15 @@ enum IGStringsManager : String {
     case PinMessage = "pin_message_1";
     case RemoveUser = "remove_user";
     case EditAdminRights = "edit_admin_rights";
+    case EditMemberRights = "edit_member_rights";
     case ListAdmin = "list_admin";
+    case MemberRights = "member_rights";
+    case WhatCanThisMemberDo = "what_can_this_member_do";
+    case SendText = "send_text";
+    case SendMedia = "send_media";
+    case SendGif = "send_gif";
+    case SendSticker = "send_sticker";
+    case SendLink = "send_link";
     
     //MARK: - Wallet
     case ServerDown = "E_9006"

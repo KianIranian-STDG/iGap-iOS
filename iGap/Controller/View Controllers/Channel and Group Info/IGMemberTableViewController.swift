@@ -176,11 +176,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         if self.showMembersFilter == .all {
-            navigationItem?.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
             if self.roomAccess.addMember {
+                navigationItem?.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
                 navigationItem?.rightViewContainer?.addAction {
                     self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                 }
+            } else {
+                navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.AllMembers.rawValue.localized)
             }
         } else {
             navigationItem?.addNavigationViewItems(rightItemText: "", title: IGStringsManager.ListAdmin.rawValue.localized)
@@ -501,7 +503,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let editMember = UIAlertAction(title: "Edit Member Rights", style: .default, handler: { (action) in
+        let editMember = UIAlertAction(title: IGStringsManager.EditMemberRights.rawValue.localized, style: .default, handler: { (action) in
             if let user = member.user, let room = self.room {
                 let adminRights = IGAdminRightsTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 adminRights.userInfo = user

@@ -316,6 +316,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var needToNationalCode : Bool = false // TODO - check and do better structure
     private var waitingCardId: String? // TODO - check and do better structure
     private var roomAccess: IGRealmRoomAccess?
+    private var forceHideAttachButton = false
+    private var forceHideStickerButton = false
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -464,9 +466,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 for nodeIndex in allIndexes {
                     if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
-//                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
-//                                nodeAbs.EnableDisableInteractions(mode: true)
-//                            }
                         node.EnableDisableInteractions(mode: false)
                         node.removeAccessoryButton()
                     }
@@ -805,12 +804,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.room!.type == .chat {return}
         
         if !room!.isReadOnly && room!.isParticipant {
-            if !(false) {//self.roomAccess?.postMessage ??
+            if !(self.roomAccess?.postMessageRights.sendText ?? true) {
                 joinButton.isHidden = false
                 mainHolder.isHidden = true
                 self.messageTextView.text = ""
                 self.view.endEditing(true)
             } else {
+                
+                btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
+                if !(self.roomAccess?.postMessageRights.sendMedia ?? false) {
+                    self.btnSticker.isHidden = true
+                    self.btnStickerWidthConstraint.constant = 0.0
+                }
+                
                 joinButton.isHidden = true
                 mainHolder.isHidden = false
                 if !(self.roomAccess?.editMessage ?? false) {
@@ -1039,6 +1045,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)
             self.roomAccessObserver = self.roomAccess?.observe { [weak self] (ObjectChange) in
                 self?.detectWriteMessagePermission()
+                self?.forceHideStickerButton = self?.roomAccess?.postMessageRights.sendMedia ?? false
+                self?.forceHideStickerButton = self?.roomAccess?.postMessageRights.sendSticker ?? false
             }
         }
     }
@@ -2257,6 +2265,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     private func showHideStickerButton(shouldShow : Bool!) {
         if shouldShow {
+            if forceHideStickerButton {
+                return
+            }
             UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                 if !self.isBotRoom() {
                     self.btnSticker.isHidden = false

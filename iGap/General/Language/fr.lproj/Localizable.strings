@@ -6384,3 +6384,11 @@
 "pin_message_1" = "Épingle de message";
 "remove_user" = "Supprimer l'utilisateur";
 "edit_admin_rights" = "Modifier les droits d'administrateur";
+"edit_member_rights" = "Modifier les droits des membres";
+"member_rights" = "Accès utilisateur";
+"what_can_this_member_do" = "Que peut faire ce membre?";
+"send_text" = "Envoyer du texte";
+"send_media" = "Envoyer le média";
+"send_gif" = "Envoyer un Gif";
+"send_sticker" = "Envoyer l'autocollant";
+"send_link" = "Envoyer le lien";

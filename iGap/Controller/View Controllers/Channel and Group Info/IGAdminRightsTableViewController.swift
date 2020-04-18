@@ -98,8 +98,13 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     func initNavigationBar(){
+        var title = IGStringsManager.AdminRights.rawValue.localized
+        if memberEditType == MemberEditTypes.EditMember {
+            title = IGStringsManager.MemberRights.rawValue.localized
+        }
+        
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AdminRights.rawValue.localized, iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: title, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -111,6 +116,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     private func manageStrings(){
         txtModifyRoom.text = IGStringsManager.ModifyRoom.rawValue.localized
         txtPostMessage.text = IGStringsManager.PostMessage.rawValue.localized
+        txtSendTextMessage.text = IGStringsManager.SendText.rawValue.localized
+        txtSendMediaMessage.text = IGStringsManager.SendMedia.rawValue.localized
+        txtSendGifMessage.text = IGStringsManager.SendGif.rawValue.localized
+        txtSendStickerMessage.text = IGStringsManager.SendSticker.rawValue.localized
+        txtSendLinkMessage.text = IGStringsManager.SendLink.rawValue.localized
         txtEditMessage.text = IGStringsManager.EditMessage.rawValue.localized
         txtDeleteMessage.text = IGStringsManager.DeleteMessage.rawValue.localized
         txtPinMessage.text = IGStringsManager.PinMessage.rawValue.localized
@@ -513,7 +523,11 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             headerView.addSubview(headerTitle)
             headerTitle.font = UIFont.igFont(ofSize: 17, weight: .bold)
             headerTitle.textColor = UIColor.iGapBlue()
-            headerTitle.text = IGStringsManager.WhatCanThisAdminDo.rawValue.localized
+            if memberEditType == .EditMember {
+                headerTitle.text = IGStringsManager.WhatCanThisMemberDo.rawValue.localized
+            } else {
+                headerTitle.text = IGStringsManager.WhatCanThisAdminDo.rawValue.localized
+            }
             headerTitle.adjustsFontSizeToFitWidth = true
             headerTitle.minimumScaleFactor = 0.5
             

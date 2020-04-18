@@ -6738,3 +6738,11 @@ TODO:// complete */
 "pin_message_1" = "Pin Message";
 "remove_user" = "Remove User";
 "edit_admin_rights" = "Edit Admin Rights";
+"edit_member_rights" = "Edit Member Rights";
+"member_rights" = "Member Rights";
+"what_can_this_member_do" = "What can this member do?";
+"send_text" = "Send Text";
+"send_media" = "Send Media";
+"send_gif" = "Send Gif";
+"send_sticker" = "Send Sticker";
+"send_link" = "Send Link";

@@ -6747,3 +6747,11 @@ Page 4 introduce app */
 "pin_message_1" = "سنجاق پیام";
 "remove_user" = "حذف کاربر";
 "edit_admin_rights" = "ویرایش دسترسی های مدیر";
+"edit_member_rights" = "ویرایش دسترسی های کاربر";
+"member_rights" = "دسترسی های کاربر";
+"what_can_this_member_do" = "این عضو چه کاری می تواند انجام دهد؟";
+"send_text" = "ارسال متن";
+"send_media" = "ارسال رسانه";
+"send_gif" = "ارسال گیف";
+"send_sticker" = "ارسال برچسب";
+"send_link" = "ارسال پیوند";
