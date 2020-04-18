@@ -1498,17 +1498,21 @@ extension ASImageNode {
             
             if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
                 print("CHECK THRED1-1:",Thread.isMainThread)
-                DispatchQueue.global(qos:.userInteractive).async {
+                DispatchQueue.global(qos:.userInteractive).async {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
                     
                     if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                         if let image = UIImage(data: data) {
-
-                            UIView.transition(with: self.view,
-                            duration: 0.2,
-                            options: .transitionCrossDissolve,
-                            animations: { self.image = image },
-                            completion: nil)
-
+                            
+                            DispatchQueue.main.async {
+                                UIView.transition(with: sSelf.view,
+                                duration: 0.2,
+                                options: .transitionCrossDissolve,
+                                animations: { sSelf.image = image },
+                                completion: nil)
+                            }
                             
                         }
                     }
@@ -1536,19 +1540,23 @@ extension ASImageNode {
                     }
                     
                     if image != nil {
-                        DispatchQueue.global(qos:.userInteractive).async {
+                        DispatchQueue.global(qos:.userInteractive).async {[weak self] in
+                            guard let sSelf = self else {
+                                return
+                            }
                             
                             if let data = try? Data(contentsOf: path!) {
                                 if let image = UIImage(data: data) {
                                     print("CHECK THRED2-1:",Thread.isMainThread)
                                     
                                     //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                    UIView.transition(with: self.view,
-                                    duration: 0.2,
-                                    options: .transitionCrossDissolve,
-                                    animations: { self.image = image },
-                                    completion: nil)
-
+                                    DispatchQueue.main.async {
+                                        UIView.transition(with: sSelf.view,
+                                        duration: 0.2,
+                                        options: .transitionCrossDissolve,
+                                        animations: { sSelf.image = image },
+                                        completion: nil)
+                                    }
                                     
                                     //                                }
                                 }
@@ -1574,18 +1582,21 @@ extension ASImageNode {
                             }
                             
                             if image != nil {
-                                DispatchQueue.global(qos:.userInteractive).async {
+                                DispatchQueue.global(qos:.userInteractive).async {[weak self] in
+                                    guard let sSelf = self else {
+                                        return
+                                    }
                                     
                                     if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                         if let image = UIImage(data: data) {
                                             print("CHECK THRED3-1:",Thread.isMainThread)
                                             
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                            DispatchQueue.main.async {
 
-                                                UIView.transition(with: self.view,
+                                                UIView.transition(with: sSelf.view,
                                                 duration: 0.2,
                                                 options: .transitionCrossDissolve,
-                                                animations: { self.image = image },
+                                                animations: { sSelf.image = image },
                                                 completion: nil)
 
                                             }
@@ -1602,19 +1613,21 @@ extension ASImageNode {
                 switch detachedAttachment.type {
                 case .image:
                     if IGGlobal.isFileExist(path: detachedAttachment.localPath, fileSize: detachedAttachment.size) {
-                        DispatchQueue.global(qos:.userInteractive).async {
+                        DispatchQueue.global(qos:.userInteractive).async { [weak self] in
+                            guard let sSelf = self else {
+                                return
+                            }
                             
                             if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                 if let image = UIImage(data: data) {
                                     print("CHECK THRED4-1:",Thread.isMainThread)
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    DispatchQueue.main.async {
                                         
-
-                                        UIView.transition(with: self.view,
+                                        UIView.transition(with: sSelf.view,
                                         duration: 0.2,
                                         options: .transitionCrossDissolve,
-                                        animations: { self.image = image },
+                                        animations: { sSelf.image = image },
                                         completion: nil)
 
                                     }
@@ -1632,19 +1645,21 @@ extension ASImageNode {
                     break
                 case .video:
                     if IGGlobal.isFileExist(path: detachedAttachment.localPath, fileSize: detachedAttachment.size) {
-                        DispatchQueue.global(qos:.userInteractive).async {
+                        DispatchQueue.global(qos:.userInteractive).async {[weak self] in
+                            guard let sSelf = self else {
+                                return
+                            }
 
                             if let data = try? Data(contentsOf: detachedAttachment.localUrl!) {
                                 if let image = UIImage(data: data) {
                                     print("CHECK THRED5-1:",Thread.isMainThread)
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                        
+                                    DispatchQueue.main.async {
 
-                                        UIView.transition(with: self.view,
+                                        UIView.transition(with: sSelf.view,
                                         duration: 0.2,
                                         options: .transitionCrossDissolve,
-                                        animations: { self.image = image },
+                                        animations: { sSelf.image = image },
                                         completion: nil)
 
                                     }
