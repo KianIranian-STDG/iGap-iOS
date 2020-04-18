@@ -2654,13 +2654,13 @@ extension String {
         if self.count > 0 {
             var first : String.Element?
             if String(self.prefix(20)).containsEmoji {
-                if let a  = String(self.prefix(20)).removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first {
+                if let a  = String(self.prefix(20)).removeEmoji().removeSpecialCharacter().trimmingCharacters(in: .whitespacesAndNewlines).first {
                     first = a
                 } else {
                     return false
                 }
             } else {
-                first = String(self.prefix(20)).trimmingCharacters(in: .whitespacesAndNewlines).first
+                first = String(self.prefix(20)).removeSpecialCharacter().trimmingCharacters(in: .whitespacesAndNewlines).first
             }
             if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: (String(String(first!).prefix(10)))) {
                 return true
@@ -2696,9 +2696,19 @@ extension String {
             !$0.isEmoji()
         })
     }
-//    var containsEmoji: Bool {
-//        return (unicodeScalars.contains { !$0.isEmoji })
-//    }
+    
+    func removeSpecialCharacter() -> String {
+        //let ddArray = Array(dd)
+        var finalString = ""
+        for char in self {
+            let specialChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+"]
+            if !specialChar.contains(String(char)) {
+                finalString.append(char)
+            }
+        }
+        return finalString
+    }
+    
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
