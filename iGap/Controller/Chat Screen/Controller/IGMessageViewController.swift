@@ -64,7 +64,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //newUITextMessage
     // MARK: - Outlets
     //MARK: -NODE
-    private let chatNode = ChatControllerNode()
+//    private let chatNode = ChatControllerNode()
     private(set) var chatsArray: [Chat] = []
     @IBOutlet weak var tableviewMessagesView : UIView!
     private var tableViewNode : ASTableNode!
@@ -8054,10 +8054,9 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                 
             }
             
-            let cellNode = ChatControllerNode()
+            let cellNode = ChatControllerNode(message: msg!.detach(), finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             cellNode.selectionStyle = .none
             cellNode.delegate = self
-            cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             return cellNode
         }
             
