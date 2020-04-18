@@ -1260,7 +1260,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     /* this messageId updated so after get this message from realm it has latest update */
                     if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
                         if let position = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1]?.firstIndex(of: onMessageEdit.messageId) {
-                            self?.updateMessageText(cellPosition: position, message: newMessage.detach())
+                            self?.updateMessageArray(cellPosition: position, message: newMessage.detach())
+                            self?.updateItem(cellPosition: position)
                             print("=-=-=-=- MESSAGE TEXT GOT EDITED")
 
                         }
@@ -7767,16 +7768,7 @@ extension IGMessageViewController {
                 self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         }
     }
-    private func updateMessageText(cellPosition: Int,message: IGRoomMessage?) {
-//        for indexPath in [IndexPath(row: cellPosition, section: 0)] {
-//            let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode
-//            print("=-=-=-=- update called Message Edit")
-//            cell?.updatMessage(action: .edit,message: message!)
-//
-//        }
-        self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none) // the above method is commented bocoz of edite
-
-    }
+    
     private func updateMessageStatus(cellPosition: Int,status: IGRoomMessageStatus = .unknown) {
         for indexPath in [IndexPath(row: cellPosition, section: 0)] {
             let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode

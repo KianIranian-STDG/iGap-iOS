@@ -429,13 +429,13 @@ class IGNavigationItem: UINavigationItem {
     
     
     //MARK: - Profile Page
-    func setProfilePageNavigationItem() {
+    func setProfilePageNavigationItem(isEditmode: Bool = false) {
         addiGapLogo()
 //        addSettingButton()
-        addEditButton()
+        addEditButton(isEditmode: isEditmode)
     }
     
-    private func addEditButton() {
+    private func addEditButton(isEditmode: Bool = false) {
         let rightViewFrame = CGRect(x: 0, y: 0, width: 50, height: 40)
         rightViewContainer = IGTappableView(frame: rightViewFrame)
         rightViewContainer!.backgroundColor = UIColor.clear
@@ -445,7 +445,12 @@ class IGNavigationItem: UINavigationItem {
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
         btnEdit = UIButton(frame: composeButtonFrame)
-        btnEdit.setTitle("", for: .normal)
+        if !isEditmode {
+            btnEdit.setTitle("", for: .normal)
+        } else {
+           btnEdit.setTitle("", for: .normal)
+
+        }
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnEdit.isUserInteractionEnabled = false
         rightViewContainer!.addSubview(btnEdit)

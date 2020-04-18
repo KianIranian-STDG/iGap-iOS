@@ -43,7 +43,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     var selectedCountry: IGCountryInfo?
     var registrationResponse : (username:String, userId:Int64, authorHash:String, verificationMethod: IGVerificationCodeSendMethod, resendDelay:Int32, codeDigitsCount:Int32, codeRegex:String, callMethodSupport:Bool)?
 
-    var isEditMode = false
     var shouldSave = false
     var tapCount = 0
     var isMaleChecked: Bool! = false
@@ -122,6 +121,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     var editProfileNavBtn: UIButton!
     var connectionStatus: IGAppManager.ConnectionStatus?
 
+    var isEditmode : Bool = false
     @IBOutlet weak var userAvatarView: IGAvatarView!
     
     @IBOutlet weak var btnCamera: UIButton!
@@ -202,7 +202,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
-        self.initNavBar()
+        self.initNavBar(isEditmode: isEditmode)
                 
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -257,9 +257,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         print("Deinit IGProfileTableViewController")
     }
     
-    private func initNavBar() {
+    private func initNavBar(isEditmode: Bool = false) {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.setProfilePageNavigationItem()
+        navigationItem.setProfilePageNavigationItem(isEditmode : isEditmode)
         navigationItem.rightViewContainer?.addAction { [weak self] in
             self?.view.endEditing(true)
             self?.editProfileTapped()
@@ -763,7 +763,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 
         //end editMode
         if tapCount % 2 == 0 {
-            isEditMode = false
+            isEditmode = false
             if shouldSave {
                 shouldSave = false
                 saveChanges(nameChnaged: hasNameChanged, userNameChnaged: hasUserNameChanged, bioChnaged: hasBioChanged, emailChanged: hasEmailChanged, referralChnaged: hasRefrralChanged, genderChanged: hasGenderChanged)
@@ -786,7 +786,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         else {
             fetchUserInfo()
             textManagment()
-            isEditMode = true
+            isEditmode = true
             shouldSave = false
             navigationItem.btnEdit.titleLabel!.font = UIFont.iGapFonticon(ofSize: 20)
             UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
@@ -796,6 +796,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             self.btnCamera.isHidden = false
             self.tableView.endUpdates()
         }
+//        isEditmode = !isEditmode
     }
     
     private func updateBtnEditStateView(hasChnagedValue: Bool! = false) {
@@ -862,20 +863,20 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             switch indexPath.row {
                 
             case 0 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 84
                 }
             case 1 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 74
                 }
                 
             case 2 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
@@ -883,21 +884,21 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 
                 
             case 3 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
                 }
                 
             case 4 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
                 }
                 
             case 5 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
@@ -905,21 +906,21 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 
                 
             case 6 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
                 }
                 
             case 7 :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 } else {
                     return 44
                 }
                 
             case 8 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 } else {
                     return 0
@@ -927,7 +928,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 
                 
             case 9 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 }
                 else {
@@ -936,7 +937,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 
                 
             case 10 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 }
                 else {
@@ -944,7 +945,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
                 
             case 11 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 }
                 else {
@@ -952,7 +953,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
                 
             case 12 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 }
                 else {
@@ -960,7 +961,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
                 
             case 13 :
-                if isEditMode {
+                if isEditmode {
                     return 44
                 }
                 else {
@@ -968,7 +969,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
                 
             default :
-                if isEditMode {
+                if isEditmode {
                     return 0
                 }
                 else {

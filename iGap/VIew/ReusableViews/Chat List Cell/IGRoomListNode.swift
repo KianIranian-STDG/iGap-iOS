@@ -20,7 +20,7 @@ class IGRoomListNode: ASCellNode {
         node.backgroundColor = .lightGray
         node.style.width = ASDimensionMake(.points, UIScreen.main.bounds.width)
         node.style.height = ASDimensionMake(.points, 100)
-
+        node.clipsToBounds = true
         return node
     }()
     let fakedisplay : ASDisplayNode = {
@@ -28,8 +28,41 @@ class IGRoomListNode: ASCellNode {
 
 
         node.backgroundColor = .red
-        node.style.width = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        node.style.width = ASDimensionMake(.points, 200)
         node.style.height = ASDimensionMake(.points, 80)
+
+        return node
+
+    } ()
+    let fakedisplayOne : ASDisplayNode = {
+        let node = ASDisplayNode()
+
+
+        node.backgroundColor = .red
+        node.style.width = ASDimensionMake(.points, 20)
+        node.style.height = ASDimensionMake(.points, 20)
+
+        return node
+
+    } ()
+    let fakedisplayTwo : ASDisplayNode = {
+        let node = ASDisplayNode()
+
+
+        node.backgroundColor = .red
+        node.style.width = ASDimensionMake(.points, 300)
+        node.style.height = ASDimensionMake(.points, 20)
+
+        return node
+
+    } ()
+    let fakedisplayThree : ASDisplayNode = {
+        let node = ASDisplayNode()
+
+
+        node.backgroundColor = .red
+        node.style.width = ASDimensionMake(.points, 300)
+        node.style.height = ASDimensionMake(.points, 20)
 
         return node
 
@@ -68,53 +101,38 @@ class IGRoomListNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        // Header Stack
-        
-//        var headerChildren: [ASLayoutElement] = []
-//
-//        let headerStack = ASStackLayoutSpec.horizontal()
-//        headerStack.alignItems = .center
-//        avatarImageNode.style.preferredSize = CGSize(
-//            width: Constants.CellLayout.UserImageHeight,
-//            height: Constants.CellLayout.UserImageHeight
-//        )
-//        headerChildren.append(ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForAvatar, child: avatarImageNode))
-//
-//        usernameLabel.style.flexShrink = 1.0
-//        headerChildren.append(usernameLabel)
-//
-//        let spacer = ASLayoutSpec()
-//        spacer.style.flexGrow = 1.0
-//        headerChildren.append(spacer)
-//
-//        timeIntervalLabel.style.spacingBefore = Constants.CellLayout.HorizontalBuffer
-//        headerChildren.append(timeIntervalLabel)
-//
-//        let footerStack = ASStackLayoutSpec.vertical()
-//        footerStack.spacing = Constants.CellLayout.VerticalBuffer
-//        footerStack.children = [photoLikesLabel, photoDescriptionLabel]
-//        headerStack.children = headerChildren
-//
-//        let verticalStack = ASStackLayoutSpec.vertical()
-//        verticalStack.children = [
-//            ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForHeader, child: headerStack),
-//            ASRatioLayoutSpec(ratio: 1.0, child: photoImageNode),
-//            ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForFooter, child: footerStack)
-//        ]
         
 
-        
+
         let horizentalStackOne = ASStackLayoutSpec()
         horizentalStackOne.alignContent = .start
-        horizentalStackOne.justifyContent = .center
+        horizentalStackOne.justifyContent = .end
         horizentalStackOne.verticalAlignment = .center
         horizentalStackOne.children = [fakedisplay,avatarImageNode]
+        horizentalStackOne.spacing = 10
         
-        let pinBGStack = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 50), child: bgPin)
-        let verticalStack = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .center, alignItems: .center, flexWrap: .noWrap, alignContent: .center, lineSpacing: 0, children: [pinBGStack])
-        
-        let overlayStack = ASOverlayLayoutSpec(child: verticalStack, overlay: horizentalStackOne)
+        let insetMain = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), child: horizentalStackOne)
 
-        return overlayStack
+        let pinBGStack = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 50), child: bgPin)
+        let pinv = ASDisplayNode()
+        let pinVHeight : CGFloat = 12
+        pinv.style.width = ASDimensionMake(.points,pinVHeight)
+        pinv.style.height = ASDimensionMake(.points,pinVHeight)
+        pinv.backgroundColor = .blue
+        pinv.cornerRadius = pinVHeight / 2
+        pinv.layer.maskedCorners = [.layerMaxXMaxYCorner]
+
+        let pinTagStack = ASCornerLayoutSpec(child: pinBGStack, corner:pinv, location: .topLeft)
+        pinTagStack.offset = CGPoint(x: pinVHeight / 2, y: pinVHeight / 2)
+//        let pinTagStackInset = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0), child: pinTagStack)
+
+        let verticalStack = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .center, alignItems: .center, flexWrap: .noWrap, alignContent: .center, lineSpacing: 0, children: [pinTagStack])
+        
+        let overlayStack = ASOverlayLayoutSpec(child: verticalStack, overlay: insetMain)
+
+        let finalStackInset = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0), child: overlayStack)
+        
+        
+        return finalStackInset
     }
 }
