@@ -169,10 +169,20 @@ class IGRoomMessageLog: Object {
                 bodyString = actorUsernameTitle + " " + IGStringsManager.RoomCreated.rawValue.localized
                 
                 if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
-                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                    if actorUsernameTitle == IGStringsManager.You.rawValue.localized {
+                        bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreatedByU.rawValue.localized)"
+                    } else {
+                        bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                    }
+
                     
                 } else {
-                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                    if actorUsernameTitle == IGStringsManager.You.rawValue.localized {
+                        bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreatedByU.rawValue.localized)"
+                    } else {
+                        bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                    }
+
                 }
 
             }

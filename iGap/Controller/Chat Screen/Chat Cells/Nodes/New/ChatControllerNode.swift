@@ -2825,33 +2825,33 @@ class ChatControllerNode: ASCellNode {
             }
             
             
-            if let user = message.authorUser?.user {
-                if user.username == IGAppManager.sharedManager.username() {
-                    actorUsernameTitle = IGStringsManager.You.rawValue.localized
-                } else {
-                    actorUsernameTitle = user.displayName
-                }
-                actorUser = user
-            } else {
-                actorUsernameTitle = IGStringsManager.SomeOne.rawValue.localized
-            }
-            
-            
-            if let target = message.log?.targetUser {
-                if !target.displayName.isEmpty {
-                    targetUserNameTitle =  target.displayName
-                } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
-                    targetUserNameTitle =  user.displayName
-                }
-                targetUser = target
-            }else {
-                if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
-                    targetUserNameTitle =  user.displayName
-                    targetUser = user
-                } else {
-                    IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
-                }
-            }
+//            if let user = message.authorUser?.user {
+//                if user.username == IGAppManager.sharedManager.username() {
+//                    actorUsernameTitle = IGStringsManager.You.rawValue.localized
+//                } else {
+//                    actorUsernameTitle = user.displayName
+//                }
+//                actorUser = user
+//            } else {
+//                actorUsernameTitle = IGStringsManager.SomeOne.rawValue.localized
+//            }
+//
+//
+//            if let target = message.log?.targetUser {
+//                if !target.displayName.isEmpty {
+//                    targetUserNameTitle =  target.displayName
+//                } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+//                    targetUserNameTitle =  user.displayName
+//                }
+//                targetUser = target
+//            }else {
+//                if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+//                    targetUserNameTitle =  user.displayName
+//                    targetUser = user
+//                } else {
+//                    IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+//                }
+//            }
             
 //            txtLogMessage!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
             
@@ -2888,7 +2888,7 @@ class ChatControllerNode: ASCellNode {
                     txtLogMessage!.style.width =  ASDimensionMake(.points, UIScreen.main.bounds.width - 30)
 
                 } else {
-                    txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
+                    txtLogMessage!.style.width =  ASDimensionMake(.points, logSize + 20)
                 }
 
             }

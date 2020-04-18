@@ -510,6 +510,7 @@ enum IGStringsManager : String {
     case ChannelCreated = "channel_created"
     case GroupLink = "group_link"
     case RoomCreated = "room_created"
+    case RoomCreatedByU = "room_created_by_u"
     case GroupCreated = "group_created"
     case KickedOut = "MEMBER_KICKED"
     case JoinedIgap = "USER_JOINED"

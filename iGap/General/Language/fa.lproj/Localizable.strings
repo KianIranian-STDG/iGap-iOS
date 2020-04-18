@@ -6643,6 +6643,7 @@ Page 4 introduce app */
 "hours_ago" = "ساعت پیش";
 "someone" = "شخصی";
 "room_created" = "این صفحه را ایجاد کرد";
+"room_created_by_u" = "این صفحه را ایجاد کردید";
 "channel_created" = "کانال ایجاد گردید";
 "group_created" = "گروه ایجاد گردید";
 "did_not_respond_to_ur_voice_call" = "عدم پاسخ دهی به شروع تماس صوتی با شما";

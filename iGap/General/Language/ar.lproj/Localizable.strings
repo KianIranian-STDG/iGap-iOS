@@ -6658,6 +6658,7 @@ TODO:// translate */
 "hours_ago" = "منذ ساعات";
 "someone" = "شخصا ما";
 "room_created" = "أنشأت هذه الغرفة";
+"room_created_by_u" = "أنشأت هذه الغرفة";
 "channel_created" = "تم إنشاء القناة";
 "group_created" = "تم إنشاء المجموعة";
 "did_not_respond_to_ur_voice_call" = "لم ترد على مكالمتك الصوتية";

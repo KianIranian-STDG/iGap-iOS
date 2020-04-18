@@ -7382,10 +7382,21 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         var urlString = url.absoluteString
         let urlStringLower = url.absoluteString.lowercased()
         
-        if urlStringLower.contains("https://igap.net/join") || urlStringLower.contains("http://igap.net/join") ||  urlStringLower.contains("igap.net/join") {
-            didTapOnRoomLink(link: urlString)
-            return
+        //if dont have /join buy starts with igap.net
+        if urlStringLower.contains("https://igap.net/") || urlStringLower.contains("http://igap.net/") ||  urlStringLower.contains("igap.net/") {
+            if urlStringLower.contains("https://igap.net/join") || urlStringLower.contains("http://igap.net/join") ||  urlStringLower.contains("igap.net/join") {
+                didTapOnRoomLink(link: urlString)
+                return
+            } else {
+                let strings = urlString.split(separator: "/")
+                let token = strings[strings.count-1]
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: String(token))
+
+                return
+
+            }
         }
+
         
         if !(urlStringLower.contains("https://")) && !(urlStringLower.contains("http://")) {
             urlString = "http://" + urlString

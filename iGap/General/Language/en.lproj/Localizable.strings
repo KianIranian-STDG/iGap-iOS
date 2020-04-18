@@ -6631,6 +6631,7 @@ TODO:// complete */
 "hours_ago" = "hours ago";
 "someone" = "Someone";
 "room_created" = "Created This Room";
+"room_created_by_u" = "Created This Room";
 "channel_created" = "Channel was Created";
 "group_created" = "Group was Created";
 "did_not_respond_to_ur_voice_call" = "Did not respond to your voice call";
