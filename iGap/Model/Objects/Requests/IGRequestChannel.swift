@@ -69,7 +69,7 @@ class IGChannelAddMemberRequest : IGRequest {
 
 class IGChannelAddAdminRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (roomID: Int64 , memberID : Int64, roomAccess: IGPRoomAccess) -> IGRequestWrapper {
+        class func generate (roomID: Int64 , memberID : Int64, roomAccess: IGPChannelAddAdmin.IGPAdminRights) -> IGRequestWrapper {
             var channelAddAdminRequestMessage = IGPChannelAddAdmin()
             channelAddAdminRequestMessage.igpRoomID = roomID
             channelAddAdminRequestMessage.igpMemberID = memberID
@@ -80,7 +80,8 @@ class IGChannelAddAdminRequest : IGRequest {
     
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPChannelAddAdminResponse) {
-            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.admin.rawValue, roomAccess: responseProtoMessage.igpPermission)
+            IGRealmRoomAccess.putOrUpdate(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID, adminRights: responseProtoMessage.igpPermission)
+            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPChannelRoom.IGPRole.admin.rawValue)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

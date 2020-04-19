@@ -65,17 +65,18 @@ class IGGroupAddMemberRequest : IGRequest {
 
 class IGGroupAddAdminRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (roomID: Int64 , memberID: Int64, roomAccess: IGPRoomAccess) -> IGRequestWrapper {
+        class func generate (roomID: Int64 , memberID: Int64, adminRights: IGPGroupAddAdmin.IGPAdminRights) -> IGRequestWrapper {
             var groupAddAdminRequestMessage = IGPGroupAddAdmin()
             groupAddAdminRequestMessage.igpRoomID = roomID
             groupAddAdminRequestMessage.igpMemberID = memberID
-            groupAddAdminRequestMessage.igpPermission = roomAccess
+            groupAddAdminRequestMessage.igpPermission = adminRights
             return IGRequestWrapper(message: groupAddAdminRequestMessage, actionID: 302)
         }
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPGroupAddAdminResponse) {
-            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPGroupRoom.IGPRole.admin.rawValue, roomAccess: responseProtoMessage.igpPermission)
+            IGRealmRoomAccess.putOrUpdate(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID, adminRights: responseProtoMessage.igpPermission)
+            IGRealmMember.updateMemberRole(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID, role: IGPGroupRoom.IGPRole.admin.rawValue)
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let groupAddAdminResponse = responseProtoMessage as? IGPGroupAddAdminResponse {
@@ -752,6 +753,30 @@ class IGGroupPinMessageRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             if let groupPinMessage = responseProtoMessage as? IGPGroupPinMessageResponse {
                 self.interpret(response: groupPinMessage)
+            }
+        }
+    }
+}
+
+class IGGroupChangeMemberRoleRequest : IGRequest {
+    class Generator : IGRequest.Generator{
+        class func generate(roomId: Int64, userId: Int64, memberRights: IGPGroupChangeMemberRights.IGPMemberRights) -> IGRequestWrapper {
+            var changeMemberRights = IGPGroupChangeMemberRights()
+            changeMemberRights.igpRoomID = roomId
+            changeMemberRights.igpUserID = userId
+            changeMemberRights.igpPermission = memberRights
+            return IGRequestWrapper(message: changeMemberRights, actionID: 327)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response: IGPGroupChangeMemberRoleResponse) {
+            IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: response.igpUserID, memberRights: response.igpPermission)
+        }
+        
+        override class func handlePush(responseProtoMessage: Message) {
+            if let response = responseProtoMessage as? IGPGroupChangeMemberRoleResponse {
+                self.interpret(response: response)
             }
         }
     }

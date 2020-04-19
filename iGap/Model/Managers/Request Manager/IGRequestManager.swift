@@ -216,6 +216,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGGroupEditMessageRequest.Handler.self          as IGRequest.Handler.Type),
     30326: (IGPGroupPinMessageResponse.self                 as ResponseMessage.Type,
             IGGroupPinMessageRequest.Handler.self           as IGRequest.Handler.Type),
+    30327: (IGPGroupChangeMemberRoleResponse.self           as ResponseMessage.Type,
+            IGGroupPinMessageRequest.Handler.self           as IGRequest.Handler.Type),
     
     //Channel: 304xx
     30400: (IGPChannelCreateResponse.self                   as ResponseMessage.Type,

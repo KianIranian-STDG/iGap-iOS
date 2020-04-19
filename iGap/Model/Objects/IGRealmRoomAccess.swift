@@ -19,7 +19,7 @@ class IGRealmRoomAccess: Object {
 
     @objc dynamic var id: String? // roomId_userId
     @objc dynamic var modifyRoom: Bool = false
-    @objc dynamic var postMessage: Bool = false
+    @objc dynamic var postMessageRights: IGRealmPostMessageRights!
     @objc dynamic var editMessage: Bool = false
     @objc dynamic var deleteMessage: Bool = false
     @objc dynamic var pinMessage: Bool = false
@@ -49,7 +49,6 @@ class IGRealmRoomAccess: Object {
             realmRoomAccess?.id = makeId(roomId, userId)
         }
         realmRoomAccess?.modifyRoom = roomAccess.igpModifyRoom
-        realmRoomAccess?.postMessage = roomAccess.igpPostMessage
         realmRoomAccess?.editMessage = roomAccess.igpEditMessage
         realmRoomAccess?.deleteMessage = roomAccess.igpDeleteMessage
         realmRoomAccess?.pinMessage = roomAccess.igpPinMessage
@@ -57,6 +56,72 @@ class IGRealmRoomAccess: Object {
         realmRoomAccess?.banMember = roomAccess.igpBanMember
         realmRoomAccess?.getMember = roomAccess.igpGetMember
         realmRoomAccess?.addAdmin = roomAccess.igpAddAdmin
+        realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(roomAccess.igpPostMessage)
+        
+        IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
+    }
+    
+    public static func putOrUpdateNoTransaction(roomId: Int64, userId: Int64, adminRights: IGPChannelAddAdmin.IGPAdminRights) {
+        let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))
+        var realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
+        if realmRoomAccess == nil {
+            realmRoomAccess = IGRealmRoomAccess()
+            realmRoomAccess?.id = makeId(roomId, userId)
+        }
+        realmRoomAccess?.modifyRoom = adminRights.igpModifyRoom
+        realmRoomAccess?.editMessage = adminRights.igpEditMessage
+        realmRoomAccess?.deleteMessage = adminRights.igpDeleteMessage
+        realmRoomAccess?.pinMessage = adminRights.igpPinMessage
+        realmRoomAccess?.addMember = adminRights.igpAddMember
+        realmRoomAccess?.banMember = adminRights.igpBanMember
+        realmRoomAccess?.getMember = adminRights.igpGetMember
+        realmRoomAccess?.addAdmin = adminRights.igpAddAdmin
+        realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(adminRights.igpPostMessage)
+        
+        IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
+    }
+    
+    public static func putOrUpdateNoTransaction(roomId: Int64, userId: Int64, adminRights: IGPGroupAddAdmin.IGPAdminRights) {
+        let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))
+        var realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
+        if realmRoomAccess == nil {
+            realmRoomAccess = IGRealmRoomAccess()
+            realmRoomAccess?.id = makeId(roomId, userId)
+        }
+        realmRoomAccess?.modifyRoom = adminRights.igpModifyRoom
+        realmRoomAccess?.editMessage = true
+        realmRoomAccess?.deleteMessage = adminRights.igpDeleteMessage
+        realmRoomAccess?.pinMessage = adminRights.igpPinMessage
+        realmRoomAccess?.addMember = adminRights.igpAddMember
+        realmRoomAccess?.banMember = adminRights.igpBanMember
+        realmRoomAccess?.getMember = adminRights.igpGetMember
+        realmRoomAccess?.addAdmin = adminRights.igpAddAdmin
+        realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(true)
+        
+        IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
+    }
+    
+    public static func putOrUpdateNoTransaction(roomId: Int64, userId: Int64, memberRights: IGPGroupChangeMemberRights.IGPMemberRights) {
+        let predicate = NSPredicate(format: "id = %@", makeId(roomId, userId))
+        var realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first
+        if realmRoomAccess == nil {
+            realmRoomAccess = IGRealmRoomAccess()
+            realmRoomAccess?.id = makeId(roomId, userId)
+        }
+        
+        realmRoomAccess?.modifyRoom = false
+        realmRoomAccess?.editMessage = false
+        realmRoomAccess?.deleteMessage = false
+        realmRoomAccess?.pinMessage = memberRights.igpPinMessage
+        realmRoomAccess?.addMember = memberRights.igpAddMember
+        realmRoomAccess?.banMember = false
+        realmRoomAccess?.getMember = memberRights.igpGetMember
+        realmRoomAccess?.addAdmin = false
+        realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(sendText: memberRights.igpSendText,
+                                                                      sendMedia: memberRights.igpSendMedia,
+                                                                      sendGif: memberRights.igpSendMedia,
+                                                                      sendSticker: memberRights.igpSendSticker,
+                                                                      sendLink: memberRights.igpSendLink)
         
         IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
     }
@@ -69,6 +134,29 @@ class IGRealmRoomAccess: Object {
         }
     }
     
+    public static func putOrUpdate(roomId: Int64, userId: Int64, adminRights: IGPChannelAddAdmin.IGPAdminRights){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                putOrUpdateNoTransaction(roomId: roomId, userId: userId, adminRights: adminRights)
+            }
+        }
+    }
+    
+    public static func putOrUpdate(roomId: Int64, userId: Int64, adminRights: IGPGroupAddAdmin.IGPAdminRights){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                putOrUpdateNoTransaction(roomId: roomId, userId: userId, adminRights: adminRights)
+            }
+        }
+    }
+    
+    public static func putOrUpdate(roomId: Int64, userId: Int64, memberRights: IGPGroupChangeMemberRights.IGPMemberRights){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                putOrUpdateNoTransaction(roomId: roomId, userId: userId, memberRights: memberRights)
+            }
+        }
+    }
     
     public static func clearRoomAccess(roomId: Int64, userId: Int64){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -88,7 +176,6 @@ class IGRealmRoomAccess: Object {
         if let realmRoomAccess = IGDatabaseManager.shared.realm.objects(IGRealmRoomAccess.self).filter(predicate).first {
             var roomAccess = IGPRoomAccess()
             roomAccess.igpModifyRoom = realmRoomAccess.modifyRoom
-            roomAccess.igpPostMessage = realmRoomAccess.postMessage
             roomAccess.igpEditMessage = realmRoomAccess.editMessage
             roomAccess.igpDeleteMessage = realmRoomAccess.deleteMessage
             roomAccess.igpPinMessage = realmRoomAccess.pinMessage
@@ -96,6 +183,13 @@ class IGRealmRoomAccess: Object {
             roomAccess.igpBanMember = realmRoomAccess.banMember
             roomAccess.igpGetMember = realmRoomAccess.getMember
             roomAccess.igpAddAdmin = realmRoomAccess.addAdmin
+            var postMessageRights = IGPPostMessageRights()
+            postMessageRights.igpSendText = realmRoomAccess.postMessageRights.sendText
+            postMessageRights.igpSendMedia = realmRoomAccess.postMessageRights.sendMedia
+            postMessageRights.igpSendSticker = realmRoomAccess.postMessageRights.sendSticker
+            postMessageRights.igpSendGif = realmRoomAccess.postMessageRights.sendGif
+            postMessageRights.igpSendLink = realmRoomAccess.postMessageRights.sendLink
+            roomAccess.igpPostMessage = postMessageRights
             return roomAccess
         }
         
@@ -103,3 +197,41 @@ class IGRealmRoomAccess: Object {
     }
 }
 
+class IGRealmPostMessageRights: Object {
+
+    @objc dynamic var sendText: Bool = false
+    @objc dynamic var sendMedia: Bool = false
+    @objc dynamic var sendGif: Bool = false
+    @objc dynamic var sendSticker: Bool = false
+    @objc dynamic var sendLink: Bool = false
+    
+    convenience init(_ postMessageRights: IGPPostMessageRights) {
+        self.init()
+        
+        self.sendText = postMessageRights.igpSendText
+        self.sendMedia = postMessageRights.igpSendMedia
+        self.sendGif = postMessageRights.igpSendGif
+        self.sendSticker = postMessageRights.igpSendSticker
+        self.sendLink = postMessageRights.igpSendLink
+    }
+    
+    convenience init(sendText: Bool, sendMedia: Bool, sendGif: Bool, sendSticker: Bool, sendLink: Bool) {
+        self.init()
+        
+        self.sendText = sendText
+        self.sendMedia = sendMedia
+        self.sendGif = sendGif
+        self.sendSticker = sendSticker
+        self.sendLink = sendLink
+    }
+    
+    convenience init(_ allState: Bool) {
+        self.init()
+        
+        self.sendText = allState
+        self.sendMedia = allState
+        self.sendGif = allState
+        self.sendSticker = allState
+        self.sendLink = allState
+    }
+}
