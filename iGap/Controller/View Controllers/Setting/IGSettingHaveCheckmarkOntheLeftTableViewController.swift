@@ -35,8 +35,12 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "", title: modeT, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
-        navigationItem.rightViewContainer?.addAction {
-            self.doneButtonClicked()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            if self?.destructionTime ?? -1 == -1 {
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                self?.doneButtonClicked()
+            }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -69,11 +73,11 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
 
                 }
                 else if SMLangUtil.loadLanguage() == "en" {
-                    cell.titleLable.text = "1" + "month"
+                    cell.titleLable.text = "1" + " month"
 
                 }
                 else {
-                    cell.titleLable.text = "1" + "ماه"
+                    cell.titleLable.text = "1" + " ماه"
 
                 }
             } else {

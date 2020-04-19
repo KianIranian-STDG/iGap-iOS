@@ -54,7 +54,10 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ListOfBlockedUsers.rawValue.localized)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.ListOfBlockedUsers.rawValue.localized, iGapFont: true)
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            self?.performSegue(withIdentifier: "GoToChooseContactAddToBlockListPage", sender: self)
+        }
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -84,20 +87,12 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blockedUsers.count + 1
+        return blockedUsers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedCell", for: indexPath) as! IGSettingContactBlockTableViewCell
-        let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
-        if indexPath.row == lastRowIndex {
-            cell.blockedContactName.text = IGStringsManager.BlockUser.rawValue.localized
-            cell.blockedContactName.textColor = UIColor.red
-            cell.accessoryType = UITableViewCell.AccessoryType.none
-            
-        } else {
-            cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
-        }
+        cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         
         let btnUnblock = MGSwipeButton(title: IGStringsManager.UnblockUser.rawValue.localized, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if !self.blockedUsers[indexPath.row].isInvalidated {
@@ -124,13 +119,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
-        if indexPath.row == lastRowIndex{
-            self.tableView.isUserInteractionEnabled = true
-            performSegue(withIdentifier: "GoToChooseContactAddToBlockListPage", sender: self)
-        }
-    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return ""
