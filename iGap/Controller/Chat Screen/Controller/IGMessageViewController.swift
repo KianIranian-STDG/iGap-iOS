@@ -573,12 +573,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             if isBotRoom() {
                 btnMoney.isHidden = true
-                btnSticker.isHidden = true
+                showHideStickerButton(shouldShow: false)
                 self.btnStickerWidthConstraint.constant = 0.0
 
             } else {
                 btnMoney.isHidden = false
-                btnSticker.isHidden = false
+                showHideStickerButton(shouldShow: true)
                 self.btnStickerWidthConstraint.constant = 25.0
             }
         }
@@ -698,7 +698,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initASCollectionNode()
 
         if isBotRoom() {
-            btnSticker.isHidden = true
+            showHideStickerButton(shouldShow: false)
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
                 self.getFavoriteMenu()
             } else {
@@ -812,13 +812,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             
             btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
-            if !(self.roomAccess?.postMessageRights.sendSticker ?? false) {
-                self.btnSticker.isHidden = true
-                self.btnStickerWidthConstraint.constant = 0.0
-            } else {
-                self.btnSticker.isHidden = false
-                self.btnStickerWidthConstraint.constant = 25.0
-            }
+            showHideStickerButton(shouldShow: self.roomAccess?.postMessageRights.sendSticker ?? false)
             
             joinButton.isHidden = true
             mainHolder.isHidden = false
@@ -2708,10 +2702,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             
             
-            UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-                self.btnSticker.isHidden = true
-                
-            }, completion: nil)
+           showHideStickerButton(shouldShow: false)
             
         } else {
             self.hideMoneyTransactionModal()
@@ -2757,11 +2748,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.view.layoutIfNeeded()
             
-            if self.isBotRoom() {
-                self.btnSticker.isHidden = true
-            } else {
-                self.btnSticker.isHidden = false
-            }
+            showHideStickerButton(shouldShow: !self.isBotRoom())
         }
     }
     
