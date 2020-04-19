@@ -423,6 +423,7 @@
 		D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */; };
 		D6606496243C4FAA00A49DC7 /* IGRealmRoomAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6606495243C4E3F00A49DC7 /* IGRealmRoomAccess.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
+		D670E5152445EC67002901AF /* ClearMessageLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D670E5142445EC67002901AF /* ClearMessageLocal.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
 		D67E981A23A67918003C1516 /* ImageZoomControllerIsPresentingImageViewOverlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981223A67917003C1516 /* ImageZoomControllerIsPresentingImageViewOverlayState.swift */; };
@@ -1370,6 +1371,7 @@
 		D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwCrypt.swift; sourceTree = "<group>"; };
 		D6606495243C4E3F00A49DC7 /* IGRealmRoomAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmRoomAccess.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
+		D670E5142445EC67002901AF /* ClearMessageLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearMessageLocal.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
 		D67E981223A67917003C1516 /* ImageZoomControllerIsPresentingImageViewOverlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsPresentingImageViewOverlayState.swift; sourceTree = "<group>"; };
@@ -2933,6 +2935,7 @@
 				8E3C69932360785E001575BE /* IGTagManager.swift */,
 				8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */,
 				D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */,
+				D670E5142445EC67002901AF /* ClearMessageLocal.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -4459,6 +4462,7 @@
 				FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */,
 				FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */,
 				940F9E73231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift in Sources */,
+				D670E5152445EC67002901AF /* ClearMessageLocal.swift in Sources */,
 				8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */,
 				8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */,
 				FA41C6F01DC9DFD600598383 /* IGGlobal.swift in Sources */,
