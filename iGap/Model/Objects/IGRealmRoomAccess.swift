@@ -119,7 +119,7 @@ class IGRealmRoomAccess: Object {
         realmRoomAccess?.addAdmin = false
         realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(sendText: memberRights.igpSendText,
                                                                       sendMedia: memberRights.igpSendMedia,
-                                                                      sendGif: memberRights.igpSendMedia,
+                                                                      sendGif: memberRights.igpSendGif,
                                                                       sendSticker: memberRights.igpSendSticker,
                                                                       sendLink: memberRights.igpSendLink)
         
@@ -176,6 +176,7 @@ class IGRealmRoomAccess: Object {
                 realmRoomAccess?.getMember = false
                 realmRoomAccess?.addAdmin = false
                 realmRoomAccess?.postMessageRights = IGRealmPostMessageRights(false)
+                IGDatabaseManager.shared.realm.add(realmRoomAccess!, update: .modified)
             }
         }
     }

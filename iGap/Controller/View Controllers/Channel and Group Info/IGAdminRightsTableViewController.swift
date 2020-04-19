@@ -306,25 +306,31 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         return memberRights
     }
     
+    private func hasEnableState() -> Bool {
+        return switchModifyRoom.isOn ||
+            switchPostMessage.isOn ||
+            switchSendTextMessage.isOn ||
+            switchSendMediaMessage.isOn ||
+            switchSendStickerMessage.isOn ||
+            switchSendLinkMessage.isOn ||
+            switchEditMessage.isOn ||
+            switchDeleteMessage.isOn ||
+            switchPinMessage.isOn ||
+            switchAddMember.isOn ||
+            switchBanMember.isOn ||
+            switchGetMember.isOn ||
+            switchAddAdmin.isOn
+    }
+    
     func requestToAddAdminInChannel() {
         
-        // show kick admin view if all options was disabled
-        if (((room.type == .channel && !switchPostMessage.isOn && !switchEditMessage.isOn) || (room.type == .group)) &&
-            !switchModifyRoom.isOn &&
-            !switchDeleteMessage.isOn &&
-            !switchPinMessage.isOn &&
-            !switchAddMember.isOn &&
-            !switchBanMember.isOn &&
-            !switchGetMember.isOn &&
-            !switchAddAdmin.isOn) &&
-            memberEditType != .EditRoom {
-            
-            if memberEditType == .EditAdmin {
-                kickAdmin()
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
-            
+        if memberEditType == .AddAdmin && !hasEnableState() {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        if memberEditType == .EditAdmin && !hasEnableState() {
+            kickAdmin()
             return
         }
         

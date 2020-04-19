@@ -811,10 +811,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.view.endEditing(true)
         } else {
             
-            btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
-            if !(self.roomAccess?.postMessageRights.sendMedia ?? false) {
+            btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+            if !(self.roomAccess?.postMessageRights.sendSticker ?? false) {
                 self.btnSticker.isHidden = true
                 self.btnStickerWidthConstraint.constant = 0.0
+            } else {
+                self.btnSticker.isHidden = false
+                self.btnStickerWidthConstraint.constant = 25.0
             }
             
             joinButton.isHidden = true
