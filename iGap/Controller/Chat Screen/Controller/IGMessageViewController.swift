@@ -67,6 +67,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //    private let chatNode = ChatControllerNode()
     private(set) var chatsArray: [Chat] = []
     @IBOutlet weak var tableviewMessagesView : UIView!
+    @IBOutlet weak var stackAttachment: UIStackView!
+    @IBOutlet weak var attachmentBtnWidthConstraint: NSLayoutConstraint!
+
     private var tableViewNode : ASTableNode!
     var finalRoom: IGRoom!
     var middleIndex : IndexPath = [0,0]
@@ -802,9 +805,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
+
+        var shouldHideAttachmentBtn : Bool = false
+          shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+          if shouldHideAttachmentBtn  {
+              attachmentBtnWidthConstraint.constant = 0
+          } else {
+              attachmentBtnWidthConstraint.constant = 35
+
+          }
         
+
         if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
-            
+
             if self.room!.type == .group {
                 joinButton.isHidden = false
                 joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
@@ -827,10 +840,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
         } else {
-            
-            btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+
+//            stackAttachment.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+            var shouldHideAttachmentBtn : Bool = false
+            shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+            if shouldHideAttachmentBtn  {
+                attachmentBtnWidthConstraint.constant = 0
+            } else {
+                attachmentBtnWidthConstraint.constant = 35
+
+            }
             showHideStickerButton(shouldShow: self.roomAccess?.postMessageRights.sendSticker ?? false)
-            
+
             joinButton.isHidden = true
             mainHolder.isHidden = false
             if !(self.roomAccess?.editMessage ?? false) {

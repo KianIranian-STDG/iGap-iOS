@@ -81,7 +81,7 @@ class ASReplyForwardNode: ASDisplayNode {
         }
         
         let insetBox = ASInsetLayoutSpec(
-          insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0),
+          insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
           child: profileBox
         )
         

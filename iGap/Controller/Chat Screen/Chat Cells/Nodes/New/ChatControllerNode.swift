@@ -18,6 +18,8 @@ class ChatControllerNode: ASCellNode {
     // Check if isOnlyemoji and Count is One(One Emoji)
     var isOneCharEmoji : Bool = false
 
+    var defaultMinesSize : CGFloat = 120
+    var defaultMinimumCharacter = 15
     // Message Needed Data
     private(set) var message : IGRoomMessage?
     private var finalRoomType: IGRoom.IGType!
@@ -1097,7 +1099,7 @@ class ChatControllerNode: ASCellNode {
             if message?.type != .sticker && message?.type != .log && message?.type != .unread {
                 if txtNameNode == nil {
                     txtNameNode = ASTextNode()
-                    txtNameNode!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+                    txtNameNode!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - defaultMinesSize)
                     txtNameNode!.style.minHeight = ASDimensionMake(.points, 20)
                 }
                 setSenderName() // set text for txtNameNode(sender name)
@@ -1114,7 +1116,13 @@ class ChatControllerNode: ASCellNode {
             if replyForwardViewNode == nil {
                 replyForwardViewNode = ASReplyForwardNode()
             }
-            stack.children?.append(replyForwardViewNode!)
+            let insetSpec : ASInsetLayoutSpec
+            if layoutMsg?.type == .image || layoutMsg?.type == .imageAndText || layoutMsg?.type == .video || layoutMsg?.type == .videoAndText {
+                insetSpec =  ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: replyForwardViewNode!)
+            } else {
+                insetSpec =  ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: replyForwardViewNode!)
+            }
+            stack.children?.append(insetSpec)
             replyForwardViewNode!.setReplyForward(isReply: true, extraMessage : layoutMsg!,isIncomming : isIncomming)
         } else if let forwardedFrom = message?.forwardedFrom {
             layoutMsg = forwardedFrom.detach()
@@ -1123,7 +1131,14 @@ class ChatControllerNode: ASCellNode {
             }
             
             if message?.type != .log {
-                stack.children?.append(replyForwardViewNode!)
+                let insetSpec : ASInsetLayoutSpec
+                if layoutMsg?.type == .image || layoutMsg?.type == .imageAndText {
+                    insetSpec =  ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), child: replyForwardViewNode!)
+                } else {
+                    insetSpec =  ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: replyForwardViewNode!)
+                }
+                stack.children?.append(insetSpec)
+
                 replyForwardViewNode!.setReplyForward(isReply: false, extraMessage : layoutMsg!,isIncomming : isIncomming)
                 
             }
@@ -1134,13 +1149,13 @@ class ChatControllerNode: ASCellNode {
     private func makeContentBubbleItems(msg: IGRoomMessage?) ->ASLayoutSpec {
         let contentSpec = ASStackLayoutSpec()
         contentSpec.direction = .vertical
-        contentSpec.style.flexShrink = 1.0
-        contentSpec.style.flexGrow = 1.0
+//        contentSpec.style.flexShrink = 1.0
+//        contentSpec.style.flexGrow = 1.0
         contentSpec.alignItems = .stretch
         contentSpec.spacing = 5
         contentSpec.horizontalAlignment = .none
         
-        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - defaultMinesSize)
         
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
         var tmpmsg: IGRoomMessage
@@ -1150,6 +1165,9 @@ class ChatControllerNode: ASCellNode {
         }
         switch tmpmsg.type {
         case .text :
+//            if isIncomming {
+//
+//            }
             let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .image,.imageAndText :
@@ -1668,7 +1686,7 @@ class ChatControllerNode: ASCellNode {
         //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - defaultMinesSize)
         
         btnShowMore?.style.width = ASDimensionMake(.points, 250)
 
@@ -4152,7 +4170,7 @@ class ChatControllerNode: ASCellNode {
             nodeText = ASTextNode()
         }
         
-        nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 125)
         nodeText!.style.minHeight = ASDimensionMake(.points, 20)
         let insetBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), child: nodeText!)
         spec.children?.append(insetBox)
@@ -4834,7 +4852,7 @@ class ChatControllerNode: ASCellNode {
             if !((subnodes?.contains(nodeText!))!) {
                 //                self.addSubnode(nodeText!)
             }
-            nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+            nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 125)
             nodeText!.style.minHeight = ASDimensionMake(.points, 20)
             makeTextNodeBottomBubbleItems()
             
@@ -4852,7 +4870,7 @@ class ChatControllerNode: ASCellNode {
                 msgg = forwardMessage.message
             }
             
-            if msgg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
+            if msgg!.count <= defaultMinimumCharacter { //10 is a random number u can change it to what ever value u want to
                 
                 let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
                 txtTimeNode!.style.alignSelf = .end
@@ -4885,7 +4903,7 @@ class ChatControllerNode: ASCellNode {
             nodeOnlyText = OnlyTextNode()
         }
         
-        nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 125)
         nodeOnlyText!.style.minWidth = ASDimensionMake(.points, 200)
         nodeOnlyText!.style.minHeight = ASDimensionMake(.points, 20)
         makeTextNodeBottomBubbleItems()
@@ -4906,7 +4924,7 @@ class ChatControllerNode: ASCellNode {
             msg = message.message ?? ""
         }
         
-        if msg.count <= 10 { //10 is a random number u can change it to what ever value u want to
+        if msg.count <= defaultMinimumCharacter { //20 is a random number u can change it to what ever value u want to
             if IGGlobal.isOnlySpecialEmoji(txtMessage: msg) {
                 
                 switch msg.count {
@@ -4962,25 +4980,40 @@ class ChatControllerNode: ASCellNode {
                     let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: isIncomming ? .start : .end, children: [nodeOnlyText!,finalSpec])
 
                     spec.children?.append(nodeTextSpec)
+//                    let elemArray : [ASLayoutElement] = [nodeTextSpec]
+//
+//                    for elemnt in elemArray {
+//                        elemnt.style.alignSelf = .end
+//                    }
 
                     
                     
                 } else {
 
-                    let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
-                    txtTimeNode!.style.alignSelf = .end
-                    if !isIncomming {
-                        txtStatusNode!.style.alignSelf = .end
-                    }
-                    messageAndTime.verticalAlignment = .center
-                    
-                    let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+                    if msg.isRTL() {
+                        let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+                        txtTimeNode!.style.alignSelf = .end
+                        if !isIncomming {
+                            txtStatusNode!.style.alignSelf = .end
+                        }
+                        messageAndTime.verticalAlignment = .center
+                        
+                        let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
 
-                    spec.children?.append(nodeTextSpec)
+                        spec.children?.append(nodeTextSpec)
+
+
+                    } else {
+                        spec.children?.append(nodeOnlyText!)
+                        makeBottomBubbleItems(contentStack: spec)
+
+                    }
+ 
 
                     
                 }
-                
+
+
                 
                 
                 
@@ -5028,6 +5061,14 @@ class ChatControllerNode: ASCellNode {
 
                     } else {
                         IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                        let elemArray : [ASLayoutElement] = [nodeOnlyText!]
+                               for elemnt in elemArray {
+                                if (msg.isRTL()) {
+                                       elemnt.style.alignSelf = .end
+                                   } else {
+                                       elemnt.style.alignSelf = .start
+                                   }
+                               }
                     }
                     
                 }
@@ -5038,10 +5079,26 @@ class ChatControllerNode: ASCellNode {
                     nodeOnlyText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
                     nodeOnlyText!.isUserInteractionEnabled = true
                     nodeOnlyText!.delegate = self
+                    let elemArray : [ASLayoutElement] = [nodeOnlyText!]
+                          for elemnt in elemArray {
+                              if (nodeOnlyText?.attributedText?.string.isRTL())! {
+                                  elemnt.style.alignSelf = .end
+                              } else {
+                                  elemnt.style.alignSelf = .start
+                              }
+                          }
                 } else {
                     nodeText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
                     nodeText!.isUserInteractionEnabled = true
                     nodeText!.delegate = self
+                    let elemArray : [ASLayoutElement] = [nodeText!]
+                          for elemnt in elemArray {
+                              if (nodeText?.attributedText?.string.isRTL())! {
+                                  elemnt.style.alignSelf = .end
+                              } else {
+                                  elemnt.style.alignSelf = .start
+                              }
+                          }
                 }
                 
             } else {
@@ -5070,6 +5127,14 @@ class ChatControllerNode: ASCellNode {
                 
                 if !isTextMessageNode {
                     IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    let elemArray : [ASLayoutElement] = [nodeText!]
+                             for elemnt in elemArray {
+                              if (msg.isRTL()) {
+                                     elemnt.style.alignSelf = .end
+                                 } else {
+                                     elemnt.style.alignSelf = .start
+                                 }
+                             }
                     
                 } else {
                     if msg == "❤️" {
@@ -5077,6 +5142,15 @@ class ChatControllerNode: ASCellNode {
 
                     } else {
                         IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                        let elemArray : [ASLayoutElement] = [nodeOnlyText!]
+                                 for elemnt in elemArray {
+                                  if (msg.isRTL()) {
+                                         elemnt.style.alignSelf = .end
+                                     } else {
+                                         elemnt.style.alignSelf = .start
+                                     }
+                                 }
+                        
 
                     }
                     
@@ -5088,10 +5162,30 @@ class ChatControllerNode: ASCellNode {
                     nodeOnlyText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
                     nodeOnlyText!.isUserInteractionEnabled = true
                     nodeOnlyText!.delegate = self
+                    let elemArray : [ASLayoutElement] = [nodeOnlyText!]
+                    for elemnt in elemArray {
+                        if (nodeOnlyText?.attributedText?.string.isRTL())! {
+                            elemnt.style.alignSelf = .end
+                        } else {
+                            elemnt.style.alignSelf = .start
+                        }
+                    }
+
                 } else {
                     nodeText!.attributedText = addLinkDetection(text: msg, activeItems: itms)
                     nodeText!.isUserInteractionEnabled = true
                     nodeText!.delegate = self
+                    let elemArray : [ASLayoutElement] = [nodeText!]
+
+                    for elemnt in elemArray {
+                        if (nodeText?.attributedText?.string.isRTL())! {
+                            elemnt.style.alignSelf = .end
+                        } else {
+                            elemnt.style.alignSelf = .start
+                        }
+                    }
+
+                    
                 }
                 
             }else {
@@ -5099,6 +5193,15 @@ class ChatControllerNode: ASCellNode {
                 
                 if !isTextMessageNode {
                     IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                    let elemArray : [ASLayoutElement] = [nodeText!]
+                             for elemnt in elemArray {
+                              if (msg.isRTL()) {
+                                     elemnt.style.alignSelf = .end
+                                 } else {
+                                     elemnt.style.alignSelf = .start
+                                 }
+                             }
+
                     
                 } else {
                     if msg == "❤️" {
@@ -5106,6 +5209,15 @@ class ChatControllerNode: ASCellNode {
 
                     } else {
                         IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                        let elemArray : [ASLayoutElement] = [nodeOnlyText!]
+                                 for elemnt in elemArray {
+                                  if (msg.isRTL()) {
+                                         elemnt.style.alignSelf = .end
+                                     } else {
+                                         elemnt.style.alignSelf = .start
+                                     }
+                                 }
+
 
                     }
                     

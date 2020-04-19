@@ -574,7 +574,7 @@ class BaseBubbleNode: ASCellNode {
         if let repliedMessage = message?.repliedTo {
             layoutMsg = repliedMessage.detach()
             stack.children?.append(replyForwardViewNode)
-            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : layoutMsg!,isIncomming : isIncomming)
+//            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : layoutMsg!,isIncomming : isIncomming)
             
             stack.children?.append(bubbleNode)
         } else if let forwardedFrom = message?.forwardedFrom {
@@ -582,7 +582,7 @@ class BaseBubbleNode: ASCellNode {
 
             if message?.type != .sticker || message?.type != .log {
                 stack.children?.append(replyForwardViewNode)
-                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : layoutMsg!,isIncomming : isIncomming)
+//                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : layoutMsg!,isIncomming : isIncomming)
 
             }
             stack.children?.append(bubbleNode)
