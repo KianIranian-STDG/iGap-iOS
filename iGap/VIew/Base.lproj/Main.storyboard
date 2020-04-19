@@ -506,7 +506,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJD-Yp-Rvb">
-                                                    <rect key="frame" x="178.33333333333334" y="16.666666666666668" width="108.66666666666666" height="21.000000000000004"/>
+                                                    <rect key="frame" x="270" y="14.666666666666664" width="17" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="YAm-Ti-O4M"/>
                                                     </constraints>
@@ -517,7 +517,6 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="leading" secondItem="ZX6-EK-xk9" secondAttribute="trailing" constant="5" id="061-jD-H8V"/>
                                             <constraint firstItem="ZX6-EK-xk9" firstAttribute="centerX" secondItem="4yj-ge-THT" secondAttribute="centerX" id="0My-oc-unt"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="un3-NB-Ty3" secondAttribute="trailing" id="3iX-HN-1Ky"/>
                                             <constraint firstItem="un3-NB-Ty3" firstAttribute="leading" secondItem="LJD-Yp-Rvb" secondAttribute="trailing" constant="5" id="AvY-nN-h2a"/>
@@ -527,7 +526,7 @@
                                             <constraint firstItem="ZX6-EK-xk9" firstAttribute="leading" secondItem="pZF-TX-4RI" secondAttribute="trailing" constant="5" id="JOn-FX-XYA"/>
                                             <constraint firstItem="UaO-KF-ahn" firstAttribute="leading" secondItem="4yj-ge-THT" secondAttribute="leading" constant="10" id="O6F-U5-PGY"/>
                                             <constraint firstItem="pZF-TX-4RI" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" id="gw0-bt-FlA"/>
-                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="centerY" secondItem="un3-NB-Ty3" secondAttribute="centerY" constant="2" id="jHj-fu-V7O"/>
+                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="centerY" secondItem="un3-NB-Ty3" secondAttribute="centerY" id="jHj-fu-V7O"/>
                                             <constraint firstItem="pZF-TX-4RI" firstAttribute="leading" secondItem="4yj-ge-THT" secondAttribute="leadingMargin" id="l5c-xC-tmK"/>
                                             <constraint firstAttribute="trailing" secondItem="UaO-KF-ahn" secondAttribute="trailing" constant="10" id="uTi-No-tf4"/>
                                         </constraints>
@@ -4015,7 +4014,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGRecentTVCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

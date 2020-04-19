@@ -2683,7 +2683,7 @@ TODO:// complete */
 "password_hint" = "Password Hint";
 
 /*  */
-"password_Question_title_one" = "Question one (Required)";
+"password_Question_title_one" = "Question one";
 
 /*  */
 "password_Question_one" = "eg: Who is your Favorite teacher?";

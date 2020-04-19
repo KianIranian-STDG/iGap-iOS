@@ -2558,13 +2558,13 @@
 "password_hint" = "indice de mot de passe";
 
 /*  */
-"password_Question_title_one" = "question de sécurité numéro 1 ( obligatoire)";
+"password_Question_title_one" = "question de sécurité numéro 1";
 
 /*  */
 "password_Question_one" = "par exemple : qui est votre enseignant préféré?";
 
 /*  */
-"password_Question_title_two" = "question de sécurité numéro 2 ( obligatoire)";
+"password_Question_title_two" = "question de sécurité numéro 2";
 
 /*  */
 "title_toolbar_password_Question" = "nouvelle question de sécurité";

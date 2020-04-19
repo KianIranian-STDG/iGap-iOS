@@ -64,7 +64,7 @@ class IGNavigationItem: UINavigationItem {
     }
     
     //MARK: - Navigation VCs
-    func addNavigationViewItems(rightItemText: String? = nil, rightItemFontSize: CGFloat = 20, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
+    func addNavigationViewItems(rightItemText: String? = nil, rightItemFontSize: CGFloat = 30, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
         if title != nil {
             addTitleLabel(title: title!, width: width)
         }

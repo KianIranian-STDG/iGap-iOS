@@ -43,7 +43,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.TwoSteps.rawValue.localized,iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.TwoSteps.rawValue.localized, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.setPassword()
@@ -52,15 +52,15 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     }
     
     func initTheme() {
-        
+        if textfieldsArray == nil {
+            return
+        }
 
         for tf in textfieldsArray {
             tf.textColor = ThemeManager.currentTheme.LabelColor
             tf.placeHolderColor = ThemeManager.currentTheme.TextFieldPlaceHolderColor
         }
-                
     }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,7 +70,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         lblQ2.text = IGStringsManager.SecurityQTwo.rawValue.localized
         lblA1.text = IGStringsManager.Answer.rawValue.localized
         lblA2.text = IGStringsManager.Answer.rawValue.localized
-        lblHint.text = IGStringsManager.InvalidHint.rawValue.localized
+        lblHint.text = IGStringsManager.GlobalHint.rawValue.localized
         lblEmail.text = IGStringsManager.Email.rawValue.localized
         
         passwordTextField.placeholder = IGStringsManager.Required.rawValue.localized
@@ -211,7 +211,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0 :
-            return 80
+            return 140
         case 1 :
             return 10
         default :

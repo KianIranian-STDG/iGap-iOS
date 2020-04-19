@@ -243,7 +243,7 @@ class IGScoreViewController: BaseViewController {
     /****************************** Actions ******************************/
     
     @IBAction func btnSeeRecords(_ sender: UIButton) {
-        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         scanner.scannerPageType = .IVandScore
         scanner.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(scanner, animated:true)

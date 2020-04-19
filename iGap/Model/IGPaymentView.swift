@@ -179,7 +179,7 @@ class IGPaymentView: UIView {
             initDiscountView()
             self.priceWithFeature = feature.priceWithFeature
             lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
-            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " \(feature.userScore)".inLocalizedLanguage()
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore)".inLocalizedLanguage()
             lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
         } else {
             hideDiscountView()
@@ -236,7 +236,7 @@ class IGPaymentView: UIView {
             initDiscountView()
             self.priceWithFeature = feature.priceWithFeature
             lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
-            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " \(feature.userScore)".inLocalizedLanguage()
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore)".inLocalizedLanguage()
             lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
         } else {
             hideDiscountView()

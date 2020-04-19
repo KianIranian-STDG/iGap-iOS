@@ -2547,7 +2547,7 @@ TODO:// translate */
 "password_hint" = "علامة رمز المرور";
 
 /*  */
-"password_Question_title_one" = "سؤال الأمان الرقم 1 (إلزامي)";
+"password_Question_title_one" = "سؤال الأمان الرقم 1";
 
 /*  */
 "password_Question_one" = "علي سبيل المثال: من هو معلّمك  المفضّل؟";
@@ -3981,7 +3981,7 @@ TODO:// translate */
 "order_history" = "سجل التاريخ";
 
 /*  */
-"your_point" = "درجاتك:";
+"your_point" = "درجاتك";
 
 /*  */
 "dialog_ok" = "حسناً";

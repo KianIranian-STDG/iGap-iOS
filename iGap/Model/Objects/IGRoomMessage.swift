@@ -302,7 +302,9 @@ class IGRoomMessage: Object {
             messageId = igpMessage.igpMessageID * -1
         }
         
-        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
+        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: messageId, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
+        
+        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[primaryKeyId] { //, !message.isInvalidated {
             return nil
         }
         
@@ -323,7 +325,6 @@ class IGRoomMessage: Object {
         */
         
         let realmFinal = IGDatabaseManager.shared.realm
-        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: messageId, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
         let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", messageId, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
         var message: IGRoomMessage! = realmFinal.objects(IGRoomMessage.self).filter(predicate).first
         
@@ -410,8 +411,8 @@ class IGRoomMessage: Object {
             message.futureMessageId = igpMessage.igpMessageID
         }
         
-        if options.isEnableCache && (!options.isReply && !options.isForward) {
-            IGGlobal.importedRoomMessageDic[message.id] = message
+        if options.isEnableCache {
+            IGGlobal.importedRoomMessageDic[primaryKeyId] = message
         }
         
         return message

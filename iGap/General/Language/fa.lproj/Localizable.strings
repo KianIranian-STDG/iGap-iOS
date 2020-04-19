@@ -2579,7 +2579,7 @@ Page 4 introduce app */
 "password_hint" = "نشانهٔ رمزعبور";
 
 /*  */
-"password_Question_title_one" = "سؤال امنیتی شماره ۱ (الزامی)";
+"password_Question_title_one" = "سؤال امنیتی شماره ۱";
 
 /*  */
 "password_Question_one" = "برای مثال: معلم مورد علاقه تان کیست؟";
@@ -4001,7 +4001,7 @@ Page 4 introduce app */
 "order_history" = "مشاهده سوابق";
 
 /*  */
-"your_point" = "امتیاز شما:";
+"your_point" = "امتیاز شما";
 
 /*  */
 "dialog_ok" = "باشه";
