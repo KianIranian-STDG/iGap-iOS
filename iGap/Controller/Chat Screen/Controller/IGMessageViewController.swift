@@ -3285,14 +3285,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func allowEdit(_ message: IGRoomMessage) -> Bool {
-        if  (message.forwardedFrom == nil) &&
-            !self.room!.isReadOnly &&
+        if message.forwardedFrom == nil &&
             message.type != .sticker &&
             message.type != .contact &&
             message.type != .location &&
-            ((self.room?.type == .chat && message.authorHash == currentLoggedInUserAuthorHash) ||
-            ((self.room!.type == .group || self.room!.type == .channel) && (self.roomAccess?.editMessage ?? false))) {
-            
+            ((self.room?.type == .chat && message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .channel && self.roomAccess?.editMessage ?? false) || (self.room!.type == .group && message.authorHash == currentLoggedInUserAuthorHash)) {
             return true
         }
         return false
@@ -3302,7 +3299,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         var singleDelete = false
         var bothDelete = false
         
-        if ((message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) || ((self.room!.type == .group || self.room!.type == .channel) && (self.roomAccess?.deleteMessage ?? false))) {
+        if ((message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) || ((self.room!.type == .channel) && (self.roomAccess?.deleteMessage ?? false)) || ((self.room!.type == .group) && (message.authorHash == currentLoggedInUserAuthorHash || self.roomAccess?.deleteMessage ?? false)) ) {
             
             if (self.room!.type == .chat && !(self.room?.isCloud() ?? false)) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
                 bothDelete = true

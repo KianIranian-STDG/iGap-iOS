@@ -157,6 +157,16 @@ class IGGroupRoom: Object {
         return groupRoom
     }
     
+    
+    static func getMyRole(roomId: Int64) -> IGPGroupRoom.IGPRole? {
+        let predicate = NSPredicate(format: "id = %lld", roomId)
+        if let groupRoom = IGDatabaseManager.shared.realm.objects(IGGroupRoom.self).filter(predicate).first {
+            return groupRoom.role
+        }
+        return nil
+    }
+    
+    
     //detach from current realm
     func detach() -> IGGroupRoom {
         let detachedGroupRoom = IGGroupRoom(value: self)

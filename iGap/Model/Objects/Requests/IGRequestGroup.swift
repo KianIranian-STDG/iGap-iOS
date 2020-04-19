@@ -772,7 +772,19 @@ class IGGroupChangeMemberRightsRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupChangeMemberRightsResponse) {
-            IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: response.igpUserID, memberRights: response.igpPermission)
+            if let role = IGGroupRoom.getMyRole(roomId: response.igpRoomID) {
+                if role == .owner || role == .admin {
+                    if response.igpUserID != IGAppManager.sharedManager.userID()! || response.igpUserID == 0 {
+                        IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: response.igpUserID, memberRights: response.igpPermission)
+                    }
+                } else if role == .member {
+                    if response.igpUserID == 0 {
+                        IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: IGAppManager.sharedManager.userID()!, memberRights: response.igpPermission)
+                    } else {
+                        IGRealmRoomAccess.putOrUpdate(roomId: response.igpRoomID, userId: response.igpUserID, memberRights: response.igpPermission)
+                    }
+                }
+            }
         }
         
         override class func handlePush(responseProtoMessage: Message) {
