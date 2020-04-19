@@ -6758,3 +6758,4 @@ Page 4 introduce app */
 "send_sticker" = "ارسال برچسب";
 "send_link" = "ارسال پیوند";
 "fetching_info" = "دریافت اطلاعات ...";
+"not_allow_send_message" = "شما مجاز به ارسال پیام نیستید!"

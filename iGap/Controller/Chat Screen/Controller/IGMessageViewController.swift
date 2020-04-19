@@ -805,7 +805,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if !(self.roomAccess?.postMessageRights.sendText ?? true) {
             joinButton.isHidden = false
-            joinButton.setTitle("You don't permitted send message!", for: UIControl.State.normal)
+            joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
             mainHolder.isHidden = true
             self.messageTextView.text = ""
             self.view.endEditing(true)

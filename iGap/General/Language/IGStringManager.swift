@@ -213,6 +213,7 @@ enum IGStringsManager : String {
     case SendGif = "send_gif";
     case SendSticker = "send_sticker";
     case SendLink = "send_link";
+    case NotAllowSendMessage = "not_allow_send_message";
     
     //MARK: - Wallet
     case ServerDown = "E_9006"

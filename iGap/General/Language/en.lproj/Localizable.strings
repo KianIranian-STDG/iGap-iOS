@@ -6749,3 +6749,4 @@ TODO:// complete */
 "send_sticker" = "Send Sticker";
 "send_link" = "Send Link";
 "fetching_info" = "Fetching Info ...";
+"not_allow_send_message" = "You are not allowed to send messages!"

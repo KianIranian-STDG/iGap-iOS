@@ -6770,3 +6770,4 @@ TODO:// translate */
 "send_sticker" = "إرسال ملصق";
 "send_link" = "إرسال الارتباط";
 "fetching_info" = "جارٍ جلب المعلومات ...";
+"not_allow_send_message" = "لا يسمح لك بإرسال رسائل!"
