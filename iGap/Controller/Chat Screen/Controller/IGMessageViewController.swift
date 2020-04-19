@@ -803,12 +803,29 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
         
-        if !(self.roomAccess?.postMessageRights.sendText ?? true) {
-            joinButton.isHidden = false
-            joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
-            mainHolder.isHidden = true
-            self.messageTextView.text = ""
-            self.view.endEditing(true)
+        if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
+            
+            if self.room!.type == .group {
+                joinButton.isHidden = false
+                joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
+                mainHolder.isHidden = true
+                self.messageTextView.text = ""
+                self.view.endEditing(true)
+            } else if self.room!.type == .channel {
+                if self.room!.channelRoom?.role == IGPChannelRoom.IGPRole.admin {
+                    joinButton.isHidden = false
+                    joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
+                    mainHolder.isHidden = true
+                    self.messageTextView.text = ""
+                    self.view.endEditing(true)
+                } else {
+                    joinButton.isHidden = true
+                    mainHolder.isHidden = true
+                    self.messageTextView.text = ""
+                    self.view.endEditing(true)
+                }
+            }
+            
         } else {
             
             btnAttachmentNew.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
