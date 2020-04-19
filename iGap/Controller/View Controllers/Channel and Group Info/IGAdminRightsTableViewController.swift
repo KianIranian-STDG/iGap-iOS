@@ -76,6 +76,10 @@ class IGAdminRightsTableViewController: BaseTableViewController {
         self.managePostAndEdit(state: sender.isOn)
     }
     
+    @IBAction func OnSendTextMessageChange(_ sender: UISwitch) {
+        self.managePostAndEdit(state: sender.isOn)
+    }
+    
     @IBAction func onGetMemberChange(_ sender: UISwitch) {
         self.manageGetMemberAndOtherOptions(state: sender.isOn)
     }
@@ -154,9 +158,26 @@ class IGAdminRightsTableViewController: BaseTableViewController {
                 if myAccess.editMessage {
                     enableItem(view: editView, label: txtEditMessage, switchItem: switchEditMessage)
                 }
+                if myAccess.postMessageRights.sendMedia {
+                    enableItem(view: sendMediaView, label: txtSendMediaMessage, switchItem: switchSendMediaMessage)
+                }
+                if myAccess.postMessageRights.sendGif {
+                    enableItem(view: sendGifView, label: txtSendGifMessage, switchItem: switchSendGifMessage)
+                }
+                if myAccess.postMessageRights.sendSticker {
+                    enableItem(view: sendStickerView, label: txtSendStickerMessage, switchItem: switchSendStickerMessage)
+                }
+                if myAccess.postMessageRights.sendLink {
+                    enableItem(view: sendLinkView, label: txtSendLinkMessage, switchItem: switchSendLinkMessage)
+                }
             }
+            
         } else {
             disableItem(view: editView, label: txtEditMessage, switchItem: switchEditMessage)
+            disableItem(view: sendMediaView, label: txtSendMediaMessage, switchItem: switchSendMediaMessage)
+            disableItem(view: sendGifView, label: txtSendGifMessage, switchItem: switchSendGifMessage)
+            disableItem(view: sendStickerView, label: txtSendStickerMessage, switchItem: switchSendStickerMessage)
+            disableItem(view: sendLinkView, label: txtSendLinkMessage, switchItem: switchSendLinkMessage)
         }
     }
     
@@ -244,6 +265,20 @@ class IGAdminRightsTableViewController: BaseTableViewController {
     }
     
     private func fillRoomAccess(){
+        
+        if memberEditType == .AddAdmin {
+            switchModifyRoom.isOn = true
+            switchPostMessage.isOn = true
+            switchEditMessage.isOn = true
+            switchDeleteMessage.isOn = true
+            switchPinMessage.isOn = true
+            switchGetMember.isOn = true
+            switchAddMember.isOn = true
+            switchBanMember.isOn = false
+            switchAddAdmin.isOn = false
+            return
+        }
+        
         if let roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: room.id, userId: userInfo?.id ?? 0) {
             switchModifyRoom.isOn = roomAccess.modifyRoom
             if room.type == .channel {
