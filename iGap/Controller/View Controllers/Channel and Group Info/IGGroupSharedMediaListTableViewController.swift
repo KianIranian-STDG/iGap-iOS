@@ -64,7 +64,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.SharedMedia.rawValue.localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.SharedMedia.rawValue.localized, width: 200)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
