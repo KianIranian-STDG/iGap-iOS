@@ -378,6 +378,8 @@ class IGNavigationItem: UINavigationItem {
         label.font = UIFont.igFont(ofSize: 17.0, weight: .bold)
         label.textAlignment = .center
         label.text = title
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
         label.textColor = UIColor.iGapBarsInfo()
         
         titleView.addSubview(label)

@@ -403,6 +403,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="dGB-Zq-nbj"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="OnSendTextMessageChange:" destination="8gw-mA-22z" eventType="valueChanged" id="qwp-3Z-z8Q"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2129,11 +2132,6 @@
             <point key="canvasLocation" x="1470" y="-8468"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="q09-lR-4pS"/>
-        <segue reference="TNb-0G-evg"/>
-        <segue reference="dNm-aC-Qqb"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="IG_New_Group_Deselect_User" width="20" height="20"/>
         <namedColor name="ButtonBGColorRed">
@@ -2158,4 +2156,9 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="q09-lR-4pS"/>
+        <segue reference="TNb-0G-evg"/>
+        <segue reference="dNm-aC-Qqb"/>
+    </inferredMetricsTieBreakers>
 </document>

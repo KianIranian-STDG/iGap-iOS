@@ -297,10 +297,10 @@ class IGAdminRightsTableViewController: BaseTableViewController {
             switchBanMember.isOn = roomAccess.banMember
             switchGetMember.isOn = roomAccess.getMember
             switchAddAdmin.isOn = roomAccess.addAdmin
-            
-            managePostAndEdit(state: roomAccess.postMessageRights.sendText)
-            manageGetMemberAndOtherOptions(state: roomAccess.getMember)
         }
+        
+        managePostAndEdit(state: switchSendTextMessage.isOn || switchPostMessage.isOn)
+        manageGetMemberAndOtherOptions(state: switchGetMember.isOn)
     }
     
     private func makeChannelAdminRights() -> IGPChannelAddAdmin.IGPAdminRights {

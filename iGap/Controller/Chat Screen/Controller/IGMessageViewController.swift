@@ -841,16 +841,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
         } else {
 
-//            stackAttachment.isHidden = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
-            var shouldHideAttachmentBtn : Bool = false
-            shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
-            if shouldHideAttachmentBtn  {
+            self.forceHideAttachButton = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+            self.forceHideStickerButton = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
+            
+            if self.forceHideAttachButton {
                 attachmentBtnWidthConstraint.constant = 0
             } else {
                 attachmentBtnWidthConstraint.constant = 35
 
             }
-            showHideStickerButton(shouldShow: self.roomAccess?.postMessageRights.sendSticker ?? false)
+            showHideStickerButton(shouldShow: !self.forceHideStickerButton)
 
             joinButton.isHidden = true
             mainHolder.isHidden = false
@@ -1079,8 +1079,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.roomAccess = IGRealmRoomAccess.getRoomAccess(roomId: self.room!.id, userId: IGAppManager.sharedManager.userID()!)
             self.roomAccessObserver = self.roomAccess?.observe { [weak self] (ObjectChange) in
                 self?.detectWriteMessagePermission()
-                self?.forceHideStickerButton = self?.roomAccess?.postMessageRights.sendMedia ?? false
-                self?.forceHideStickerButton = self?.roomAccess?.postMessageRights.sendSticker ?? false
             }
         }
     }

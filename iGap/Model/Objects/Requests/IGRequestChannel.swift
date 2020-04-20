@@ -230,7 +230,7 @@ class IGChannelKickMemberRequest: IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret (response responseProtoMessage:IGPChannelKickMemberResponse) {
-            IGRealmRoomAccess.deleteRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
+            IGRealmRoomAccess.makeClearRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
             IGRealmMember.removeMember(roomId: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID)
         }
         
@@ -252,7 +252,7 @@ class IGChannelLeftRequest : IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPChannelLeftResponse) {
-            IGRealmRoomAccess.deleteRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
+            IGRealmRoomAccess.makeClearRoomAccess(roomId: responseProtoMessage.igpRoomID, userId: responseProtoMessage.igpMemberID)
             IGFactory.shared.leftRoomInDatabase(roomID: responseProtoMessage.igpRoomID, memberId: responseProtoMessage.igpMemberID)
         }
         override class func handlePush(responseProtoMessage: Message) {
