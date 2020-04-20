@@ -695,7 +695,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             return cell
             
         case 4:
-            switch indexPath.row {
+            var row = indexPath.row
+            if myRole != .owner {
+                row = row + 1
+                if !(self.roomAccess?.addMember ?? true) {
+                    row = row + 1
+                }
+            }
+            
+            switch row {
             case 0 :
                 cell.initLabels(nameLblString: IGStringsManager.RoomRights.rawValue.localized)
                 return cell
@@ -768,10 +776,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 return 3
             }
             var count = 0
-            if self.roomAccess?.getMember ?? false {
+            if self.roomAccess?.addMember ?? false {
                 count = count + 1
             }
-            if self.roomAccess?.addMember ?? false {
+            if self.roomAccess?.getMember ?? false {
                 count = count + 1
             }
             return count
@@ -861,7 +869,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             var row = indexPath.row
             if myRole != .owner {
                 row = row + 1
-                if !(self.roomAccess?.getMember ?? true) {
+                if !(self.roomAccess?.addMember ?? true) {
                     row = row + 1
                 }
             }
