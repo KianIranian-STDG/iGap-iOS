@@ -806,6 +806,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
 
+        var shouldHideAttachmentBtn : Bool = false
+          shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
+          if shouldHideAttachmentBtn  {
+              attachmentBtnWidthConstraint.constant = 0
+          } else {
+              attachmentBtnWidthConstraint.constant = 35
+
+          }
+        
+
         if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
 
             if self.room!.type == .group {
@@ -838,6 +848,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 attachmentBtnWidthConstraint.constant = 0
             } else {
                 attachmentBtnWidthConstraint.constant = 35
+
             }
             showHideStickerButton(shouldShow: !self.forceHideStickerButton)
 
