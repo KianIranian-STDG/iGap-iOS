@@ -411,7 +411,7 @@ class IGRoomMessage: Object {
             message.futureMessageId = igpMessage.igpMessageID
         }
         
-        if options.isEnableCache {
+        if options.isEnableCache && (!options.isReply && !options.isForward) {
             IGGlobal.importedRoomMessageDic[primaryKeyId] = message
         }
         
