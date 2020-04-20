@@ -3082,22 +3082,45 @@ class ChatControllerNode: ASCellNode {
             if bgTextNode == nil {
                 bgTextNode = ASDisplayNode()
             }
-            
-            
+            let bgView = ASDisplayNode()
+
+            txtLogMessage!.style.height = ASDimensionMake(.points, 50)
+            txtLogMessage?.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+            bgView.style.height = ASDimensionMake(.points, 50)
+            bgView.style.width = ASDimensionMake(.points, UIScreen.main.bounds.width)
+            bgView.backgroundColor = .clear
+            bgView.cornerRadius = 0
+
+            let fakeStackLeftItemOne = ASDisplayNode()
+            let fakeStackrightItemTwo = ASDisplayNode()
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
-            let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: bgTextNode!)
-            let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: bgNode!)
-//            backBox.style.flexGrow = 1.0
+            let insetCSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 0,
+                left: 20,
+                bottom: 0,
+                right: 20), child: centerBoxText)
+
+            let backTextBox = ASBackgroundLayoutSpec(child: insetCSpec, background: bgTextNode!)
+            let insetBGSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: backTextBox)
+
+            let itemsStackSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: .spaceBetween, alignItems: .start, children: [fakeStackLeftItemOne, insetBGSpec, fakeStackrightItemTwo])
             
+            let overlaySpec = ASOverlayLayoutSpec(child: bgView, overlay: itemsStackSpec)
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,
-                left: 10,
+                left: 0,
                 bottom: 10,
-                right: 10), child: backBox)
+                right: 0), child: overlaySpec)
+                        
+
             
             
             return insetSpec
-            
+
         }
         
     }
