@@ -894,6 +894,8 @@ class IGNavigationItem: UINavigationItem {
             callViewLabel.textColor = UIColor.iGapBarsInfo()
             callViewLabel.textAlignment = .center
             callViewLabel.font = UIFont.iGapFonticon(ofSize: 18.0)
+            callViewLabel.adjustsFontSizeToFitWidth = true
+            callViewLabel.minimumScaleFactor = 0.8
             callViewLabel.text = ""
             callView.addSubview(callViewLabel)
             callViewLabel.snp.makeConstraints { (make) in
