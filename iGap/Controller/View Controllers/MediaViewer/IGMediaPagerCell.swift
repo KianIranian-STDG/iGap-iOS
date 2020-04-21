@@ -141,9 +141,9 @@ class IGMediaPagerCell: FSPagerViewCell {
         self.addSubview(progress)
         
         imgMedia.snp.makeConstraints { (make) in
-            make.left.equalTo(self.snp.left)
-            make.right.equalTo(self.snp.right)
             make.centerY.equalTo(self.snp.centerY)
+            make.centerX.equalTo(self.snp.centerX)
+            make.width.equalTo(size.mediaSize.width)
             make.height.equalTo(size.mediaSize.height)
         }
         
