@@ -873,9 +873,7 @@ class IGNavigationItem: UINavigationItem {
             make.top.equalTo(titleContainerView.snp.top)
             make.bottom.equalTo(titleContainerView.snp.bottom)
             make.trailing.equalTo(titleContainerView.snp.trailing)
-            if let groupRoom = room.groupRoom  {
-                make.width.equalTo(0)
-            } else if let channelRoom = room.channelRoom {
+            if room.type == .group || room.type == .channel {
                 make.width.equalTo(0)
             } else {
                 make.width.equalTo(50)
@@ -894,8 +892,6 @@ class IGNavigationItem: UINavigationItem {
             callViewLabel.textColor = UIColor.iGapBarsInfo()
             callViewLabel.textAlignment = .center
             callViewLabel.font = UIFont.iGapFonticon(ofSize: 18.0)
-            callViewLabel.adjustsFontSizeToFitWidth = true
-            callViewLabel.minimumScaleFactor = 0.8
             callViewLabel.text = ""
             callView.addSubview(callViewLabel)
             callViewLabel.snp.makeConstraints { (make) in
@@ -915,6 +911,8 @@ class IGNavigationItem: UINavigationItem {
         self.centerViewMainLabel!.text = room.title
         self.centerViewMainLabel!.textColor = UIColor.iGapBarsInfo()
         self.centerViewMainLabel!.textAlignment = .center
+        self.centerViewMainLabel!.adjustsFontSizeToFitWidth = true
+        self.centerViewMainLabel!.minimumScaleFactor = 0.7
         self.centerViewMainLabel!.font = UIFont.igFont(ofSize: 16.0, weight: .bold)//boldSystemFont(ofSize: 16)
         self.centerViewContainer!.addSubview(self.centerViewMainLabel!)
         self.centerViewMainLabel!.snp.makeConstraints { (make) in
