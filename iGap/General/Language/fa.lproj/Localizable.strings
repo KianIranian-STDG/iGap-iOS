@@ -6759,3 +6759,15 @@ Page 4 introduce app */
 "send_link" = "ارسال پیوند";
 "fetching_info" = "دریافت اطلاعات ...";
 "not_allow_send_message" = "شما مجاز به ارسال پیام نیستید!";
+
+// Mobile Bank
+"login" = "ورود";
+"login_description" = "برای ورود به سیستم لطفا نام کاربری و رمزعبور موبایل بانک پارسیان خود را وارد نمایید";
+"username_mb" = "نام کاربری";
+"password_mb" = "رمز";
+"empty_username_warning" = "نام کاربری را وارد کنید";
+"empty_password_warning" = "رمزعبور را وارد کنید";
+"my_parsian" = "پارسیان من";
+"mb_category_cards" = "کارت ها";
+"mb_category_accounts" = "حساب ها";
+"mb_category_services" = "خدمات";

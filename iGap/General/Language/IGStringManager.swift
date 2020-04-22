@@ -826,6 +826,19 @@ enum IGStringsManager : String {
     case PaymentSpentScore = "payment_spentScore"
     case PostedTo = "posted_to"
     case ReceivedFrom = "received_from"
+    
+    // Mobile Bank
+    case Login = "login"
+    case LoginDescription = "login_description"
+    case UsernameMB = "username_mb"
+    case PasswordMB = "password_mb"
+    case ServerError = "server_error"
+    case EmptyUsernameWarning = "empty_username_warning"
+    case EmptyPasswordWarning = "empty_password_warning"
+    case MyParsian = "my_parsian"
+    case MBCategoryCards = "mb_category_cards"
+    case MBCategoryAccounts = "mb_category_accounts"
+    case MBCategoryServices = "mb_category_services"
 }
 
 
