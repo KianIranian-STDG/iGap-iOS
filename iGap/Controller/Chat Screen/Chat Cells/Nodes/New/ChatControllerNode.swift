@@ -889,10 +889,10 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 18, numberOfLines: 1, font: .fontIcon, alignment: .center)
         
         
-        manageVoteActions()
+        manageVoteActions(message: self.message)
     }
     
-    private func manageVoteActions(){
+    private func manageVoteActions(message: IGRoomMessage?){
         
         if message!.channelExtra != nil {
             var messageVote: IGRoomMessage! = message!
@@ -976,10 +976,13 @@ class ChatControllerNode: ASCellNode {
             
         }
     }
-    
+    func updateVoteData(msg : IGRoomMessage?) {
+        message?.channelExtra = msg!.channelExtra
+        manageVoteActions(message: msg)
+    }
     func updateVoteActions(channelExtra: IGRealmChannelExtra?) {
         message?.channelExtra = channelExtra
-        manageVoteActions()
+        manageVoteActions(message: self.message)
     }
     
     func updateAvatar(userId: Int64, completion: @escaping(()->Void)) {

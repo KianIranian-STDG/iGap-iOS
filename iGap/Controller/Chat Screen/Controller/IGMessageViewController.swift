@@ -1229,6 +1229,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 self?.updateMessageArray(cellPosition: indexOfMessage, message: message.detach())
                             self?.updateMessageStatus(cellPosition: indexOfMessage, status: message.status)
                             print("=-=-=-=- MESSAGE UPDATE STATUS GOT CLLLED")
+                            if message.channelExtra != nil {
+                                self?.updateMessageVote(cellPosition: indexOfMessage, msg: message.detach())
+                            }
 
                         }
                     }
@@ -7083,37 +7086,45 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func notifyPosition(messageId: Int64){
-        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
-            let indexPath = IndexPath(row: indexOfMessge, section: 0)
-//            self.tableViewNode.reloadItems(at: [indexPath])
-//            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
-            if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
-                
-//                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
-//                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
-//                    cell.backgroundColor = UIColor.clear
-//                }, completion: nil)
-                UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: [.calculationModeCubic], animations: {
-                    // Add animations
-
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/1.0, animations: {
-                        cell.backgroundColor = UIColor.clear
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 0.5/1.0, relativeDuration: 1.0/1.0, animations: {
-                        cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 1.0/1.0, relativeDuration: 1.0/1.0, animations: {
-                        cell.backgroundColor = UIColor.clear
-                    })
-                
-                }, completion:{ _ in
-                    print("I'm done animating!")
-                })
+            if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
+                let indexPath = IndexPath(row: indexOfMessge, section: 0)
+    //            self.tableViewNode.reloadItems(at: [indexPath])
+    //            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
+                if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+                    
+    //                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+    //                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
+    //                    cell.backgroundColor = UIColor.clear
+    //                }, completion: nil)
+//                    UIView.animateKeyframes(withDuration: 3.0, delay: 0, options: [.calculationModeCubic], animations: {
+//                        // Add animations
+//
+//                        UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.0/5.0, animations: {
+//                            cell.backgroundColor = UIColor.clear
+//                        })
+//                        UIView.addKeyframe(withRelativeStartTime: 1.0/5.0, relativeDuration: 1.0/5.0, animations: {
+//                            cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
+//                        })
+//                        UIView.addKeyframe(withRelativeStartTime: 2.0/5.0, relativeDuration: 1.0/5.0, animations: {
+//                            cell.backgroundColor = UIColor.clear
+//                        })
+//
+//                    }, completion:{ _ in
+//                        print("I'm done animating!")
+//                    })
+                    
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                            cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
+                    }, completion: nil)
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                         cell.backgroundColor = UIColor.clear
+                    }, completion: nil)
+                }
                 
             }
-            
         }
-    }
     // MARK: - Gift Sticker Actions
     /***********************************************************************************************************************************************************************/
     /************************************************************************** Gift Sticker *******************************************************************************/
@@ -7788,6 +7799,16 @@ extension IGMessageViewController {
 
     }
     
+    private func updateMessageVote(cellPosition: Int,msg : IGRoomMessage) {
+        for indexPath in [IndexPath(row: cellPosition, section: 0)] {
+            let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode
+            print("=-=-=-=- update called Message status")
+//            cell?.updatMessage(action: .updateStatus,status: status, message: nil)
+
+            cell?.updateVoteData(msg: msg)
+        }
+
+    }
     /*********************************************************************************/
     /******************************** Popular Methods ********************************/
     
