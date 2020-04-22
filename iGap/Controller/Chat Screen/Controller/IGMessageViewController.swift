@@ -7093,16 +7093,16 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
 //                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
 //                    cell.backgroundColor = UIColor.clear
 //                }, completion: nil)
-                UIView.animateKeyframes(withDuration: 3.0, delay: 0, options: [.calculationModeCubic], animations: {
+                UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: [.calculationModeCubic], animations: {
                     // Add animations
 
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/5.0, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/1.0, animations: {
                         cell.backgroundColor = UIColor.clear
                     })
-                    UIView.addKeyframe(withRelativeStartTime: 1.0/5.0, relativeDuration: 1.0/5.0, animations: {
-                        cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+                    UIView.addKeyframe(withRelativeStartTime: 0.5/1.0, relativeDuration: 1.0/1.0, animations: {
+                        cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
                     })
-                    UIView.addKeyframe(withRelativeStartTime: 2.0/5.0, relativeDuration: 1.0/5.0, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 1.0/1.0, relativeDuration: 1.0/1.0, animations: {
                         cell.backgroundColor = UIColor.clear
                     })
                 
