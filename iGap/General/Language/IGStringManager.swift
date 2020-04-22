@@ -419,6 +419,7 @@ enum IGStringsManager : String {
     case MapDistanceMSG = "info_map"
     case SureToSubmit = "are_you_sure_request"
     case voteFirst = "msg_vote_to_see_barchart"
+    case Join = "join"
     case SureToForward = "sure_to_forward"
     case SureToJoin = "do_you_want_to_join_to_this"
     case SureToDeleteAccount = "elecBill_deleteAccount_desc"

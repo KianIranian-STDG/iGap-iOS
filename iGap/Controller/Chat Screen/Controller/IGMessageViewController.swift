@@ -806,24 +806,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
 
-        var shouldHideAttachmentBtn : Bool = false
-          shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
-          if shouldHideAttachmentBtn  {
-              attachmentBtnWidthConstraint.constant = 0
-          } else {
-              attachmentBtnWidthConstraint.constant = 35
-
-          }
-        
-
         if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
 
             if self.room!.type == .group {
-                joinButton.isHidden = false
-                joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
-                mainHolder.isHidden = true
-                self.messageTextView.text = ""
-                self.view.endEditing(true)
+                if self.room!.isParticipant {
+                    joinButton.isHidden = false
+                    joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
+                    mainHolder.isHidden = true
+                    self.messageTextView.text = ""
+                    self.view.endEditing(true)
+                }
             } else if self.room!.type == .channel {
                 if self.room!.channelRoom?.role == IGPChannelRoom.IGPRole.admin {
                     joinButton.isHidden = false
@@ -4960,6 +4952,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return
         }
         
+        if self.room?.isParticipant ?? false {
+            return // user is joined now but don't have permission to send message
+        }
+        
         var username: String?
         if room?.channelRoom != nil {
             if let channelRoom = room?.channelRoom {
@@ -4975,45 +4971,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }
         }
-        if let publicRooomUserName = username {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGClientJoinByUsernameRequest.Generator.generate(userName: publicRooomUserName).success({ [weak self] (protoResponse) in
-                self?.openChatFromLink = false
+        if let publicRoomUserName = username {
+            IGHelperJoin.getInstance().joinByUsername(username: publicRoomUserName, roomId: room!.id) { [weak self] in
                 DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
-                        if let roomId = self?.room?.id {
-                            IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
-                        }
-                        self?.joinButton.isHidden = true
-                        self?.hud.hide(animated: true)
-                        self?.collectionViewTopInsetOffset = 8.0
-                    default:
-                        break
-                    }
+                    self?.joinButton.isHidden = true
+                    self?.collectionViewTopInsetOffset = 8.0
                 }
-            }).error ({ [weak self] (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-
-                    self?.hud.hide(animated: true)
-                    break
-
-                case .clinetJoinByUsernameForbidden:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self?.hud.hide(animated: true)
-                        self?.present(alert, animated: true, completion: nil)
-                    }
-                    
-                default:
-                    break
-                }
-                
-            }).send()
+            }
         }
     }
     
