@@ -4619,7 +4619,7 @@ class ChatControllerNode: ASCellNode {
 //                        imgNode!.setImageColor(color: UIColor.purple)
 
                     } else {
-                        imgNode!.image = UIImage(named: "igap_default_video")
+//                        imgNode!.image = UIImage(named: "igap_default_video")
                     }
                     
                     imgNode!.setThumbnail(for: attachment)
