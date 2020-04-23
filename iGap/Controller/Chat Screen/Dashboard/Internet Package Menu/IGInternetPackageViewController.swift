@@ -68,10 +68,9 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        edtPhoneNubmer.delegate = self
-        
         getData()
-        
+        edtPhoneNubmer.delegate = self
+                
         manageButtonsView(buttons: [selectTimeOrVolumeBtn, selectPackageBtn, btnBuy])
         
         setContentVisibility(isHidden: true)
@@ -99,13 +98,13 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         self.btnBuy.isHidden = isHidden
     }
     
-    private func getData() {
+    private func getData(opType : IGOperator = .mci) {
         dispatchGroup = DispatchGroup()
         
         IGGlobal.prgShow()
         
         dispatchGroup.enter()
-        IGApiInternetPackage.shared.getCategories { (success, internetCategories) in
+        IGApiInternetPackage.shared.getCategories(opType: opType) { (success, internetCategories) in
             if success {
                 self.internetCategories = internetCategories!
             }
@@ -113,7 +112,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         }
         
         dispatchGroup.enter()
-        IGApiInternetPackage.shared.getPackages { (success, internetPackages) in
+        IGApiInternetPackage.shared.getPackages(opType: opType) { (success, internetPackages) in
             if success {
                 self.internetPackages = internetPackages!
             }
@@ -293,7 +292,63 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         
         if self.operatorType == IGOperator.mci {
             
-            IGApiInternetPackage.shared.purchase(telNum: phoneNumber, type: selectedPackage!.type!) { (success, token) in
+            IGApiInternetPackage.shared.purchase(opType: .mci, telNum: phoneNumber, type: selectedPackage!.type!) { (success, token) in
+                
+                if success {
+                    guard let token = token else { return }
+                    print("Success: " + token)
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                        IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                return
+                            }
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, payToken: token, payment: paymentData)
+                            
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                }
+            }
+            
+        } else if self.operatorType == IGOperator.irancell {
+            
+            IGApiInternetPackage.shared.purchase(opType: .irancell, telNum: phoneNumber, type: selectedPackage!.type!) { (success, token) in
+                
+                if success {
+                    guard let token = token else { return }
+                    print("Success: " + token)
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                        IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                return
+                            }
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, payToken: token, payment: paymentData)
+                            
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                }
+            }
+            
+        } else if self.operatorType == IGOperator.rightel {
+            
+            IGApiInternetPackage.shared.purchase(opType: .rightel, telNum: phoneNumber, type: selectedPackage!.type!) { (success, token) in
                 
                 if success {
                     guard let token = token else { return }
@@ -337,13 +392,19 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             if (newLength == PHONE_LENGTH) {
                 operatorType = operatorDictionary[text.substring(offset: 4)]
                 
-                if operatorType != .mci {
-                    self.view.endEditing(true)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.OnlyMCI.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
-                    return true
-                }
+//                if operatorType != .mci {
+//                    self.view.endEditing(true)
+//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.OnlyMCI.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+//
+//                    return true
+//                }
                 
+                switch operatorType {
+                case .mci : getData(opType: .mci)
+                case .irancell : getData(opType: .irancell)
+                case .rightel : getData(opType: .rightel)
+                default: break
+                }
                 latestPhoneNumber = text
                 
                 self.packageTypeLbl.isHidden = false
