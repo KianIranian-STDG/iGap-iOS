@@ -4148,8 +4148,9 @@ class ChatControllerNode: ASCellNode {
             let verticalSpec = ASStackLayoutSpec()
             verticalSpec.direction = .vertical
             verticalSpec.spacing = 5
-            verticalSpec.justifyContent = .start
-  
+            verticalSpec.justifyContent = .center
+            verticalSpec.alignItems = isIncomming == true ? .center : .center
+
             let insetsImage : UIEdgeInsets
             
             if finalRoom?.type == .channel {
@@ -4174,10 +4175,8 @@ class ChatControllerNode: ASCellNode {
 
 
             //
-            AddTextNodeTo(spec: verticalSpec)
+            AddTextNodeTo(spec: verticalSpec,itemSize: prefferedSize,isImageNode: true)
             contentSpec.children?.append(verticalSpec)
-            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
-            nodeText?.style.minWidth = ASDimensionMake(.points, prefferedSize.width)
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec : ASInsetLayoutSpec
             if finalRoomType == .channel {
@@ -4191,14 +4190,18 @@ class ChatControllerNode: ASCellNode {
         }
         
     }
-    private func AddTextNodeTo(spec : ASLayoutSpec) {
+    private func AddTextNodeTo(spec : ASLayoutSpec,itemSize : CGSize? = nil,isImageNode : Bool = false) {
         if nodeText == nil {
             nodeText = ASTextNode()
         }
-        
-        nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 125)
+        if itemSize != nil {
+            nodeText!.style.width = ASDimensionMake(.points, (itemSize!.width) - 10)
+        } else {
+            nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 125)
+        }
         nodeText!.style.minHeight = ASDimensionMake(.points, 20)
-        let insetBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), child: nodeText!)
+        let insetBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: isImageNode ? 5 : 0, bottom: 10, right: 0), child: nodeText!)
+    
         spec.children?.append(insetBox)
         
         setMessage()
@@ -4342,7 +4345,9 @@ class ChatControllerNode: ASCellNode {
                 imgNode!.layer.cornerRadius =  15
                 imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             } else {
-                imgNode!.layer.cornerRadius =  0
+                imgNode!.layer.cornerRadius =  isIncomming ? 0 : 15
+                imgNode!.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
             }
 
             let timeTxtNode = ASTextNode()
@@ -4398,14 +4403,14 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.direction = .vertical
             verticalSpec.spacing = 5
             verticalSpec.justifyContent = .start
-            verticalSpec.alignItems = isIncomming == true ? .end : .start
+            verticalSpec.alignItems = isIncomming == true ? .center : .center
             
             verticalSpec.children?.append(overlaySpec)
             
             
-            AddTextNodeTo(spec: verticalSpec)
+            AddTextNodeTo(spec: verticalSpec,itemSize: prefferedSize)
             contentSpec.children?.append(verticalSpec)
-            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+//            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec : ASInsetLayoutSpec
