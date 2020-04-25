@@ -3162,7 +3162,7 @@ class ChatControllerNode: ASCellNode {
         switch tmpppMsg.additional?.dataType {
             
         case AdditionalType.STICKER.rawValue :
-            if (message!.attachment?.name!.hasSuffix(".json") ?? false) {
+            if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
                 let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                     top: 0,
                     left: 0,
