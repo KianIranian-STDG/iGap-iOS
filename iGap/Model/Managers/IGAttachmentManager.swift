@@ -35,7 +35,7 @@ class IGAttachmentManager: NSObject {
         }
         if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
-                if IGGlobal.isFileExist(path: attachment.localPath) {
+                if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
                     attachment.downloadUploadPercent = 1.0
                     attachment.status = .ready
                 } else {
@@ -54,7 +54,7 @@ class IGAttachmentManager: NSObject {
     func add(attachment: IGFile) {
         if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
-                if IGGlobal.isFileExist(path: attachment.localPath) {
+                if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
                     attachment.downloadUploadPercent = 1.0
                     attachment.status = .ready
                 } else {
