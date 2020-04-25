@@ -3360,7 +3360,8 @@ class ChatControllerNode: ASCellNode {
             
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: botnode)
             
             return finalInsetSpec
             
@@ -3388,7 +3389,9 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: botnode)
             
             return finalInsetSpec
             
@@ -3487,7 +3490,9 @@ class ChatControllerNode: ASCellNode {
             )
             verticalSpec.children?.append(insetBoxx)
             contentSpec.children?.append(insetBoxx)
-            
+            let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+            return botnode
             
         } else {
             let verticalSpec = ASStackLayoutSpec()
@@ -3508,7 +3513,9 @@ class ChatControllerNode: ASCellNode {
         }
         
         makeBottomBubbleItems(contentStack: contentSpec)
-        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: botnode)
         
         return finalInsetSpec
         
@@ -3554,7 +3561,9 @@ class ChatControllerNode: ASCellNode {
         musicGustureRecognizers()
         checkPlayerState()
         makeBottomBubbleItems(contentStack: contentSpec)
-        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: botnode)
         
         return finalInsetSpec
         
@@ -3928,7 +3937,9 @@ class ChatControllerNode: ASCellNode {
         contentSpec.children?.append(verticalSpec)
         
         makeBottomBubbleItems(contentStack: contentSpec)
-        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: botnode)
         
         getContactDetails(message: msg)
         return finalInsetSpec
@@ -4126,12 +4137,14 @@ class ChatControllerNode: ASCellNode {
             }
             
             makeBottomBubbleItems(contentStack: contentSpec)
+            let botNode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
             let finalInsetSpec = ASInsetLayoutSpec(insets:
                 isIncomming ?
                 UIEdgeInsets(top: 2, left: 8, bottom: 5, right: 3)
                 :
                 UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 8),
-                                                   child: contentSpec)
+                                                   child: botNode)
             
             return finalInsetSpec
             
@@ -4178,17 +4191,41 @@ class ChatControllerNode: ASCellNode {
             AddTextNodeTo(spec: verticalSpec,itemSize: prefferedSize,isImageNode: true)
             contentSpec.children?.append(verticalSpec)
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec : ASInsetLayoutSpec
-            if finalRoomType == .channel {
-                finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 3), child: contentSpec)
+
+            if let additionalData = msg.additional?.data, msg.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (finalRoom!.type == .chat && !(finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
+                let botNode = addAdditionalButtons(contentSpec: contentSpec,message: msg)
+                let finalInsetSpec : ASInsetLayoutSpec
+                if finalRoomType == .channel {
+                    finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 3), child: contentSpec)
+                } else {
+                    finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 3, left: 4, bottom: 5, right: 8), child: botNode)
+                }
+                return finalInsetSpec
+
             } else {
-                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 3, left: 4, bottom: 5, right: 8), child: contentSpec)
+                let finalInsetSpec : ASInsetLayoutSpec
+                if finalRoomType == .channel {
+                    finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 3), child: contentSpec)
+                } else {
+                    finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 3, left: 4, bottom: 5, right: 8), child: contentSpec)
+                }
+                return finalInsetSpec
+
             }
-            
-            return finalInsetSpec
-            
+
         }
         
+    }
+    private func  ifMessageHasAdditional(contentSpec: ASLayoutSpec, message: IGRoomMessage) -> ASLayoutSpec {
+        if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (finalRoom!.type == .chat && !(finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
+
+            let botNode = addAdditionalButtons(contentSpec: contentSpec,message: message)
+            return botNode
+        } else {
+            return contentSpec
+        }
     }
     private func AddTextNodeTo(spec : ASLayoutSpec,itemSize : CGSize? = nil,isImageNode : Bool = false) {
         if nodeText == nil {
@@ -4330,12 +4367,14 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(overlaySpec)
             
             makeBottomBubbleItems(contentStack: contentSpec)
+            let botNode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
             let finalInsetSpec = ASInsetLayoutSpec(insets:
                 isIncomming ?
                 UIEdgeInsets(top: 2, left: 8, bottom: 5, right: 3)
                 :
                 UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 8),
-                                                   child: contentSpec)
+                                                   child: botNode)
             
             return finalInsetSpec
             
@@ -4413,11 +4452,13 @@ class ChatControllerNode: ASCellNode {
 //            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             
             makeBottomBubbleItems(contentStack: contentSpec)
+            let botNode =  ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
             let finalInsetSpec : ASInsetLayoutSpec
             if finalRoomType == .channel {
-                finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 2, left: 3, bottom: 5, right: 3), child: contentSpec)
+                finalInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 2, left: 3, bottom: 5, right: 3), child: botNode)
             } else {
-                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 5, left: 4, bottom: 5, right: 8), child: contentSpec)
+                finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 3) : UIEdgeInsets(top: 5, left: 4, bottom: 5, right: 8), child: botNode)
+                
             }
 
             return finalInsetSpec
@@ -4477,7 +4518,9 @@ class ChatControllerNode: ASCellNode {
         }
         
         makeBottomBubbleItems(contentStack: contentSpec)
-        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let botNode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: botNode)
         
         return finalInsetSpec
         
