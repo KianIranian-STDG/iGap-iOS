@@ -16,13 +16,21 @@ class IGApiTopup: IGApiBase {
     
     enum Endpoint {
         case purchase
-        
+        case MCITopUp
+        case rightelTopUp
+        case MTNTopUp
         var url: String {
             var urlString = IGApiTopup.topupBaseUrl
             
             switch self {
             case .purchase:
                 urlString += "/purchase"
+            case .MTNTopUp:
+                urlString += "/mtn/topup/purchase"
+            case .rightelTopUp:
+                urlString += "/rightel/topup/purchase"
+            case .MCITopUp:
+                urlString += "/mci/topup/purchase"
             }
             
             return urlString
@@ -30,16 +38,22 @@ class IGApiTopup: IGApiBase {
     }
     
     static let shared = IGApiTopup()
-    private static let topupBaseUrl = "https://api.igap.net/services/v1.0/mci/topup"
+    private static let topupBaseUrl = "https://api.igap.net/services/v1.0"
     
-    func purchase(telNum: String, cost: Int64, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
+    func purchase(opType : String, telNum: String, cost: Int64,type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
-        let parameters: Parameters = ["tel_num" : telNum, "cost" : cost]
-        
-        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        let parameters: Parameters = ["tel_num" : telNum.dropFirst(), "cost" : cost, "type" : type]
+        var url = Endpoint.purchase.url
+        switch opType {
+        case "MCI" : url = Endpoint.MCITopUp.url
+        case "MTN" : url = Endpoint.MTNTopUp.url
+        case "RIGHTEL" : url = Endpoint.rightelTopUp.url
+        default : url = Endpoint.purchase.url
+        }
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                self.purchase(telNum: telNum, cost: cost, completion: completion)
+                self.purchase(opType: opType, telNum: telNum, cost: cost, type: type, completion: completion)
             }) {
             } else {
                 switch response.result {

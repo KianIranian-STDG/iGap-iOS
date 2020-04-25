@@ -26,6 +26,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     @IBOutlet weak var btnBuy: UIButton!
     @IBOutlet weak var switchButton: UISwitch!
 
+    var chargeType = "DIRECT"
     let PHONE_LENGTH = 11
     var latestPhoneNumber = ""
     
@@ -92,6 +93,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator, isEnable: false)
         self.initTheme()
+//        ShowHideButton(button: btnOperator, isHidden: true)
+
     }
     private func initTheme() {
         txtOperatorTransport.textColor = ThemeManager.currentTheme.LabelColor
@@ -144,7 +147,15 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             button.layer.backgroundColor = UIColor.gray.cgColor
         }
     }
-    
+    private func ShowHideButton(button: UIButton, isHidden: Bool){
+        
+        if isHidden {
+            button.isHidden = true
+        } else {
+            button.isHidden = false
+
+        }
+    }
     private func setOperator() {
         
         if operatorType == nil {
@@ -216,6 +227,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             operatorTransport = true
             txtOperatorTransport.text = IGStringsManager.PortedSubsEnable.rawValue.localized
             txtOperatorTransport.textColor = ThemeManager.currentTheme.SliderTintColor
+//            ShowHideButton(button: btnOperator, isHidden: false)
         } else {
             operatorTransport = false
             txtOperatorTransport.text = IGStringsManager.PortedSubsDisable.rawValue.localized
@@ -225,9 +237,12 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                 operatorType = operatorTypeBackup
                 setOperator()
             }
+//            ShowHideButton(button: btnOperator, isHidden: true)
+
         }
         btnOperator.isEnabled = sender.isOn
         ButtonViewActivate(button: btnOperator, isEnable: sender.isOn)
+
     }
     
     @IBAction func btnChooseOperator(_ sender: UIButton) {
@@ -257,7 +272,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         var chargeType: [String] = [normalCharge]
         if operatorType == IGOperator.irancell {
-            chargeType = [normalCharge,amazingCharge,wimaxCharge,permanently]
+//            chargeType = [normalCharge,amazingCharge,wimaxCharge,permanently]
+            chargeType = [normalCharge,amazingCharge]
         }
         
         showAlertView(title: IGStringsManager.ChargeType.rawValue.localized, message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
@@ -266,15 +282,53 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             case self.normalCharge:
                 if self.operatorType == IGOperator.irancell {
                     self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellPrepaid
+                    DispatchQueue.main.async {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        sSelf.chargeType = "MTN_NORMAL"
+                    }
+
                 } else if self.operatorType == IGOperator.mci {
+                    DispatchQueue.main.async {[weak self] in
+                             guard let sSelf = self else {
+                                 return
+                             }
+                             sSelf.chargeType = "DIRECT"
+                         }
                     self.operatorChargeType = IGPMplGetTopupToken.IGPType.mci
                 } else if self.operatorType == IGOperator.rightel {
+                    DispatchQueue.main.async {[weak self] in
+                             guard let sSelf = self else {
+                                 return
+                             }
+                             sSelf.chargeType = "RIGHTEL_NORMAL"
+                         }
                     self.operatorChargeType = IGPMplGetTopupToken.IGPType.rightel
                 }
                 self.btnChargeType.setTitle(self.normalCharge, for: UIControl.State.normal)
                 break
                 
             case self.amazingCharge:
+                if self.operatorType == IGOperator.irancell {
+                    self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellPrepaid
+                    DispatchQueue.main.async {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        sSelf.chargeType = "MTN_AMAZING"
+                    }
+
+                } else if self.operatorType == IGOperator.rightel {
+                    DispatchQueue.main.async {[weak self] in
+                             guard let sSelf = self else {
+                                 return
+                             }
+                             sSelf.chargeType = "RIGHTEL_AMAZING"
+                         }
+                    self.operatorChargeType = IGPMplGetTopupToken.IGPType.rightel
+                }
+
                 self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellWow
                 self.btnChargeType.setTitle(self.amazingCharge, for: UIControl.State.normal)
                 break
@@ -345,7 +399,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         if self.operatorType == IGOperator.mci {
             
-            IGApiTopup.shared.purchase(telNum: phoneNumber, cost: chargeAmount) { (success, token) in
+            IGApiTopup.shared.purchase(opType: "MCI", telNum: phoneNumber, cost: chargeAmount, type: chargeType) { (success, token) in
                 
                 if success {
                     guard let token = token else { return }
@@ -369,7 +423,60 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                 }
             }
             
-        } else {
+        } else if self.operatorType == IGOperator.irancell {
+            
+            IGApiTopup.shared.purchase(opType: "MTN", telNum: phoneNumber, cost: chargeAmount,type: chargeType) { (success, token) in
+                
+                if success {
+                    guard let token = token else { return }
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                        IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                return
+                            }
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, payToken: token, payment: paymentData)
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                }
+            }
+            
+        
+        } else if self.operatorType == IGOperator.irancell {
+            
+            IGApiTopup.shared.purchase(opType: "RIGHTEL", telNum: phoneNumber, cost: chargeAmount,type: chargeType) { (success, token) in
+                
+                if success {
+                    guard let token = token else { return }
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                        IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                return
+                            }
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, payToken: token, payment: paymentData)
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                }
+            }
+            
+        }  else {
             IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let getTokenResponse = protoResponse as? IGPMplGetTopupTokenResponse {
@@ -430,14 +537,30 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         if let text = edtPhoneNubmer.text {
             let newLength = text.count + string.count - range.length
             if (newLength == PHONE_LENGTH) {
-                operatorTypeBackup = operatorDictionary[text.substring(offset: 4)]
-                if !operatorTransport {
-                    operatorType = operatorTypeBackup
-                }
-                setOperator()
-                latestPhoneNumber = text
-                DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5){
-                    self.view.endEditing(true)
+                if text.inEnglishNumbersNew().starts(with: "0") {
+                    operatorTypeBackup = operatorDictionary[text.inEnglishNumbersNew().substring(offset: 4)]
+                    if !operatorTransport {
+                        operatorType = operatorTypeBackup
+                    }
+                    setOperator()
+                    latestPhoneNumber = text
+                    DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5){
+                        self.view.endEditing(true)
+                    }
+                    print("OPERATOR TYPE",text.inEnglishNumbersNew(),operatorType)
+
+                } else {
+                    operatorTypeBackup = operatorDictionary[("0"+(text.inEnglishNumbersNew())).substring(offset: 4)]
+                    if !operatorTransport {
+                        operatorType = operatorTypeBackup
+                    }
+                    setOperator()
+                    latestPhoneNumber = text
+                    DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5){
+                        self.view.endEditing(true)
+                    }
+                    print("OPERATOR TYPE",text.inEnglishNumbersNew(),operatorType)
+
                 }
             } else if (newLength > PHONE_LENGTH) {
                 edtPhoneNubmer.text = latestPhoneNumber

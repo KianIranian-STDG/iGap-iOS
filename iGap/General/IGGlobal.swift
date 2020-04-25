@@ -2660,8 +2660,15 @@ extension String {
                     return false
                 }
             } else {
-                first = String(self.prefix(20)).removeSpecialCharacter().trimmingCharacters(in: .whitespacesAndNewlines).first
+                print("AAA || \(self)")
+                
+                if let a = String(self.prefix(20)).removeSpecialCharacter().trimmingCharacters(in: .whitespacesAndNewlines).first {
+                    first = a
+                } else {
+                    return false
+                }
             }
+            print("AAA || ====================================")
             if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: (String(String(first!).prefix(10)))) {
                 return true
             } else {

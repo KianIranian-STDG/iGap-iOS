@@ -151,30 +151,13 @@ class IGHelperPromote {
             username = room.igpChannelRoomExtra.igpPublicExtra.igpUsername
         }
         
-        IGClientJoinByUsernameRequest.Generator.generate(userName: username, identity: "identity").successPowerful({ (protoResponse, requestWrapper) in
-            
-            if let clientJoinbyUsernameResponse = protoResponse as? IGPClientJoinByUsernameResponse {
-                if let requestJoin = requestWrapper.message as? IGPClientJoinByUsername {
-                    if let roomId = IGRoom.getRoomIdWithUsername(username: requestJoin.igpUsername) {
-                        
-                        IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
-                        // get room info for detect complete room info and unread from server
-                        IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
-                            if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
-                                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse, ignoreLastMessage: false)
-                                pinRoom(roomId: roomId)
-                                IGFactory.shared.promoteRoom(roomId: roomId)
-                                compeletion()
-                            }
-                        }).error ({ (errorCode, waitTime) in
-                            compeletion()
-                        }).send()
-                    }
-                }
+        IGHelperJoin.getInstance().joinByUsername(username: username, roomId: room.igpID) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.pinRoom(roomId: room.igpID)
+                IGFactory.shared.promoteRoom(roomId: room.igpID)
+                compeletion()
             }
-        }).error ({ (errorCode, waitTime) in
-            compeletion()
-        }).send()
+        }
     }
     
     

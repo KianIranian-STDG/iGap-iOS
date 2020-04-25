@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 
 typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat, additionalHeight: CGFloat)
-typealias MediaViewerCellCalculatedSize = (mediaSize: CGSize, messageHeight: CGSize)
+typealias MediaViewerCellCalculatedSize = (mediaSize: CGSize, messageHeight: CGFloat, canExpand: Bool)
 
 class CellSizeCalculator: NSObject {
     
@@ -318,6 +318,7 @@ class CellSizeCalculator: NSObject {
         var cacheId: Int64!
         var file: IGFile!
         var messageText: String!
+        var canExpand = false
         
         if message != nil {
             cacheId = message!.id
@@ -335,27 +336,28 @@ class CellSizeCalculator: NSObject {
         }
         
         var mediaHeight: CGSize!
-        var messageHeight: CGSize = CGSize(width: 0, height: 0)
+        var messageHeight: CGFloat!
         
         if file != nil {
             mediaHeight = fetchMediaViewerCellFrame(media: file)
         }
         
         if let text = messageText {
-            messageHeight = CellSizeCalculator.bodyRect(text: text as NSString, width: CellSizeLimit.MediaViewerCellSize.MaxWidth)
+            messageHeight = text.height(withConstrainedWidth: CellSizeLimit.MediaViewerCellSize.MaxWidth - 20, font: UIFont.igFont(ofSize: 15)) // -20 is because of 10 offset for trainling and 10 offset for leading
             
             var heightRatio: CGFloat = 3
             if force {// return max height according to phone height
                 heightRatio = 1.3
             }
-            if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio) {
-                messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio)
+            if messageHeight > (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio) {
+                messageHeight = (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio)
+                if !force { // when state is not at expand mode AND text height is bigger than default size SO text message has more height and need to expand
+                    canExpand = true
+                }
             }
-            
-            messageHeight.height = messageHeight.height + 10 //plus 10 is for UILabel padding into the view
         }
         
-        let result: MediaViewerCellCalculatedSize = (mediaHeight, messageHeight)
+        let result: MediaViewerCellCalculatedSize = (mediaHeight, messageHeight, canExpand)
         if !force {
             mediaViewerCache.setObject(result as AnyObject, forKey: cacheKey)
         }

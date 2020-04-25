@@ -806,36 +806,29 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
 
-        var shouldHideAttachmentBtn : Bool = false
-          shouldHideAttachmentBtn = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
-          if shouldHideAttachmentBtn  {
-              attachmentBtnWidthConstraint.constant = 0
-          } else {
-              attachmentBtnWidthConstraint.constant = 35
-
-          }
-        
-
         if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
-
-            if self.room!.type == .group {
-                joinButton.isHidden = false
-                joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
-                mainHolder.isHidden = true
-                self.messageTextView.text = ""
-                self.view.endEditing(true)
-            } else if self.room!.type == .channel {
-                if self.room!.channelRoom?.role == IGPChannelRoom.IGPRole.admin {
+            
+            if self.room!.isParticipant {
+                if self.room!.type == .group {
                     joinButton.isHidden = false
                     joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
                     mainHolder.isHidden = true
                     self.messageTextView.text = ""
                     self.view.endEditing(true)
-                } else {
-                    joinButton.isHidden = true
-                    mainHolder.isHidden = true
-                    self.messageTextView.text = ""
-                    self.view.endEditing(true)
+                    
+                } else if self.room!.type == .channel {
+                    if self.room!.channelRoom?.role == IGPChannelRoom.IGPRole.admin {
+                        joinButton.isHidden = false
+                        joinButton.setTitle(IGStringsManager.NotAllowSendMessage.rawValue.localized, for: UIControl.State.normal)
+                        mainHolder.isHidden = true
+                        self.messageTextView.text = ""
+                        self.view.endEditing(true)
+                    } else {
+                        joinButton.isHidden = true
+                        mainHolder.isHidden = true
+                        self.messageTextView.text = ""
+                        self.view.endEditing(true)
+                    }
                 }
             }
             
@@ -1236,6 +1229,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 self?.updateMessageArray(cellPosition: indexOfMessage, message: message.detach())
                             self?.updateMessageStatus(cellPosition: indexOfMessage, status: message.status)
                             print("=-=-=-=- MESSAGE UPDATE STATUS GOT CLLLED")
+                            if message.channelExtra != nil {
+                                self?.updateMessageVote(cellPosition: indexOfMessage, msg: message.detach())
+                            }
 
                         }
                     }
@@ -4960,6 +4956,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return
         }
         
+        if self.room?.isParticipant ?? false {
+            return // user is joined now but don't have permission to send message
+        }
+        
         var username: String?
         if room?.channelRoom != nil {
             if let channelRoom = room?.channelRoom {
@@ -4975,45 +4975,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }
         }
-        if let publicRooomUserName = username {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGClientJoinByUsernameRequest.Generator.generate(userName: publicRooomUserName).success({ [weak self] (protoResponse) in
-                self?.openChatFromLink = false
+        if let publicRoomUserName = username {
+            IGHelperJoin.getInstance().joinByUsername(username: publicRoomUserName, roomId: room!.id) { [weak self] in
                 DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
-                        if let roomId = self?.room?.id {
-                            IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
-                        }
-                        self?.joinButton.isHidden = true
-                        self?.hud.hide(animated: true)
-                        self?.collectionViewTopInsetOffset = 8.0
-                    default:
-                        break
-                    }
+                    self?.joinButton.isHidden = true
+                    self?.collectionViewTopInsetOffset = 8.0
                 }
-            }).error ({ [weak self] (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-
-                    self?.hud.hide(animated: true)
-                    break
-
-                case .clinetJoinByUsernameForbidden:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self?.hud.hide(animated: true)
-                        self?.present(alert, animated: true, completion: nil)
-                    }
-                    
-                default:
-                    break
-                }
-                
-            }).send()
+            }
         }
     }
     
@@ -7118,37 +7086,45 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func notifyPosition(messageId: Int64){
-        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
-            let indexPath = IndexPath(row: indexOfMessge, section: 0)
-//            self.tableViewNode.reloadItems(at: [indexPath])
-//            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
-            if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
-                
-//                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
-//                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
-//                    cell.backgroundColor = UIColor.clear
-//                }, completion: nil)
-                UIView.animateKeyframes(withDuration: 3.0, delay: 0, options: [.calculationModeCubic], animations: {
-                    // Add animations
-
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/5.0, animations: {
-                        cell.backgroundColor = UIColor.clear
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 1.0/5.0, relativeDuration: 1.0/5.0, animations: {
-                        cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 2.0/5.0, relativeDuration: 1.0/5.0, animations: {
-                        cell.backgroundColor = UIColor.clear
-                    })
-                
-                }, completion:{ _ in
-                    print("I'm done animating!")
-                })
+            if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
+                let indexPath = IndexPath(row: indexOfMessge, section: 0)
+    //            self.tableViewNode.reloadItems(at: [indexPath])
+    //            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
+                if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+                    
+    //                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+    //                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
+    //                    cell.backgroundColor = UIColor.clear
+    //                }, completion: nil)
+//                    UIView.animateKeyframes(withDuration: 3.0, delay: 0, options: [.calculationModeCubic], animations: {
+//                        // Add animations
+//
+//                        UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.0/5.0, animations: {
+//                            cell.backgroundColor = UIColor.clear
+//                        })
+//                        UIView.addKeyframe(withRelativeStartTime: 1.0/5.0, relativeDuration: 1.0/5.0, animations: {
+//                            cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
+//                        })
+//                        UIView.addKeyframe(withRelativeStartTime: 2.0/5.0, relativeDuration: 1.0/5.0, animations: {
+//                            cell.backgroundColor = UIColor.clear
+//                        })
+//
+//                    }, completion:{ _ in
+//                        print("I'm done animating!")
+//                    })
+                    
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                            cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.3)
+                    }, completion: nil)
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                         cell.backgroundColor = UIColor.clear
+                    }, completion: nil)
+                }
                 
             }
-            
         }
-    }
     // MARK: - Gift Sticker Actions
     /***********************************************************************************************************************************************************************/
     /************************************************************************** Gift Sticker *******************************************************************************/
@@ -7823,6 +7799,16 @@ extension IGMessageViewController {
 
     }
     
+    private func updateMessageVote(cellPosition: Int,msg : IGRoomMessage) {
+        for indexPath in [IndexPath(row: cellPosition, section: 0)] {
+            let cell = self.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode
+            print("=-=-=-=- update called Message status")
+//            cell?.updatMessage(action: .updateStatus,status: status, message: nil)
+
+            cell?.updateVoteData(msg: msg)
+        }
+
+    }
     /*********************************************************************************/
     /******************************** Popular Methods ********************************/
     

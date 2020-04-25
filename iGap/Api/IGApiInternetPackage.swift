@@ -16,22 +16,40 @@ import SwiftyJSON
 class IGApiInternetPackage: IGApiBase {
     
     enum Endpoint {
-        case categories
-        case packages
-        case purchase
-        
+        case MCIcategories
+        case MCIpackages
+        case MCIpurchase
+
+        case MTNcategories
+        case MTNpackages
+        case MTNpurchase
+
+        case RIGHTELcategories
+        case RIGHTELpackages
+        case RIGHTELpurchase
+
         var url: String {
             var urlString = IGApiInternetPackage.internetPackageBaseUrl
             
             switch self {
-            case .categories:
-                urlString += "/categories"
-                
-            case .packages:
-                urlString += "/packages/categorized"
-                
-            case .purchase:
-                urlString += "/purchase"
+            case .MCIcategories:
+                urlString += "/mci/internet-package/categories"
+            case .MCIpackages:
+                urlString += "/mci/internet-package/packages/categorized"
+            case .MCIpurchase:
+                urlString += "/mci/internet-package/purchase"
+            case .MTNcategories:
+                urlString += "/mtn/internet-package/categories"
+            case .MTNpackages:
+                urlString += "/mtn/internet-package/packages/categorized"
+            case .MTNpurchase:
+                urlString += "/mtn/internet-package/purchase"
+            case .RIGHTELcategories:
+                urlString += "/rightel/internet-package/categories"
+            case .RIGHTELpackages:
+                urlString += "/rightel/internet-package/packages/categorized"
+            case .RIGHTELpurchase:
+                urlString += "/rightel/internet-package/purchase"
             }
             
             return urlString
@@ -39,14 +57,21 @@ class IGApiInternetPackage: IGApiBase {
     }
     
     static let shared = IGApiInternetPackage()
-    private static let internetPackageBaseUrl = "https://api.igap.net/services/v1.0/mci/internet-package"
+    private static let internetPackageBaseUrl = "https://api.igap.net/services/v1.0"
     
-    func getCategories(completion: @escaping ((_ success: Bool, _ token: [IGStructInternetCategory]?) -> Void) ) {
-        
-        AF.request(Endpoint.categories.url, method: .get, headers: self.getHeader()).responseData { (response) in
+    func getCategories(opType: IGOperator = .mci,completion: @escaping ((_ success: Bool, _ token: [IGStructInternetCategory]?) -> Void) ) {
+        var urlinner = Endpoint.MCIcategories.url
+        switch opType {
+        case .mci : urlinner = Endpoint.MCIcategories.url
+        case .irancell : urlinner = Endpoint.MTNcategories.url
+        case .rightel : urlinner = Endpoint.RIGHTELcategories.url
+        default:
+            urlinner = Endpoint.MCIcategories.url
+        }
+        AF.request(urlinner, method: .get, headers: self.getHeader()).responseData { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                self.getCategories(completion: completion)
+                self.getCategories(opType: opType,completion: completion)
             }) {
             } else {
                 switch response.result {
@@ -84,12 +109,20 @@ class IGApiInternetPackage: IGApiBase {
         
     }
     
-    func getPackages(completion: @escaping ((_ success: Bool, _ token: IGStructInternetPackageCategorized?) -> Void) ) {
-        
-        AF.request(Endpoint.packages.url, method: .get, headers: self.getHeader()).responseData { (response) in
+    func getPackages(opType: IGOperator, completion: @escaping ((_ success: Bool, _ token: IGStructInternetPackageCategorized?) -> Void) ) {
+        var urlinner = Endpoint.MCIcategories.url
+        switch opType {
+        case .mci : urlinner = Endpoint.MCIpackages.url
+        case .irancell : urlinner = Endpoint.MTNpackages.url
+        case .rightel : urlinner = Endpoint.RIGHTELpackages.url
+        default:
+            urlinner = Endpoint.MCIcategories.url
+        }
+
+        AF.request(urlinner, method: .get, headers: self.getHeader()).responseData { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                self.getPackages(completion: completion)
+                self.getPackages(opType: opType, completion: completion)
             }) {
             } else {
                 switch response.result {
@@ -123,14 +156,22 @@ class IGApiInternetPackage: IGApiBase {
         }
     }
     
-    func purchase(telNum: String, type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
+    func purchase(opType: IGOperator,telNum: String, type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "type" : type]
-       
-        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+       var urlinner = Endpoint.MCIcategories.url
+       switch opType {
+       case .mci : urlinner = Endpoint.MCIpurchase.url
+       case .irancell : urlinner = Endpoint.MTNpurchase.url
+       case .rightel : urlinner = Endpoint.RIGHTELpurchase.url
+       default:
+           urlinner = Endpoint.MCIcategories.url
+       }
+
+        AF.request(urlinner, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                self.purchase(telNum: telNum, type: type, completion: completion)
+                self.purchase(opType: opType, telNum: telNum, type: type, completion: completion)
             }) {
             } else {
                 switch response.result {

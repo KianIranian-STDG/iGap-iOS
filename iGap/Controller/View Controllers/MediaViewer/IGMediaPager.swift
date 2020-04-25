@@ -34,7 +34,8 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     private var pagerView: FSPagerView!
     private var avatarsObserver: NotificationToken?
     private var defaultHeight: CGFloat!
-    private let extraMessageHeight: CGFloat = 10 // this value is for distance between top of the 'bottomView' and top of the 'txtMessage' view
+    private var canExpand = false
+    private var extraViewHeight: CGFloat = 20 // this extra value is add because of extra space from bottom and top of the text and background view
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -44,7 +45,6 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     @IBOutlet weak var txtCount: UILabel!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var bottomViewBottomSpace: NSLayoutConstraint!
     @IBOutlet var txtMessage: ActiveLabel!
     @IBOutlet weak var txtMessageHeight: NSLayoutConstraint!
     
@@ -79,10 +79,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         
         self.manageCurrentMedia()
         self.manageDeleteButton()
-        if #available(iOS 11.0, *) {
-            bottomViewBottomSpace.constant = IGGlobal.fetchBottomSafeArea()
-        }
-        txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight // set message height at start
+        txtMessageHeight.constant = bottomViewHeight.constant - extraViewHeight - IGGlobal.fetchBottomSafeArea() // set message height at start
         
         self.topViewHeight.constant = 55 + UIApplication.shared.statusBarFrame.size.height
         self.view.bringSubviewToFront(topView)
@@ -258,9 +255,11 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         let finalMessage = roomMessage.getFinalMessage()
         if let message = finalMessage.message, !message.isEmpty {
             txtMessage.text = message
-            bottomViewHeight.constant = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: isExpand).messageHeight.height
+            let size = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: isExpand)
+            bottomViewHeight.constant = size.messageHeight + extraViewHeight + IGGlobal.fetchBottomSafeArea()
             if !isExpand {
                 defaultHeight = bottomViewHeight.constant
+                canExpand = size.canExpand
             }
             if showItemInfoLayout {
                 self.bottomView.fadeIn(time)
@@ -298,26 +297,27 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     @objc func didTapOnBottomView() {
         
-        // in this state message is not large so expand view is not useful
-        if (IGGlobal.fetchUIScreen().height / 3) > self.bottomViewHeight.constant {
-            return
-        }
-        
         if self.isExpand {
             self.isExpand = false
             self.bottomViewHeight.constant = defaultHeight
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.txtMessageHeight.constant = IGGlobal.fetchUIScreen().height / 3 - self.extraMessageHeight
+                self.txtMessageHeight.constant = self.bottomViewHeight.constant - self.extraViewHeight - IGGlobal.fetchBottomSafeArea()
+            }
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
             }
         } else {
+            if !canExpand {
+                return
+            }
             self.isExpand = true
             let roomMessage = self.mediaList![self.currentIndex]
             let size = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: true)
-            self.bottomViewHeight.constant = size.messageHeight.height
-            self.txtMessageHeight.constant = size.messageHeight.height - self.extraMessageHeight
-        }
-        UIView.animate(withDuration: 0.4) {
-            self.view.layoutIfNeeded()
+            self.bottomViewHeight.constant = size.messageHeight + self.extraViewHeight + IGGlobal.fetchBottomSafeArea()
+            self.txtMessageHeight.constant = size.messageHeight
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -358,7 +358,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
         currentIndex = targetIndex
         manageCurrentMedia()
-        txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight
+        txtMessageHeight.constant = bottomViewHeight.constant - extraViewHeight - IGGlobal.fetchBottomSafeArea()
     }
     
     // MARK:- Link Detection

@@ -51,18 +51,12 @@ class IGHelperJoin {
     
     private func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
         IGGlobal.prgShow()
-        IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                IGGlobal.prgHide()
-                if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
-                    IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
-                    let predicate = NSPredicate(format: "id = %lld", room.igpID)
-                    if let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                        self.openChatAfterJoin(room: roomInfo)
-                    }
-                }
+        IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ [weak self] (protoResponse) in
+            if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
+                IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
+                self?.getRoomInfoAndOpenChat(roomId: room.igpID)
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 IGGlobal.prgHide()
                 switch errorCode {
@@ -73,7 +67,7 @@ class IGHelperJoin {
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GroupNotExist.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
-                    self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
+                    self?.getRoomInfoAndOpenChat(roomId: room.igpID)
                 default:
                     break
                 }
@@ -106,25 +100,14 @@ class IGHelperJoin {
     
     
     public func joinByUsername(username: String, roomId: Int64, completion: (() -> Void)? = nil){
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld", roomId)
-        if let room = realm.objects(IGRoom.self).filter(predicate).first, room.isParticipant {
-            if completion != nil {
-                completion!()
-            }
-            return
-        }
         
         IGGlobal.prgShow()
         IGClientJoinByUsernameRequest.Generator.generate(userName: username).success({ (protoResponse) in
             DispatchQueue.main.async {
-                IGGlobal.prgHide()
                 switch protoResponse {
                 case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
                     IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
-                    if completion != nil {
-                        completion!()
-                    }
+                    self.getRoomInfo(roomId: roomId, completion: completion)
                 default:
                     break
                 }
@@ -147,4 +130,35 @@ class IGHelperJoin {
             }
         }).send()
     }
+    
+    private func getRoomInfo(roomId: Int64, completion: (() -> Void)? = nil){
+        IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+            IGGlobal.prgHide()
+            if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                completion?()
+            }
+        }).error ({ (errorCode, waitTime) in
+            self.getRoomInfo(roomId: roomId, completion: completion)
+        }).send()
+    }
+    
+    private func getRoomInfoAndOpenChat(roomId: Int64){
+        IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ [weak self] (protoResponse) in
+            if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // TODO - Use another solution. -> delay is for insuring about save data and fetch latest room info from Realm
+                    IGGlobal.prgHide()
+                    let predicate = NSPredicate(format: "id = %lld", roomId)
+                    if let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                        self?.openChatAfterJoin(room: roomInfo)
+                    }
+                }
+            }
+        }).error ({ [weak self] (errorCode, waitTime) in
+            IGGlobal.prgHide()
+            self?.getRoomInfoAndOpenChat(roomId: roomId)
+        }).send()
+    }
+    
 }
