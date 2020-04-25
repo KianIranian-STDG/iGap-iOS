@@ -276,6 +276,8 @@
 		8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C32259F59800105B5A /* SMIBAN.swift */; };
 		8EC217CA2259F59900105B5A /* SMMerchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C42259F59800105B5A /* SMMerchant.swift */; };
 		8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EC218082259FF3500105B5A /* Model.xcdatamodeld */; };
+		8EC42EED24549182000889D3 /* MBAccountPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */; };
+		8EC42EEF2454943A000889D3 /* MBAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEE2454943A000889D3 /* MBAccountCell.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1240,6 +1242,8 @@
 		8EC217C32259F59800105B5A /* SMIBAN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMIBAN.swift; sourceTree = "<group>"; };
 		8EC217C42259F59800105B5A /* SMMerchant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMerchant.swift; sourceTree = "<group>"; };
 		8EC218092259FF3500105B5A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountPagerCell.swift; sourceTree = "<group>"; };
+		8EC42EEE2454943A000889D3 /* MBAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountCell.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -2643,7 +2647,9 @@
 				D254C1EE24504839007767F4 /* MBSubTileCell.swift */,
 				D254C1F324504D74007767F4 /* MBTopCell.swift */,
 				D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */,
+				8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */,
 				D2CC15112451751C0083FF48 /* MBCardCell.swift */,
+				8EC42EEE2454943A000889D3 /* MBAccountCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -4891,6 +4897,7 @@
 				D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */,
 				D67E985D23A679AB003C1516 /* AnimatorZoomy.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
+				8EC42EEF2454943A000889D3 /* MBAccountCell.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
 				8E3C698E23603715001575BE /* PanModalPresentationController.swift in Sources */,
 				FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */,
@@ -4934,6 +4941,7 @@
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
 				8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */,
 				FAA9DFBC1F4B1CD60076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController.swift in Sources */,
+				8EC42EED24549182000889D3 /* MBAccountPagerCell.swift in Sources */,
 				8E96A31A225B75EE007D8A77 /* SMDateUtil.swift in Sources */,
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,
 				8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */,
