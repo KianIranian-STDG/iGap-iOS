@@ -94,7 +94,9 @@ class IGMediaPagerCell: FSPagerViewCell {
             }
             
             progress?.setState(attachment.status)
-            progress.isHidden = true
+            DispatchQueue.main.async {
+                self.progress.isHidden = true
+            }
             
             if (finalRoomMessage != nil && (finalRoomMessage.type == .image || finalRoomMessage.type == .imageAndText)) || (finalAvatar != nil) {
                 let settings = Settings.defaultSettings
@@ -107,15 +109,16 @@ class IGMediaPagerCell: FSPagerViewCell {
             progress.isHidden = false
             progress.delegate = self
             progress?.setState(attachment.status)
-        }
-        if attachment.status == .downloading {
-            if attachment.downloadUploadPercent == 1.0 {
-                progress?.setState(.ready)
+            
+            if attachment.status == .downloading {
+                if attachment.downloadUploadPercent == 1.0 {
+                    progress?.setState(.ready)
+                } else {
+                    progress?.setPercentage(attachment.downloadUploadPercent)
+                }
             } else {
-                progress?.setPercentage(attachment.downloadUploadPercent)
+                progress?.setFileType(.download)
             }
-        } else {
-            progress?.setFileType(.download)
         }
         
         if finalAvatar != nil {
