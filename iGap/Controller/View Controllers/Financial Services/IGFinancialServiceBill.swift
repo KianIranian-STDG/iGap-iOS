@@ -149,7 +149,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
     }
     
     private func fetchBillInfo(billInfo: String, setText: Bool = true){
-        if IGFinancialServiceBill.isTrafficOffenses || billInfo.count < 14 || !billInfo.isNumber {
+        if IGFinancialServiceBill.isTrafficOffenses || billInfo.count < 14 || billInfo.count > 30 || edtPaymentCode.text?.length ?? 0 > 13 || !billInfo.isNumber {
             return
         }
         
@@ -158,13 +158,18 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
         billId = billInfo[0..<13]
         payId = billInfo[13..<30]
         let companyType : String = billInfo[11..<12]
-        let price : String = billInfo[13..<21]
+        let price = edtPaymentCode.text //billInfo[13..<21]
         if setText {
             edtBillingID.text = billId
             edtPaymentCode.text = payId
         }
-        if !price.isEmpty {
-            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + IGStringsManager.Currency.rawValue.localized
+        if !(price?.isEmpty ?? true) {
+            let offset = price!.length - 5
+            if offset > 0 {
+                txtAmount.text = "\(Int(price!.substring(offset: offset))! * 1000) ".inLocalizedLanguage() + IGStringsManager.Currency.rawValue.localized
+            } else {
+                txtAmount.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
+            }
         }
         
         if !IGFinancialServiceBill.isTrafficOffenses {
