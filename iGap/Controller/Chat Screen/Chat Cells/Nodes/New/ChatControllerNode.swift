@@ -3490,9 +3490,6 @@ class ChatControllerNode: ASCellNode {
             )
             verticalSpec.children?.append(insetBoxx)
             contentSpec.children?.append(insetBoxx)
-            let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
-
-            return botnode
             
         } else {
             let verticalSpec = ASStackLayoutSpec()
