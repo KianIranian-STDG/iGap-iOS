@@ -278,6 +278,7 @@
 		8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EC218082259FF3500105B5A /* Model.xcdatamodeld */; };
 		8EC42EED24549182000889D3 /* MBAccountPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */; };
 		8EC42EEF2454943A000889D3 /* MBAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEE2454943A000889D3 /* MBAccountCell.swift */; };
+		8EC42EF12455A80C000889D3 /* IGHelperMBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1244,6 +1245,7 @@
 		8EC218092259FF3500105B5A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountPagerCell.swift; sourceTree = "<group>"; };
 		8EC42EEE2454943A000889D3 /* MBAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountCell.swift; sourceTree = "<group>"; };
+		8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMBAlert.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -3123,6 +3125,7 @@
 				8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */,
 				8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */,
 				D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */,
+				8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -4951,6 +4954,7 @@
 				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,
 				8E3C6980236036C1001575BE /* UIViewController+PanModalPresenter.swift in Sources */,
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
+				8EC42EF12455A80C000889D3 /* IGHelperMBAlert.swift in Sources */,
 				8EA854AC239E5FE000C9442F /* IGBlueColorSet.swift in Sources */,
 				FA87B94C22BFB46100200650 /* IGHelperMessage.swift in Sources */,
 				D67E983F23A67962003C1516 /* UIImageView+Zoomable.swift in Sources */,

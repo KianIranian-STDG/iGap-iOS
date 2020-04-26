@@ -106,7 +106,7 @@ class AnimateloadingView : UIView {
 
         layer.backgroundColor = nil
         layer.path = path.cgPath
-        layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        layer.frame = CGRect(x: 100, y: 0, width: size.width, height: size.height)
         return layer
     }
 }
