@@ -154,6 +154,8 @@ class IGGroupRoom: Object {
             groupRoom.publicExtra = IGGroupPublicExtra.put(realm: realm, igpPublicExtra: igpGroupRoom.igpPublicExtra, id: id)
         }
         
+        IGRealmRoomAccess.putOrUpdateNoTransaction(roomId: id, userId: 0, memberRights: igpGroupRoom.igpRoomRights)
+        
         return groupRoom
     }
     
