@@ -335,8 +335,8 @@ class CellSizeCalculator: NSObject {
             return cachedSize as! MediaViewerCellCalculatedSize
         }
         
-        var mediaHeight: CGSize!
-        var messageHeight: CGFloat!
+        var mediaHeight = CGSize(width: 0, height: 0)
+        var messageHeight: CGFloat = 0
         
         if file != nil {
             mediaHeight = fetchMediaViewerCellFrame(media: file)
