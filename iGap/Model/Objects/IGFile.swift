@@ -212,16 +212,21 @@ public class IGFile: Object {
         detachedFile.status = self.status
         
         if let smallThumbnail = self.smallThumbnail {
-            let detachedThumbnail = smallThumbnail.detach()
-            detachedFile.smallThumbnail = detachedThumbnail
+            detachedFile.smallThumbnail = smallThumbnail.detach()
+        } else {
+            detachedFile.smallThumbnail = nil
         }
+        
         if let largeThumbnail = self.largeThumbnail {
-            let detachedThumbnail = largeThumbnail.detach()
-            detachedFile.largeThumbnail = detachedThumbnail
+            detachedFile.largeThumbnail = largeThumbnail.detach()
+        } else {
+            detachedFile.largeThumbnail = nil
         }
+        
         if let waveformThumbnail = self.waveformThumbnail {
-            let detachedThumbnail = waveformThumbnail.detach()
-            detachedFile.waveformThumbnail = detachedThumbnail
+            detachedFile.waveformThumbnail = waveformThumbnail.detach()
+        } else {
+            detachedFile.waveformThumbnail = nil
         }
 
         return detachedFile

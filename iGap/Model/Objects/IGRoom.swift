@@ -342,16 +342,16 @@ class IGRoom: Object {
             detachedRoom.channelRoom = detachedChannelRoom
         }
         if let lastMessage = self.lastMessage, copyLastMessage {
-            let detachedMessage = lastMessage.detach()
+            let detachedMessage = lastMessage.detach(detachRoom: false)
             detachedRoom.lastMessage = detachedMessage
         }
         if let firstUnreadMessage = self.firstUnreadMessage, copyLastMessage {
-            let detachedFirstUnreadMessage = firstUnreadMessage.detach()
+            let detachedFirstUnreadMessage = firstUnreadMessage.detach(detachRoom: false)
             detachedRoom.firstUnreadMessage = detachedFirstUnreadMessage
         }
         
         if let pinMessage = self.pinMessage, copyLastMessage {
-            let detachedPinMessage = pinMessage.detach()
+            let detachedPinMessage = pinMessage.detach(detachRoom: false)
             detachedRoom.pinMessage = detachedPinMessage
         }
 

@@ -63,7 +63,7 @@ class IGAttachmentManager: NSObject {
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
-                variablesCache.setObject(BehaviorRelay(value: attachment), forKey: (attachment.cacheID)! as NSString)
+                variablesCache.setObject(BehaviorRelay(value: attachment.detach()), forKey: (attachment.cacheID)! as NSString)
             } else {
                 print ("found variablesCache \(primaryKeyId)")
             }

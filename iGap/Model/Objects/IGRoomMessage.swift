@@ -507,57 +507,75 @@ class IGRoomMessage: Object {
     }
     
     //detach from current realm
-    func detach() -> IGRoomMessage {
+    func detach(detachRoom: Bool = true) -> IGRoomMessage {
         let detachedMessage = IGRoomMessage(value: self)
         
         if let author = self.authorUser {
-            let detachedAuthor = author.detach()
-            detachedMessage.authorUser = detachedAuthor
+            detachedMessage.authorUser = author.detach()
+        } else {
+            detachedMessage.authorUser = nil
         }
-        if let author = self.authorRoom {
-            let detachedAuthor = author.detach(copyLastMessage: false)
+        
+        if let author = self.authorRoom, detachRoom {
+            let detachedAuthor = author.detach(copyLastMessage: true)
             detachedMessage.authorRoom = detachedAuthor
+        } else {
+            detachedMessage.authorRoom = nil
         }
+        
         if let attach = self.attachment {
-            let detachedAttachment = attach.detach()
-            detachedMessage.attachment = detachedAttachment
+            detachedMessage.attachment = attach.detach()
+        } else {
+            detachedMessage.attachment = nil
         }
+        
         if let forwardedFrom = self.forwardedFrom {
-            let detachedForwarded = forwardedFrom.detach()
-            detachedMessage.forwardedFrom = detachedForwarded
+            detachedMessage.forwardedFrom = forwardedFrom.detach()
+        } else {
+            detachedMessage.forwardedFrom = nil
         }
        
         if let reply = self.repliedTo {
-            let detachedReply = reply.detach()
-            detachedMessage.repliedTo = detachedReply
+            detachedMessage.repliedTo = reply.detach()
+        } else {
+            detachedMessage.repliedTo = nil
         }
+        
         if let log = self.log {
-            let detachedLog = log.detach()
-            detachedMessage.log = detachedLog
+            detachedMessage.log = log.detach()
+        } else {
+            detachedMessage.log = nil
         }
+        
         if let contact = self.contact {
-            let detachedContact = contact.detach()
-            detachedMessage.contact = detachedContact
+            detachedMessage.contact = contact.detach()
+        } else {
+            detachedMessage.contact = nil
         }
+        
         if let location = self.location {
-            let detachedLocation = location.detach()
-            detachedMessage.location = detachedLocation
+            detachedMessage.location = location.detach()
+        } else {
+            detachedMessage.location = nil
         }
         
         if let wallet = self.wallet {
             detachedMessage.wallet = wallet.detach()
+        } else {
+            detachedMessage.wallet = nil
         }
         
         if let additional = self.additional {
-            let detachedAdditional = additional.detach()
-            detachedMessage.additional = detachedAdditional
+            detachedMessage.additional = additional.detach()
+        } else {
+            detachedMessage.additional = nil
         }
         
         if let channelExtra = self.channelExtra {
             detachedMessage.channelExtra = channelExtra.detach()
+        } else {
+            detachedMessage.channelExtra = nil
         }
-        
-        
         
         return detachedMessage
     }

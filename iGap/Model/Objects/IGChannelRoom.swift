@@ -179,16 +179,21 @@ class IGChannelRoom: Object {
         let detachedChannelRoom = IGChannelRoom(value: self)
         
         if let avatar = self.avatar {
-            let detachedAvatar = avatar.detach()
-            detachedChannelRoom.avatar = detachedAvatar
+            detachedChannelRoom.avatar = avatar.detach()
+        } else {
+            detachedChannelRoom.avatar = nil
         }
+        
         if let privateExtra = self.privateExtra {
-            let detachedPrivateExtra = privateExtra.detach()
-            detachedChannelRoom.privateExtra = detachedPrivateExtra
+            detachedChannelRoom.privateExtra = privateExtra.detach()
+        } else {
+            detachedChannelRoom.privateExtra = nil
         }
+        
         if let publicExtra = self.publicExtra {
-            let detachedPublicExtra = publicExtra.detach()
-            detachedChannelRoom.publicExtra = detachedPublicExtra
+            detachedChannelRoom.publicExtra = publicExtra.detach()
+        } else {
+            detachedChannelRoom.publicExtra = nil
         }
         
         return detachedChannelRoom

@@ -168,8 +168,9 @@ class IGAvatar: Object{
     func detach() -> IGAvatar {
         let detahcedAvatar = IGAvatar(value: self)
         if let file = detahcedAvatar.file {
-            let detachedFile = file.detach()
-            detahcedAvatar.file = detachedFile
+            detahcedAvatar.file = file.detach()
+        } else {
+            detahcedAvatar.file = nil
         }
         return detahcedAvatar
     }
