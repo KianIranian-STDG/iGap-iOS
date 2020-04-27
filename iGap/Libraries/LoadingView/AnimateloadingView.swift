@@ -17,10 +17,10 @@ class AnimateloadingView : UIView {
     /**
      Start animating.
      */
-    public final func startAnimating() {
+    public final func startAnimating(hideBG: Bool = false,color: UIColor? = ThemeManager.currentTheme.ProgressColor) {
         isHidden = false
         layer.speed = 1
-        setUpAnimation(in: layer, size: self.frame.size)
+        setUpAnimation(in: layer, size: self.frame.size, hideBG: hideBG, color : color)
     }
     /**
      Stop animating.
@@ -31,8 +31,8 @@ class AnimateloadingView : UIView {
         layer.sublayers?.removeAll()
         isAnimating = false
     }
-    func setUpAnimation(in layer: CALayer, size: CGSize) {
-        let color = ThemeManager.currentTheme.ProgressColor
+    func setUpAnimation(in layer: CALayer, size: CGSize,hideBG: Bool = false, color: UIColor? = ThemeManager.currentTheme.ProgressColor) {
+        let colorCircle = color
         let beginTime: Double = 0.5
         let strokeStartDuration: Double = 1.5
         let strokeEndDuration: Double = 1.1
@@ -62,7 +62,7 @@ class AnimateloadingView : UIView {
         groupAnimation.isRemovedOnCompletion = false
         groupAnimation.fillMode = CAMediaTimingFillMode.forwards
         
-        let circle = circleLayer(size: size, color: color)
+        let circle = circleLayer(size: size, color: colorCircle!)
         let frame = CGRect(
             x: (layer.bounds.width - size.width) / 2,
             y: (layer.bounds.height - size.height) / 2,
@@ -88,7 +88,10 @@ class AnimateloadingView : UIView {
         
         circle.frame = frame
         circle.add(groupAnimation, forKey: "animation")
-        self.addSubview(backgroundView)
+        if hideBG {  } else {
+            
+            self.addSubview(backgroundView)
+        }
         layer.addSublayer(circle)
         isAnimating = true
     }

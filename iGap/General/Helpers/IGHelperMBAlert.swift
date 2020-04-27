@@ -56,7 +56,7 @@ class IGHelperMBAlert {
                     self.window!.addSubview(self.customAlert)
                     let heightOfAlert : CGFloat
                     if isLoading {
-                        heightOfAlert = 250
+                        heightOfAlert = 200
                     } else {
                         heightOfAlert = self.detectHeightOfMessage(widthOfAlert: 230, message: message, font: UIFont.igFont(ofSize: 15)) + 150
                     }
@@ -77,6 +77,7 @@ class IGHelperMBAlert {
                     let btnDone = UIButton()
                     let btnCancel = UIButton()
                     btnDone.layer.cornerRadius = 15
+                    btnCancel.layer.cornerRadius = 15
                     btnDone.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
                     btnCancel.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
                     btnDone.setTitle(doneText, for: .normal)
@@ -123,7 +124,7 @@ class IGHelperMBAlert {
                     let titleLabel = UILabel()
                     let titleIcon = UILabel()
                     let messageLabel = UILabel()
-                    let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+                    let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
                 
                     loading.stopAnimating()
 //                    loading.startAnimating()
@@ -152,10 +153,11 @@ class IGHelperMBAlert {
                         stackTitleAndIcon.alignment = .fill
                     }
 
+
                 if isLoading {
                     messageLabel.isHidden = true
                     loading.isHidden = false
-                    loading.startAnimating()
+                    loading.startAnimating(hideBG: true, color: .iGapGreen())
                 } else {
                     messageLabel.isHidden = false
                     loading.isHidden = true
@@ -165,7 +167,7 @@ class IGHelperMBAlert {
                 
                     if title != nil {
                         titleLabel.text = title
-                        self.setConstraintsToTitleAndMessage(titleAndMessageStack: stackTitleAndMessage, titleLabel: titleLabel, messageLabel: messageLabel, customAlertView: self.customAlert,isLoadingView: isLoading,loadingView : loading)
+                        self.setConstraintsToTitleAndMessage(titleAndMessageStack: stackTitleAndMessage, titleLabel: titleLabel,titleIcon: titleIcon, messageLabel: messageLabel, customAlertView: self.customAlert,isLoadingView: isLoading,loadingView : loading)
                     } else {
                         self.customAlert.addSubview(messageLabel)
                         self.setConstraintsToTitleAndMessage(titleAndMessageStack: stackTitleAndMessage, titleLabel: nil, messageLabel: messageLabel, customAlertView: self.customAlert)
@@ -264,22 +266,29 @@ class IGHelperMBAlert {
         label.centerXAnchor.constraint(equalTo: iconView.centerXAnchor, constant: 0).isActive = true
     }
     
-    private func setConstraintsToTitleAndMessage(titleAndMessageStack: UIStackView!,titleLabel: UILabel? = nil , messageLabel: UILabel? = nil,customAlertView: UIView!,isLoadingView: Bool? = false, loadingView : UIView? = nil) {
+    private func setConstraintsToTitleAndMessage(titleAndMessageStack: UIStackView!,titleLabel: UILabel? = nil,titleIcon: UILabel? = nil , messageLabel: UILabel? = nil,customAlertView: UIView!,isLoadingView: Bool? = false, loadingView : UIView? = nil) {
         var hasTitle: Bool = true
         
         if titleLabel != nil {
             //            titleLabel!.translatesAutoresizingMaskIntoConstraints = false
             
+
+            titleIcon!.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            titleIcon!.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            titleIcon!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
+            titleIcon!.leadingAnchor.constraint(equalTo: titleAndMessageStack!.leadingAnchor, constant: 20).isActive = true
+
             titleLabel!.heightAnchor.constraint(equalToConstant: 20).isActive = true
             titleLabel!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
-            titleLabel!.leftAnchor.constraint(equalTo: titleAndMessageStack!.leftAnchor, constant: 50).isActive = true
-            titleLabel!.rightAnchor.constraint(equalTo: titleAndMessageStack!.rightAnchor, constant: -30).isActive = true
+            titleLabel!.leadingAnchor.constraint(equalTo: titleIcon!.leadingAnchor, constant: 30).isActive = true
+            titleLabel!.trailingAnchor.constraint(equalTo: titleAndMessageStack!.trailingAnchor, constant: -20).isActive = true
+
 
             if isLoadingView! {
                 loadingView!.centerXAnchor.constraint(equalTo: customAlertView.centerXAnchor, constant: 0).isActive = true
                 loadingView!.centerYAnchor.constraint(equalTo: customAlertView.centerYAnchor, constant: 0).isActive = true
-                loadingView!.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                loadingView!.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                loadingView!.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                loadingView!.widthAnchor.constraint(equalToConstant: 50).isActive = true
 
                 
             } else {
