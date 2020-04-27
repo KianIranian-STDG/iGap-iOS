@@ -279,6 +279,7 @@
 		8EC42EED24549182000889D3 /* MBAccountPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */; };
 		8EC42EEF2454943A000889D3 /* MBAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EEE2454943A000889D3 /* MBAccountCell.swift */; };
 		8EC42EF12455A80C000889D3 /* IGHelperMBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */; };
+		8EC42EF324570C72000889D3 /* IGMBTransactionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1246,6 +1247,7 @@
 		8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountPagerCell.swift; sourceTree = "<group>"; };
 		8EC42EEE2454943A000889D3 /* MBAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAccountCell.swift; sourceTree = "<group>"; };
 		8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMBAlert.swift; sourceTree = "<group>"; };
+		8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBTransactionsVC.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -2582,6 +2584,7 @@
 			children = (
 				D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */,
 				D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */,
+				8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */,
 				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
 				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
 				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
@@ -4916,6 +4919,7 @@
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
+				8EC42EF324570C72000889D3 /* IGMBTransactionsVC.swift in Sources */,
 				D254C1ED245042AE007767F4 /* IGMbAccount.swift in Sources */,
 				D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */,
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
