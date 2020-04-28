@@ -526,7 +526,7 @@ class IGGlobal {
         return randomString
     }
     
-    public class func randomId() -> Int64 {
+    public class func randomId(length: Int = 18) -> Int64 {
         return Int64(arc4random()) + (Int64(arc4random()) << 18)
     }
     

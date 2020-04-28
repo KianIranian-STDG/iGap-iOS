@@ -393,10 +393,10 @@ class IGRoomMessage: Object {
             message.contact = IGRoomMessageContact.putOrUpdate(realm: realmFinal, igpRoomMessageContact: igpMessage.igpContact, for: message)
         }
         if igpMessage.hasIgpForwardFrom {
-            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: -1, options: IGStructMessageOption(isForward: true, isEnableCache: true))
+            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: -IGGlobal.randomId(length: 10), options: IGStructMessageOption(isForward: true, isEnableCache: true))
         }
         if igpMessage.hasIgpReplyTo {
-            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: -1, options: IGStructMessageOption(isReply: true, isEnableCache: true))
+            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: -IGGlobal.randomId(length: 10), options: IGStructMessageOption(isReply: true, isEnableCache: true))
         }
         if igpMessage.hasIgpChannelExtra {
             message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realmFinal, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
