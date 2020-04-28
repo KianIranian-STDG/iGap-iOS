@@ -12,6 +12,7 @@ import Foundation
 enum IGStringsManager : String {
     
     //MARK: - Global Vars
+    case Inventory = "Inventory"
     case GlobalConnecting = "connecting"
     case GlobalWaitingConnection = "waiting_for_network"
     case GlobalWarning = "error"

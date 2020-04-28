@@ -1088,6 +1088,7 @@ extension Date {
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
+    
     func CustomeCompleteHumanReadableTime(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
