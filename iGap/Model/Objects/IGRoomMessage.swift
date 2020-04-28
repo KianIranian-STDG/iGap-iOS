@@ -530,13 +530,13 @@ class IGRoomMessage: Object {
         }
         
         if let forwardedFrom = self.forwardedFrom {
-            detachedMessage.forwardedFrom = forwardedFrom.detach()
+            detachedMessage.forwardedFrom = forwardedFrom.detach(detachRoom: detachRoom)
         } else {
             detachedMessage.forwardedFrom = nil
         }
        
         if let reply = self.repliedTo {
-            detachedMessage.repliedTo = reply.detach()
+            detachedMessage.repliedTo = reply.detach(detachRoom: detachRoom)
         } else {
             detachedMessage.repliedTo = nil
         }
