@@ -471,6 +471,13 @@
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
+		D6C95D6E2459A7B9007AC009 /* AppIconFive.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D672459A7B8007AC009 /* AppIconFive.png */; };
+		D6C95D6F2459A7B9007AC009 /* AppIconSix.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D682459A7B8007AC009 /* AppIconSix.png */; };
+		D6C95D702459A7B9007AC009 /* AppIconThree.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D692459A7B8007AC009 /* AppIconThree.png */; };
+		D6C95D712459A7B9007AC009 /* AppIconOne.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D6A2459A7B8007AC009 /* AppIconOne.png */; };
+		D6C95D722459A7B9007AC009 /* AppIconFour.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D6B2459A7B8007AC009 /* AppIconFour.png */; };
+		D6C95D732459A7B9007AC009 /* AppIconSeven.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D6C2459A7B8007AC009 /* AppIconSeven.png */; };
+		D6C95D742459A7B9007AC009 /* AppIconTwo.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D6D2459A7B9007AC009 /* AppIconTwo.png */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
 		D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */; };
@@ -1412,6 +1419,13 @@
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerFirstPageViewController.swift; sourceTree = "<group>"; };
+		D6C95D672459A7B8007AC009 /* AppIconFive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconFive.png; sourceTree = "<group>"; };
+		D6C95D682459A7B8007AC009 /* AppIconSix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconSix.png; sourceTree = "<group>"; };
+		D6C95D692459A7B8007AC009 /* AppIconThree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconThree.png; sourceTree = "<group>"; };
+		D6C95D6A2459A7B8007AC009 /* AppIconOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconOne.png; sourceTree = "<group>"; };
+		D6C95D6B2459A7B8007AC009 /* AppIconFour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconFour.png; sourceTree = "<group>"; };
+		D6C95D6C2459A7B8007AC009 /* AppIconSeven.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconSeven.png; sourceTree = "<group>"; };
+		D6C95D6D2459A7B9007AC009 /* AppIconTwo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconTwo.png; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftStickerAlertView.swift; sourceTree = "<group>"; };
 		D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftStickerAlertView.xib; sourceTree = "<group>"; };
@@ -2698,6 +2712,20 @@
 			path = MediaViewer;
 			sourceTree = "<group>";
 		};
+		D6C95D582459A4AA007AC009 /* AppIcons */ = {
+			isa = PBXGroup;
+			children = (
+				D6C95D672459A7B8007AC009 /* AppIconFive.png */,
+				D6C95D6B2459A7B8007AC009 /* AppIconFour.png */,
+				D6C95D6A2459A7B8007AC009 /* AppIconOne.png */,
+				D6C95D6C2459A7B8007AC009 /* AppIconSeven.png */,
+				D6C95D682459A7B8007AC009 /* AppIconSix.png */,
+				D6C95D692459A7B8007AC009 /* AppIconThree.png */,
+				D6C95D6D2459A7B9007AC009 /* AppIconTwo.png */,
+			);
+			path = AppIcons;
+			sourceTree = "<group>";
+		};
 		FA0175B92336396C000B898E /* Deep linking */ = {
 			isa = PBXGroup;
 			children = (
@@ -2901,6 +2929,7 @@
 		FA2EBB911E2F44BD00BD8E9F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D6C95D582459A4AA007AC009 /* AppIcons */,
 				FA5656A3204AB16400DB46F0 /* Sounds */,
 				FA6A22741F41CAFB0063DF07 /* Fonts */,
 			);
@@ -4049,6 +4078,7 @@
 				FA075DE2232A3F3D002E7AC7 /* InternetPackage.storyboard in Resources */,
 				FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */,
 				8EC94E0523964092003B3510 /* IGTripleNewsTVCell.xib in Resources */,
+				D6C95D742459A7B9007AC009 /* AppIconTwo.png in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
@@ -4108,6 +4138,7 @@
 				FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */,
 				FA33063B1F445AE80096031A /* IRANSans_Bold.ttf in Resources */,
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
+				D6C95D732459A7B9007AC009 /* AppIconSeven.png in Resources */,
 				8ECCA1F022B8B9AB00D3A734 /* IGMultiForwardModal.xib in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
@@ -4125,8 +4156,11 @@
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
+				D6C95D6F2459A7B9007AC009 /* AppIconSix.png in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
+				D6C95D712459A7B9007AC009 /* AppIconOne.png in Resources */,
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
+				D6C95D722459A7B9007AC009 /* AppIconFour.png in Resources */,
 				8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */,
 				8EA8551D23A232F900C9442F /* RedColorSet.xcassets in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
@@ -4141,6 +4175,7 @@
 				FA936906207364E100A0D86A /* Register.storyboard in Resources */,
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
+				D6C95D6E2459A7B9007AC009 /* AppIconFive.png in Resources */,
 				8E3360DF23D2FDAE00CE766B /* chats.json in Resources */,
 				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
 				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
@@ -4150,6 +4185,7 @@
 				8EA854B7239E90BE00C9442F /* ThemeColorSet.xcassets in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */,
+				D6C95D702459A7B9007AC009 /* AppIconThree.png in Resources */,
 				8EC94E0D23964D05003B3510 /* IGSingleButtonTVCell.xib in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
 				FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */,

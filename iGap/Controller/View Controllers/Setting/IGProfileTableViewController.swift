@@ -851,11 +851,12 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     @IBAction func btnCreditTapped(_ sender: Any) {
+        /*
         goToSettings = false
         let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
         walletVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(walletVC, animated:true)
-
+        */
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

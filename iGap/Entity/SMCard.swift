@@ -453,6 +453,7 @@ class SMCard : SMEntity{
     }
     static func getAllCardsFromServer(_ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
 
+        /*
         var serverCards = [SMCard]()
         serverCards.removeAll()
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
@@ -501,6 +502,7 @@ class SMCard : SMEntity{
         DispatchQueue.main.async(execute: { () -> Void in
         cardRequest.pc_listcard()
         })
+        */
     }
 
     static func getMerchatnCardsFromServer(accountId: String, _ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){

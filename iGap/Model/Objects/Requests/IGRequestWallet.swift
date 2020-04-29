@@ -51,7 +51,7 @@ class IGRequestWalletGetAccessToken : IGRequest {
     
     class func sendRequest(){
         IGRequestWalletGetAccessToken.Generator.generate().success({ (protoResponse) in
-            
+            /*
             if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
                     let keychain = KeychainSwift()
                 keychain.set(response.igpAccessToken , forKey: "accesstoken")
@@ -75,6 +75,7 @@ class IGRequestWalletGetAccessToken : IGRequest {
 
                 SMUserManager.saveDataToKeyChain()
             }
+            */
             
             
         }).error ({ (errorCode, waitTime) in

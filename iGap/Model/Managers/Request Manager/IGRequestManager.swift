@@ -569,7 +569,7 @@ class IGRequestManager {
                 let responseProtoMessage = try protoClassName.init(serializedData: payload)
                 let requestHandlerClassName = lookupTableResult.reponseHandler
                 
-                print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
+                //print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
                 
                 let response = responseProtoMessage.igpResponse
                 var correspondingRequestWrapper: IGRequestWrapper!
