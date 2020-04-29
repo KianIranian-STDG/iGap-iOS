@@ -8,12 +8,15 @@
 
 import Foundation
 
-class IGMBUser {
+class IGMBUser: Codable {
     
-    var accessToken = ""
+    static let current = IGMBUser()
     
-    init(accessToken: String) {
-        self.accessToken = accessToken
+    var first_name = String()
+    var last_name = String()
+    
+    enum CodingKeys: String, CodingKey {
+        case first_name = ""
     }
     
 }

@@ -722,8 +722,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 //        self.navigationController!.pushViewController(settingVC, animated:true)
         
         let mobileBankVC = IGMBLoginVC()
-//        self.navigationController?.pushViewController(mobileBankVC, animated: true)
-        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
+        self.navigationController?.pushViewController(mobileBankVC, animated: true)
+//        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
         
     }
     

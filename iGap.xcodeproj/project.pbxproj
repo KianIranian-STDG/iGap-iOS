@@ -385,6 +385,7 @@
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
+		D23EE25B24598A71007784FF /* IGStructMobileBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EE25A24598A71007784FF /* IGStructMobileBank.swift */; };
 		D2434DC6244EBB420057BA65 /* IGMBLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */; };
 		D2434DC8244EE4940057BA65 /* IGApiMobileBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */; };
 		D2434DCA244EEC070057BA65 /* IGMobileBankSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC9244EEC070057BA65 /* IGMobileBankSecurityManager.swift */; };
@@ -397,7 +398,6 @@
 		D254C1E12450334A007767F4 /* IGMBAccountsParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */; };
 		D254C1E32450335C007767F4 /* IGMBCardsParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */; };
 		D254C1E52450336C007767F4 /* IGMBServicesParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */; };
-		D254C1E924504103007767F4 /* IGMBCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1E824504103007767F4 /* IGMBCard.swift */; };
 		D254C1EB24504221007767F4 /* IGMBSubTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1EA24504221007767F4 /* IGMBSubTile.swift */; };
 		D254C1ED245042AE007767F4 /* IGMbAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1EC245042AE007767F4 /* IGMbAccount.swift */; };
 		D254C1EF24504839007767F4 /* MBSubTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1EE24504839007767F4 /* MBSubTileCell.swift */; };
@@ -1361,6 +1361,7 @@
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
+		D23EE25A24598A71007784FF /* IGStructMobileBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMobileBank.swift; sourceTree = "<group>"; };
 		D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBLoginVC.swift; sourceTree = "<group>"; };
 		D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiMobileBank.swift; sourceTree = "<group>"; };
 		D2434DC9244EEC070057BA65 /* IGMobileBankSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMobileBankSecurityManager.swift; sourceTree = "<group>"; };
@@ -1373,7 +1374,6 @@
 		D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBAccountsParentView.swift; sourceTree = "<group>"; };
 		D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBCardsParentView.swift; sourceTree = "<group>"; };
 		D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBServicesParentView.swift; sourceTree = "<group>"; };
-		D254C1E824504103007767F4 /* IGMBCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBCard.swift; sourceTree = "<group>"; };
 		D254C1EA24504221007767F4 /* IGMBSubTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBSubTile.swift; sourceTree = "<group>"; };
 		D254C1EC245042AE007767F4 /* IGMbAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMbAccount.swift; sourceTree = "<group>"; };
 		D254C1EE24504839007767F4 /* MBSubTileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSubTileCell.swift; sourceTree = "<group>"; };
@@ -2616,7 +2616,6 @@
 			children = (
 				D2434DCB244EEF200057BA65 /* IGMBUserPass.swift */,
 				D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */,
-				D254C1E824504103007767F4 /* IGMBCard.swift */,
 				D254C1EA24504221007767F4 /* IGMBSubTile.swift */,
 				8EC42EFB24587296000889D3 /* Transactions */,
 				D254C1EC245042AE007767F4 /* IGMbAccount.swift */,
@@ -3784,6 +3783,7 @@
 				FA075DEE232A631E002E7AC7 /* IGStructInternetCategory.swift */,
 				8E0405C52371B9AC00516DEB /* ElectricityBills */,
 				8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */,
+				D23EE25A24598A71007784FF /* IGStructMobileBank.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -4459,6 +4459,7 @@
 				D67E982E23A6792C003C1516 /* ImageZoomControllerState.swift in Sources */,
 				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,
 				D67E984C23A67962003C1516 /* CGPoint+maximumAbsoluteValue.swift in Sources */,
+				D23EE25B24598A71007784FF /* IGStructMobileBank.swift in Sources */,
 				8E3C6987236036E8001575BE /* PanModalPresentable+LayoutHelpers.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
@@ -4897,7 +4898,6 @@
 				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */,
-				D254C1E924504103007767F4 /* IGMBCard.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				8E599D752325323D00D75376 /* IGSettingsAppearanceTableViewController.swift in Sources */,
 				D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */,
