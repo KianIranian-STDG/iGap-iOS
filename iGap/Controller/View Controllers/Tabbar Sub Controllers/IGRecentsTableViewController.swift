@@ -275,7 +275,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         }
         
         // use current line for enable support gif in SDWebImage library
-        SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         self.hidesBottomBarWhenPushed = false
         

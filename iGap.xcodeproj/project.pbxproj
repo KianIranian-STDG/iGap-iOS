@@ -123,7 +123,6 @@
 		8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA123408E8600A8CF65 /* ThemeColors.swift */; };
 		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
-		8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */; };
 		8E8ABDC12394F2EA00DE00DB /* IGStructNewsMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */; };
 		8E8ABDC42394F89600DE00DB /* IGNewsSliderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC22394F89600DE00DB /* IGNewsSliderTVCell.swift */; };
@@ -399,11 +398,8 @@
 		D62214A0235871E5000E48B1 /* IGRealmMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = D622149F23586DD2000E48B1 /* IGRealmMember.swift */; };
 		D629462D2349DA0600FB5A08 /* IGHelperMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */; };
 		D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; };
-		D62946302349E1B800FB5A08 /* YPImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D62946322349E43400FB5A08 /* PryntTrimmerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; };
-		D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; };
-		D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F42403D72100E812CA /* TopupCell.swift */; };
 		D64BD2F82403EA6200E812CA /* BillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F62403EA6200E812CA /* BillCell.swift */; };
 		D64BD2F92403F60900E812CA /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64BD2F72403EA6200E812CA /* BillCell.xib */; };
@@ -412,7 +408,6 @@
 		D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A2239B88B300557E5B /* IGMediaPager.swift */; };
 		D65179A5239B8C3400557E5B /* IGMediaPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */; };
 		D65179A8239B8F6C00557E5B /* FSPagerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; };
-		D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */; };
 		D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61B5DDE237D41510060B9D9 /* ProgressCell.xib */; };
 		D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */; };
@@ -471,9 +466,10 @@
 		D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */; };
 		D68C2402241678DC00ABF635 /* SMCheckGiftSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */; };
 		D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */; };
+		D68D4B7824599105005FCFD5 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; };
+		D68D4B7924599105005FCFD5 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
-		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
@@ -772,7 +768,6 @@
 		FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA65CFA220AC0270006994A /* StickerCell.swift */; };
 		FAA697172376C93E006810A4 /* LocaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA697162376C93E006810A4 /* LocaleManager.swift */; };
 		FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6971C23770CF2006810A4 /* TabBarLocalizable.strings */; };
-		FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA932F41DF45748002CC631 /* IGEnums.swift */; };
 		FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFAF1F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift */; };
@@ -911,13 +906,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D62946302349E1B800FB5A08 /* YPImagePicker.framework in Embed Frameworks */,
-				8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */,
-				D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */,
-				D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */,
-				D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */,
-				D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */,
-				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
+				D68D4B7924599105005FCFD5 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1419,6 +1408,7 @@
 		D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoryTest.storyboard; sourceTree = "<group>"; };
 		D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMCheckGiftSticker.xib; sourceTree = "<group>"; };
 		D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCheckGiftSticker.swift; sourceTree = "<group>"; };
+		D68D4B7724599105005FCFD5 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PecPayment.framework; path = Carthage/Build/iOS/PecPayment.framework; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerFirstPageViewController.swift; sourceTree = "<group>"; };
@@ -1936,6 +1926,7 @@
 				FAF985AB1E2E10EC00B26940 /* Realm.framework in Frameworks */,
 				FAF985AC1E2E10EC00B26940 /* RealmSwift.framework in Frameworks */,
 				FAF985AE1E2E10EC00B26940 /* RxCocoa.framework in Frameworks */,
+				D68D4B7824599105005FCFD5 /* PecPayment.framework in Frameworks */,
 				FAF985AF1E2E10EC00B26940 /* RxRealm.framework in Frameworks */,
 				FAF985B01E2E10EC00B26940 /* RxSwift.framework in Frameworks */,
 				FAC42C861E36267400F2CB5C /* Crashlytics.framework in Frameworks */,
@@ -3836,6 +3827,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D68D4B7724599105005FCFD5 /* PecPayment.framework */,
 				D6AFC17023DD6AAD002584D5 /* Files.framework */,
 				D65179A7239B8F6C00557E5B /* FSPagerView.framework */,
 				D62946342349E4BD00FB5A08 /* Stevia.framework */,
@@ -5040,6 +5032,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 569;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5049,6 +5042,7 @@
 				INFOPLIST_FILE = Share/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 2.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = msg.iGap.Share;
@@ -5079,6 +5073,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 569;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5088,6 +5083,7 @@
 				INFOPLIST_FILE = Share/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 2.0.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = msg.iGap.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5227,7 +5223,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 565;
+				CURRENT_PROJECT_VERSION = 569;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -5277,7 +5273,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 565;
+				CURRENT_PROJECT_VERSION = 569;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -18,7 +18,7 @@ var insecureMehotdsActionID : [Int] = [2]
 class IGWebSocketManager: NSObject {
     static let sharedManager = IGWebSocketManager()
     
-    private let reachability = Reachability()!
+    private var reachability: Reachability!
     private let socket = WebSocket(url: URL(string: "wss://secure.igap.net/hybrid/")!)
     fileprivate var isConnectionSecured : Bool = false
     fileprivate var websocketSendQueue = DispatchQueue(label: "im.igap.ios.queue.ws.send")
@@ -89,30 +89,34 @@ class IGWebSocketManager: NSObject {
     
     //MARK: Private methods
     private func connectIfPossible() {
-        reachability.whenReachable = { reachability in
-            // this is called on a background thread
-            IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
-            IGAppManager.sharedManager.isUserLoggedIn.accept(false)
-            if reachability.connection == .wifi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-            self.connectAndAddTimeoutHandler()
-        }
-        reachability.whenUnreachable = { reachability in
-            // this is called on a background thread
-            print ("Network Unreachable")
-            IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
-            IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
-            IGAppManager.sharedManager.isUserLoggedIn.accept(false)
-            self.socket.disconnect(forceTimeout:0)
-            guard let delegate = RTCClient.getInstance(justReturn: true)?.callStateDelegate else {
-                return
-            }
-            delegate.onStateChange(state: .Disconnected)
-        }
         do {
+            if reachability == nil {
+                reachability = try Reachability()
+            }
+            reachability.whenReachable = { reachability in
+                // this is called on a background thread
+                IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
+                IGAppManager.sharedManager.isUserLoggedIn.accept(false)
+                if reachability.connection == .wifi {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
+                self.connectAndAddTimeoutHandler()
+            }
+            reachability.whenUnreachable = { reachability in
+                // this is called on a background thread
+                print ("Network Unreachable")
+                IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
+                IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
+                IGAppManager.sharedManager.isUserLoggedIn.accept(false)
+                self.socket.disconnect(forceTimeout:0)
+                guard let delegate = RTCClient.getInstance(justReturn: true)?.callStateDelegate else {
+                    return
+                }
+                delegate.onStateChange(state: .Disconnected)
+            }
+            
             try reachability.startNotifier()
         } catch {
             print("Unable to start notifier")
