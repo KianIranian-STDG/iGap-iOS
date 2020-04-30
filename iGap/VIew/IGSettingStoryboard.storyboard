@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wXB-PK-Gpp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wXB-PK-Gpp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -6410,26 +6410,6 @@ kay*****@gm**.com</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="K6q-l6-cNO">
-                                        <rect key="frame" x="0.0" y="828.5" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K6q-l6-cNO" id="S05-5y-PMl">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stickers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCo-Lo-4Cy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="13" width="62" height="20"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="fCo-Lo-4Cy" firstAttribute="leading" secondItem="S05-5y-PMl" secondAttribute="leadingMargin" constant="8" id="Z2a-C8-Ifr"/>
-                                                <constraint firstItem="fCo-Lo-4Cy" firstAttribute="top" secondItem="S05-5y-PMl" secondAttribute="topMargin" constant="2" id="vei-dp-B62"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -6452,7 +6432,6 @@ kay*****@gm**.com</string>
                         <outlet property="lblMessagePreview" destination="erE-yU-c3w" id="blf-V2-8mI"/>
                         <outlet property="lblMessagePreview2" destination="Io7-vU-V2r" id="pkh-DH-A3h"/>
                         <outlet property="lblMinA" destination="S8X-q3-qF5" id="dag-aH-h4k"/>
-                        <outlet property="lblStickers" destination="fCo-Lo-4Cy" id="mCY-KP-Nrj"/>
                         <outlet property="messageStatusPreview" destination="d5S-qO-h8O" id="DyV-dA-33t"/>
                         <outlet property="messageStatusPreview2" destination="ntB-ji-TEP" id="rVF-2C-KE9"/>
                         <outlet property="messageStatusPreview3" destination="85h-UV-uzx" id="4Cf-Eu-ZDA"/>
@@ -6474,6 +6453,15 @@ kay*****@gm**.com</string>
             <point key="canvasLocation" x="-9033.3333333333339" y="-1149.4565217391305"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="dSi-gY-esg"/>
+        <segue reference="xVq-sY-eU1"/>
+        <segue reference="kTR-Le-LDZ"/>
+        <segue reference="aW9-Od-bKL"/>
+        <segue reference="Fo6-Eu-Qdg"/>
+        <segue reference="gBn-cR-odp"/>
+        <segue reference="Xgh-zk-lrg"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
         <image name="imageView:CZX-OG-8fx:image" width="53" height="49">
@@ -6527,10 +6515,10 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="0.17299999296665192" green="0.21199999749660492" blue="0.24699999392032623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGMessageTextColor">
-            <color red="0.17299999296665192" green="0.21199999749660492" blue="0.24699999392032623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.17254901960784313" green="0.21176470588235294" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGMessageTimeLabelColor">
-            <color white="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.41200000047683716" green="0.48199999332427979" blue="0.52899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
             <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6548,13 +6536,4 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="dSi-gY-esg"/>
-        <segue reference="xVq-sY-eU1"/>
-        <segue reference="kTR-Le-LDZ"/>
-        <segue reference="aW9-Od-bKL"/>
-        <segue reference="Fo6-Eu-Qdg"/>
-        <segue reference="gBn-cR-odp"/>
-        <segue reference="Xgh-zk-lrg"/>
-    </inferredMetricsTieBreakers>
 </document>
