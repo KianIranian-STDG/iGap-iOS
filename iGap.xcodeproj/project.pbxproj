@@ -3771,6 +3771,7 @@
 			isa = PBXGroup;
 			children = (
 				8E8ABDBF2394F2CE00DE00DB /* News */,
+				D23EE25A24598A71007784FF /* IGStructMobileBank.swift */,
 				FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */,
 				FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */,
 				FAB4367222097B850073EEE1 /* IGStructSticker.swift */,
@@ -3783,7 +3784,6 @@
 				FA075DEE232A631E002E7AC7 /* IGStructInternetCategory.swift */,
 				8E0405C52371B9AC00516DEB /* ElectricityBills */,
 				8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */,
-				D23EE25A24598A71007784FF /* IGStructMobileBank.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
