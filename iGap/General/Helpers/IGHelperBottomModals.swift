@@ -22,19 +22,31 @@ class IGHelperBottomModals {
     private init() {}
     
     func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {//}-> UIView {
-            var alertView = view
-            if alertView == nil {
-                alertView = UIApplication.topViewController()
-            }
-            let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
-            vc.mode = mode
-            if articleID != nil {
-                vc.articleID = articleID!
-            }
-            alertView!.presentPanModal(vc)
-    //        return UIView()
-        }
+             var alertView = view
+             if alertView == nil {
+                 alertView = UIApplication.topViewController()
+             }
+             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+             let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
+             vc.mode = mode
+             if articleID != nil {
+                 vc.articleID = articleID!
+             }
+             alertView!.presentPanModal(vc)
+     //        return UIView()
+         }
+    func showBlockCard(view: UIViewController? = nil,mode: String! = "BLOCK_CARD") {//}-> UIView {
+             var alertView = view
+             if alertView == nil {
+                 alertView = UIApplication.topViewController()
+             }
+             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+             let vc = storyboard.instantiateViewController(withIdentifier: "IGFourInputTVController") as! IGFourInputTVController
+             vc.mode = mode
+
+        alertView!.presentPanModal(vc)
+     //        return UIView()
+         }
     
     //MARK: - MultiForward Modal
     func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false, giftId: String? = nil) {//}-> UIView {

@@ -288,6 +288,7 @@
 		8EC42F052459BA92000889D3 /* RowFiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F042459BA92000889D3 /* RowFiveCell.swift */; };
 		8EC42F072459CA38000889D3 /* RowSixCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F062459CA38000889D3 /* RowSixCell.swift */; };
 		8EC42F092459D3E7000889D3 /* BillCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F082459D3E7000889D3 /* BillCellInner.swift */; };
+		8EC42F0D2459E584000889D3 /* IGFourInputTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1264,6 +1265,7 @@
 		8EC42F042459BA92000889D3 /* RowFiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowFiveCell.swift; sourceTree = "<group>"; };
 		8EC42F062459CA38000889D3 /* RowSixCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowSixCell.swift; sourceTree = "<group>"; };
 		8EC42F082459D3E7000889D3 /* BillCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCellInner.swift; sourceTree = "<group>"; };
+		8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourInputTVController.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -3940,6 +3942,7 @@
 				8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */,
 				D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */,
 				8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */,
+				8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
 			);
@@ -4537,6 +4540,7 @@
 				D67E982D23A6792C003C1516 /* ConfigurableUsingClosure.swift in Sources */,
 				D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */,
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
+				8EC42F0D2459E584000889D3 /* IGFourInputTVController.swift in Sources */,
 				D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */,
 				FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
