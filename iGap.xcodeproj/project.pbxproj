@@ -284,6 +284,10 @@
 		8EC42EFD245872CE000889D3 /* RowTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EFC245872CE000889D3 /* RowTwoCell.swift */; };
 		8EC42EFF245879C1000889D3 /* RowThreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42EFE245879C1000889D3 /* RowThreeCell.swift */; };
 		8EC42F0124587CD3000889D3 /* RowFourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F0024587CD3000889D3 /* RowFourCell.swift */; };
+		8EC42F0324599B32000889D3 /* CallenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F0224599B32000889D3 /* CallenderCell.swift */; };
+		8EC42F052459BA92000889D3 /* RowFiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F042459BA92000889D3 /* RowFiveCell.swift */; };
+		8EC42F072459CA38000889D3 /* RowSixCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F062459CA38000889D3 /* RowSixCell.swift */; };
+		8EC42F092459D3E7000889D3 /* BillCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F082459D3E7000889D3 /* BillCellInner.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1256,6 +1260,10 @@
 		8EC42EFC245872CE000889D3 /* RowTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTwoCell.swift; sourceTree = "<group>"; };
 		8EC42EFE245879C1000889D3 /* RowThreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowThreeCell.swift; sourceTree = "<group>"; };
 		8EC42F0024587CD3000889D3 /* RowFourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowFourCell.swift; sourceTree = "<group>"; };
+		8EC42F0224599B32000889D3 /* CallenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallenderCell.swift; sourceTree = "<group>"; };
+		8EC42F042459BA92000889D3 /* RowFiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowFiveCell.swift; sourceTree = "<group>"; };
+		8EC42F062459CA38000889D3 /* RowSixCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowSixCell.swift; sourceTree = "<group>"; };
+		8EC42F082459D3E7000889D3 /* BillCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCellInner.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -2476,6 +2484,10 @@
 				8EC42EFC245872CE000889D3 /* RowTwoCell.swift */,
 				8EC42EFE245879C1000889D3 /* RowThreeCell.swift */,
 				8EC42F0024587CD3000889D3 /* RowFourCell.swift */,
+				8EC42F042459BA92000889D3 /* RowFiveCell.swift */,
+				8EC42F062459CA38000889D3 /* RowSixCell.swift */,
+				8EC42F0224599B32000889D3 /* CallenderCell.swift */,
+				8EC42F082459D3E7000889D3 /* BillCellInner.swift */,
 			);
 			name = Transactions;
 			sourceTree = "<group>";
@@ -4666,6 +4678,7 @@
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
 				FA63BAA71DD70E1A000B60AD /* IGRequestUser.swift in Sources */,
 				FAB0B882232F7120002E35AB /* DeepLinkParser.swift in Sources */,
+				8EC42F052459BA92000889D3 /* RowFiveCell.swift in Sources */,
 				FA0953661E1B97700043ED3F /* IGSettingPrivacy&SecurityEnterPasscodeLockViewController.swift in Sources */,
 				93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */,
 				FA03C1A220429DB5008812E3 /* AVCaptureState.swift in Sources */,
@@ -4771,6 +4784,7 @@
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				D67E985E23A679AB003C1516 /* DefaultAnimators.swift in Sources */,
 				D67E982223A67921003C1516 /* Side.swift in Sources */,
+				8EC42F0324599B32000889D3 /* CallenderCell.swift in Sources */,
 				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
 				D67E984123A67962003C1516 /* UIViewController+HasImageZoomControllers.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
@@ -4967,6 +4981,7 @@
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */,
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
+				8EC42F072459CA38000889D3 /* RowSixCell.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
 				8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */,
@@ -5025,6 +5040,7 @@
 				8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,
 				FA0953671E1B97700043ED3F /* IGSettingPrivacy&SecurityPasscodeLockTableViewController.swift in Sources */,
+				8EC42F092459D3E7000889D3 /* BillCellInner.swift in Sources */,
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,
 				8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */,
 				8E25A7C322674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift in Sources */,

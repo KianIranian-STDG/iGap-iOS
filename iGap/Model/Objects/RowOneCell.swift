@@ -36,7 +36,7 @@ class RowOneCell: BaseTableViewCell {
     let cardNumber : UILabel = {
         let lbl = UILabel()
         lbl.textColor = .darkGray
-        lbl.font = UIFont.igFont(ofSize: 14)
+        lbl.font = UIFont.igFont(ofSize: 11)
         lbl.text = ""
 
         return lbl

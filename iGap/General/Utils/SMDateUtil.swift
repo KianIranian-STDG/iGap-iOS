@@ -112,14 +112,14 @@ import Foundation
         let calendar = Calendar(identifier: Calendar.Identifier.persian)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
-        let m = months[month!]
+        let m = months[month! - 1]
         return  m + " " + String(year!)
     }
     static func toGregorianWithoutDay(_ date: Date) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
-        let m = months[month!]
+        let m = months[month! - 1]
         return  m + " " + String(year!)
     }
 
