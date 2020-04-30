@@ -11,12 +11,15 @@ import RealmSwift
 import SwiftEventBus
 
 class IGFourInputTVController: BaseTableViewController {
+    var issecuredPass : Bool = false
 
     var mode : String = "BLOCK_CARD"
     var articleID : String = ""
     var isShortFormEnabled = true
     var isKeyboardPresented = false
     var userInDb : IGRegisteredUser!
+    @IBOutlet weak var btnShowPass : UIButton!
+    @IBOutlet weak var lblHeader : UILabel!
     @IBOutlet weak var lblFirstRow : UILabel!
     @IBOutlet weak var lblSecondRow : UILabel!
     @IBOutlet weak var lblThirdRow : UILabel!
@@ -51,6 +54,7 @@ class IGFourInputTVController: BaseTableViewController {
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        lblHeader.textColor = ThemeManager.currentTheme.LabelColor
         lblFirstRow.textColor = ThemeManager.currentTheme.LabelColor
         lblThirdRow.textColor = ThemeManager.currentTheme.LabelColor
         lblSecondRow.textColor = ThemeManager.currentTheme.LabelColor
@@ -72,17 +76,18 @@ class IGFourInputTVController: BaseTableViewController {
         tfThirdRow.layer.borderWidth = 1.0
         tfFourRow.layer.borderWidth = 1.0
 
-        tfFirstRow.layer.cornerRadius = 10.0
-        tfSecondRow.layer.cornerRadius = 10.0
-        tfThirdRow.layer.cornerRadius = 10.0
-        tfFourRow.layer.cornerRadius = 10.0
+        tfFirstRow.layer.cornerRadius = 8.0
+        tfSecondRow.layer.cornerRadius = 8.0
+        tfThirdRow.layer.cornerRadius = 8.0
+        tfFourRow.layer.cornerRadius = 8.0
 
         //borders color set
         tfFirstRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfSecondRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfThirdRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfFourRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnSubmit.backgroundColor = UIColor.hexStringToUIColor(hex: "B6774E")
+        btnShowPass.backgroundColor = .clear
 
     }
 
@@ -120,34 +125,55 @@ class IGFourInputTVController: BaseTableViewController {
     @IBAction func didTapOnInquery(_ sender: UIButton) {
 
     }
+    @IBAction func didTapOnShowPass(_ sender: UIButton) {
+        issecuredPass = !issecuredPass
+
+        if issecuredPass {
+            tfSecondRow.isSecureTextEntry = true
+
+        } else {
+            tfSecondRow.isSecureTextEntry = false
+
+        }
+    }
     
     
     private func initView() {
-        lblFirstRow.text = IGStringsManager.FirstName.rawValue.localized
-        lblSecondRow.text = IGStringsManager.Email.rawValue.localized
-        lblThirdRow.text = IGStringsManager.WhatsUrComment.rawValue.localized
-        lblFourRow.text = IGStringsManager.WhatsUrComment.rawValue.localized
+        lblHeader.text = IGStringsManager.BlockCard.rawValue.localized
+        lblFirstRow.text = IGStringsManager.CardNumber.rawValue.localized
+        lblSecondRow.text = IGStringsManager.Password.rawValue.localized
+        lblThirdRow.text = IGStringsManager.CVV2.rawValue.localized
+        lblFourRow.text = IGStringsManager.ExpireDate.rawValue.localized
 
-        btnSubmit.setTitle(IGStringsManager.Send.rawValue.localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.Inquiry.rawValue.localized, for: .normal)
         btnSubmit.setTitleColor(UIColor.white, for: .normal)
-        btnSubmit.backgroundColor = UIColor.iGapGreen()
-        btnSubmit.layer.cornerRadius = 10
-        
+        btnSubmit.backgroundColor = UIColor.hexStringToUIColor(hex: "B6774E")
+        btnSubmit.layer.cornerRadius = 20
+        btnShowPass.setTitle("", for: .normal)
+        btnShowPass.titleLabel?.font = UIFont.iGapFonticon(ofSize: 10)
+        btnShowPass.setTitleColor(UIColor.darkGray, for: .normal)
+
+        let indexPath0 = IndexPath(row: 3, section: 0)
         let indexPath1 = IndexPath(row: 4, section: 0)
         let indexPath2 = IndexPath(row: 5, section: 0)
         let indexPath3 = IndexPath(row: 6, section: 0)
         let indexPath4 = IndexPath(row: 7, section: 0)
-        self.tableView.insertRows(at: [indexPath1,indexPath2,indexPath3,indexPath4], with: .automatic)
+        self.tableView.insertRows(at: [indexPath0,indexPath1,indexPath2,indexPath3,indexPath4], with: .automatic)
+
+        tfSecondRow.isSecureTextEntry = true
+
         
     }
     private func initFont() {
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         
+        lblHeader.textColor = UIColor.darkGray
         lblFirstRow.textColor = UIColor.darkGray
         lblSecondRow.textColor = UIColor.darkGray
         lblThirdRow.textColor = UIColor.darkGray
         lblFourRow.textColor = UIColor.darkGray
 
+        lblHeader.font = UIFont.igFont(ofSize: 13)
         lblFirstRow.font = UIFont.igFont(ofSize: 13)
         lblSecondRow.font = UIFont.igFont(ofSize: 13)
         lblThirdRow.font = UIFont.igFont(ofSize: 13)
@@ -158,10 +184,11 @@ class IGFourInputTVController: BaseTableViewController {
         tfThirdRow.font = UIFont.igFont(ofSize: 13)
         tfFourRow.font = UIFont.igFont(ofSize: 13)
 
-        lblFirstRow.textAlignment = .right
-        lblSecondRow.textAlignment = .right
-        lblThirdRow.textAlignment = .right
-        lblFourRow.textAlignment = .right
+        lblFirstRow.textAlignment = lblFirstRow.localizedDirection
+        lblHeader.textAlignment = lblHeader.localizedDirection
+        lblSecondRow.textAlignment = lblSecondRow.localizedDirection
+        lblThirdRow.textAlignment = lblThirdRow.localizedDirection
+        lblFourRow.textAlignment = lblFourRow.localizedDirection
 
         tfFirstRow.textAlignment = .center
         tfSecondRow.textAlignment = .center
@@ -249,14 +276,14 @@ extension IGFourInputTVController: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(300)
+        return .contentHeight(450)
     }
     var longFormHeight: PanModalHeight {
 
         if isKeyboardPresented {
-            return .contentHeight(500)
+            return .contentHeight(450)
         } else {
-            return .contentHeight(300)
+            return .contentHeight(450)
         }
 
     }

@@ -32,7 +32,7 @@ class IGHelperBottomModals {
              if articleID != nil {
                  vc.articleID = articleID!
              }
-             alertView!.presentPanModal(vc)
+        UIApplication.topViewController()!.presentPanModal(vc)
      //        return UIView()
          }
     func showBlockCard(view: UIViewController? = nil,mode: String! = "BLOCK_CARD") {//}-> UIView {
@@ -44,7 +44,9 @@ class IGHelperBottomModals {
              let vc = storyboard.instantiateViewController(withIdentifier: "IGFourInputTVController") as! IGFourInputTVController
              vc.mode = mode
 
-        alertView!.presentPanModal(vc)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIApplication.topViewController()!.presentPanModal(vc)
+        }
      //        return UIView()
          }
     

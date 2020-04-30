@@ -289,6 +289,8 @@
 		8EC42F072459CA38000889D3 /* RowSixCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F062459CA38000889D3 /* RowSixCell.swift */; };
 		8EC42F092459D3E7000889D3 /* BillCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F082459D3E7000889D3 /* BillCellInner.swift */; };
 		8EC42F0D2459E584000889D3 /* IGFourInputTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */; };
+		8EC42F11245AF271000889D3 /* onetwothreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */; };
+		8EC42F13245B04C2000889D3 /* IGHelperToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F12245B04C2000889D3 /* IGHelperToast.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1266,6 +1268,8 @@
 		8EC42F062459CA38000889D3 /* RowSixCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowSixCell.swift; sourceTree = "<group>"; };
 		8EC42F082459D3E7000889D3 /* BillCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCellInner.swift; sourceTree = "<group>"; };
 		8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourInputTVController.swift; sourceTree = "<group>"; };
+		8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onetwothreeViewController.swift; sourceTree = "<group>"; };
+		8EC42F12245B04C2000889D3 /* IGHelperToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperToast.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -2911,6 +2915,7 @@
 				8E599D8B2329EC5E00D75376 /* IGPhoneBookTableViewController.swift */,
 				FA56A03A233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift */,
 				8E8CA3A9236FFCA3000DA358 /* ElecBill */,
+				8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -3162,6 +3167,7 @@
 				8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */,
 				D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */,
 				8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */,
+				8EC42F12245B04C2000889D3 /* IGHelperToast.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -4942,6 +4948,7 @@
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
 				8EC0385A239BE75000B525B5 /* IGNewsCommentTVCell.swift in Sources */,
 				D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */,
+				8EC42F13245B04C2000889D3 /* IGHelperToast.swift in Sources */,
 				D67E985D23A679AB003C1516 /* AnimatorZoomy.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				8EC42EEF2454943A000889D3 /* MBAccountCell.swift in Sources */,
@@ -5107,6 +5114,7 @@
 				FAFDB3B4204EBC770022D183 /* IGCallListTableViewCell.swift in Sources */,
 				FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */,
 				8EA8551F23A23A2F00C9442F /* IGGoldColorSet.swift in Sources */,
+				8EC42F11245AF271000889D3 /* onetwothreeViewController.swift in Sources */,
 				8E3360EB23D8840000CE766B /* ASReplyForwardNode.swift in Sources */,
 				FA8F224E1DD89AC5005A90D1 /* IGRoomMessage.swift in Sources */,
 				FA0953871E1B97E20043ED3F /* IGCreateNewChannelTableViewController.swift in Sources */,

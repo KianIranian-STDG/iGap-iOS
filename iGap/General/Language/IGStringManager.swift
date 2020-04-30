@@ -129,6 +129,7 @@ enum IGStringsManager : String {
     case TermsAndConditions = "terms_condition_title"
     case PrivacyPolicy = "privacy_policy"
     case ListOfBlockedUsers = "Block_Users"
+    case BlockCard = "block_card"
     case UnblockUser = "un_block_user"
     case BlockUser = "block_user"
     case ProfilePhoto = "pu_addPhoto_profileUser"
