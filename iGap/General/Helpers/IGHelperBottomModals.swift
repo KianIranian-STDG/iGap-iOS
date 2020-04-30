@@ -49,6 +49,24 @@ class IGHelperBottomModals {
         }
      //        return UIView()
          }
+    func showShebaModal(view: UIViewController? = nil,mode: String! = "SHEBA_CARD",data : String? = nil) {//}-> UIView {
+             var alertView = view
+             if alertView == nil {
+                 alertView = UIApplication.topViewController()
+             }
+             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+             let vc = storyboard.instantiateViewController(withIdentifier: "IGOneLabelTVController") as! IGOneLabelTVController
+             vc.mode = mode
+        
+            if data != nil {
+                vc.ShebaNumber = data!
+            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIApplication.topViewController()!.presentPanModal(vc)
+        }
+     //        return UIView()
+         }
     
     //MARK: - MultiForward Modal
     func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false, giftId: String? = nil) {//}-> UIView {

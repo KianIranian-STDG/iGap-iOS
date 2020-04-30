@@ -291,6 +291,7 @@
 		8EC42F0D2459E584000889D3 /* IGFourInputTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */; };
 		8EC42F11245AF271000889D3 /* onetwothreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */; };
 		8EC42F13245B04C2000889D3 /* IGHelperToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F12245B04C2000889D3 /* IGHelperToast.swift */; };
+		8EC42F15245B25FC000889D3 /* IGOneLabelTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1270,6 +1271,7 @@
 		8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourInputTVController.swift; sourceTree = "<group>"; };
 		8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onetwothreeViewController.swift; sourceTree = "<group>"; };
 		8EC42F12245B04C2000889D3 /* IGHelperToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperToast.swift; sourceTree = "<group>"; };
+		8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGOneLabelTVController.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -3949,6 +3951,7 @@
 				D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */,
 				8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */,
 				8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */,
+				8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
 			);
@@ -5035,6 +5038,7 @@
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
+				8EC42F15245B25FC000889D3 /* IGOneLabelTVController.swift in Sources */,
 				8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */,
 				949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,

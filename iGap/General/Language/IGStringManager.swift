@@ -842,6 +842,7 @@ enum IGStringsManager : String {
     case MBCategoryCards = "mb_category_cards"
     case MBCategoryAccounts = "mb_category_accounts"
     case MBCategoryServices = "mb_category_services"
+    case ShebaNumber = "mb_sheba_number"
 }
 
 

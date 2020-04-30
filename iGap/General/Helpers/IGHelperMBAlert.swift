@@ -142,17 +142,17 @@ class IGHelperMBAlert {
                     messageLabel.textAlignment = .center
                     messageLabel.sizeToFit()
                     titleLabel.textAlignment = titleLabel.localizedDirection
-                    titleIcon.textAlignment = titleLabel.localizedDirection
+                titleIcon.textAlignment = .left
                     stackTitleAndIcon.addArrangedSubview(titleIcon)
                     stackTitleAndIcon.addArrangedSubview(titleLabel)
                     stackTitleAndMessage.addArrangedSubview(stackTitleAndIcon)
-                    if isLoading {
-                        stackTitleAndMessage.addArrangedSubview(messageLabel)
+
+                stackTitleAndMessage.addArrangedSubview(messageLabel)
                         stackTitleAndMessage.addArrangedSubview(loading)
                         stackTitleAndMessage.alignment = .center
                         stackTitleAndIcon.alignment = .fill
-                    }
 
+                
 
                 if isLoading {
                     messageLabel.isHidden = true
@@ -276,15 +276,17 @@ class IGHelperMBAlert {
             titleIcon!.heightAnchor.constraint(equalToConstant: 20).isActive = true
             titleIcon!.widthAnchor.constraint(equalToConstant: 20).isActive = true
             titleIcon!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
-            titleIcon!.leadingAnchor.constraint(equalTo: titleAndMessageStack!.leadingAnchor, constant: 20).isActive = true
+            titleIcon!.leadingAnchor.constraint(equalTo: titleAndMessageStack!.leadingAnchor, constant: 0).isActive = true
 
             titleLabel!.heightAnchor.constraint(equalToConstant: 20).isActive = true
             titleLabel!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
             titleLabel!.leadingAnchor.constraint(equalTo: titleIcon!.leadingAnchor, constant: 30).isActive = true
-            titleLabel!.trailingAnchor.constraint(equalTo: titleAndMessageStack!.trailingAnchor, constant: -20).isActive = true
+            titleLabel!.trailingAnchor.constraint(equalTo: titleAndMessageStack!.trailingAnchor, constant: 0).isActive = true
 
 
             if isLoadingView! {
+                titleLabel!.trailingAnchor.constraint(equalTo: titleAndMessageStack!.trailingAnchor, constant: -20).isActive = true
+
                 loadingView!.centerXAnchor.constraint(equalTo: customAlertView.centerXAnchor, constant: 0).isActive = true
                 loadingView!.centerYAnchor.constraint(equalTo: customAlertView.centerYAnchor, constant: 0).isActive = true
                 loadingView!.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -319,7 +321,7 @@ class IGHelperMBAlert {
         titleAndMessageStack.translatesAutoresizingMaskIntoConstraints = false
 
         if isLoadingView! {
-            titleAndMessageStack.leftAnchor.constraint(equalTo: customAlertView.leftAnchor, constant: 0).isActive = true
+            titleAndMessageStack.leftAnchor.constraint(equalTo: customAlertView.leftAnchor, constant: 10).isActive = true
             titleAndMessageStack.rightAnchor.constraint(equalTo: customAlertView.rightAnchor, constant: 0).isActive = true
 
         } else {
