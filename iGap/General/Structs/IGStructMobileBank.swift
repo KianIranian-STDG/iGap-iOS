@@ -191,18 +191,24 @@ struct IGMBTransaction: Codable {
     }
 }
 
+struct IGMBLoan: Codable {
+    let amount: Int
+    let beginDate, endDate, branchCode, branchName: String
+    let cbLoanNumber, loanNumber: String
+    let loanRemainder, payNumber, preAmount: Int
+    let status, type: String
 
-//"agent_branch_code": "5010",
-//"agent_branch_name": "بانکداري الکترونيک",
-//"balance": 48140579705,
-//"branch_code": "5010",
-//"branch_name": "بانکداري الکترونيک",
-//"customer_desc": null,
-//"date": "2020-04-29 12:25:22",
-//"description": "انتقال وجه از طریق اینترنت بانک از حساب 47000012780603  به حساب 47000273986601  ",
-//"reference_number": "B9902105010583373613",
-//"registration_number": null,
-//"sequence": 0,
-//"serial": null,
-//"serial_number": null,
-//"transfer_amount": -1000
+    enum CodingKeys: String, CodingKey {
+        case amount
+        case beginDate = "begin_date"
+        case endDate = "end_date"
+        case branchCode = "branch_code"
+        case branchName = "branch_name"
+        case cbLoanNumber = "cb_loan_number"
+        case loanNumber = "loan_number"
+        case loanRemainder = "loan_remainder"
+        case payNumber = "pay_number"
+        case preAmount = "pre_amount"
+        case status, type
+    }
+}

@@ -394,6 +394,7 @@
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
 		D23488F6245D353900AF116C /* IGDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488F5245D353900AF116C /* IGDateTime.swift */; };
+		D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */; };
 		D23EE25B24598A71007784FF /* IGStructMobileBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EE25A24598A71007784FF /* IGStructMobileBank.swift */; };
 		D2434DC6244EBB420057BA65 /* IGMBLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */; };
 		D2434DC8244EE4940057BA65 /* IGApiMobileBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */; };
@@ -1379,6 +1380,7 @@
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
 		D23488F5245D353900AF116C /* IGDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDateTime.swift; sourceTree = "<group>"; };
+		D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBCardAdditionalInfo.swift; sourceTree = "<group>"; };
 		D23EE25A24598A71007784FF /* IGStructMobileBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMobileBank.swift; sourceTree = "<group>"; };
 		D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBLoginVC.swift; sourceTree = "<group>"; };
 		D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiMobileBank.swift; sourceTree = "<group>"; };
@@ -2612,6 +2614,7 @@
 				D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */,
 				D254C1EA24504221007767F4 /* IGMBSubTile.swift */,
 				D254C1EC245042AE007767F4 /* IGMbAccount.swift */,
+				D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */,
 			);
 			path = MobileBank;
 			sourceTree = "<group>";
@@ -5099,6 +5102,7 @@
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
 				D2434DCC244EEF200057BA65 /* IGMBUserPass.swift in Sources */,
 				8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */,
+				D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */,
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				8ED68CB12377243C00637C29 /* IGElecAddEditBillTableViewController.swift in Sources */,
