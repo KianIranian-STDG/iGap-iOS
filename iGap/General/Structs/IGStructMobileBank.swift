@@ -212,3 +212,71 @@ struct IGMBLoan: Codable {
         case status, type
     }
 }
+
+
+struct IGMBLoanDetailResponse: Codable {
+    let message: String
+    let data: IGMBLoanDetail
+}
+
+struct IGMBLoanDetail: Codable {
+    let amount: Int
+    let automaticPaymentAccountNumber: String?
+    let cbLoanNumber: String
+    let customersInfo: [IGMBLoanReceiverInfo]
+    let countOfMaturedUnpaid, countOfPaid, countOfUnpaid, discount: Int
+    let installments: [IGMBLoanInstallment]
+    let penalty, totalMaturedUnpaidAmount, totalPaidAmount, totalRecord: Int
+    let totalUnpaidAmount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case amount
+        case automaticPaymentAccountNumber = "automatic_payment_account_number"
+        case cbLoanNumber = "cb_loan_number"
+        case customersInfo = "ch_customers_info"
+        case countOfMaturedUnpaid = "count_of_matured_unpaid"
+        case countOfPaid = "count_of_paid"
+        case countOfUnpaid = "count_of_unpaid"
+        case discount
+        case installments = "loan_rows"
+        case penalty
+        case totalMaturedUnpaidAmount = "total_matured_unpaid_amount"
+        case totalPaidAmount = "total_paid_amount"
+        case totalRecord = "total_record"
+        case totalUnpaidAmount = "total_unpaid_amount"
+    }
+}
+
+
+struct IGMBLoanReceiverInfo: Codable {
+    let cif, code, foreignName, gender: String
+    let name, title: String
+
+    enum CodingKeys: String, CodingKey {
+        case cif, code
+        case foreignName = "foreign_name"
+        case gender, name, title
+    }
+}
+
+struct IGMBLoanInstallment: Codable {
+    let delayDay: Int
+    let payDate: String
+    let payStatus: IGMBLoanInstallmentPayStatus
+    let payedAmount, penaltyAmount, unpaidAmount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case delayDay = "delay_day"
+        case payDate = "pay_date"
+        case payStatus = "pay_status"
+        case payedAmount = "payed_amount"
+        case penaltyAmount = "penalty_amount"
+        case unpaidAmount = "unpaid_amount"
+    }
+}
+
+enum IGMBLoanInstallmentPayStatus: String, Codable {
+    case notPaidAfterMaturity = "NOT_PAID_AFTER_MATURITY"
+    case notPaidBeforeMaturity = "NOT_PAID_BEFORE_MATURITY"
+    case paid = "PAID"
+}
