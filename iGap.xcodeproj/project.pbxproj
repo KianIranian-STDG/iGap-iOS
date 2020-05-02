@@ -469,6 +469,7 @@
 		D68D4B7824599105005FCFD5 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; };
 		D68D4B7924599105005FCFD5 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
+		D6AF91E8245D893600586EC4 /* EncryptedMessageLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AF91E7245D893600586EC4 /* EncryptedMessageLocal.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
 		D6C95D6E2459A7B9007AC009 /* AppIconFive.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C95D672459A7B8007AC009 /* AppIconFive.png */; };
@@ -1417,6 +1418,7 @@
 		D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCheckGiftSticker.swift; sourceTree = "<group>"; };
 		D68D4B7724599105005FCFD5 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PecPayment.framework; path = Carthage/Build/iOS/PecPayment.framework; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
+		D6AF91E7245D893600586EC4 /* EncryptedMessageLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedMessageLocal.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerFirstPageViewController.swift; sourceTree = "<group>"; };
 		D6C95D672459A7B8007AC009 /* AppIconFive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconFive.png; sourceTree = "<group>"; };
@@ -2956,6 +2958,7 @@
 				8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */,
 				D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */,
 				D670E5142445EC67002901AF /* ClearMessageLocal.swift */,
+				D6AF91E7245D893600586EC4 /* EncryptedMessageLocal.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -4882,6 +4885,7 @@
 				FA927E0420284D7800DF7145 /* GifCell.swift in Sources */,
 				8ECC1831222FDBD2006E43E8 /* imagViewX.swift in Sources */,
 				FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */,
+				D6AF91E8245D893600586EC4 /* EncryptedMessageLocal.swift in Sources */,
 				FA930D9B1E5B178F00069EE1 /* WebSocket.swift in Sources */,
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,

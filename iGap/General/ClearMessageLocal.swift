@@ -55,7 +55,7 @@ public class ClearMessageLocal: Message {
     ///   - padding: Padding to use during the encryption
     /// - Returns: Encrypted message
     /// - Throws: SwiftyRSAError
-    public func encrypted(with key: PublicKey, padding: Padding) throws -> EncryptedMessage {
+    public func encrypted(with key: PublicKey, padding: Padding) throws -> EncryptedMessageLocal {
         
         let blockSize = SecKeyGetBlockSize(key.reference)
         
@@ -93,8 +93,8 @@ public class ClearMessageLocal: Message {
             idx += maxChunkSize
         }
         
-        let encryptedData = Data(bytes: UnsafePointer<UInt8>(encryptedDataBytes), count: encryptedDataBytes.count)
-        return EncryptedMessage(data: encryptedData)
+        let encryptedData = Data(bytes: encryptedDataBytes, count: encryptedDataBytes.count)
+        return EncryptedMessageLocal(data: encryptedData)
     }
     
     /// Signs a clear message using a private key.

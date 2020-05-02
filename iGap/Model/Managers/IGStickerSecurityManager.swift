@@ -38,7 +38,7 @@ class IGStickerSecurityManager: NSObject {
     }
     
     func decrypt(data: String) throws -> [String: Any]? {
-        let encrypted = try EncryptedMessage(base64Encoded: data)
+        let encrypted = try EncryptedMessageLocal(base64Encoded: data)
         let prKey = try PrivateKey(data: privateKey)
         let clear = try encrypted.decrypted(with: prKey, padding: .PKCS1)
         let decryptedData = try clear.string(encoding: .utf8)
