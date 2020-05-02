@@ -2536,19 +2536,6 @@ extension String {
         }
         return nil
     }
-    func aesEncrypt(publicKey: String) -> String {
-        var encryptedMsg : String = ""
-        let dataKey = Data(self.utf8)
-        do {
-            let publicKey = try PublicKey(pemEncoded: publicKey)
-            let clear = ClearMessage(data: dataKey)
-            let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
-            encryptedMsg = encrypted.base64String
-        } catch  {
-            print(error)
-        }
-        return encryptedMsg
-    }
     
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
