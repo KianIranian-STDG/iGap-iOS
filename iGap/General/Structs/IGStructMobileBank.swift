@@ -159,3 +159,50 @@ enum ChequeStatus: String, Codable {
     case cash = "CASH"
     case used = "USED"
 }
+
+
+struct IGMBTransaction: Codable {
+    let agentBranchCode: String
+    let agentBranchName: String
+    let balance: Int64
+    let branchCode: String
+    let branchName: String
+    let customerDesc: String?
+    let date, datumDescription, referenceNumber: String
+    let registrationNumber: String?
+    let sequence: Int
+    let serial, serialNumber: String?
+    let transferAmount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case agentBranchCode = "agent_branch_code"
+        case agentBranchName = "agent_branch_name"
+        case balance
+        case branchCode = "branch_code"
+        case branchName = "branch_name"
+        case customerDesc = "customer_desc"
+        case date
+        case datumDescription = "description"
+        case referenceNumber = "reference_number"
+        case registrationNumber = "registration_number"
+        case sequence, serial
+        case serialNumber = "serial_number"
+        case transferAmount = "transfer_amount"
+    }
+}
+
+
+//"agent_branch_code": "5010",
+//"agent_branch_name": "بانکداري الکترونيک",
+//"balance": 48140579705,
+//"branch_code": "5010",
+//"branch_name": "بانکداري الکترونيک",
+//"customer_desc": null,
+//"date": "2020-04-29 12:25:22",
+//"description": "انتقال وجه از طریق اینترنت بانک از حساب 47000012780603  به حساب 47000273986601  ",
+//"reference_number": "B9902105010583373613",
+//"registration_number": null,
+//"sequence": 0,
+//"serial": null,
+//"serial_number": null,
+//"transfer_amount": -1000
