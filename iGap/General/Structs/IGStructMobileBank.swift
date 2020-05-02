@@ -115,3 +115,47 @@ struct IGMBShebaResponse: Codable {
 struct IGMBShebaNumber: Codable {
     let iban: String
 }
+
+struct IGMBChequeBook: Codable {
+    let issueDate, number: String
+    let numberOfPartialCashCheque, numberOfPassCheque, numberOfPermanentBlockedCheque, numberOfRejectCheque: Int
+    let numberOfTemporaryBlockCheque, numberOfUnusedCheque, pageCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case issueDate = "issue_date"
+        case number
+        case numberOfPartialCashCheque = "number_of_partial_cash_cheque"
+        case numberOfPassCheque = "number_of_pass_cheque"
+        case numberOfPermanentBlockedCheque = "number_of_permanent_blocked_cheque"
+        case numberOfRejectCheque = "number_of_reject_cheque"
+        case numberOfTemporaryBlockCheque = "number_of_temporary_block_cheque"
+        case numberOfUnusedCheque = "number_of_unused_cheque"
+        case pageCount = "page_count"
+    }
+}
+
+struct IGMBCheque: Codable {
+    let balance: Int?
+    let changeStatusDate: String
+    let chequeDescription: String?
+    let number: String
+    let payeeName: String?
+    let registerChequeDate: String?
+    let registerable: String?
+    let status: ChequeStatus
+
+    enum CodingKeys: String, CodingKey {
+        case balance
+        case changeStatusDate = "change_status_date"
+        case chequeDescription = "description"
+        case number
+        case payeeName = "payee_name"
+        case registerChequeDate = "register_cheque_date"
+        case registerable, status
+    }
+}
+
+enum ChequeStatus: String, Codable {
+    case cash = "CASH"
+    case used = "USED"
+}
