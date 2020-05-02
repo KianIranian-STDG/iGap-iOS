@@ -322,31 +322,28 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, WKNavigation
         }
     }
     
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         removeWebViewProgress()
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {}
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {}
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         removeWebViewProgress()
-        let title = webView.stringByEvaluatingJavaScript(from: "document.title")
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: webView.title)
         navigationItem.backViewContainer?.addAction {
             self.back()
         }
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        if request.url?.description == "igap://close" {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if webView.url?.description == "igap://close" {
             closeWebView()
         } else {
             makeWebViewProgress()
             webViewProgressbar.startAnimating()
         }
-        return true
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping ((WKNavigationActionPolicy) -> Void)) {

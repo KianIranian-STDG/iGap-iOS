@@ -10,10 +10,11 @@
 import UIKit
 import MBProgressHUD
 import IGProtoBuff
+import WebKit
 
 class IGRegistrationStepPrivacyPolicyViewController: BaseViewController {
     
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     var body : String!
     
     override func viewDidLoad() {

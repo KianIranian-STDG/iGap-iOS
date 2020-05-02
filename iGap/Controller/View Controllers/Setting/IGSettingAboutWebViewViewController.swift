@@ -9,13 +9,14 @@
  */
 
 import UIKit
+import WebKit
 
 class IGSettingAboutWebViewViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var pageUrl : String?
     var pageTitle: String?
     
-    @IBOutlet weak var igapWebview: UIWebView!
+    @IBOutlet weak var igapWebview: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +29,7 @@ class IGSettingAboutWebViewViewController: UIViewController, UIGestureRecognizer
         if pageUrl != nil {
             let url = URL(string: self.pageUrl!)!
             let request = NSURLRequest(url: url)
-            igapWebview.loadRequest(request as URLRequest)
+            igapWebview.load(request as URLRequest)
         }
         // Do any additional setup after loading the view.
     }

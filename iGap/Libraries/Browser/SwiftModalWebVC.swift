@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 public class SwiftModalWebVC: UINavigationController {
     
@@ -18,7 +19,7 @@ public class SwiftModalWebVC: UINavigationController {
         case arrow, cross
     }
     
-    weak var webViewDelegate: UIWebViewDelegate? = nil
+    weak var webViewDelegate: WKNavigationDelegate? = nil
     
     public convenience init(urlString: String, sharingEnabled: Bool = true) {
         var urlString = urlString
