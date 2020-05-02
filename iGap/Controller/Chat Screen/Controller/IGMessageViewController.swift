@@ -59,7 +59,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, WKNavigationDelegate, UITextFieldDelegate, HandleReciept {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -168,7 +168,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var dissmissViewBG = UIView()
     var dismissBtn : UIButton!
     var previousRect = CGRect.zero
-    var webView: UIWebView!
+    var webView: WKWebView!
     var webViewProgressbar: UIActivityIndicatorView!
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
@@ -4770,7 +4770,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func makeWebView(){
         if self.webView == nil {
-            self.webView = UIWebView()
+            self.webView = WKWebView()
         }
         mainView.addSubview(self.webView)
         self.webView.snp.makeConstraints { (make) in
@@ -4825,21 +4825,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        removeWebViewProgress()
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {}
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         removeWebViewProgress()
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        removeWebViewProgress()
-    }
-    
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        if request.url?.description == "igap://close" {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if webView.url?.description == "igap://close" {
             closeWebView()
         } else {
             makeWebViewProgress()
