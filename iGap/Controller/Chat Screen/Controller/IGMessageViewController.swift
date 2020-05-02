@@ -4742,7 +4742,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 if error == nil {
                     DispatchQueue.main.async {
-                        self.webView?.loadRequest(request)
+                        self.webView?.load(request)
                     }
                 } else {
                     print("ERROR: \(String(describing: error))")
@@ -4779,7 +4779,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             make.right.equalTo(mainView.snp.right)
             make.left.equalTo(mainView.snp.left)
         }
-        self.webView.delegate = self
+        self.webView.navigationDelegate = self
     }
     
     private func removeWebView(){
@@ -4842,7 +4842,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             makeWebViewProgress()
             webViewProgressbar.startAnimating()
         }
-        return true
     }
     
     /***** overrided method for location manager *****/
