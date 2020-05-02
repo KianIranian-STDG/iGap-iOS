@@ -2487,21 +2487,6 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		8EC42EFB24587296000889D3 /* Transactions */ = {
-			isa = PBXGroup;
-			children = (
-				8EC42EF924585D4C000889D3 /* RowOneCell.swift */,
-				8EC42EFC245872CE000889D3 /* RowTwoCell.swift */,
-				8EC42EFE245879C1000889D3 /* RowThreeCell.swift */,
-				8EC42F0024587CD3000889D3 /* RowFourCell.swift */,
-				8EC42F042459BA92000889D3 /* RowFiveCell.swift */,
-				8EC42F062459CA38000889D3 /* RowSixCell.swift */,
-				8EC42F0224599B32000889D3 /* CallenderCell.swift */,
-				8EC42F082459D3E7000889D3 /* BillCellInner.swift */,
-			);
-			name = Transactions;
-			sourceTree = "<group>";
-		};
 		8ECC183A222FEB5F006E43E8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2620,6 +2605,32 @@
 			path = New;
 			sourceTree = "<group>";
 		};
+		D23488F8245D576600AF116C /* MobileBank */ = {
+			isa = PBXGroup;
+			children = (
+				D2434DCB244EEF200057BA65 /* IGMBUserPass.swift */,
+				D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */,
+				D254C1EA24504221007767F4 /* IGMBSubTile.swift */,
+				D254C1EC245042AE007767F4 /* IGMbAccount.swift */,
+			);
+			path = MobileBank;
+			sourceTree = "<group>";
+		};
+		D23488F9245D577E00AF116C /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				8EC42EF924585D4C000889D3 /* RowOneCell.swift */,
+				8EC42EFC245872CE000889D3 /* RowTwoCell.swift */,
+				8EC42EFE245879C1000889D3 /* RowThreeCell.swift */,
+				8EC42F0024587CD3000889D3 /* RowFourCell.swift */,
+				8EC42F042459BA92000889D3 /* RowFiveCell.swift */,
+				8EC42F062459CA38000889D3 /* RowSixCell.swift */,
+				8EC42F0224599B32000889D3 /* CallenderCell.swift */,
+				8EC42F082459D3E7000889D3 /* BillCellInner.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
 		D2434DC4244EBABE0057BA65 /* MobileBank */ = {
 			isa = PBXGroup;
 			children = (
@@ -2631,18 +2642,6 @@
 				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
 			);
 			path = MobileBank;
-			sourceTree = "<group>";
-		};
-		D2434DCD244EEF5B0057BA65 /* MobileBank */ = {
-			isa = PBXGroup;
-			children = (
-				D2434DCB244EEF200057BA65 /* IGMBUserPass.swift */,
-				D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */,
-				D254C1EA24504221007767F4 /* IGMBSubTile.swift */,
-				8EC42EFB24587296000889D3 /* Transactions */,
-				D254C1EC245042AE007767F4 /* IGMbAccount.swift */,
-			);
-			name = MobileBank;
 			sourceTree = "<group>";
 		};
 		D2434DCE244EF37A0057BA65 /* MobileBank */ = {
@@ -2690,6 +2689,7 @@
 		D254C1F024504BD3007767F4 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D23488F9245D577E00AF116C /* Transactions */,
 				D254C1EE24504839007767F4 /* MBSubTileCell.swift */,
 				D254C1F324504D74007767F4 /* MBTopCell.swift */,
 				D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */,
@@ -3375,7 +3375,7 @@
 		FA7D021E1DB4DD9B009EE0CC /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				D2434DCD244EEF5B0057BA65 /* MobileBank */,
+				D23488F8245D576600AF116C /* MobileBank */,
 				FA63BA9E1DD70D56000B60AD /* Requests */,
 				FA5EC5DF1E068F02006E2850 /* File, media, attachment */,
 				FA5EC5DC1E068ED5006E2850 /* Room */,
@@ -3901,6 +3901,7 @@
 		FAF795FF1DAA392F0030509B /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				D254C1D9245009C4007767F4 /* MobileBank */,
 				FAF796001DAA392F0030509B /* Assets.xcassets */,
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FA075DE0232A3EEF002E7AC7 /* Dashboard StoryBoards */,
@@ -3920,7 +3921,6 @@
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
 				FA936905207364E100A0D86A /* Register.storyboard */,
 				D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */,
-				D254C1D9245009C4007767F4 /* MobileBank */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
