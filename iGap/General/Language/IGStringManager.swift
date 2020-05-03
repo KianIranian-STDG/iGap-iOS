@@ -831,6 +831,7 @@ enum IGStringsManager : String {
     case ReceivedFrom = "received_from"
     
     // Mobile Bank
+    case MBNavTitle = "mb_nav_title"
     case Login = "login"
     case LoginDescription = "login_description"
     case UsernameMB = "username_mb"

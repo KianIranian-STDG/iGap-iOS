@@ -6761,6 +6761,7 @@ Page 4 introduce app */
 "not_allow_send_message" = "شما مجاز به ارسال پیام نیستید!";
 
 // Mobile Bank
+"mb_nav_title" = "موبایل بانک";
 "login" = "ورود";
 "login_description" = "برای ورود به سیستم لطفا نام کاربری و رمزعبور موبایل بانک پارسیان خود را وارد نمایید";
 "username_mb" = "نام کاربری";

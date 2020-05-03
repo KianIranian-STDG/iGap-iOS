@@ -44,7 +44,7 @@ struct IGMBDepositResponse<T: Codable>: Codable {
     }
 }
 
-struct IGMBUserDeposit: Codable {
+struct IGMBDeposit: Codable {
     let availableBalance, balance, blockedAmount: Int
     let branchCode: String
     let creditDeposit, creditLoanRemainAmount, creditRateAmount, creditRemainAmount: String?
