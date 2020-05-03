@@ -280,3 +280,38 @@ enum IGMBLoanInstallmentPayStatus: String, Codable {
     case notPaidBeforeMaturity = "NOT_PAID_BEFORE_MATURITY"
     case paid = "PAID"
 }
+
+struct IGMBLoanPayment: Codable {
+    let appliedAmount: String
+    let documentNumber: String
+    let documentTitle: String
+    
+    enum CodingKeys: String, CodingKey {
+        case appliedAmount = "applied_amount"
+        case documentNumber = "document_number"
+        case documentTitle = "document_title"
+    }
+    
+}
+
+
+struct IGMBBlockCheque: Codable {
+    let blockingStatus: [IGMBChequeBlockStatus]
+    enum CodingKeys: String, CodingKey {
+        case blockingStatus = "blockingStatus"
+    }
+}
+
+struct IGMBChequeBlockStatus: Codable {
+    let chequeNumber: String
+    let blockingStatus: String
+    enum CodingKeys: String, CodingKey {
+        case chequeNumber = "chequeNumber"
+        case blockingStatus = "blockingStatus"
+    }
+}
+
+struct IGMBBaseResponse: Codable {
+    let message: String
+    let data: String?
+}
