@@ -3655,7 +3655,7 @@ TODO:// complete */
 "trace_number" = "Trace Number";
 
 /*  */
-"amount_2" = "amount :";
+"amount_2" = "Amount :";
 
 /*  */
 "payment_canceled" = "payment is canceled";
@@ -6753,3 +6753,33 @@ TODO:// complete */
 "mb_category_services" = "Services";
 "block_card" = "Block Card";
 "mb_sheba_number" = "IBAN Number";
+"mb_loan_number" = "Loan Number :";
+"mb_branch_name" = "Branch Name :";
+"mb_state" = "State :";
+"mb_start_date" = "Start Date :";
+"mb_end_date" = "End Date :";
+"mb_remained_loan_count" = "Remained Count :";
+"mb_loan_count" = "Loan Count :";
+
+"mb_personal_info" = "Personal Info";
+"mb_bank_code" = "Bank Code :";
+"mb_customer_code" = "Customer Code :";
+"mb_customer_name" = "Customer Name :";
+"mb_loan_info" = "Loan Info";
+"mb_penalty" = "Penalty :";
+"mb_discount" = "Discount :";
+"mb_matured_unpaied_info" = "Matured Unpaied Info";
+"mb_matured_unpaied_count" = "Matured Unpaied Count :";
+"mb_matured_unpaied_amount" = "Matured Unpaied Amount :";
+"mb_paied_info" = "Paid Info";
+"mb_paid_count" = "Paied Count :";
+"mb_paied_amount" = "Paied Amount :";
+"mb_unpaied_info" = "Unpaied Info";
+"mb_unpaid_count" = "Unpaied Count :";
+"mb_unpaied_amount" = "Unpaied Amount :";
+"mb_loans_list" = "Loan Payment List";
+"mb_loan_payment_state" = "Payment State :";
+"mb_loan_payment_amount" = "Pay Amount :";
+"mb_loan_unpaied_amount" = "Unpaid Amount :";
+"mb_loan_penalty_amount" = "Penalty Amount :";
+"mb_loan_payment_date" = "Payment Date :";
