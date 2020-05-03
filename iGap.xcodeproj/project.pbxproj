@@ -28,6 +28,7 @@
 		8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */; };
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BCBE723BA4D5000085792 /* CustomTextView.swift */; };
+		8E130AB6245F1817000746FD /* MobileBank.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E130AB5245F1817000746FD /* MobileBank.storyboard */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
 		8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */; };
 		8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */; };
@@ -1000,6 +1001,7 @@
 		8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListtCell.swift; sourceTree = "<group>"; };
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E0BCBE723BA4D5000085792 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		8E130AB5245F1817000746FD /* MobileBank.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MobileBank.storyboard; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
 		8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneBook.storyboard; sourceTree = "<group>"; };
 		8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inviteFreindsVC.swift; sourceTree = "<group>"; };
@@ -3930,6 +3932,7 @@
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FA075DE0232A3EEF002E7AC7 /* Dashboard StoryBoards */,
 				FAF796011DAA392F0030509B /* LaunchScreen.storyboard */,
+				8E130AB5245F1817000746FD /* MobileBank.storyboard */,
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				8E0A799223951736001A7EB6 /* News.storyboard */,
 				8EC03851239B84F400B525B5 /* BottomModal.storyboard */,
@@ -4303,6 +4306,7 @@
 				D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */,
 				8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
+				8E130AB6245F1817000746FD /* MobileBank.storyboard in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
 				8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,

@@ -717,14 +717,17 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         goToSettings = false
-//        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
-//        settingVC.hidesBottomBarWhenPushed = true
-//        self.navigationController!.pushViewController(settingVC, animated:true)
+        /*
+        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        settingVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(settingVC, animated:true)
+        */
+
+//        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
         
-//        let mobileBankVC = IGMBLoginVC()
-//        self.navigationController?.pushViewController(mobileBankVC, animated: true)
-        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
-        
+        let MBVC = IGMBLoginVC.instantiateFromAppStroryboard(appStoryboard: .MB)
+        MBVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(MBVC, animated:true)
     }
     
     //Hint: - Go To Cloud Action Handler

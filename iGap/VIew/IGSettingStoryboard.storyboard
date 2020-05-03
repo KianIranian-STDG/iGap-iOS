@@ -3646,7 +3646,7 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-ks-WND">
-                                <rect key="frame" x="101" y="162" width="197.5" height="27"/>
+                                <rect key="frame" x="101" y="165.5" width="199.5" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -5929,7 +5929,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="80" y="26" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Py-y5-PED">
-                                                            <rect key="frame" x="236" y="38.5" width="28" height="17.5"/>
+                                                            <rect key="frame" x="236" y="43" width="28" height="13"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -5945,7 +5945,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in my city " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-vU-V2r">
-                                                            <rect key="frame" x="15" y="5" width="274" height="28.5"/>
+                                                            <rect key="frame" x="15" y="5" width="274" height="33"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -5968,7 +5968,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="30" y="130.5" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:51" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAc-Ik-Hpo">
-                                                            <rect key="frame" x="236" y="38.5" width="28" height="17.5"/>
+                                                            <rect key="frame" x="236" y="43" width="28" height="13"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -5984,7 +5984,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in my city " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erE-yU-c3w">
-                                                            <rect key="frame" x="15" y="5" width="274" height="28.5"/>
+                                                            <rect key="frame" x="15" y="5" width="274" height="33"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6007,13 +6007,13 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="30" y="206.5" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-gs-jbR">
-                                                            <rect key="frame" x="236" y="38.5" width="28" height="17.5"/>
+                                                            <rect key="frame" x="236" y="43" width="28" height="13"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="01:04 | 02:54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSq-x6-UHh">
-                                                            <rect key="frame" x="70" y="38.5" width="65" height="17.5"/>
+                                                            <rect key="frame" x="70" y="43" width="64" height="13"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6515,7 +6515,7 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGButtonBGColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25490196078431371" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6530,10 +6530,10 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="0.17299999296665192" green="0.21199999749660492" blue="0.24699999392032623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGMessageTimeLabelColor">
-            <color white="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.41200000047683716" green="0.48199999332427979" blue="0.52899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSelectedChannelsCellBGColor">
             <color red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6542,7 +6542,7 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="0.90588235294117647" green="0.91764705882352937" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
-            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
