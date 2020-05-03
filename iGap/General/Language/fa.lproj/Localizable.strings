@@ -6773,3 +6773,34 @@ Page 4 introduce app */
 "mb_category_services" = "خدمات";
 "block_card" = "مسدود سازی کارت";
 "mb_sheba_number" = "شماره شبا";
+"mb_loan_number" = "شماره وام :";
+"mb_branch_name" = "نام شعبه :";
+"mb_state" = "وضعیت :";
+"mb_start_date" = "تاریخ شروع :";
+"mb_end_date" = "تاریخ پایان :";
+"mb_remained_loan_count" = "تعداد اقساط :";
+"mb_loan_count" = "اقساط باقیمانده :";
+"mb_personal_info" = "اطلاعات شخصی";
+"mb_bank_code" = "کد بانک :";
+"mb_customer_code" = "شماره مشتری :";
+"mb_customer_name" = "نام مشتری :";
+"mb_loan_info" = "اطلاعات وام";
+"mb_penalty" = "جریمه :";
+"mb_discount" = "تخفیف :";
+"mb_matured_unpaied_info" = "اطلاعات اقساط عقب افتاده";
+"mb_matured_unpaied_count" = "تعداد اقساط پرداخت نشده :";
+"mb_matured_unpaied_amount" = "مبلغ اقساط پرداخت نشده :";
+"mb_paied_info" = "اطلاعات اقساط پرداخت شده";
+"mb_paid_count" = "تعداد اقساط پرداخت شده :";
+"mb_paied_amount" = "مبلغ اقساط پرداخت شده :";
+"mb_unpaied_info" = "اطلاعات اقساط پرداخت نشده";
+"mb_unpaid_count" = "تعداد اقساط پرداخت نشده :";
+"mb_unpaied_amount" = "مبلغ اقساط پرداخت نشده :";
+"mb_loans_list" = "لیست اقساط";
+"mb_loan_payment_state" = "وضعیت پرداخت :";
+"mb_loan_payment_amount" = "مبلغ پرداختی :";
+"mb_loan_unpaied_amount" = "مبلغ باقیمانده :";
+"mb_loan_penalty_amount" = "مبلغ جریمه :";
+"mb_loan_payment_date" = "تاریخ پرداخت :";
+
+

@@ -721,9 +721,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 //        settingVC.hidesBottomBarWhenPushed = true
 //        self.navigationController!.pushViewController(settingVC, animated:true)
         
-        let mobileBankVC = IGMBLoginVC()
-        self.navigationController?.pushViewController(mobileBankVC, animated: true)
-//        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
+//        let mobileBankVC = IGMBLoginVC()
+//        self.navigationController?.pushViewController(mobileBankVC, animated: true)
+        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
         
     }
     

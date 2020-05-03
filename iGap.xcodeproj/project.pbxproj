@@ -83,6 +83,7 @@
 		8E4472A42331FE5100900244 /* IGProfileUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */; };
 		8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A523320D6000900244 /* IGProfileUserCell.swift */; };
 		8E4472A82332102600900244 /* IGProfileUSerCellTypeTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */; };
+		8E53BD91245EDE970008E045 /* LoanCellInnerBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53BD90245EDE970008E045 /* LoanCellInnerBottom.swift */; };
 		8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */; };
 		8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */; };
 		8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */; };
@@ -292,6 +293,12 @@
 		8EC42F11245AF271000889D3 /* onetwothreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */; };
 		8EC42F13245B04C2000889D3 /* IGHelperToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F12245B04C2000889D3 /* IGHelperToast.swift */; };
 		8EC42F15245B25FC000889D3 /* IGOneLabelTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */; };
+		8EC42F17245D8879000889D3 /* IGMBLoansVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F16245D8879000889D3 /* IGMBLoansVC.swift */; };
+		8EC42F19245D8917000889D3 /* LoansCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F18245D8917000889D3 /* LoansCell.swift */; };
+		8EC42F1B245D94DE000889D3 /* IGMBLoans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F1A245D94DE000889D3 /* IGMBLoans.swift */; };
+		8EC42F1D245DB307000889D3 /* IGMBLoansInnerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F1C245DB307000889D3 /* IGMBLoansInnerVC.swift */; };
+		8EC42F1F245DBA88000889D3 /* LoansCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F1E245DBA88000889D3 /* LoansCellInner.swift */; };
+		8EC42F21245DC2FF000889D3 /* LoansCellInnerTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC42F20245DC2FF000889D3 /* LoansCellInnerTop.swift */; };
 		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8EC94DF823955B89003B3510 /* IGNewsDoubleNTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */; };
 		8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */; };
@@ -1056,6 +1063,7 @@
 		8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserViewController.swift; sourceTree = "<group>"; };
 		8E4472A523320D6000900244 /* IGProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserCell.swift; sourceTree = "<group>"; };
 		8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUSerCellTypeTwo.swift; sourceTree = "<group>"; };
+		8E53BD90245EDE970008E045 /* LoanCellInnerBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCellInnerBottom.swift; sourceTree = "<group>"; };
 		8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMTwoInputView.xib; sourceTree = "<group>"; };
 		8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTwoInputView.swift; sourceTree = "<group>"; };
 		8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCardNumberTextField.swift; sourceTree = "<group>"; };
@@ -1274,6 +1282,12 @@
 		8EC42F10245AF271000889D3 /* onetwothreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onetwothreeViewController.swift; sourceTree = "<group>"; };
 		8EC42F12245B04C2000889D3 /* IGHelperToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperToast.swift; sourceTree = "<group>"; };
 		8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGOneLabelTVController.swift; sourceTree = "<group>"; };
+		8EC42F16245D8879000889D3 /* IGMBLoansVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBLoansVC.swift; sourceTree = "<group>"; };
+		8EC42F18245D8917000889D3 /* LoansCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoansCell.swift; sourceTree = "<group>"; };
+		8EC42F1A245D94DE000889D3 /* IGMBLoans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBLoans.swift; sourceTree = "<group>"; };
+		8EC42F1C245DB307000889D3 /* IGMBLoansInnerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBLoansInnerVC.swift; sourceTree = "<group>"; };
+		8EC42F1E245DBA88000889D3 /* LoansCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoansCellInner.swift; sourceTree = "<group>"; };
+		8EC42F20245DC2FF000889D3 /* LoansCellInnerTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoansCellInnerTop.swift; sourceTree = "<group>"; };
 		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDoubleNTVCell.swift; sourceTree = "<group>"; };
 		8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGNewsDoubleNTVCell.xib; sourceTree = "<group>"; };
@@ -2614,6 +2628,7 @@
 				D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */,
 				D254C1EA24504221007767F4 /* IGMBSubTile.swift */,
 				D254C1EC245042AE007767F4 /* IGMbAccount.swift */,
+				8EC42F1A245D94DE000889D3 /* IGMBLoans.swift */,
 				D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */,
 			);
 			path = MobileBank;
@@ -2643,6 +2658,8 @@
 				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
 				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
 				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
+				8EC42F16245D8879000889D3 /* IGMBLoansVC.swift */,
+				8EC42F1C245DB307000889D3 /* IGMBLoansInnerVC.swift */,
 			);
 			path = MobileBank;
 			sourceTree = "<group>";
@@ -2699,6 +2716,10 @@
 				8EC42EEC24549182000889D3 /* MBAccountPagerCell.swift */,
 				D2CC15112451751C0083FF48 /* MBCardCell.swift */,
 				8EC42EEE2454943A000889D3 /* MBAccountCell.swift */,
+				8EC42F18245D8917000889D3 /* LoansCell.swift */,
+				8EC42F1E245DBA88000889D3 /* LoansCellInner.swift */,
+				8EC42F20245DC2FF000889D3 /* LoansCellInnerTop.swift */,
+				8E53BD90245EDE970008E045 /* LoanCellInnerBottom.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -4573,6 +4594,7 @@
 				8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */,
 				8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
+				8EC42F17245D8879000889D3 /* IGMBLoansVC.swift in Sources */,
 				8E3C699223603724001575BE /* PanModalPresentationAnimator.swift in Sources */,
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,
 				8EC94E112396686A003B3510 /* IGNewsSectionInnerTVCell.swift in Sources */,
@@ -4640,6 +4662,7 @@
 				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
 				8E3C697023603096001575BE /* MusicCell.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
+				8EC42F1B245D94DE000889D3 /* IGMBLoans.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
 				8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */,
@@ -4881,6 +4904,7 @@
 				FAD530651E0BDE2A00FE6C54 /* IGNavigationItem.swift in Sources */,
 				8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,
+				8EC42F21245DC2FF000889D3 /* LoansCellInnerTop.swift in Sources */,
 				FA98F838204D37670070424E /* IGCallQuality.swift in Sources */,
 				8E8E505C23E05CB70094A91C /* IGStickerNode.swift in Sources */,
 				8EBA835523FBDA1500871FCA /* ASAnimationManager.swift in Sources */,
@@ -4988,6 +5012,7 @@
 				8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */,
 				FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */,
 				8E4177F5233CDABD00CEB3AF /* AKMaskField.swift in Sources */,
+				8E53BD91245EDE970008E045 /* LoanCellInnerBottom.swift in Sources */,
 				FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */,
 				8E8ABDC12394F2EA00DE00DB /* IGStructNewsMainPage.swift in Sources */,
 				8E96A310225B6DCC007D8A77 /* SMHistoryTableViewCell.swift in Sources */,
@@ -5067,6 +5092,8 @@
 				8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */,
 				8E25A7C322674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift in Sources */,
 				D680860123B8D7FE00E456EA /* StructTest.swift in Sources */,
+				8EC42F1F245DBA88000889D3 /* LoansCellInner.swift in Sources */,
+				8EC42F19245D8917000889D3 /* LoansCell.swift in Sources */,
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */,
 				FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */,
@@ -5076,6 +5103,7 @@
 				D67E982B23A6792C003C1516 /* HasImageZoomControllers.swift in Sources */,
 				D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
+				8EC42F1D245DB307000889D3 /* IGMBLoansInnerVC.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
 				8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */,
