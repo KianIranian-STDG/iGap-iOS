@@ -15,7 +15,7 @@ import SwiftEventBus
 class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblInAppBrowser : UILabel!
-    @IBOutlet weak var lblStickers : UILabel!
+//    @IBOutlet weak var lblStickers : UILabel!
     @IBOutlet weak var lblLightTheme : UILabel!
     @IBOutlet weak var lblDarkTheme : UILabel!
     @IBOutlet weak var lblChatBG : UILabel!
@@ -371,7 +371,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         lblMessagePreview2.text = IGStringsManager.ChatSample2.rawValue.localized
         // MARK: - Section 1
         // MARK: - Section 2
-        lblStickers.text = IGStringsManager.Sticker.rawValue.localized
+//        lblStickers.text = IGStringsManager.Sticker.rawValue.localized
         lblInAppBrowser.text = IGStringsManager.InAppbrowser.rawValue.localized
         
     }
@@ -433,7 +433,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.lblMinA.textColor = ThemeManager.currentTheme.LabelColor
         self.lblChatBG.textColor = ThemeManager.currentTheme.LabelColor
         self.lblInAppBrowser.textColor = ThemeManager.currentTheme.LabelColor
-        self.lblStickers.textColor = ThemeManager.currentTheme.LabelColor
+//        self.lblStickers.textColor = ThemeManager.currentTheme.LabelColor
         self.switchInAppBrowser.onTintColor = ThemeManager.currentTheme.SliderTintColor
         self.lblMessagePreview2.textColor = ThemeManager.currentTheme.LabelColor
         self.messageTimePreview2.textColor = ThemeManager.currentTheme.LabelColor
