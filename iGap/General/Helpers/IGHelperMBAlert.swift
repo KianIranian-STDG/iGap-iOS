@@ -29,6 +29,199 @@ class IGHelperMBAlert {
     let window = UIApplication.shared.keyWindow
     
     
+    func showAddAccount(view: UIViewController? = nil, alertType: helperAlertType! = helperAlertType.twoButton, title: String? = nil ,doneTitleColor: UIColor = UIColor.darkGray, cancelTitleColor: UIColor = UIColor.darkGray,doneBackColor : UIColor = UIColor.white,cancelBackColor : UIColor = UIColor.white, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
+        
+        let alertView : UIWindow? = UIApplication.shared.keyWindow
+
+        UIApplication.topViewController()?.view.endEditing(true)
+        ///check if there's already one customAlert on screen remove it and creat a new one
+        if self.customAlert != nil {
+            self.removeCustomAlertView()
+        }
+        if self.customAlert == nil {
+            
+            self.creatBlackBackgroundView()///view for black transparet on back of alert
+            
+            self.customAlert = self.creatCustomAlertView()///creat customAlertView
+            
+            //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromTop, animations: {
+                self.window!.addSubview(self.customAlert)
+                self.customAlert = self.creatCustomAlertView()///creat customAlertView
+                self.window!.addSubview(self.customAlert)
+
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:300)///setConstraintsTo CustomeAlert
+            ///create StackView for holding Buttons
+            let stackButtons : UIStackView
+            stackButtons = UIStackView()
+            stackButtons.axis = .horizontal
+            stackButtons.alignment = .fill
+            stackButtons.distribution = .fillEqually
+            stackButtons.spacing = 5
+            if alertType != helperAlertType.noButton {
+                self.customAlert.addSubview(stackButtons)
+                ///set Constraints for stackView
+                self.setConstraintsToButtonsStackView(customStack: stackButtons, customAlertView: self.customAlert)
+                ///set Constraints for borderView above stack of Buttons
+                self.customAlert.clipsToBounds = true
+                if alertType == helperAlertType.oneButton {
+                    let btnDone = UIButton()
+                    btnDone.layer.cornerRadius = 15
+                    btnDone.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                    btnDone.setTitle(doneText, for: .normal)
+                    btnDone.backgroundColor = doneBackColor
+                    btnDone.setTitleColor(doneTitleColor, for: .normal)
+
+                    stackButtons.addArrangedSubview(btnDone)
+                    ////DOne Tap GEsture Handler
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+                    tapGestureRecognizer.numberOfTapsRequired = 1
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    btnDone.addGestureRecognizer(tapGestureRecognizer)
+
+                
+
+                } else {
+                    let btnDone = UIButton()
+                    let btnCancel = UIButton()
+                    btnDone.layer.cornerRadius = 15
+                    btnCancel.layer.cornerRadius = 15
+                    btnDone.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                    btnCancel.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                    btnDone.setTitle(doneText, for: .normal)
+                    btnDone.backgroundColor = doneBackColor
+                    btnCancel.backgroundColor = cancelBackColor
+                    btnCancel.setTitle(cancelText, for: .normal)
+                    btnCancel.setTitleColor(cancelTitleColor, for: .normal)
+                    btnDone.setTitleColor(doneTitleColor, for: .normal)
+
+                    stackButtons.addArrangedSubview(btnCancel)
+                    stackButtons.addArrangedSubview(btnDone)
+
+                    ////DOne Tap GEsture Handler
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+                    tapGestureRecognizer.numberOfTapsRequired = 1
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    btnDone.addGestureRecognizer(tapGestureRecognizer)
+                    ////Cancel Tap GEsture Handler
+                    let tapGestureRecognizerCancel = UITapGestureRecognizer(target: self, action: #selector(self.didCancelGotTap))
+                    tapGestureRecognizerCancel.numberOfTapsRequired = 1
+                    tapGestureRecognizerCancel.numberOfTouchesRequired = 1
+                    btnCancel.addGestureRecognizer(tapGestureRecognizerCancel)
+
+                }
+
+            }
+            stackButtons.translatesAutoresizingMaskIntoConstraints = false
+
+            let stackTitleAndIcon = UIStackView()
+            createCloseAndTitleStack(stk: stackTitleAndIcon,title: title!,customAlertView: self.customAlert)
+            addAccountData(customAlertView: self.customAlert)
+            
+            self.actionDone = done
+                self.actionCancel = cancel
+            self.customAlert?.alpha = 0
+            self.customAlert?.fadeIn(0.3)
+
+
+
+            
+        }
+
+        
+    }
+    private func createCloseAndTitleStack(stk : UIStackView,title : String,customAlertView: UIView) {
+        stk.axis = .horizontal
+        stk.alignment = .fill
+        stk.distribution = .fill
+
+        let titleLabel = UILabel()
+        let titleIcon = UILabel()
+        
+        titleLabel.font = UIFont.igFont(ofSize: 13,weight: .bold)
+        titleIcon.font = UIFont.iGapFonticon(ofSize: 13)
+        titleIcon.text = ""
+        titleLabel.numberOfLines = 1
+        
+        titleLabel.textColor = ThemeManager.currentTheme.LabelColor
+        titleIcon.textColor = ThemeManager.currentTheme.LabelColor
+        
+        titleLabel.textAlignment = titleLabel.localizedDirection
+        titleIcon.textAlignment = .left
+        stk.addArrangedSubview(titleIcon)
+        stk.addArrangedSubview(titleLabel)
+        titleLabel.text = title
+        
+        customAlertView.addSubview(stk)
+        
+        stk.translatesAutoresizingMaskIntoConstraints = false
+
+        stk.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 10).isActive = true
+        stk.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
+        stk.topAnchor.constraint(equalTo: customAlertView.topAnchor,constant: 10).isActive = true
+
+
+
+    }
+    private func addAccountData(customAlertView: UIView) {
+        let labelAccount = UILabel()
+        let txtAccountNumber = UITextField()
+        labelAccount.text = "Account Number"
+        labelAccount.textAlignment = .center
+        labelAccount.font = UIFont.igFont(ofSize: 13)
+        
+        txtAccountNumber.textContentType = .creditCardNumber
+        txtAccountNumber.layer.borderColor = UIColor.black.cgColor
+        txtAccountNumber.layer.borderWidth = 0.5
+        txtAccountNumber.layer.cornerRadius = 5
+        
+        customAlertView.addSubview(labelAccount)
+        customAlertView.addSubview(txtAccountNumber)
+        labelAccount.translatesAutoresizingMaskIntoConstraints = false
+        labelAccount.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 10).isActive = true
+        labelAccount.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
+        labelAccount.topAnchor.constraint(equalTo: customAlertView.topAnchor,constant: 50).isActive = true
+
+        txtAccountNumber.translatesAutoresizingMaskIntoConstraints = false
+        txtAccountNumber.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 40).isActive = true
+        txtAccountNumber.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -40).isActive = true
+        txtAccountNumber.topAnchor.constraint(equalTo: labelAccount.bottomAnchor,constant: 10).isActive = true
+        txtAccountNumber.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+        
+        let lblLocalPass = UILabel()
+        let txtLocalPass = UITextField()
+        lblLocalPass.text = "Local Password"
+        lblLocalPass.textAlignment = .center
+        lblLocalPass.font = UIFont.igFont(ofSize: 13)
+        
+        txtLocalPass.textContentType = .password
+        txtLocalPass.layer.borderColor = UIColor.black.cgColor
+        txtLocalPass.layer.borderWidth = 0.5
+        txtLocalPass.layer.cornerRadius = 5
+        
+        customAlertView.addSubview(lblLocalPass)
+        customAlertView.addSubview(txtLocalPass)
+        lblLocalPass.translatesAutoresizingMaskIntoConstraints = false
+        lblLocalPass.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 10).isActive = true
+        lblLocalPass.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
+        lblLocalPass.topAnchor.constraint(equalTo: txtAccountNumber.bottomAnchor,constant: 30).isActive = true
+
+        txtLocalPass.translatesAutoresizingMaskIntoConstraints = false
+        txtLocalPass.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 40).isActive = true
+        txtLocalPass.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -40).isActive = true
+        txtLocalPass.topAnchor.constraint(equalTo: lblLocalPass.bottomAnchor,constant: 10).isActive = true
+        txtLocalPass.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     ///Custome Alert By Benjamin
     ///showCancelButton:  which is of Type Bool represent for showing cancel button or not - Default is True
     ///showDoneButton : which is of Type Bool represent for showing Done button or not - Default is True
