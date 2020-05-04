@@ -453,54 +453,54 @@ class SMCard : SMEntity{
     }
     static func getAllCardsFromServer(_ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
 
-        var serverCards = [SMCard]()
-        serverCards.removeAll()
-        let cardRequest = WS_methods(delegate: self, failedDialog: false)
-        cardRequest.addSuccessHandler { (response : Any) in
-            SMLoading.hideLoadingPage()
-
-            for item in response as! [NSDictionary]{
-                let cardItem = item as? Dictionary<String, AnyObject>
-                let card = SMCard()
-                card.balance = cardItem?["balance"] as? Int64
-                card.pan = cardItem?["card_number"] as? String
-                card.token = cardItem?["token"] as? String
-                card.protected = cardItem?["protected"] as? Bool
-                card.type = cardItem?["type"] as? Int64
-                card.cashablebalance = cardItem?["cashable_balance"] as? Int64
-                card.cashout = cardItem?["cash_out"] as? Bool
-                card.cashin = cardItem?["cash_in"] as? Bool
-                card.bankCode = cardItem?["bank_code"] as? Int64
-                card.backgroundimage = cardItem?["background_image"] as? String
-                card.isDefault = cardItem?["default"] as? Bool ?? false
-                card.clubID = cardItem?["club_id"] as? String
-
-                let bank = SMBank()
-                bank.setBankInfo(code: card.bankCode ?? 0)
-                card.bank = bank
-                serverCards.append(card)
-            }
-
-
-            SMCard.deleteAllCardsFromDB()
-            SMCard.addCardsToDB(cards:serverCards)
-
-            let tmpCards = SMCard.getAllCardsFromDB()
-            onSuccess?(serverCards)
-        }
-
-
-        
-        cardRequest.addFailedHandler({ (response: Any) in
-//            SMLog.SMPrint("faild")
-            SMLoading.hideLoadingPage()
-            onFailed?(response)
-            print(response)
-
-        })
-        DispatchQueue.main.async(execute: { () -> Void in
-        cardRequest.pc_listcard()
-        })
+//        var serverCards = [SMCard]()
+//        serverCards.removeAll()
+//        let cardRequest = WS_methods(delegate: self, failedDialog: false)
+//        cardRequest.addSuccessHandler { (response : Any) in
+//            SMLoading.hideLoadingPage()
+//
+//            for item in response as! [NSDictionary]{
+//                let cardItem = item as? Dictionary<String, AnyObject>
+//                let card = SMCard()
+//                card.balance = cardItem?["balance"] as? Int64
+//                card.pan = cardItem?["card_number"] as? String
+//                card.token = cardItem?["token"] as? String
+//                card.protected = cardItem?["protected"] as? Bool
+//                card.type = cardItem?["type"] as? Int64
+//                card.cashablebalance = cardItem?["cashable_balance"] as? Int64
+//                card.cashout = cardItem?["cash_out"] as? Bool
+//                card.cashin = cardItem?["cash_in"] as? Bool
+//                card.bankCode = cardItem?["bank_code"] as? Int64
+//                card.backgroundimage = cardItem?["background_image"] as? String
+//                card.isDefault = cardItem?["default"] as? Bool ?? false
+//                card.clubID = cardItem?["club_id"] as? String
+//
+//                let bank = SMBank()
+//                bank.setBankInfo(code: card.bankCode ?? 0)
+//                card.bank = bank
+//                serverCards.append(card)
+//            }
+//
+//
+//            SMCard.deleteAllCardsFromDB()
+//            SMCard.addCardsToDB(cards:serverCards)
+//
+//            let tmpCards = SMCard.getAllCardsFromDB()
+//            onSuccess?(serverCards)
+//        }
+//
+//
+//        
+//        cardRequest.addFailedHandler({ (response: Any) in
+////            SMLog.SMPrint("faild")
+//            SMLoading.hideLoadingPage()
+//            onFailed?(response)
+//            print(response)
+//
+//        })
+//        DispatchQueue.main.async(execute: { () -> Void in
+//        cardRequest.pc_listcard()
+//        })
     }
 
     static func getMerchatnCardsFromServer(accountId: String, _ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){

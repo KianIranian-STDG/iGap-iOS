@@ -859,10 +859,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     @IBAction func btnCreditTapped(_ sender: Any) {
-        goToSettings = false
-        let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
-        walletVC.hidesBottomBarWhenPushed = true
-        self.navigationController!.pushViewController(walletVC, animated:true)
+//        goToSettings = false
+//        let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+//        walletVC.hidesBottomBarWhenPushed = true
+//        self.navigationController!.pushViewController(walletVC, animated:true)
 
     }
     

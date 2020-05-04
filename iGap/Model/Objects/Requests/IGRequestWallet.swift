@@ -50,42 +50,42 @@ let auth = WS_SecurityManager()
 class IGRequestWalletGetAccessToken : IGRequest {
     
     class func sendRequest(){
-        IGRequestWalletGetAccessToken.Generator.generate().success({ (protoResponse) in
-            
-            if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
-                    let keychain = KeychainSwift()
-                keychain.set(response.igpAccessToken , forKey: "accesstoken")
-                keychain.set("bearer" , forKey: "tokentype")
-                keychain.set(nil ?? "", forKey: "refreshtoken")
-
-                let securitymanager = WS_SecurityManager()
-//                let auth = WS_main()
-                securitymanager.setJWT(response.igpAccessToken)
-                print(response.igpAccessToken)
-                getUserIDFrmToken(token: "1234")
-//                getUserIDFrmToken(token: response.igpAccessToken)
-                let _ : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
-//                getUserIDFrmToken(token: tmpBase64Token)
-
-                securitymanager.setTokenType("bearer")
-                
-                callCards()
-                SMUserManager.getUserProfileFromServer()
-
-
-                SMUserManager.saveDataToKeyChain()
-            }
-            
-            
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                sendRequest()
-                break
-            default:
-                break
-            }
-        }).send()
+//        IGRequestWalletGetAccessToken.Generator.generate().success({ (protoResponse) in
+//            
+//            if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
+//                    let keychain = KeychainSwift()
+//                keychain.set(response.igpAccessToken , forKey: "accesstoken")
+//                keychain.set("bearer" , forKey: "tokentype")
+//                keychain.set(nil ?? "", forKey: "refreshtoken")
+//
+//                let securitymanager = WS_SecurityManager()
+////                let auth = WS_main()
+//                securitymanager.setJWT(response.igpAccessToken)
+//                print(response.igpAccessToken)
+//                getUserIDFrmToken(token: "1234")
+////                getUserIDFrmToken(token: response.igpAccessToken)
+//                let _ : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
+////                getUserIDFrmToken(token: tmpBase64Token)
+//
+//                securitymanager.setTokenType("bearer")
+//                
+//                callCards()
+//                SMUserManager.getUserProfileFromServer()
+//
+//
+//                SMUserManager.saveDataToKeyChain()
+//            }
+//            
+//            
+//        }).error ({ (errorCode, waitTime) in
+//            switch errorCode {
+//            case .timeout:
+//                sendRequest()
+//                break
+//            default:
+//                break
+//            }
+//        }).send()
     }
 
     class Generator : IGRequest.Generator{
