@@ -3795,7 +3795,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             giftStickerModal.btnOne.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
             giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
             giftStickerModal.btnTwo.isHidden = true
-            
+            giftStickerModal.infoLblOne.text = IGStringsManager.EnterNationalCode.rawValue.localized
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
             
