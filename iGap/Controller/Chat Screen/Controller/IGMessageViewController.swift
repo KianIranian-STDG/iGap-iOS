@@ -1953,7 +1953,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton){
-        manageRequestPhone()
+        
+        
+        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.PhoneSendAuthDescription.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
+                    return
+                }) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.manageRequestPhone()
+                }
+        
     }
     
     private func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton){
@@ -1974,8 +1984,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.view.endEditing(true)
         if (self.room?.title) != nil {
             if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
-                self.messageTextView.text = String(describing: userInfo.phone)
-                self.didTapOnSendButton(self.btnSend)
+                let message = IGRoomMessage.makeBotAdditionalData(message: "\(userInfo.phone)", phone: "\(userInfo.phone)")
+                manageSendMessage(message: message)
             }
         }
     }

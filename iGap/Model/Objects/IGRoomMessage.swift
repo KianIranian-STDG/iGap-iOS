@@ -11,6 +11,7 @@
 import RealmSwift
 import Foundation
 import IGProtoBuff
+import SwiftyJSON
 
 class IGRoomMessage: Object {
     @objc dynamic var message:            String?
@@ -277,6 +278,27 @@ class IGRoomMessage: Object {
         let additional = IGRealmAdditional(additionalData: additionalData, additionalType: Int32(AdditionalType.CARD_TO_CARD_PAY.rawValue))
         message.additional = additional
         return message
+    }
+    
+    static func makeBotAdditionalData(message: String, phone: String) -> IGRoomMessage {
+        let message = IGRoomMessage(body: message)
+        
+        let additionalDataDict = ["label": "",
+                                  "imageUrl": "",
+                                  "actionType": "9",
+                                  "value": phone
+        ]
+        
+        guard let additionalDataJson = JSON(additionalDataDict).rawString([.jsonSerialization: JSONSerialization.WritingOptions.prettyPrinted,.encoding : String.Encoding.utf8]) else {
+            return message
+        }
+        
+        
+        let additionalData = IGRealmAdditional(additionalData: additionalDataJson, additionalType: Int32(IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue))
+        message.additional = additionalData
+        
+        return message
+        
     }
     
     static func putOrUpdate(igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption(), completion: @escaping (_ message: IGRoomMessage) -> ()) {

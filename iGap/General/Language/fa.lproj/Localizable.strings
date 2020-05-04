@@ -6759,3 +6759,4 @@ Page 4 introduce app */
 "send_link" = "ارسال پیوند";
 "fetching_info" = "دریافت اطلاعات ...";
 "not_allow_send_message" = "شما مجاز به ارسال پیام نیستید!";
+"phone_send_auth_description" = "آیا از ارسال شماره تلفن خود اطمینان دارید؟";

@@ -773,6 +773,7 @@ enum IGStringsManager : String {
     case SendAgain = "send_again"
     case UnknownMessage = "unknown_message"
     case You = "you"
+    case PhoneSendAuthDescription = "phone_send_auth_description"
     //MARK: -Player
     case UnknownArtist = "unknown_artist"
     case UnknownAudio = "unknown_audio"
