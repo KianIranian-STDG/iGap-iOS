@@ -5285,7 +5285,7 @@
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
@@ -5353,7 +5353,7 @@
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
