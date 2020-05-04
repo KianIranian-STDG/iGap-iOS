@@ -173,6 +173,26 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     /******************* Notificaton Start *******************/
     
+    func deleteToken() {
+        let instance = InstanceID.instanceID()
+        instance.deleteID { (error) in
+            print(error.debugDescription)
+        }
+
+    }
+    func refreshFCMToken() {
+        let instance = InstanceID.instanceID()
+        instance.instanceID { (result, error) in
+          if let error = error {
+            print("Error fetching FCMRemote Instance ID: \(error)")
+          } else {
+            print("FCMRemote instance ID token: \(String(describing: result?.token))")
+          }
+        }
+        Messaging.messaging().shouldEstablishDirectChannel = true
+
+    }
+    
     func pushNotification(_ application: UIApplication) {
         FirebaseApp.configure()
         Messaging.messaging().isAutoInitEnabled = true
@@ -202,7 +222,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("FCM Token: \(fcmToken)")
+        print("FCMRemote Token: \(fcmToken)")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

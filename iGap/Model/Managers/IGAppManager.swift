@@ -143,6 +143,10 @@ class IGAppManager: NSObject {
         
         IGRequestManager.sharedManager.userDidLogout()
         IGHelperPreferences.shared.removeAllPreferences()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.deleteToken()
+        appDelegate.refreshFCMToken()
+
     }
     
     public func bundleShortVersion() -> String {
