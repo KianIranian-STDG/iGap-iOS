@@ -1034,6 +1034,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
         self.view.endEditing(true)
+        hideGiftStickerModal()
         if !room!.isInvalidated {
             IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         }
@@ -4228,6 +4229,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
                 if self.giftStickerModal != nil {
+                    self.giftStickerModal.edtInternationalCode.endEditing(true)
+
                     self.giftStickerModal.removeFromSuperview()
                     self.giftStickerModal.edtInternationalCode.endEditing(true)
                     self.giftStickerModal = nil

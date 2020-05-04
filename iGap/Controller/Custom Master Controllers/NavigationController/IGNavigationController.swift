@@ -185,6 +185,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
                 return super.popViewController(animated: animated)
             } else {
                 SwiftEventBus.post(EventBusManager.changeDirection)
+                UIApplication.topViewController()?.view.endEditing(true)
                 return super.popViewController(animated: animated)
             }
         } else {
