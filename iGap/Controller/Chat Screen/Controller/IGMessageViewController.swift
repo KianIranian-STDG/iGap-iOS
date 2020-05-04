@@ -896,6 +896,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        self.view.endEditing(true)
+        
         initNotificationsNewChatView()
         self.addNotificationObserverForTapOnStatusBar()
         
