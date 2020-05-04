@@ -30,6 +30,25 @@ struct IGMBCard: Codable {
         case issueDate = "issue_date"
         case number = "pan"
     }
+    
+    var fullname: String {
+        get {
+            return holderFirstName + " " + holderLastName
+        }
+    }
+    
+    var separatedCardNumber: String {
+        get {
+            var arr = Array(number)
+
+            arr.insert("-", at: 4)
+            arr.insert("-", at: 9)
+            arr.insert("-", at: 14)
+            
+            return String(arr)
+        }
+    }
+    
 }
 
 struct IGMBDepositResponse<T: Codable>: Codable {
