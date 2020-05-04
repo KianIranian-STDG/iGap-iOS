@@ -154,7 +154,7 @@ class IGScoreViewController: BaseViewController {
                 space += (5 + (CGFloat(holderHeight)))
             }
         }
-        SMLoading.hideLoadingPage()
+        IGLoading.hideLoadingPage()
     }
     
     
@@ -218,7 +218,7 @@ class IGScoreViewController: BaseViewController {
     }
     
     private func getScore() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
 
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             

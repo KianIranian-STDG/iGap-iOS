@@ -3611,7 +3611,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var sourceCard: SMCard!
     
     func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         SMCard.getAllCardsFromServer({ cards in
             if cards != nil{
                 if (cards as? [SMCard]) != nil{
@@ -3631,12 +3631,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             needToUpdate = true
         }, onFailed: {err in
-            //            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
+            //            IGLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
         })
     }
     func transferToWallet(pbKey: String!,token: String)  {
         
-        SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
+        IGLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
             self.payFromSingleCard(card: self.sourceCard , pin : (pin as! String))
         }, forgotPin: {
             
@@ -3684,7 +3684,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }, onFailed: {err in
                 if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                    IGLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
                 }
             })
         }
@@ -4009,9 +4009,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideGiftStickerCardInfoModal()
                 
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
-                SMLoading.showLoadingPage(viewcontroller: self)
+                IGLoading.showLoadingPage(viewcontroller: self)
                 IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ [weak self] (protoResponse) in
-                    SMLoading.hideLoadingPage()
+                    IGLoading.hideLoadingPage()
                     if let response = protoResponse as? IGPWalletPaymentInitResponse {
                         SMUserManager.publicKey = response.igpPublicKey
                         SMUserManager.payToken = response.igpToken
@@ -4021,7 +4021,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     switch errorCode {
                         
                     case .timeout:
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self?.walletTransferTapped()
                     default:
                         break

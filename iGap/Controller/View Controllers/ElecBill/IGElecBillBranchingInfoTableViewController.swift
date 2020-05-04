@@ -88,7 +88,7 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
         let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
         let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         getBranchingInfo(userPhoneNumber: userPhoneNumber)
 
     }
@@ -280,7 +280,7 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     private func getBranchingInfo(userPhoneNumber: String!) {
 
         IGApiElectricityBill.shared.branchingInfo(billNumber: (billNUmber)!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
 
                 self.billInqueryData = response?.data

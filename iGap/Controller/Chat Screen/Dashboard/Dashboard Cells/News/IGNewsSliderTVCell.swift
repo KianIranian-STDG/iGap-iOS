@@ -109,9 +109,9 @@ class IGNewsSliderTVCell: UITableViewCell {
     
 }
 private func gotToNewsPage(articleID: String) {
-    SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+    IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
      IGApiNews.shared.getNewsDetail(articleId: articleID) { (isSuccess, response) in
-         SMLoading.hideLoadingPage()
+         IGLoading.hideLoadingPage()
          if isSuccess {
              let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
              newsDetail.item = response!

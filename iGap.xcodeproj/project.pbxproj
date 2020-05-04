@@ -126,6 +126,7 @@
 		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
 		8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8E88918C24604E9C00BB449A /* IGLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88918B24604E9C00BB449A /* IGLoading.swift */; };
 		8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */; };
 		8E8ABDC12394F2EA00DE00DB /* IGStructNewsMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */; };
 		8E8ABDC42394F89600DE00DB /* IGNewsSliderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC22394F89600DE00DB /* IGNewsSliderTVCell.swift */; };
@@ -1109,6 +1110,7 @@
 		8E83CAA123408E8600A8CF65 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
 		8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTransparentTabBar.swift; sourceTree = "<group>"; };
 		8E871886233CEE18004A5E56 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
+		8E88918B24604E9C00BB449A /* IGLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLoading.swift; sourceTree = "<group>"; };
 		8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsTableViewController.swift; sourceTree = "<group>"; };
 		8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructNewsMainPage.swift; sourceTree = "<group>"; };
 		8E8ABDC22394F89600DE00DB /* IGNewsSliderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsSliderTVCell.swift; sourceTree = "<group>"; };
@@ -3539,6 +3541,7 @@
 				8E599D822328D13900D75376 /* CallTypesCVCell.swift */,
 				8E599D832328D13900D75376 /* CallTypesCVCell.xib */,
 				FA42EEF71E5C205D00CF8A32 /* IGImageView.swift */,
+				8E88918B24604E9C00BB449A /* IGLoading.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -4560,6 +4563,7 @@
 				8E8E505423DF09600094A91C /* IGMusicNode.swift in Sources */,
 				8E599D7F2328BDB000D75376 /* IGContactListTableViewController.swift in Sources */,
 				8E96A311225B6DCC007D8A77 /* SMHistoryTableViewController.swift in Sources */,
+				8E88918C24604E9C00BB449A /* IGLoading.swift in Sources */,
 				D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */,
 				FA8F22581DD89F7C005A90D1 /* IGAvatar.swift in Sources */,
 				6879C68B243DD83100E3F2A8 /* IGRoomListNodeController.swift in Sources */,

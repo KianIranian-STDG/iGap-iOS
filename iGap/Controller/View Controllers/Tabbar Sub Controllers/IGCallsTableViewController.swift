@@ -374,17 +374,17 @@ class IGCallsTableViewController: BaseTableViewController {
 //    }
     private func sendClearOneRowRequest(rowID: Int64!) {
 
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGSignalingClearLogRequest.Generator.generate(logIDArray: [rowID]).success({ (protoResponse) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
                     IGSignalingClearLogRequest.Handler.interpretClearUsingArray(response: clearLogResponse,array: [rowID])
                     
                 }
             }
         }).error({ (errorCode, waitTime) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
 
             DispatchQueue.main.async {
                 switch errorCode {

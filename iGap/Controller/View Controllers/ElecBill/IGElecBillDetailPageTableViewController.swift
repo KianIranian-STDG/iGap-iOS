@@ -71,7 +71,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
             let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
             let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             queryBill(userPhoneNumber: userPhoneNumber)
         }
     }
@@ -234,7 +234,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func queryBill(userPhoneNumber: String!) {
 
         IGApiElectricityBill.shared.queryBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 self.payNumber = response?.data?.paymentIdentifier
                 self.payDate = response?.data?.paymentDeadLine
@@ -256,7 +256,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     private func getImageOfBill(userPhoneNumber: String!) {
         IGApiElectricityBill.shared.getImageOfBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 self.saveBase64StringToImage((response?.data?.document)!,ext: response?.data?.ext)
             } else {
@@ -309,9 +309,9 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.LessThan10000.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else {
-            SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+            IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
             IGMplGetBillToken.Generator.generate(billId: Int64(lblDataBillNumber.text!.inEnglishNumbersNew())!, payId: Int64(lblDataBillPayNumber.text!.inEnglishNumbersNew())!).success({ (protoResponse) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                     if mplGetBillTokenResponse.igpStatus == 0 { //success
                         self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
@@ -321,7 +321,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
                 }
                 
             }).error ({ (errorCode, waitTime) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     
@@ -376,7 +376,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
         let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         self.getImageOfBill(userPhoneNumber: userPhoneNumber)
     }
     @IBAction func didTapOnBranchingInfo(_ sender: UIButton) {

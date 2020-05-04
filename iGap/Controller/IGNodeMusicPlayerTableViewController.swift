@@ -280,7 +280,7 @@ class IGNodeMusicPlayerTableViewController: UITableViewController {
     func loadMoreDataFromServer(offset: Int32!) {
         if let selectedRoom = self.room {
             isFetchingFiles = true
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: offset, filter: sharedMediaFilter!).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -296,9 +296,9 @@ class IGNodeMusicPlayerTableViewController: UITableViewController {
                         break
                     }
                 }
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
             }).error ({ (errorCode, waitTime) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 
                 switch errorCode {
                 case .timeout:

@@ -37,7 +37,7 @@ class IGNewsDetailTableViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         self.tableView.estimatedSectionHeaderHeight = 40.0
         self.tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = UITableView.automaticDimension
@@ -70,7 +70,7 @@ class IGNewsDetailTableViewController: BaseTableViewController {
     }
     
     func getData() {
-        SMLoading.hideLoadingPage()
+        IGLoading.hideLoadingPage()
 
         let urlMainImage = URL(string: ((item.image![0].Original)!))
         print(urlMainImage)
@@ -81,14 +81,14 @@ class IGNewsDetailTableViewController: BaseTableViewController {
         self.lblTitleTopHeader.text = item.titr
         self.lblFullText.text = item.fulltext?.html2String
 
-        SMLoading.hideLoadingPage()
+        IGLoading.hideLoadingPage()
 
     }
     
     private func getComments() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getNewsComments(page: "1", perPage: "9999999999" , articleId: item.id!) { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 if response!.count > 0 {
                     self.lblComments.font = UIFont.igFont(ofSize: 12)

@@ -183,7 +183,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     private func queryMultiBills(billNumber: String!,userPhoneNumber: String!) {
         
         IGApiElectricityBill.shared.queryBill(billNumber: billNumber, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 self.myBillListInnerData = response?.data
                 if self.myBillListInnerData != nil {
@@ -238,7 +238,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     @IBAction func didTapOnDelete(_ sender: UIButton) {
         IGApiElectricityBill.shared.deleteBill(billNumber: (lblDataBillNumber.text?.inEnglishNumbersNew())!, phoneNumber: self.userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     SwiftEventBus.post(EventBusManager.updateBillsName)
@@ -275,9 +275,9 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.LessThan10000.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else {
-            SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+            IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
             IGMplGetBillToken.Generator.generate(billId: Int64(lblDataBillNumber.text!.inEnglishNumbersNew())!, payId: Int64(lblDataBillPayNumber.text!.inEnglishNumbersNew())!).success({ (protoResponse) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                     if mplGetBillTokenResponse.igpStatus == 0 { //success
                         self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
@@ -287,7 +287,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
                 }
                 
             }).error ({ (errorCode, waitTime) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     

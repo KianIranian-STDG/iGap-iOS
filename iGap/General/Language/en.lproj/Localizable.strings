@@ -6783,3 +6783,7 @@ TODO:// complete */
 "mb_loan_unpaied_amount" = "Unpaid Amount :";
 "mb_loan_penalty_amount" = "Penalty Amount :";
 "mb_loan_payment_date" = "Payment Date :";
+"login_description" = "Use your password and username to log in to Parsian Mobile Bank";
+"username_mb" = "Username";
+"password_mb" = "Password";
+"mb_nav_title" = "Mobile Bank";

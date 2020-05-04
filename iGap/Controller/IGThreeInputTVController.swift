@@ -122,7 +122,7 @@ class IGThreeInputTVController: BaseTableViewController {
     
     private func postComment() {
         IGApiNews.shared.postComment(articleid: self.articleID,comment: tfThirdRow.text ?? "", author: tfFirstRow.text!,email: tfThirdRow.text ?? "" , completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 print("successfully Posted")
                 if response?.success == "true" {
