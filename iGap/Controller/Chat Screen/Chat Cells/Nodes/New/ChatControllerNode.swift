@@ -5062,41 +5062,29 @@ class ChatControllerNode: ASCellNode {
                 } else {
 
                     if msg.isRTL() {
-                        let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
-                        txtTimeNode!.style.alignSelf = .end
-                        if !isIncomming {
-                            txtStatusNode!.style.alignSelf = .end
-                        }
-                        messageAndTime.verticalAlignment = .center
                         
-                        let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+                        if message.isEdited {
+                            spec.children?.append(nodeOnlyText!)
+                            makeBottomBubbleItems(contentStack: spec)
+                        } else {
+                            let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+                            txtTimeNode!.style.alignSelf = .end
+                            if !isIncomming {
+                                txtStatusNode!.style.alignSelf = .end
+                            }
+                            messageAndTime.verticalAlignment = .center
+                            
+                            let nodeTextSpec = ASStackLayoutSpec(direction: isOneCharEmoji ? .vertical : .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
 
-                        spec.children?.append(nodeTextSpec)
-
-
+                            spec.children?.append(nodeTextSpec)
+                        }
                     } else {
                         spec.children?.append(nodeOnlyText!)
                         makeBottomBubbleItems(contentStack: spec)
 
                     }
  
-
-                    
                 }
-
-
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
 
             }
 
