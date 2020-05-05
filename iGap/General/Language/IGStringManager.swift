@@ -14,6 +14,7 @@ enum IGStringsManager : String {
     //MARK: - Global Vars
     case Inventory = "Inventory"
     case GlobalConnecting = "connecting"
+    case GlobalCommingSoon = "comming_soon"
     case GlobalWaitingConnection = "waiting_for_network"
     case GlobalWarning = "error"
     case GlobalAttention = "attention"
@@ -845,6 +846,12 @@ enum IGStringsManager : String {
     case MBCategoryServices = "mb_category_services"
     case ShebaNumber = "mb_sheba_number"
     case LoanNumber = "mb_loan_number"
+    case ChequeNumber = "mb_cheque_number"
+    case Rejected = "mb_rejected"
+    case Passed = "mb_passed"
+    case UnUsed = "mb_unused"
+    case Blocked = "mb_blocked"
+    case Pages = "mb_pages"
     case BranchName = "mb_branch_name"
     case State = "mb_state"
     case StartDate = "mb_start_date"
@@ -876,6 +883,10 @@ enum IGStringsManager : String {
     case MBTransactions = "mb_transactions"
     case MBPooyaPass = "mb_pooya_pass"
     case MBBlockCard = "mb_block_card"
+    case MBTransferMoney = "transfer_mony"
+    case MBCheque = "mb_cheque"
+    case MBTakeTurn = "mb_take_turn"
+    case MBLoans = "mb_loans"
 
 
 }

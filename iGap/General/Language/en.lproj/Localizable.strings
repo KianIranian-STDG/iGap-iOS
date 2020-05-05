@@ -6795,4 +6795,16 @@ TODO:// complete */
 "mb_transactions" = "Transactions";
 "mb_pooya_pass" = "One Time Password";
 "mb_block_card" = "Block Card";
+"mb_cheque" = "Cheque";
+"mb_take_turn" = "Take turn";
+"mb_loans" = "Loans";
+"comming_soon" = "Comming Soon";
+"mb_cheque_number" = "Cheque Number :";
+"mb_rejected" = "Rejected :";
+"mb_passed" = "Passed :";
+"mb_unused" = "Unused :";
+"mb_blocked" = "Blocked :";
+"mb_pages" = "Pages";
+
+
 

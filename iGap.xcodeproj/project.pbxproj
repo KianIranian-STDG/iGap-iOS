@@ -366,6 +366,8 @@
 		8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */; };
 		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
 		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
+		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
+		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F301E5812CA0039AC0C /* IGMemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */; };
 		93193F321E5813030039AC0C /* IGMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F311E5813030039AC0C /* IGMemberCell.swift */; };
@@ -1361,6 +1363,8 @@
 		8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
+		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
+		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberTableViewController.swift; sourceTree = "<group>"; };
 		93193F311E5813030039AC0C /* IGMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberCell.swift; sourceTree = "<group>"; };
@@ -2659,6 +2663,7 @@
 				D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */,
 				D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */,
 				8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */,
+				8EFBE422246169AE00755464 /* IGMBChequesVC.swift */,
 				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
 				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
 				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
@@ -2721,6 +2726,7 @@
 				D2CC15112451751C0083FF48 /* MBCardCell.swift */,
 				8EC42EEE2454943A000889D3 /* MBAccountCell.swift */,
 				8EC42F18245D8917000889D3 /* LoansCell.swift */,
+				8EFBE424246169DE00755464 /* ChequeCell.swift */,
 				8EC42F1E245DBA88000889D3 /* LoansCellInner.swift */,
 				8EC42F20245DC2FF000889D3 /* LoansCellInnerTop.swift */,
 				8E53BD90245EDE970008E045 /* LoanCellInnerBottom.swift */,
@@ -4711,6 +4717,7 @@
 				D67E984023A67962003C1516 /* CGAffineTransform+transformWithScaleTranslationCenter.swift in Sources */,
 				8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
+				8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */,
 				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
@@ -4867,6 +4874,7 @@
 				FA4F47B8214D0C5400ABE7A0 /* IGRealmWallpaper.swift in Sources */,
 				8EA854C4239F8E4600C9442F /* IGAppIconsCVCell.swift in Sources */,
 				8E96A329225C91EB007D8A77 /* SMStringUtil.swift in Sources */,
+				8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */,
 				FA075DED232A5F78002E7AC7 /* IGApiBase.swift in Sources */,
 				D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */,
 				FA42EF0F1E5C224F00CF8A32 /* UIImage.swift in Sources */,

@@ -35,7 +35,7 @@ class IGHelperToast {
     ///showDoneButton : which is of Type Bool represent for showing Done button or not - Default is True
     ///showIconView : which is of Type Bool is responsible for showing icon above alert or not - Default is True
     ///
-    func showCustomToast(view: UIViewController? = nil, showCancelButton: Bool? = true, cancelTitleColor: UIColor = UIColor.darkGray ,cancelBackColor : UIColor = UIColor.white, message: String!, cancelText: String? = nil, cancel: (() -> Void)? = nil) {
+    func showCustomToast(view: UIViewController? = nil, showCancelButton: Bool? = true, cancelTitleColor: UIColor = ThemeManager.currentTheme.NavigationFirstColor ,cancelBackColor : UIColor = UIColor.white, message: String!, cancelText: String? = nil, cancel: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             let alertView : UIWindow? = UIApplication.shared.keyWindow
 
