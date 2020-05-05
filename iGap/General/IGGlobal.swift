@@ -40,6 +40,11 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 
 let orangeGradientLocation = [0.0, 1.0]
+enum MBMode : Int {
+    case Cards = 0
+    case Accounts = 1
+    case Services = 2
+}
 
 enum themeMode : Int {
     case night = 0

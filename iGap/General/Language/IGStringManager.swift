@@ -873,6 +873,10 @@ enum IGStringsManager : String {
     case LoanUnpaidAmount = "mb_loan_unpaied_amount"
     case LoanPenaltyAmount = "mb_loan_penalty_amount"
     case LoanPayDate = "mb_loan_payment_date"
+    case MBTransactions = "mb_transactions"
+    case MBPooyaPass = "mb_pooya_pass"
+    case MBBlockCard = "mb_block_card"
+
 
 }
 

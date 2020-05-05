@@ -83,7 +83,7 @@ class IGHelperToast {
                     messageLabel.numberOfLines = 1
                     messageLabel.font = UIFont.igFont(ofSize: 14)
 
-                    messageLabel.textColor = ThemeManager.currentTheme.LabelColor
+                messageLabel.textColor = .white
                     messageLabel.text = message
                     messageLabel.textAlignment = messageLabel.localizedDirection
                     messageLabel.sizeToFit()
@@ -125,7 +125,7 @@ class IGHelperToast {
                 self.customAlert?.alpha = 0
                 self.customAlert?.fadeIn(0.3)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0 ) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ) {
                     self.actionCancel!()
                     self.removeCustomAlertView()
 
@@ -152,7 +152,7 @@ class IGHelperToast {
     
     private func creatBlackBackgroundView()  {
         bgView = UIView()
-        bgView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        bgView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         bgView.frame = self.window!.frame
         self.window?.addSubview(bgView)
         bgView.alpha = 0

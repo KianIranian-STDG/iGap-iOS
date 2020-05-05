@@ -723,6 +723,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.navigationController!.pushViewController(settingVC, animated:true)
         */
 
+        
 //        self.navigationController?.pushViewController(IGMBMainContainerVC(), animated: true)
         
         let MBVC = IGMBLoginVC.instantiateFromAppStroryboard(appStoryboard: .MB)

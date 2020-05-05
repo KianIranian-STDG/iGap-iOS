@@ -727,12 +727,12 @@ class IGChannelUpdateReactionStatusRequest : IGRequest {
     
     class func sendRequest(roomId: Int64, reactionStatus: Bool){
         IGChannelUpdateReactionStatusRequest.Generator.generate(roomId: roomId, reactionStatus: reactionStatus).success ({ (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if let response = protoResponse as? IGPChannelUpdateReactionStatusResponse {
                 IGChannelUpdateReactionStatusRequest.Handler.interpret(response: response)
             }
         }).error ({ (errorCode, waitTime) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
         }).send()
     }
     

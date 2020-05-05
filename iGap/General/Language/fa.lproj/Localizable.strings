@@ -6803,5 +6803,8 @@ Page 4 introduce app */
 "mb_loan_unpaied_amount" = "مبلغ باقیمانده :";
 "mb_loan_penalty_amount" = "مبلغ جریمه :";
 "mb_loan_payment_date" = "تاریخ پرداخت :";
+"mb_transactions" = "تراکنش ها";
+"mb_pooya_pass" = "رمز یکبار مصرف";
+"mb_block_card" = "مسدودسازی کارت";
 
 

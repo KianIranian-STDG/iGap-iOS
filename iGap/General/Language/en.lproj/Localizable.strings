@@ -6750,6 +6750,8 @@ TODO:// complete */
 "send_link" = "Send Link";
 "fetching_info" = "Fetching Info ...";
 "not_allow_send_message" = "You are not allowed to send messages!";
+"mb_category_cards" = "Cards";
+"mb_category_accounts" = "Accounts";
 "mb_category_services" = "Services";
 "block_card" = "Block Card";
 "mb_sheba_number" = "IBAN Number";
@@ -6787,3 +6789,10 @@ TODO:// complete */
 "username_mb" = "Username";
 "password_mb" = "Password";
 "mb_nav_title" = "Mobile Bank";
+"empty_username_warning" = "Please Enter Your Username";
+"empty_password_warning" = "Please Enter Your Password";
+"my_parsian" = "My Parsian";
+"mb_transactions" = "Transactions";
+"mb_pooya_pass" = "One Time Password";
+"mb_block_card" = "Block Card";
+
