@@ -369,6 +369,7 @@
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
+		8EFBE42924618AB000755464 /* IGMBChequeInnerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F301E5812CA0039AC0C /* IGMemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */; };
 		93193F321E5813030039AC0C /* IGMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F311E5813030039AC0C /* IGMemberCell.swift */; };
@@ -1367,6 +1368,7 @@
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
+		8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequeInnerVC.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberTableViewController.swift; sourceTree = "<group>"; };
 		93193F311E5813030039AC0C /* IGMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberCell.swift; sourceTree = "<group>"; };
@@ -2666,6 +2668,7 @@
 				D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */,
 				8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */,
 				8EFBE422246169AE00755464 /* IGMBChequesVC.swift */,
+				8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */,
 				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
 				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
 				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
@@ -4656,6 +4659,7 @@
 				D254C1E52450336C007767F4 /* IGMBServicesParentView.swift in Sources */,
 				D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */,
 				8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */,
+				8EFBE42924618AB000755464 /* IGMBChequeInnerVC.swift in Sources */,
 				8E3360E923D835D300CE766B /* ASImageView.swift in Sources */,
 				8E8E506623E82CED0094A91C /* ChatMessageSwipeToReplyNode.swift in Sources */,
 				FA77E0FD2261E9D4008D6D25 /* IGHelperNearby.swift in Sources */,
