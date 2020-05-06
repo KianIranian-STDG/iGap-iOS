@@ -437,7 +437,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
-                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, payToken: token, payment: paymentData)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Irancell.rawValue.localized, payToken: token, payment: paymentData)
                         } else {
                             
                             paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, message: errorMessage ?? "", payToken: token)
@@ -450,7 +450,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             }
             
         
-        } else if self.operatorType == IGOperator.irancell {
+        } else if self.operatorType == IGOperator.rightel {
             
             IGApiTopup.shared.purchase(opType: "RIGHTEL", telNum: phoneNumber, cost: chargeAmount,type: chargeType) { (success, token) in
                 
@@ -464,7 +464,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
-                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, payToken: token, payment: paymentData)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Rightel.rawValue.localized, payToken: token, payment: paymentData)
                         } else {
                             
                             paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.MCI.rawValue.localized, message: errorMessage ?? "", payToken: token)

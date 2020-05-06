@@ -890,6 +890,7 @@ enum IGStringsManager : String {
     case MBLoans = "mb_loans"
     case MBEnterAmount = "mb_enter_amount"
     case MBBillsList = "mb_bills_list"
+    case MBPickAccount = "mb_pick_account"
 
 
 }

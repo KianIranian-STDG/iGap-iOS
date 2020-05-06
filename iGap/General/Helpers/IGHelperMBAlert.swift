@@ -20,7 +20,8 @@ class IGHelperMBAlert {
     
     private var actionDone: (() -> Void)?
     private var actionCancel: (() -> Void)?
-    
+    private var actionPick: (() -> Void)?
+
     static let shared = IGHelperMBAlert()
     var customAlert : UIView!
     var iconView : UIView!
@@ -29,6 +30,100 @@ class IGHelperMBAlert {
     let window = UIApplication.shared.keyWindow
     
     
+    func showPickAccount(view: UIViewController? = nil,accountsArray: [String], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
+        
+        let alertView : UIWindow? = UIApplication.shared.keyWindow
+
+        UIApplication.topViewController()?.view.endEditing(true)
+        ///check if there's already one customAlert on screen remove it and creat a new one
+        if self.customAlert != nil {
+            self.removeCustomAlertView()
+        }
+        if self.customAlert == nil {
+            
+            self.creatBlackBackgroundView()///view for black transparet on back of alert
+            
+            self.customAlert = self.creatCustomAlertView()///creat customAlertView
+            
+            //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromTop, animations: {
+                self.window!.addSubview(self.customAlert)
+                self.customAlert = self.creatCustomAlertView()///creat customAlertView
+                self.window!.addSubview(self.customAlert)
+
+            
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:200)///setConstraintsTo CustomeAlert
+            ///create StackView for holding Buttons
+            let stackButtons : UIStackView
+            stackButtons = UIStackView()
+            stackButtons.axis = .horizontal
+            stackButtons.alignment = .fill
+            stackButtons.distribution = .fillEqually
+            stackButtons.spacing = 5
+            if alertType != helperAlertType.noButton {
+                self.customAlert.addSubview(stackButtons)
+                ///set Constraints for stackView
+                self.setConstraintsToButtonsStackView(customStack: stackButtons, customAlertView: self.customAlert)
+                ///set Constraints for borderView above stack of Buttons
+                self.customAlert.clipsToBounds = true
+                if alertType == helperAlertType.oneButton {
+                    let btnCancel = UIButton()
+                    btnCancel.layer.cornerRadius = 15
+                    btnCancel.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                    btnCancel.setTitle(cancelText, for: .normal)
+                    btnCancel.backgroundColor = cancelBackColor
+                    btnCancel.setTitleColor(cancelTitleColor, for: .normal)
+
+                    stackButtons.addArrangedSubview(btnCancel)
+                    ////DOne Tap GEsture Handler
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+                    tapGestureRecognizer.numberOfTapsRequired = 1
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    btnCancel.addGestureRecognizer(tapGestureRecognizer)
+
+                }
+
+            }
+            stackButtons.translatesAutoresizingMaskIntoConstraints = false
+
+            let stackTitleAndIcon = UIStackView()
+            createCloseAndTitleStack(stk: stackTitleAndIcon,title: title!,customAlertView: self.customAlert)
+
+            let stkAccounts = UIStackView()
+            stkAccounts.axis = .vertical
+            stkAccounts.spacing = 10
+            stkAccounts.alignment = .fill
+            stkAccounts.distribution = .fillEqually
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+
+            for account in accountsArray {
+                let btn = UIButton()
+                btn.setTitle(account, for: .normal)
+                btn.layer.borderColor = cancelBackColor.cgColor
+                btn.layer.borderWidth = 1.0
+                btn.layer.cornerRadius = 10
+                btn.setTitleColor(.lightGray, for: .normal)
+                stkAccounts.addArrangedSubview(btn)
+                tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                btn.addGestureRecognizer(tapGestureRecognizer)
+
+            }
+            self.customAlert.addSubview(stkAccounts)
+            stkAccounts.translatesAutoresizingMaskIntoConstraints = false
+            stkAccounts.leadingAnchor.constraint(equalTo: self.customAlert.leadingAnchor,constant: 20).isActive = true
+            stkAccounts.trailingAnchor.constraint(equalTo: self.customAlert.trailingAnchor,constant: -20).isActive = true
+            stkAccounts.topAnchor.constraint(equalTo: stackTitleAndIcon.bottomAnchor,constant: 20).isActive = true
+            stkAccounts.bottomAnchor.constraint(equalTo: stackButtons.topAnchor,constant: -20).isActive = true
+
+            
+            self.actionDone = done
+            self.actionCancel = cancel
+            self.customAlert?.alpha = 0
+            self.customAlert?.fadeIn(0.3)
+        }
+
+        
+    }
     func showMessageAlert(view: UIViewController? = nil, alertType: helperAlertType! = helperAlertType.twoButton, title: String? = nil ,doneTitleColor: UIColor = UIColor.darkGray, cancelTitleColor: UIColor = UIColor.darkGray,doneBackColor : UIColor = UIColor.white,cancelBackColor : UIColor = UIColor.white, doneText: String? = nil, cancelText: String? = nil,message: String!, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         
         let alertView : UIWindow? = UIApplication.shared.keyWindow

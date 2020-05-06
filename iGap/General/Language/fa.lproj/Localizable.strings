@@ -6819,5 +6819,7 @@ Page 4 introduce app */
 "mb_enter_amount" = "مبلغ را وارد کنید";
 "mb_bills_list" = "لیست قبوض";
 "account_number" = "شماره حساب";
+"mb_pick_account" = "انتخاب حساب";
+
 
 
