@@ -612,8 +612,8 @@ class IGHelperMBAlert {
     
     //MARK: - Development funcs
     @objc func didAccOneGotTap() {
-        if self.actionDone != nil {
-            actionDone!()
+        if self.actionAccOneTap != nil {
+            actionAccOneTap!()
             self.removeCustomAlertView()
             
         } else {
@@ -621,8 +621,8 @@ class IGHelperMBAlert {
         }
     }
     @objc func didAccTwoGotTap() {
-        if self.actionDone != nil {
-            actionDone!()
+        if self.actionAccTwoTap != nil {
+            actionAccTwoTap!()
             self.removeCustomAlertView()
             
         } else {
