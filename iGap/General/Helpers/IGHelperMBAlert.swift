@@ -18,6 +18,8 @@ class IGHelperMBAlert {
         case noButton = 2
     }
     
+    private var actionAccOneTap: (() -> Void)?
+    private var actionAccTwoTap: (() -> Void)?
     private var actionDone: (() -> Void)?
     private var actionCancel: (() -> Void)?
     private var actionPick: (() -> Void)?
@@ -30,7 +32,7 @@ class IGHelperMBAlert {
     let window = UIApplication.shared.keyWindow
     
     
-    func showPickAccount(view: UIViewController? = nil,accountsArray: [String], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
+    func showPickAccount(view: UIViewController? = nil,accountsArray: [String], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, accountOneDidTap: (() -> Void)? = nil, accountTwoDidTap: (() -> Void)? = nil) {
         
         let alertView : UIWindow? = UIApplication.shared.keyWindow
 
@@ -51,7 +53,7 @@ class IGHelperMBAlert {
                 self.window!.addSubview(self.customAlert)
 
             
-            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:200)///setConstraintsTo CustomeAlert
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:250)///setConstraintsTo CustomeAlert
             ///create StackView for holding Buttons
             let stackButtons : UIStackView
             stackButtons = UIStackView()
@@ -93,21 +95,10 @@ class IGHelperMBAlert {
             stkAccounts.spacing = 10
             stkAccounts.alignment = .fill
             stkAccounts.distribution = .fillEqually
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+            let tapGestureRecognizerAccOne = UITapGestureRecognizer(target: self, action: #selector(self.didAccOneGotTap))
+            let tapGestureRecognizerAccTwo = UITapGestureRecognizer(target: self, action: #selector(self.didAccTwoGotTap))
 
-            for account in accountsArray {
-                let btn = UIButton()
-                btn.setTitle(account, for: .normal)
-                btn.layer.borderColor = cancelBackColor.cgColor
-                btn.layer.borderWidth = 1.0
-                btn.layer.cornerRadius = 10
-                btn.setTitleColor(.lightGray, for: .normal)
-                stkAccounts.addArrangedSubview(btn)
-                tapGestureRecognizer.numberOfTapsRequired = 1
-                tapGestureRecognizer.numberOfTouchesRequired = 1
-                btn.addGestureRecognizer(tapGestureRecognizer)
 
-            }
             self.customAlert.addSubview(stkAccounts)
             stkAccounts.translatesAutoresizingMaskIntoConstraints = false
             stkAccounts.leadingAnchor.constraint(equalTo: self.customAlert.leadingAnchor,constant: 20).isActive = true
@@ -115,8 +106,40 @@ class IGHelperMBAlert {
             stkAccounts.topAnchor.constraint(equalTo: stackTitleAndIcon.bottomAnchor,constant: 20).isActive = true
             stkAccounts.bottomAnchor.constraint(equalTo: stackButtons.topAnchor,constant: -20).isActive = true
 
+
+            let btnAccOne = UIButton()
+            btnAccOne.setTitle(accountsArray[0], for: .normal)
+            btnAccOne.layer.borderColor = cancelBackColor.cgColor
+            btnAccOne.layer.borderWidth = 1.0
+            btnAccOne.layer.cornerRadius = 10
+            btnAccOne.setTitleColor(.lightGray, for: .normal)
+            stkAccounts.addArrangedSubview(btnAccOne)
+            tapGestureRecognizerAccOne.numberOfTapsRequired = 1
+            tapGestureRecognizerAccOne.numberOfTouchesRequired = 1
+            btnAccOne.addGestureRecognizer(tapGestureRecognizerAccOne)
+
+            stkAccounts.addArrangedSubview(btnAccOne)
+            let btnAccTwo = UIButton()
+            btnAccTwo.setTitle(accountsArray[1], for: .normal)
+            btnAccTwo.layer.borderColor = cancelBackColor.cgColor
+            btnAccTwo.layer.borderWidth = 1.0
+            btnAccTwo.layer.cornerRadius = 10
+            btnAccTwo.setTitleColor(.lightGray, for: .normal)
+            stkAccounts.addArrangedSubview(btnAccTwo)
+            tapGestureRecognizerAccTwo.numberOfTapsRequired = 1
+            tapGestureRecognizerAccTwo.numberOfTouchesRequired = 1
+            btnAccTwo.addGestureRecognizer(tapGestureRecognizerAccTwo)
+
+            stkAccounts.addArrangedSubview(btnAccTwo)
+
             
-            self.actionDone = done
+
+            
+            
+
+
+            self.actionAccOneTap = accountOneDidTap
+            self.actionAccTwoTap = accountTwoDidTap
             self.actionCancel = cancel
             self.customAlert?.alpha = 0
             self.customAlert?.fadeIn(0.3)
@@ -588,7 +611,24 @@ class IGHelperMBAlert {
     
     
     //MARK: - Development funcs
-    
+    @objc func didAccOneGotTap() {
+        if self.actionDone != nil {
+            actionDone!()
+            self.removeCustomAlertView()
+            
+        } else {
+            self.removeCustomAlertView()
+        }
+    }
+    @objc func didAccTwoGotTap() {
+        if self.actionDone != nil {
+            actionDone!()
+            self.removeCustomAlertView()
+            
+        } else {
+            self.removeCustomAlertView()
+        }
+    }
     @objc func didDoneGotTap() {
         if self.actionDone != nil {
             actionDone!()
