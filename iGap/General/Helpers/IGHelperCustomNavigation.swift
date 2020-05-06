@@ -56,7 +56,17 @@ class IGHelperCustomNavigation {
         
     }
     @objc func  onClcikBack(sender: UIButton!)  {
-        _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)
+        // isMBAuthError is true when the Auth is expired so the param will be true
+        if isMBAuthError {
+            if let vcToPOP = UIApplication.topViewController()!.navigationController?.viewControllers[indexOfMBLogin - 1] {
+                _ = UIApplication.topViewController()!.navigationController?.popToViewController(vcToPOP, animated: true)
+            } else {
+                _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
+            }
+            isMBAuthError = false
+        } else {
+            _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)
+        }
     }
 
 }

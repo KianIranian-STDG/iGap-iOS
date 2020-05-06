@@ -380,7 +380,7 @@ class IGHelperMBAlert {
         titleLabel.textColor = ThemeManager.currentTheme.LabelColor
         titleIcon.textColor = ThemeManager.currentTheme.LabelColor
         
-        titleLabel.textAlignment = titleLabel.localizedDirection
+        titleLabel.textAlignment = .center
         titleIcon.textAlignment = .left
         stk.addArrangedSubview(titleIcon)
         stk.addArrangedSubview(titleLabel)
