@@ -29,6 +29,7 @@ class IGFourInputTVController: BaseTableViewController {
     @IBOutlet weak var tfSecondRow : UITextField!
     @IBOutlet weak var tfThirdRow : UITextField!
     @IBOutlet weak var tfFourRow : UITextField!
+    @IBOutlet weak var tfFiveRow : UITextField!
 
     @IBOutlet weak var btnSubmit : UIButton!
 
@@ -64,28 +65,33 @@ class IGFourInputTVController: BaseTableViewController {
         tfSecondRow.textColor = ThemeManager.currentTheme.LabelColor
         tfThirdRow.textColor = ThemeManager.currentTheme.LabelColor
         tfFourRow.textColor = ThemeManager.currentTheme.LabelColor
+        tfFiveRow.textColor = ThemeManager.currentTheme.LabelColor
 
 
         tfFirstRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         tfSecondRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         tfThirdRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         tfFourRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfFiveRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
 
         tfFirstRow.layer.borderWidth = 1.0
         tfSecondRow.layer.borderWidth = 1.0
         tfThirdRow.layer.borderWidth = 1.0
         tfFourRow.layer.borderWidth = 1.0
+        tfFiveRow.layer.borderWidth = 1.0
 
         tfFirstRow.layer.cornerRadius = 8.0
         tfSecondRow.layer.cornerRadius = 8.0
         tfThirdRow.layer.cornerRadius = 8.0
         tfFourRow.layer.cornerRadius = 8.0
+        tfFiveRow.layer.cornerRadius = 8.0
 
         //borders color set
         tfFirstRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfSecondRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfThirdRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfFourRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        tfFiveRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         btnSubmit.backgroundColor = UIColor.hexStringToUIColor(hex: "B6774E")
         btnShowPass.backgroundColor = .clear
 
@@ -183,6 +189,7 @@ class IGFourInputTVController: BaseTableViewController {
         tfSecondRow.font = UIFont.igFont(ofSize: 13)
         tfThirdRow.font = UIFont.igFont(ofSize: 13)
         tfFourRow.font = UIFont.igFont(ofSize: 13)
+        tfFiveRow.font = UIFont.igFont(ofSize: 13)
 
         lblFirstRow.textAlignment = lblFirstRow.localizedDirection
         lblHeader.textAlignment = lblHeader.localizedDirection
@@ -194,6 +201,7 @@ class IGFourInputTVController: BaseTableViewController {
         tfSecondRow.textAlignment = .center
         tfThirdRow.textAlignment = .center
         tfFourRow.textAlignment = .center
+        tfFiveRow.textAlignment = .center
 
         
     }
@@ -281,7 +289,7 @@ extension IGFourInputTVController: PanModalPresentable {
     var longFormHeight: PanModalHeight {
 
         if isKeyboardPresented {
-            return .contentHeight(450)
+            return .contentHeight(650)
         } else {
             return .contentHeight(450)
         }
