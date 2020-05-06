@@ -265,6 +265,7 @@ enum IGStringsManager : String {
     case CashablePrice = "cashable_balance"
     case ChargeWallet = "charge_paygear"
     case CardNumber = "card_number"
+    case AccountNumber = "account_number"
     case Month = "month"
     case Year = "year"
     case EnterYourCardNumber = "enter_your_card_number"
@@ -888,6 +889,7 @@ enum IGStringsManager : String {
     case MBTakeTurn = "mb_take_turn"
     case MBLoans = "mb_loans"
     case MBEnterAmount = "mb_enter_amount"
+    case MBBillsList = "mb_bills_list"
 
 
 }

@@ -370,6 +370,7 @@
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
 		8EFBE42924618AB000755464 /* IGMBChequeInnerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */; };
+		8EFBE42B2462776F00755464 /* IGHelperCustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F301E5812CA0039AC0C /* IGMemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */; };
 		93193F321E5813030039AC0C /* IGMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F311E5813030039AC0C /* IGMemberCell.swift */; };
@@ -1369,6 +1370,7 @@
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
 		8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequeInnerVC.swift; sourceTree = "<group>"; };
+		8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperCustomNavigation.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberTableViewController.swift; sourceTree = "<group>"; };
 		93193F311E5813030039AC0C /* IGMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberCell.swift; sourceTree = "<group>"; };
@@ -3212,6 +3214,7 @@
 				D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */,
 				8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */,
 				8EC42F12245B04C2000889D3 /* IGHelperToast.swift */,
+				8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -4722,6 +4725,7 @@
 				D65179A5239B8C3400557E5B /* IGMediaPagerCell.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				D67E984023A67962003C1516 /* CGAffineTransform+transformWithScaleTranslationCenter.swift in Sources */,
+				8EFBE42B2462776F00755464 /* IGHelperCustomNavigation.swift in Sources */,
 				8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
 				8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */,

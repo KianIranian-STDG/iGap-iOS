@@ -56,4 +56,17 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightViewContainer?.addAction(rightAction)
     }
     
+    func iniCustomtNav(title: String? = nil) {
+        let barButton = IGHelperCustomNavigation.shared.createButton(leftAction: {
+            print("DIDTAPONBACKBTN")
+        })
+        
+        UIApplication.topViewController()!.navigationItem.title = title
+        UIApplication.topViewController()!.navigationItem.leftBarButtonItem = barButton
+        
+        
+        
+        
+    }
+
 }
