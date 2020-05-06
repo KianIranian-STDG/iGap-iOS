@@ -3200,3 +3200,9 @@ extension ASImageNode {
     self.tintColor = color
   }
 }
+
+func igPrint(_ string: String...) {
+    #if DEBUG
+    print(string)
+    #endif
+}

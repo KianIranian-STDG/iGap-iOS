@@ -110,12 +110,6 @@ class IGFourInputTVController: BaseTableViewController {
         isKeyboardPresented = true
         panModalSetNeedsLayoutUpdate()
         panModalTransition(to: .longForm)
-
-        
-
-
-
-        
     }
     
     @objc func keyboardWillDisappear(notification: NSNotification) {
@@ -126,20 +120,18 @@ class IGFourInputTVController: BaseTableViewController {
         panModalTransition(to: .longForm)
     }
     
-  
-    
     @IBAction func didTapOnInquery(_ sender: UIButton) {
 
+        SwiftEventBus.post("didRequestHotCard", sender: ["cardNumber": lblFirstRow.text ?? "", "password": lblSecondRow.text ?? "", "cvv2": lblThirdRow.text ?? "", "exp_year": "99", "exp_month": "8"])
+        
     }
     @IBAction func didTapOnShowPass(_ sender: UIButton) {
         issecuredPass = !issecuredPass
 
         if issecuredPass {
             tfSecondRow.isSecureTextEntry = true
-
         } else {
             tfSecondRow.isSecureTextEntry = false
-
         }
     }
     

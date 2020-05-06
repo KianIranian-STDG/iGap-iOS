@@ -21,52 +21,46 @@ class IGHelperBottomModals {
     private var actionSubmit: (() -> Void)?
     private init() {}
     
-    func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {//}-> UIView {
-             var alertView = view
-             if alertView == nil {
-                 alertView = UIApplication.topViewController()
-             }
-             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
-             let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
-             vc.mode = mode
-             if articleID != nil {
-                 vc.articleID = articleID!
-             }
+    func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
+        vc.mode = mode
+        if articleID != nil {
+         vc.articleID = articleID!
+        }
         UIApplication.topViewController()!.presentPanModal(vc)
-     //        return UIView()
-         }
-    func showBlockCard(view: UIViewController? = nil,mode: String! = "BLOCK_CARD") {//}-> UIView {
-             var alertView = view
-             if alertView == nil {
-                 alertView = UIApplication.topViewController()
-             }
-             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
-             let vc = storyboard.instantiateViewController(withIdentifier: "IGFourInputTVController") as! IGFourInputTVController
-             vc.mode = mode
+    }
+    func showBlockCard(view: UIViewController? = nil,mode: String! = "BLOCK_CARD") {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGFourInputTVController") as! IGFourInputTVController
+        vc.mode = mode
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIApplication.topViewController()!.presentPanModal(vc)
-        }
-     //        return UIView()
-         }
-    func showShebaModal(view: UIViewController? = nil,mode: String! = "SHEBA_CARD",data : String? = nil) {//}-> UIView {
-             var alertView = view
-             if alertView == nil {
-                 alertView = UIApplication.topViewController()
-             }
-             let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
-             let vc = storyboard.instantiateViewController(withIdentifier: "IGOneLabelTVController") as! IGOneLabelTVController
-             vc.mode = mode
+        UIApplication.topViewController()?.presentPanModal(vc)
         
-            if data != nil {
-                vc.ShebaNumber = data!
-            }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIApplication.topViewController()!.presentPanModal(vc)
+    }
+    func showShebaModal(view: UIViewController? = nil,mode: String! = "SHEBA_CARD",data : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
         }
-     //        return UIView()
-         }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGOneLabelTVController") as! IGOneLabelTVController
+        vc.mode = mode
+
+        if data != nil {
+        vc.ShebaNumber = data!
+        }
+        
+        UIApplication.topViewController()?.presentPanModal(vc)
+    }
     
     //MARK: - MultiForward Modal
     func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false, giftId: String? = nil) {//}-> UIView {
