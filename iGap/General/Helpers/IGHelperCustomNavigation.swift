@@ -14,8 +14,8 @@ class IGHelperCustomNavigation {
 
         var rightViewContainer:  IGTappableView?
 
-        func createButton(leftAction: @escaping () -> ()) -> UIBarButtonItem {
-            UIApplication.topViewController()!.navigationItem.title = "1234"
+        func createLeftButton() -> UIBarButtonItem {
+            UIApplication.topViewController()!.navigationItem.title = ""
 
 //            let rightViewFrame = CGRect(x: 0, y: 0, width: 50, height: 27/2)
 //            rightViewContainer = IGTappableView(frame: rightViewFrame)
@@ -34,6 +34,27 @@ class IGHelperCustomNavigation {
 
         }
 
+    func createTitle(title: String? = nil, font: UIFont = UIFont.igFont(ofSize: 17.0, weight: .bold)) -> UIView {
+        
+        let viewTitle = UIView()
+        //        view.frame = UIApplication.topViewController()!.navigationItem.titleView?.frame as! CGRect
+        viewTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+        let lblTitle = UILabel()
+        lblTitle.text = title
+        lblTitle.font = font
+        lblTitle.textColor = .white
+        viewTitle.addSubview(lblTitle)
+        lblTitle.translatesAutoresizingMaskIntoConstraints = false
+        lblTitle.topAnchor.constraint(equalTo: viewTitle.topAnchor, constant: 0).isActive = true
+        lblTitle.leadingAnchor.constraint(equalTo: viewTitle.leadingAnchor, constant: 0).isActive = true
+        lblTitle.trailingAnchor.constraint(equalTo: viewTitle.trailingAnchor, constant: 0).isActive = true
+        lblTitle.bottomAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 0).isActive = true
+
+        
+        return viewTitle
+        
+        
+    }
     @objc func  onClcikBack(sender: UIButton!)  {
         _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)
     }

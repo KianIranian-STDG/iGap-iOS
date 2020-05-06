@@ -56,16 +56,11 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightViewContainer?.addAction(rightAction)
     }
     
-    func iniCustomtNav(title: String? = nil) {
-        let barButton = IGHelperCustomNavigation.shared.createButton(leftAction: {
-            print("DIDTAPONBACKBTN")
-        })
-        
-        UIApplication.topViewController()!.navigationItem.title = title
+    func iniCustomtNav(title: String? = nil,font : UIFont = UIFont.igFont(ofSize: 17.0, weight: .bold)) {
+        let barButton = IGHelperCustomNavigation.shared.createLeftButton()
+        let titleView = IGHelperCustomNavigation.shared.createTitle(title: title,font : font)
+        UIApplication.topViewController()!.navigationItem.titleView = titleView
         UIApplication.topViewController()!.navigationItem.leftBarButtonItem = barButton
-        
-        
-        
         
     }
 
