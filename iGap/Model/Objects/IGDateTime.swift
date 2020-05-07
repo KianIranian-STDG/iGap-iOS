@@ -665,28 +665,14 @@ import Foundation
         dateFormatter.calendar = Calendar(identifier: .persian)
         let datee = dateFormatter.date(from: date)!
         dateFormatter.calendar = Calendar(identifier: .gregorian)
-
-        let now = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: now)
-        let minutes = calendar.component(.minute, from: now)
         
         if datee > Date() {
-            let dateItems = date.split(separator: "-")
-            //return "\(dateItems[0])-\(dateItems[1])-" + String(IGDateTime.toPersianDay(Date())) + "\(hour):\(minutes):00"
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-//            return forma
             return formatter.string(from: Date())
-            
-//            df.dateFormat = "yyyy-MM-dd hh:mm:ss"
-//            let now = df.stringFromDate(Date())
-            
         }else {
-            return (date + "23:59:59")
+            return (dateFormatter.string(from: datee) + " 23:59:59")
         }
-        
-        
         
     }
     
