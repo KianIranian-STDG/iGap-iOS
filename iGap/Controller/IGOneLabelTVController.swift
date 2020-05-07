@@ -23,9 +23,6 @@ class IGOneLabelTVController: BaseTableViewController {
     @IBOutlet weak var lblHeader : UILabel!
     @IBOutlet weak var lblFirstRow : UILabel!
 
-    
-
-    
     @IBOutlet weak var btnSubmit : UIButton!
     @IBOutlet weak var btnCopy : UIButton!
 
@@ -69,6 +66,9 @@ class IGOneLabelTVController: BaseTableViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(IGThreeInputTVController.keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(IGThreeInputTVController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        
+        requestShebaNumber()
 
     }
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -148,6 +148,41 @@ class IGOneLabelTVController: BaseTableViewController {
     
 
 
+    
+    private func requestShebaNumber() {
+        
+        guard let deposit = IGMBUser.current.currentDeposit else {
+            return
+        }
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+        IGApiMobileBank.shared.getShebaNumber(depositNumber: deposit.depositNumber) {[weak self] (shebaNumber, error) in
+            
+            guard let sSelf = self else {
+                return
+            }
+            
+            if error != nil {
+                IGLoading.hideLoadingPage()
+                if error!.isAuthError {
+                    isMBAuthError = true
+                    UIApplication.topViewController()!.navigationController?.pushViewController(IGMBLoginVC(), animated: true)
+                } else {
+                    isMBAuthError = false
+                    IGHelperMBAlert.shared.showCustomAlert(view: UIApplication.topViewController()!, alertType: .oneButton, title: IGStringsManager.GlobalWarning.rawValue.localized, showDoneButton: false, showCancelButton: true, message: error?.message, cancelText: IGStringsManager.GlobalOK.rawValue.localized, isLoading: false) {
+                        UIApplication.topViewController()!.dismiss(animated: true, completion: nil)
+                    }
+                }
+                return
+            }
+            
+            sSelf.lblFirstRow.text = shebaNumber!.inLocalizedLanguage()
+            
+            
+        }
+        
+    }
+    
+    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
