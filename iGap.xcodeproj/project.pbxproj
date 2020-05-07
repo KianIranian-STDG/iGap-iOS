@@ -371,6 +371,7 @@
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
 		8EFBE42924618AB000755464 /* IGMBChequeInnerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */; };
 		8EFBE42B2462776F00755464 /* IGHelperCustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */; };
+		8EFBE42D2463C7E800755464 /* IGMBPayLoanTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE42C2463C7E800755464 /* IGMBPayLoanTVController.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F301E5812CA0039AC0C /* IGMemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */; };
 		93193F321E5813030039AC0C /* IGMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F311E5813030039AC0C /* IGMemberCell.swift */; };
@@ -1371,6 +1372,7 @@
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
 		8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequeInnerVC.swift; sourceTree = "<group>"; };
 		8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperCustomNavigation.swift; sourceTree = "<group>"; };
+		8EFBE42C2463C7E800755464 /* IGMBPayLoanTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBPayLoanTVController.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F2F1E5812CA0039AC0C /* IGMemberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberTableViewController.swift; sourceTree = "<group>"; };
 		93193F311E5813030039AC0C /* IGMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMemberCell.swift; sourceTree = "<group>"; };
@@ -3999,6 +4001,7 @@
 				D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */,
 				8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */,
 				8EC42F0C2459E584000889D3 /* IGFourInputTVController.swift */,
+				8EFBE42C2463C7E800755464 /* IGMBPayLoanTVController.swift */,
 				8EC42F14245B25FC000889D3 /* IGOneLabelTVController.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
@@ -4569,6 +4572,7 @@
 				D67E982423A67921003C1516 /* AnimationEvent.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
+				8EFBE42D2463C7E800755464 /* IGMBPayLoanTVController.swift in Sources */,
 				8E03174A2378472700D5A2B5 /* IGStructBillByDevice.swift in Sources */,
 				FA0953601E1B97700043ED3F /* IGSettingContactsBlockListTableViewCell.swift in Sources */,
 				8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */,

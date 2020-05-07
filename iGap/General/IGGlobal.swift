@@ -149,6 +149,13 @@ class IGGlobal {
         var total: Int = 0
         var count: Int = 0
     }
+    internal static func getDate(from: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: "2018-08-06 00:00:00") // replace Date String
+    }
     internal static func getAllIndexPathsInSection(section : Int,tblList: ASTableNode) -> [IndexPath] {
         let count = tblList.numberOfRows(inSection: section);
         return (0..<count).map { IndexPath(row: $0, section: section) }

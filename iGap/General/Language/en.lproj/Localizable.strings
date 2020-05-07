@@ -6809,6 +6809,14 @@ TODO:// complete */
 "mb_bills_list" = "Bills List";
 "account_number" = "Account Number";
 "mb_pick_account" = "Pick Account";
+"mb_paid" = "Paid";
+"mb_not_paid" = "Not Paid";
+"mb_custom_account" = "Custom Account";
+"mb_default_account" = "Default Account";
+"mb_second_pass" = "Secondary Pass";
+
+
+
 
 
 

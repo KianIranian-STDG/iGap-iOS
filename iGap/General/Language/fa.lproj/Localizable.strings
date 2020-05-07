@@ -6820,6 +6820,11 @@ Page 4 introduce app */
 "mb_bills_list" = "لیست قبوض";
 "account_number" = "شماره حساب";
 "mb_pick_account" = "انتخاب حساب";
+"mb_paid" = "پرداخت شده";
+"mb_not_paid" = "پرداخت نشده";
+"mb_custom_account" = "حساب دلخواه";
+"mb_default_account" = "حساب پیشفرض";
+"mb_second_pass" = "رمز دوم";
 
 
 
