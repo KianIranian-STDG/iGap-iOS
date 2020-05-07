@@ -303,6 +303,18 @@ import Foundation
         let m = months[month! - 1]
         return  m + " " + String(year!)
     }
+    static func toPersianWithoutDayNumeric(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.persian)
+        let month = (calendar as NSCalendar?)?.component(.month, from: date)
+        let year = (calendar as NSCalendar?)?.component(.year, from: date)
+        
+        var monthString = String(month!)
+        if month! < 10 {
+            monthString = "0" + monthString
+        }
+        
+        return  String(year!) + " " + monthString
+    }
     static func toGregorianWithoutDay(_ date: Date) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
@@ -634,15 +646,48 @@ import Foundation
         return toPersian(Date(timeIntervalSince1970: Double(epoch)!/1000.0)).inLocalizedLanguage()
     }
     
-    static func jalaliToMobileBankGregorianDateString(date: Date) -> String {
+    static func jalaliToMobileBankGregorianDateString(date: String) -> String {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.calendar = Calendar(identifier: .persian)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.calendar = Calendar(identifier: .persian)
+        let datee = dateFormatter.date(from: date)!
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: datee)
         
-        formatter.calendar = Calendar(identifier: .gregorian)
-//        formatter.dateFormat = "yyyy-MM-dd"
-        return(formatter.string(from: date))
+    }
+    
+    static func formattedDateTime(date: String) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.calendar = Calendar(identifier: .persian)
+        let datee = dateFormatter.date(from: date)!
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+
+        let now = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: now)
+        let minutes = calendar.component(.minute, from: now)
+        
+        if datee > Date() {
+            let dateItems = date.split(separator: "-")
+            //return "\(dateItems[0])-\(dateItems[1])-" + String(IGDateTime.toPersianDay(Date())) + "\(hour):\(minutes):00"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+//            return forma
+            return formatter.string(from: Date())
+            
+//            df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+//            let now = df.stringFromDate(Date())
+            
+        }else {
+            return (date + "23:59:59")
+        }
+        
+        
+        
     }
     
 }

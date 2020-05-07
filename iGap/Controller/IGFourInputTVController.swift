@@ -122,7 +122,7 @@ class IGFourInputTVController: BaseTableViewController {
     
     @IBAction func didTapOnInquery(_ sender: UIButton) {
 
-        SwiftEventBus.post("didRequestHotCard", sender: ["cardNumber": lblFirstRow.text ?? "", "password": lblSecondRow.text ?? "", "cvv2": lblThirdRow.text ?? "", "exp_year": "99", "exp_month": "8"])
+        SwiftEventBus.post("didRequestHotCard", sender: ["cardNumber": tfFirstRow.text ?? "", "password": tfSecondRow.text ?? "", "cvv2": tfThirdRow.text ?? "", "exp_year": tfFourRow.text ?? "", "exp_month": tfFiveRow.text ?? ""])
         
     }
     @IBAction func didTapOnShowPass(_ sender: UIButton) {

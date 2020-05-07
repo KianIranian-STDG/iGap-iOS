@@ -32,7 +32,7 @@ class IGHelperMBAlert {
     let window = UIApplication.shared.keyWindow
     
     
-    func showPickAccount(view: UIViewController? = nil,accountsArray: [String], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, accountOneDidTap: (() -> Void)? = nil, accountTwoDidTap: (() -> Void)? = nil) {
+    func showPickAccount(view: UIViewController? = nil,accountsArray: [IGMBCardDeposit], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, accountOneDidTap: (() -> Void)? = nil, accountTwoDidTap: (() -> Void)? = nil) {
         
         let alertView : UIWindow? = UIApplication.shared.keyWindow
 
@@ -77,7 +77,7 @@ class IGHelperMBAlert {
 
                     stackButtons.addArrangedSubview(btnCancel)
                     ////DOne Tap GEsture Handler
-                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didDoneGotTap))
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didCancelGotTap))
                     tapGestureRecognizer.numberOfTapsRequired = 1
                     tapGestureRecognizer.numberOfTouchesRequired = 1
                     btnCancel.addGestureRecognizer(tapGestureRecognizer)
@@ -108,7 +108,7 @@ class IGHelperMBAlert {
 
 
             let btnAccOne = UIButton()
-            btnAccOne.setTitle(accountsArray[0], for: .normal)
+            btnAccOne.setTitle(accountsArray[0].depositNumber, for: .normal)
             btnAccOne.layer.borderColor = cancelBackColor.cgColor
             btnAccOne.layer.borderWidth = 1.0
             btnAccOne.layer.cornerRadius = 10
@@ -120,7 +120,7 @@ class IGHelperMBAlert {
 
             stkAccounts.addArrangedSubview(btnAccOne)
             let btnAccTwo = UIButton()
-            btnAccTwo.setTitle(accountsArray[1], for: .normal)
+            btnAccTwo.setTitle(accountsArray[1].depositNumber, for: .normal)
             btnAccTwo.layer.borderColor = cancelBackColor.cgColor
             btnAccTwo.layer.borderWidth = 1.0
             btnAccTwo.layer.cornerRadius = 10
