@@ -175,6 +175,7 @@ class IGOneLabelTVController: BaseTableViewController {
                 return
             }
             
+            IGLoading.hideLoadingPage()
             sSelf.lblFirstRow.text = shebaNumber!.inLocalizedLanguage()
             
             
