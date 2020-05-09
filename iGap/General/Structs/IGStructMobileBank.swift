@@ -63,7 +63,7 @@ struct IGMBDepositResponse<T: Codable>: Codable {
     }
 }
 
-struct IGMBDeposit: Codable {
+struct IGMBDeposit: Codable, Equatable {
     let availableBalance, balance, blockedAmount: Int
     let branchCode: String
     let creditDeposit, creditLoanRemainAmount, creditRateAmount, creditRemainAmount: String?
@@ -113,6 +113,10 @@ struct IGMBDeposit: Codable {
         case lotusFlag = "lotus_flag"
         case depositAlias = "deposit_alias"
         case iban
+    }
+    
+    static func ==(lhs: IGMBDeposit, rhs: IGMBDeposit) -> Bool {
+        return lhs.depositNumber == rhs.depositNumber
     }
 }
 
