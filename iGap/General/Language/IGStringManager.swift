@@ -13,6 +13,7 @@ enum IGStringsManager : String {
     
     //MARK: - Global Vars
     case Inventory = "Inventory"
+    case GlobalCanNotCopy = "can_not_copy"
     case GlobalConnecting = "connecting"
     case GlobalCommingSoon = "comming_soon"
     case GlobalWaitingConnection = "waiting_for_network"

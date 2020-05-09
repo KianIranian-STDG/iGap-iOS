@@ -64,23 +64,23 @@ struct IGMBDepositResponse<T: Codable>: Codable {
 }
 
 struct IGMBDeposit: Codable, Equatable {
-    let availableBalance, balance, blockedAmount: Int
-    let branchCode: String
+    let availableBalance, balance, blockedAmount: Int64?
+    let branchCode: String?
     let creditDeposit, creditLoanRemainAmount, creditRateAmount, creditRemainAmount: String?
-    let currency, depositNumber, depositStatus, depositTitle: String
-    let expireDate: String
+    let currency, depositNumber, depositStatus, depositTitle: String?
+    let expireDate: String?
     let extraAvailableBalance: String?
-    let group, inaugurationDate: String
-    let maximumBalance, minimumBalance: Int
-    let owner, personality, signature: String
+    let group, inaugurationDate: String?
+    let maximumBalance, minimumBalance: Int64?
+    let owner, personality, signature: String?
     let supportCurrency: String?
-    let supportDepositNumber: String
+    let supportDepositNumber: String?
     let supportDepositStatus, supportStatus: String?
-    let withdrawalOption: String
+    let withdrawalOption: String?
     let interestAccount, owners, dayOfDepositInterest: String?
-    let lotusFlag: Bool
+    let lotusFlag: Bool?
     let depositAlias: String?
-    let iban: String
+    let iban: String?
 
     enum CodingKeys: String, CodingKey {
         case availableBalance = "available_balance"

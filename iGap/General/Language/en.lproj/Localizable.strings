@@ -6819,7 +6819,7 @@ TODO:// complete */
 "mb_usable_cheque" = "Usable";
 "mb_cashed_cheque" = "Cashed";
 "mb_blocked_service" = "This servcie is Unavailable";
-
+"can_not_copy" = "Can Not Copy!";
 
 
 

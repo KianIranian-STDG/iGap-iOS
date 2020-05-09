@@ -100,6 +100,12 @@ class IGOneLabelTVController: BaseTableViewController {
 
     }
     @IBAction func didTapOnCopy(_ sender: UIButton) {
+        let pasteboard = UIPasteboard.general
+        if lblFirstRow.text != "...." {
+            pasteboard.string = lblFirstRow.text!
+        } else {
+            IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.GlobalCanNotCopy.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+        }
 
     }
 
@@ -127,7 +133,6 @@ class IGOneLabelTVController: BaseTableViewController {
 
         lblFirstRow.semanticContentAttribute = self.semantic
         btnCopy.semanticContentAttribute = self.semantic
-
         
         
     }
@@ -155,7 +160,7 @@ class IGOneLabelTVController: BaseTableViewController {
             return
         }
         IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
-        IGApiMobileBank.shared.getShebaNumber(depositNumber: deposit.depositNumber) {[weak self] (shebaNumber, error) in
+        IGApiMobileBank.shared.getShebaNumber(depositNumber: deposit.depositNumber!) {[weak self] (shebaNumber, error) in
             
             guard let sSelf = self else {
                 return
