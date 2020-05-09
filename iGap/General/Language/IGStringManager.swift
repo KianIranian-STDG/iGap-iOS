@@ -900,7 +900,7 @@ enum IGStringsManager : String {
     case MBNoPrice = "mb_no_price"
     case MBUsableCheque = "mb_usable_cheque"
     case MBCashedCheque = "mb_cashed_cheque"
-
+    case MBFinancialReport = "financial_report"
 
 }
 

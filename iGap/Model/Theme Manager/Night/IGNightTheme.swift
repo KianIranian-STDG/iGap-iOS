@@ -61,7 +61,8 @@ class NightTheme: ThemeProtocol {
     var LabelSecondColor: UIColor = NightColorSetManager.currentColorSet.LabelSecondColor
     
     var ModalViewBackgroundColor: UIColor = NightColorSetManager.currentColorSet.ModalViewBackgroundColor
-    
+    var ShadowColor: UIColor = NightColorSetManager.currentColorSet.ShadowColor
+
     var ProgressBackgroundColor: UIColor = NightColorSetManager.currentColorSet.ProgressBackgroundColor
     
     var ProgressColor: UIColor = NightColorSetManager.currentColorSet.ProgressColor

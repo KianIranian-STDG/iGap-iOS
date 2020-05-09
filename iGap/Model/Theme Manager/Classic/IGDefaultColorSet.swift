@@ -61,6 +61,8 @@ class DefaultColorSet: DefaultColorSetProtocol {
     
     var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColor")!
     
+    var ShadowColor: UIColor  = UIColor(named: "IGShadowColor")!
+
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColor")!
     
     var ProgressColor: UIColor = UIColor(named: "IGProgressColor")!

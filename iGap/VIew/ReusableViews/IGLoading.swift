@@ -101,7 +101,7 @@ class IGLoading {
             //            let loadingView = UIView(frame: CGRect(x: UIScreen.main.bounds.width/2 - 60, y: UIScreen.main.bounds.height/2 - 60, width: 120, height: 120))
             let loadingView = UIView(frame: CGRect(x: viewcontroller.view.bounds.width/2 - 60, y: viewcontroller.view.bounds.height/2 - 60, width: 120, height: 120))
             
-            loadingView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+            loadingView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
             loadingView.layer.cornerRadius = 6.0
             //loadingView.clipsToBounds = true
             loadingViewPage!.addSubview(loadingView)

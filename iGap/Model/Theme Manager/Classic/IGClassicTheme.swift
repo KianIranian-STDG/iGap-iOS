@@ -59,6 +59,8 @@ class ClassicTheme: ThemeProtocol {
     
     var ModalViewBackgroundColor: UIColor = DefaultColorSet().ModalViewBackgroundColor
     
+    var ShadowColor: UIColor  = DefaultColorSet().ShadowColor
+
     var ProgressBackgroundColor: UIColor = DefaultColorSet().ProgressBackgroundColor
     
     var ProgressColor: UIColor = DefaultColorSet().ProgressColor
