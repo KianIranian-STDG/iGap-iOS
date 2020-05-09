@@ -905,6 +905,7 @@ enum IGStringsManager : String {
     case MBDrawBack = "mb_draw_back"
     case MBFinancialReport = "financial_report"
     case MBUnavailableService = "mb_blocked_service"
+    case MBInformation = "mb_information"
 
 }
 
