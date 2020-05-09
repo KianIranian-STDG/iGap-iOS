@@ -896,6 +896,10 @@ enum IGStringsManager : String {
     case MBCustomAccount = "mb_custom_account"
     case MBDefaultAccount = "mb_default_account"
     case MBSecondPass = "mb_second_pass"
+    case MBEmptyList = "mb_empty_list"
+    case MBNoPrice = "mb_no_price"
+    case MBUsableCheque = "mb_usable_cheque"
+    case MBCashedCheque = "mb_cashed_cheque"
 
 
 }

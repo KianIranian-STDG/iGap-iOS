@@ -17,7 +17,9 @@ class IGHelperMBAlert {
         case twoButton = 1
         case noButton = 2
     }
-    
+    private var actionBtnOne: (() -> Void)?
+    private var actionBtnTwo: (() -> Void)?
+
     private var actionAccOneTap: (() -> Void)?
     private var actionAccTwoTap: (() -> Void)?
     private var actionDone: (() -> Void)?
@@ -30,7 +32,116 @@ class IGHelperMBAlert {
     var bgView : UIView!
     var maxHeightOfCustomAlert : CGFloat = (UIScreen.main.bounds.height - 100)
     let window = UIApplication.shared.keyWindow
+    var imputTextfield : UITextField!
     
+    func showEnterAmount(view: UIViewController? = nil, alertType: helperAlertType! = helperAlertType.twoButton, title: String? = nil , buttonOneTitleColor: UIColor = UIColor.darkGray,buttonOneBackColor : UIColor = UIColor.white, buttonOneText: String? = nil, buttonOneAction: (() -> Void)? = nil ,buttonTwoTitleColor: UIColor = UIColor.white,buttonTwoBackColor : UIColor = UIColor.hexStringToUIColor(hex: "B6774E"), buttonTwoText: String? = nil, buttonTwoAction: (() -> Void)? = nil) {
+        
+        let alertView : UIWindow? = UIApplication.shared.keyWindow
+
+        UIApplication.topViewController()?.view.endEditing(true)
+        ///check if there's already one customAlert on screen remove it and creat a new one
+        if self.customAlert != nil {
+            self.removeCustomAlertView()
+        }
+        if self.customAlert == nil {
+            
+            self.creatBlackBackgroundView()///view for black transparet on back of alert
+            
+            self.customAlert = self.creatCustomAlertView()///creat customAlertView
+            
+            //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromTop, animations: {
+                self.window!.addSubview(self.customAlert)
+                self.customAlert = self.creatCustomAlertView()///creat customAlertView
+                self.window!.addSubview(self.customAlert)
+
+            
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:150)///setConstraintsTo CustomeAlert
+            ///create StackView for holding Buttons
+            let stackButtons : UIStackView
+            stackButtons = UIStackView()
+            stackButtons.axis = .horizontal
+            stackButtons.alignment = .fill
+            stackButtons.distribution = .fillEqually
+            stackButtons.spacing = 5
+            self.customAlert.addSubview(stackButtons)
+            ///set Constraints for stackView
+            self.setConstraintsToButtonsStackView(customStack: stackButtons, customAlertView: self.customAlert)
+            ///set Constraints for borderView above stack of Buttons
+            self.customAlert.clipsToBounds = true
+            if alertType == helperAlertType.oneButton {
+                let btnOne = UIButton()
+                btnOne.layer.cornerRadius = 15
+                btnOne.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                btnOne.setTitle(buttonOneText, for: .normal)
+                btnOne.backgroundColor = buttonOneBackColor
+                btnOne.setTitleColor(buttonOneTitleColor, for: .normal)
+                
+                stackButtons.addArrangedSubview(btnOne)
+                ////DOne Tap GEsture Handler
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didButtonOneGotTap))
+                tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                btnOne.addGestureRecognizer(tapGestureRecognizer)
+                
+            } else {
+                let btnOne = UIButton()
+                btnOne.layer.cornerRadius = 15
+                btnOne.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                btnOne.setTitle(buttonOneText, for: .normal)
+                btnOne.backgroundColor = buttonOneBackColor
+                btnOne.setTitleColor(buttonOneTitleColor, for: .normal)
+                
+                stackButtons.addArrangedSubview(btnOne)
+                ////DOne Tap GEsture Handler
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didButtonOneGotTap))
+                tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                btnOne.addGestureRecognizer(tapGestureRecognizer)
+
+                let btnTwo = UIButton()
+                btnTwo.layer.cornerRadius = 15
+                btnTwo.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                btnTwo.setTitle(buttonTwoText, for: .normal)
+                btnTwo.backgroundColor = buttonTwoBackColor
+                btnTwo.setTitleColor(buttonTwoTitleColor, for: .normal)
+                
+                stackButtons.addArrangedSubview(btnTwo)
+                ////DOne Tap GEsture Handler
+                let tapGestureRecognizerbtnTwo = UITapGestureRecognizer(target: self, action: #selector(self.didButtonTwoGotTap))
+                tapGestureRecognizerbtnTwo.numberOfTapsRequired = 1
+                tapGestureRecognizerbtnTwo.numberOfTouchesRequired = 1
+                btnTwo.addGestureRecognizer(tapGestureRecognizerbtnTwo)
+
+            }
+            stackButtons.translatesAutoresizingMaskIntoConstraints = false
+
+            let stackTitleAndIcon = UIStackView()
+            createCloseAndTitleStack(stk: stackTitleAndIcon,title: title!,customAlertView: self.customAlert)
+
+
+            imputTextfield = UITextField()
+            self.customAlert.addSubview(imputTextfield)
+            imputTextfield.layer.borderColor = UIColor.lightGray.cgColor
+            imputTextfield.layer.borderWidth = 1.0
+            imputTextfield.layer.cornerRadius = 10
+            
+            imputTextfield.textAlignment = .center
+            imputTextfield.backgroundColor = .white
+            imputTextfield.translatesAutoresizingMaskIntoConstraints = false
+            imputTextfield.leadingAnchor.constraint(equalTo: self.customAlert.leadingAnchor,constant: 20).isActive = true
+            imputTextfield.trailingAnchor.constraint(equalTo: self.customAlert.trailingAnchor,constant: -20).isActive = true
+            imputTextfield.topAnchor.constraint(equalTo: stackTitleAndIcon.bottomAnchor,constant: 20).isActive = true
+            imputTextfield.bottomAnchor.constraint(equalTo: stackButtons.topAnchor,constant: -20).isActive = true
+            
+            
+            self.actionBtnOne = buttonOneAction
+            self.actionBtnTwo = buttonTwoAction
+            self.customAlert?.alpha = 0
+            self.customAlert?.fadeIn(0.3)
+        }
+
+        
+    }
     
     func showPickAccount(view: UIViewController? = nil,accountsArray: [IGMBCardDeposit], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, accountOneDidTap: (() -> Void)? = nil, accountTwoDidTap: (() -> Void)? = nil) {
         
@@ -611,6 +722,30 @@ class IGHelperMBAlert {
     
     
     //MARK: - Development funcs
+    @objc func didButtonOneGotTap() {
+        if self.actionBtnOne != nil {
+            actionBtnOne!()
+            self.removeCustomAlertView()
+            
+        } else {
+            self.removeCustomAlertView()
+        }
+    }
+
+    @objc func didButtonTwoGotTap() {
+        if self.actionBtnTwo != nil {
+            if imputTextfield.text == "" {
+                IGHelperToast.shared.showCustomToast(view: UIApplication.topViewController()!, showCancelButton: false, message: IGStringsManager.FillForm.rawValue.localized)
+            } else {
+                actionBtnTwo!()
+                self.removeCustomAlertView()
+                
+            }
+        } else {
+            self.removeCustomAlertView()
+        }
+    }
+
     @objc func didAccOneGotTap() {
         if self.actionAccOneTap != nil {
             actionAccOneTap!()

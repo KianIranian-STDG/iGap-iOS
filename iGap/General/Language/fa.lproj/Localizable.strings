@@ -6813,7 +6813,7 @@ Page 4 introduce app */
 "mb_cheque_number" = "شماره چک :";
 "mb_rejected" = "برگشتی :";
 "mb_passed" = "پاس شده :";
-"mb_unused" = "استفاده نشده :";
+"mb_unused" = "قابل استفاده :";
 "mb_blocked" = "مسدودی :";
 "mb_pages" = "صفحه";
 "mb_enter_amount" = "مبلغ را وارد کنید";
@@ -6825,6 +6825,10 @@ Page 4 introduce app */
 "mb_custom_account" = "حساب دلخواه";
 "mb_default_account" = "حساب پیشفرض";
 "mb_second_pass" = "رمز دوم";
+"mb_empty_list" = "لیست خالی می باشد!";
+"mb_no_price" = "بدون مبلغ";
+"mb_usable_cheque" = "قابل استفاده";
+"mb_cashed_cheque" = "نقد شده";
 
 
 

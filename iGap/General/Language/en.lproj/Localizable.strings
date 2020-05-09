@@ -6814,7 +6814,10 @@ TODO:// complete */
 "mb_custom_account" = "Custom Account";
 "mb_default_account" = "Default Account";
 "mb_second_pass" = "Secondary Pass";
-
+"mb_empty_list" = "The List Is Empty!";
+"mb_no_price" = "No Amount";
+"mb_usable_cheque" = "Usable";
+"mb_cashed_cheque" = "Cashed";
 
 
 

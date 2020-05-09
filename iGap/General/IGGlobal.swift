@@ -29,7 +29,7 @@ import AsyncDisplayKit
 var fontDefaultSize: CGFloat = 15.0
 var isMBAuthError: Bool = false
 var indexOfMBLogin: Int = 1
-
+var indexOfCurrentAccountCard : Int = 0
 let kIGChnageLanguageNotificationName = "im.igap.ios.change.language"
 let kIGGoDissmissLangNotificationName = "im.igap.ios.dismiss.lang"
 let kIGNotificationNameDidCreateARoomAtProfile = "im.igap.ios.room.created.from.profile"

@@ -126,7 +126,9 @@ class IGHelperToast {
                 self.customAlert?.fadeIn(0.3)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 ) {
-                    self.actionCancel!()
+                    if self.actionCancel != nil {
+                        self.actionCancel!()
+                    }
                     self.removeCustomAlertView()
 
                 }

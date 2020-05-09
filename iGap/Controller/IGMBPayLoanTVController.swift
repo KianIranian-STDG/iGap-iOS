@@ -15,7 +15,7 @@ class IGMBPayLoanTVController: BaseTableViewController {
     let transparentView = UIView()
     var selectedButton = UIButton()
     let backView = DropBackView()
-
+    var selectedLoan : String = ""
     var mode : String = "BLOCK_CARD"
     var articleID : String = ""
     var isShortFormEnabled = true
@@ -204,7 +204,35 @@ class IGMBPayLoanTVController: BaseTableViewController {
     
     @IBAction func didTapOnPay(_ sender: UIButton) {
         //        SwiftEventBus.post("didRequestHotCard", sender: ["cardNumber": lblFirstRow.text ?? "", "password": lblSecondRow.text ?? "", "cvv2": lblThirdRow.text ?? "", "exp_year": "99", "exp_month": "8"])
+        payRequest()
         
+        
+    }
+    private func payRequest() {
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+        IGApiMobileBank.shared.payLoan(loanNumber: selectedLoan.inEnglishNumbersNew(), amount: Int( tfAmount.text!.inEnglishNumbersNew())!, secondPass: tfSecondaryPass.text!.inEnglishNumbersNew(), paymentMethod: isCustomAccount ? .CustomDeposit : .DefaultDeposit, depositNumber: isCustomAccount ? tfAccount.text!.inEnglishNumbersNew() : IGMBUser.current.currentDeposit?.depositNumber) { (result, error) in
+            if error != nil {
+                
+                IGLoading.hideLoadingPage()
+                
+                
+                if error!.isAuthError {
+                    isMBAuthError = true
+                    UIApplication.topViewController()!.navigationController?.pushViewController(IGMBLoginVC(), animated: true)
+                } else {
+                    isMBAuthError = false
+                    IGHelperMBAlert.shared.showCustomAlert(view: UIApplication.topViewController()!, alertType: .oneButton, title: IGStringsManager.GlobalWarning.rawValue.localized, showDoneButton: false, showCancelButton: true, message: error?.message, cancelText: IGStringsManager.GlobalOK.rawValue.localized, isLoading: false) {
+                        UIApplication.topViewController()!.dismiss(animated: true, completion: nil)
+                    }
+                    
+                }
+                
+                return
+            } else {
+                IGLoading.hideLoadingPage()
+                IGHelperMBAlert.shared.showMessageAlert(alertType: .noButton, title: IGStringsManager.GlobalSuccess.rawValue.localized , cancelBackColor: UIColor.hexStringToUIColor(hex: "B6774E"), cancelText: IGStringsManager.GlobalClose.rawValue.localized, message: IGStringsManager.SuccessPayment.rawValue.localized)
+            }
+        }
     }
     @IBAction func didTapOnCustomDepo(_ sender: UIButton) {
         customCheckMark.backgroundColor = UIColor.hexStringToUIColor(hex: "B6774E")
