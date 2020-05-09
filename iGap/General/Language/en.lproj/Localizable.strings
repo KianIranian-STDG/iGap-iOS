@@ -6818,6 +6818,8 @@ TODO:// complete */
 "mb_no_price" = "No Amount";
 "mb_usable_cheque" = "Usable";
 "mb_cashed_cheque" = "Cashed";
+"mb_deposit_money" = "Deposit";
+"mb_draw_back" = "Draw Back";
 "mb_blocked_service" = "This servcie is Unavailable";
 "can_not_copy" = "Can Not Copy!";
 

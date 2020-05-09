@@ -6829,6 +6829,8 @@ Page 4 introduce app */
 "mb_no_price" = "بدون مبلغ";
 "mb_usable_cheque" = "قابل استفاده";
 "mb_cashed_cheque" = "نقد شده";
+"mb_deposit_money" = "واریز";
+"mb_draw_back" = "برداشت";
 "mb_blocked_service" = "غیر فعال می باشد";
 "can_not_copy" = "امکان کپی وجود ندارد!";
 
