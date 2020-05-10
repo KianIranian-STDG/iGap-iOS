@@ -436,6 +436,7 @@
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
+		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
 		D2FE6BBB244EF99500CE8231 /* IGMBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */; };
 		D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */; };
@@ -826,7 +827,6 @@
 		FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA65CFA220AC0270006994A /* StickerCell.swift */; };
 		FAA697172376C93E006810A4 /* LocaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA697162376C93E006810A4 /* LocaleManager.swift */; };
 		FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6971C23770CF2006810A4 /* TabBarLocalizable.strings */; };
-		FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA932F41DF45748002CC631 /* IGEnums.swift */; };
 		FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFAF1F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift */; };
 		FAA9DFB21F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFB11F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift */; };
@@ -958,6 +958,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D2DF12AD24682D67009F68AC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAD744FE21B940D400801D2E /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1998,7 +2008,6 @@
 				8E94B7402237E4A1005F6868 /* models.framework in Frameworks */,
 				8E94B7412237E4A1005F6868 /* OLCOrm.framework in Frameworks */,
 				8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */,
-				FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */,
 				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
 				FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */,
 				FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */,
@@ -2033,6 +2042,7 @@
 				FAF985AC1E2E10EC00B26940 /* RealmSwift.framework in Frameworks */,
 				FAF985AE1E2E10EC00B26940 /* RxCocoa.framework in Frameworks */,
 				D68D4B7824599105005FCFD5 /* PecPayment.framework in Frameworks */,
+				D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */,
 				FAF985AF1E2E10EC00B26940 /* RxRealm.framework in Frameworks */,
 				FAF985B01E2E10EC00B26940 /* RxSwift.framework in Frameworks */,
 				FAC42C861E36267400F2CB5C /* Crashlytics.framework in Frameworks */,
@@ -4159,6 +4169,7 @@
 				FAF985B71E2E110900B26940 /* [RS] Copy Carthage Frameworks */,
 				FAC42C821E36262D00F2CB5C /* [RS] Fabric.io */,
 				FAD744FE21B940D400801D2E /* Embed App Extensions */,
+				D2DF12AD24682D67009F68AC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4473,6 +4484,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Lottie.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Files.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AsyncDisplayKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PecPayment.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
