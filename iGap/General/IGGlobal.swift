@@ -27,7 +27,9 @@ import Files
 import AsyncDisplayKit
 
 var fontDefaultSize: CGFloat = 15.0
-
+var isMBAuthError: Bool = false
+var indexOfMBLogin: Int = 1
+var indexOfCurrentAccountCard : Int = 0
 let kIGChnageLanguageNotificationName = "im.igap.ios.change.language"
 let kIGGoDissmissLangNotificationName = "im.igap.ios.dismiss.lang"
 let kIGNotificationNameDidCreateARoomAtProfile = "im.igap.ios.room.created.from.profile"
@@ -40,6 +42,11 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 
 let orangeGradientLocation = [0.0, 1.0]
+enum MBMode : Int {
+    case Cards = 0
+    case Accounts = 1
+    case Services = 2
+}
 
 enum themeMode : Int {
     case night = 0
@@ -141,6 +148,13 @@ class IGGlobal {
         var lastMillis: Int64 = 0
         var total: Int = 0
         var count: Int = 0
+    }
+    internal static func getDate(from: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: "2018-08-06 00:00:00") // replace Date String
     }
     internal static func getAllIndexPathsInSection(section : Int,tblList: ASTableNode) -> [IndexPath] {
         let count = tblList.numberOfRows(inSection: section);
@@ -1088,6 +1102,7 @@ extension Date {
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
+    
     func CustomeCompleteHumanReadableTime(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -3180,4 +3195,10 @@ extension ASImageNode {
     self.image = templateImage
     self.tintColor = color
   }
+}
+
+func igPrint(_ string: String...) {
+    #if DEBUG
+    print(string)
+    #endif
 }

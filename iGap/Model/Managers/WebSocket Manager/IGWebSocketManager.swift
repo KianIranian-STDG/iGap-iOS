@@ -93,6 +93,7 @@ class IGWebSocketManager: NSObject {
             if reachability == nil {
                 reachability = try Reachability()
             }
+            
             reachability.whenReachable = { reachability in
                 // this is called on a background thread
                 IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)

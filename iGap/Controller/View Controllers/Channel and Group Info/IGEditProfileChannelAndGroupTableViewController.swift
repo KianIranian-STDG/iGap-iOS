@@ -230,7 +230,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     
     func requestToUpdateChannelSignature(_ signatureSwitchStatus: Bool) {
         if let channelRoom = room {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGChannelUpdateSignatureRequest.Generator.generate(roomId: channelRoom.id, signatureStatus: signatureSwitchStatus).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -239,7 +239,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     default:
                         break
                     }
-                    SMLoading.hideLoadingPage()
+                    IGLoading.hideLoadingPage()
                     
                     
                 }
@@ -251,7 +251,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     default:
                         break
                     }
-                    SMLoading.hideLoadingPage()
+                    IGLoading.hideLoadingPage()
                 }
                 
             }).send()
@@ -260,7 +260,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     
     func requestToUpdateChannelReaction(_ reactionSwitchStatus: Bool) {
         if let channelRoom = room {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGChannelUpdateReactionStatusRequest.sendRequest(roomId: channelRoom.id, reactionStatus: reactionSwitchStatus)
             
             
@@ -325,7 +325,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     //Mark: - change channel Description
     func changeChannelDescription() {
         
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         if let desc = tfDescriptionOfRoom.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             if room != nil {
                 IGChannelEditRequest.Generator.generate(roomId: (room?.id)!, channelName: (room?.title)!, description: desc).success({ (protoResponse) in
@@ -335,7 +335,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                             let channelEditResponse = IGChannelEditRequest.Handler.interpret(response: editChannelResponse)
                             self.tfDescriptionOfRoom.text = channelEditResponse.description
                             self.tmpOldDesc = channelEditResponse.description
-                            SMLoading.hideLoadingPage()
+                            IGLoading.hideLoadingPage()
                             self.dispatchGroup.leave()
                             
                         default:
@@ -346,7 +346,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            SMLoading.hideLoadingPage()
+                            IGLoading.hideLoadingPage()
                             self.dispatchGroup.leave()
                         }
                     default:
@@ -360,7 +360,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     
     func changeGroupDescription() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         if let desc = tfDescriptionOfRoom.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             if room != nil {
                 IGGroupEditRequest.Generator.generate(groupName:(room?.title)! , groupDescription: desc , groupRoomId: (room?.id)!).success({ (protoResponse) in
@@ -369,7 +369,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         case let editGroupResponse as IGPGroupEditResponse:
                             let groupEditResponse = IGGroupEditRequest.Handler.interpret(response: editGroupResponse)
                             self.tfDescriptionOfRoom.text = groupEditResponse.groupDesc
-                            SMLoading.hideLoadingPage()
+                            IGLoading.hideLoadingPage()
                             self.dispatchGroup.leave()
                         default:
                             break
@@ -379,7 +379,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            SMLoading.hideLoadingPage()
+                            IGLoading.hideLoadingPage()
                             self.dispatchGroup.leave()
                         }
                     default:
@@ -398,7 +398,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             return
         }
         if let roomID = room?.id {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGChannelRemoveUsernameRequest.Generator.generate(roomID: roomID).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -411,7 +411,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                                     self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                                     self.convertToPublic = false
                                     self.tableView.beginUpdates()
-                                    SMLoading.hideLoadingPage()
+                                    IGLoading.hideLoadingPage()
                                     self.tableView.endUpdates()
                                     self.dispatchGroup.leave()
                                     
@@ -423,7 +423,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                             switch errorCode {
                             case .timeout:
                                 DispatchQueue.main.async {
-                                    SMLoading.hideLoadingPage()
+                                    IGLoading.hideLoadingPage()
                                     self.dispatchGroup.leave()
                                 }
                             default:
@@ -441,7 +441,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                     }
                 default:
@@ -454,7 +454,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     
     func changedGroupTypeToPrivate() {
         if let roomID = room?.id {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGGroupRemoveUsernameRequest.Generator.generate(roomId: roomID).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -472,7 +472,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                     }
                 default:
@@ -497,7 +497,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         }
         if let channelUserName = tfChannelLink.text {
             if channelUserName == "" {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 dispatchGroup.leave()
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalErrorForm.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -505,14 +505,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
             
             if channelUserName.count < 5 {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 dispatchGroup.leave()
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalMinimumLetters.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
             
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGChannelUpdateUsernameRequest.Generator.generate(userName:channelUserName ,room: room!).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -527,7 +527,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     default:
                         break
                     }
-                    SMLoading.hideLoadingPage()
+                    IGLoading.hideLoadingPage()
                 }
             }).error ({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
@@ -586,7 +586,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         break
                     }
                     
-                    SMLoading.hideLoadingPage()
+                    IGLoading.hideLoadingPage()
                 }
                 
             }).send()
@@ -603,7 +603,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         if let groupUserName = tfChannelLink.text {
             
             if groupUserName == "" {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
                 
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorGroupLinkNotEmpty
@@ -613,14 +613,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
             
             if groupUserName.count < 5 {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalMinimumLetters.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
             
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGGroupUpdateUsernameRequest.Generator.generate(roomID: room!.id ,userName:groupUserName).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -630,7 +630,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.tableView.endUpdates()
 
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         
                     default:
                         break
@@ -642,12 +642,12 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     switch errorCode {
                     case .timeout:
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         
                     case .groupUpdateUsernameIsInvalid:
 
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
 
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -656,7 +656,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     case .groupUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
 
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
 
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyTakenUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -665,7 +665,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     case .groupUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
 
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -673,7 +673,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         
                     case .groupUpdateUsernameForbidden:
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MSGUpdateUserNameForbidden.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -685,7 +685,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         let msg = IGStringsManager.ErrorUpdateUSernameAfter.rawValue.localized + " " + String(remainingMiuntes) + " " + IGStringsManager.Minutes.rawValue.localized
                         
                         self.dispatchGroup.leave()
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
@@ -780,7 +780,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     
     //Mark: - change channel name
     func changeChanellName() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         if let name = tfNameOfRoom.text {
             IGChannelEditRequest.Generator.generate(roomId: (room?.id)!, channelName: name, description: room?.channelRoom?.roomDescription).success({ (protoResponse) in
                 DispatchQueue.main.async {
@@ -789,7 +789,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         let channelName = IGChannelEditRequest.Handler.interpret(response: editChannelResponse)
                         self.tfNameOfRoom.text = channelName.channelName
                         self.tmpOldName = channelName.channelName
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                     default:
                         break
@@ -799,7 +799,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                     }
                 default:
@@ -812,7 +812,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     private func changeGroupName() {
         
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         if let name = tfNameOfRoom.text {
             IGGroupEditRequest.Generator.generate(groupName: name, groupDescription: room?.groupRoom?.roomDescription , groupRoomId: (room?.id)!).success({ (protoResponse) in
                 DispatchQueue.main.async {
@@ -821,7 +821,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         let groupName = IGGroupEditRequest.Handler.interpret(response: editChannelResponse)
                         self.tfNameOfRoom.text = groupName.groupName
                         
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                         
                     default:
@@ -832,7 +832,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        SMLoading.hideLoadingPage()
+                        IGLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
                     }
                 default:

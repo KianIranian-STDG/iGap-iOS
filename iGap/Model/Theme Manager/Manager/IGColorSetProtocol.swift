@@ -80,6 +80,7 @@ protocol DefaultColorSetProtocol {
     var LabelGrayColor : UIColor { get }
     var LabelSecondColor : UIColor { get }
     var ModalViewBackgroundColor : UIColor { get }
+    var ShadowColor : UIColor { get }
     var ProgressBackgroundColor : UIColor { get }
     var ProgressColor : UIColor { get }
     var RecentTVCellColor : UIColor { get }
@@ -169,6 +170,7 @@ protocol DayNightColorSetProtocol {
     var LabelGrayColor : UIColor { get }
     var LabelSecondColor : UIColor { get }
     var ModalViewBackgroundColor : UIColor { get }
+    var ShadowColor : UIColor { get }
     var ProgressBackgroundColor : UIColor { get }
     var ProgressColor : UIColor { get }
     var RecentTVCellColor : UIColor { get }
@@ -277,6 +279,7 @@ protocol NightColorSetProtocol {
     var LabelGrayColor : UIColor { get }
     var LabelSecondColor : UIColor { get }
     var ModalViewBackgroundColor : UIColor { get }
+    var ShadowColor : UIColor { get }
     var ProgressBackgroundColor : UIColor { get }
     var ProgressColor : UIColor { get }
     var RecentTVCellColor : UIColor { get }

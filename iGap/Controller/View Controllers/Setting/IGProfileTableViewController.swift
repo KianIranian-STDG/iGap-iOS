@@ -717,10 +717,16 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         goToSettings = false
+        /*
         let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
         settingVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(settingVC, animated:true)
-    }
+        */
+        
+        let vc = IGMBLoginVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+        }
     
     //Hint: - Go To Cloud Action Handler
     @IBAction func didTapOnGoToCloud(_ sender: Any) {
@@ -1062,10 +1068,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     
     private func checkVersionUpdate() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGInfoUpdateResponse.Generator.generate().success { (responseProtoMessage) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
             }
             
             DispatchQueue.main.async {
@@ -1197,7 +1203,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     private func saveChanges(nameChnaged: Bool! = false,userNameChnaged: Bool! = false, bioChnaged: Bool! = false, emailChanged : Bool! = false, referralChnaged : Bool! = false, genderChanged : Bool! = false) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         if userNameChnaged {
             sendUserNameRequest(current: currentUserName)
         }
@@ -1223,9 +1229,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 
     //Hint: - send UserName Change Request
     private func sendUserNameRequest(current: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             self?.canCallNextRequest = true
             DispatchQueue.main.async {
                 if let setUsernameProtoResponse = protoResponse as? IGPUserProfileUpdateUsernameResponse {
@@ -1236,7 +1242,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     break
@@ -1265,9 +1271,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     //Hint: - send Name Change Request
     private func sendNameRequest(current: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             self?.canCallNextRequest = true
             
             DispatchQueue.main.async {
@@ -1282,7 +1288,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 
         }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
 
                 switch errorCode {
                 case .timeout:
@@ -1297,9 +1303,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     //Hint: - send Bio Change Request
     private func sendBioRequest(current: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetBioRequest.Generator.generate(bio: current).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             self?.canCallNextRequest = true
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -1311,7 +1317,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 self?.lblBioTop.text = current
             }
         }).error ({ [weak self] (errorCode, waitTime) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -1326,9 +1332,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     //Hint: - send Email Change Request
     private func sendEmailRequest(current: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetEmailRequest.Generator.generate(userEmail: current).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             self?.canCallNextRequest = true
             
             DispatchQueue.main.async {
@@ -1342,7 +1348,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     self?.canCallNextRequest = false
@@ -1356,9 +1362,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     //Hint: - send Referral Change Request
     private func sendReferralRequest(current: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetRepresentativeRequest.Generator.generate(phone: current).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             self?.canCallNextRequest = true
             if let response = protoResponse as? IGPUserProfileSetRepresentativeResponse {
                 IGUserProfileSetRepresentativeRequest.Handler.interpret(response: response)
@@ -1366,7 +1372,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 
         }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     self?.canCallNextRequest = false
@@ -1379,9 +1385,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     //Hint: - send gender Change Request
     private func sendGenderRequest(current: IGPGender.RawValue) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetGenderRequest.Generator.generate(gender: IGPGender(rawValue: current)!).success({ [weak self] (protoResponse) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 let userId = IGAppManager.sharedManager.userID()
                 let gender: IGPGender = IGPGender(rawValue: current)!
@@ -1390,7 +1396,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             self?.canCallNextRequest = true
         }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
                     self?.canCallNextRequest = false

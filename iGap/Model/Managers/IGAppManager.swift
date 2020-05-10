@@ -480,4 +480,6 @@ class IGAppManager: NSObject {
         }).send()
     }
     
+    var mobileBankAccessToken = ""
+    
 }

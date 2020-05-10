@@ -129,9 +129,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func fetchStickerPreview(groupId: String){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             IGApiSticker.shared.stickerGroup(groupId: groupId) { [weak self] (stickers) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 if stickers.count == 0 { return }
                 
                 for sticker in stickers {
@@ -148,7 +148,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     private func fetchStickerList(){
         if stickerCategoryId == nil {return}
         isWaitingForRequest = true
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
             self?.showStickerList(stickers: stickers)
         }
@@ -156,7 +156,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func fetchGiftableStickerList(){
         isWaitingForRequest = true
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiSticker.shared.getGiftableStickerGroups(offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
             self?.showStickerList(stickers: stickers)
         }
@@ -165,7 +165,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     /* after get sticker list from server use following method for show stickers in view */
     private func showStickerList(stickers: [StickerTab]){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
         }
         
         var indexSet : [Int] = []

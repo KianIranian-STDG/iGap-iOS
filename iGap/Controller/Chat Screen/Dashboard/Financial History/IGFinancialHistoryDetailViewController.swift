@@ -66,9 +66,9 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
     }
     
     private func getData() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGMplTransactionInfo.Generator.generate(transactionToken: self.transactionToken).success ({ (responseProtoMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 switch responseProtoMessage {
                 case let response as IGPMplTransactionInfoResponse:

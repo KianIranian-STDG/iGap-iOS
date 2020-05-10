@@ -108,7 +108,32 @@ import Foundation
         let m = months[month! - 1]
         return String(day!) + " " + m + " " + String(year!) + " " + time
     }
-    
+    static func toPersianWithoutDay(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.persian)
+        let month = (calendar as NSCalendar?)?.component(.month, from: date)
+        let year = (calendar as NSCalendar?)?.component(.year, from: date)
+        let m = months[month! - 1]
+        return  m + " " + String(year!)
+    }
+    static func toGregorianWithoutDay(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let month = (calendar as NSCalendar?)?.component(.month, from: date)
+        let year = (calendar as NSCalendar?)?.component(.year, from: date)
+        let m = months[month! - 1]
+        return  m + " " + String(year!)
+    }
+
+    static func toPersianYear(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.persian)
+        let year = (calendar as NSCalendar?)?.component(.year, from: date)
+        return  String(year! + 1)
+    }
+    static func toGregorianYear(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let year = (calendar as NSCalendar?)?.component(.year, from: date)
+        return  String(year!)
+    }
+
     static func toGregorian(_ date: Date) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let day = (calendar as NSCalendar?)?.component(NSCalendar.Unit.day, from: date)

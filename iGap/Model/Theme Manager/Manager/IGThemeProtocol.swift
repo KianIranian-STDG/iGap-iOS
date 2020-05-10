@@ -74,6 +74,8 @@ protocol ThemeProtocol {
     var LabelGrayColor : UIColor { get }
     var LabelSecondColor : UIColor { get }
     var ModalViewBackgroundColor : UIColor { get }
+    var ShadowColor : UIColor { get }
+
     var ProgressBackgroundColor : UIColor { get }
     var ProgressColor : UIColor { get }
     var RecentTVCellColor : UIColor { get }

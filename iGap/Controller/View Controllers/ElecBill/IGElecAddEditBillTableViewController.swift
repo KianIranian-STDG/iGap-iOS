@@ -136,7 +136,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     
     private func addBill(userPhoneNumber: String) {
         IGApiElectricityBill.shared.addBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
-             SMLoading.hideLoadingPage()
+             IGLoading.hideLoadingPage()
              if success {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
@@ -150,7 +150,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     private func editBill(userPhoneNumber: String) {
         IGApiElectricityBill.shared.editBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
-             SMLoading.hideLoadingPage()
+             IGLoading.hideLoadingPage()
              if success {
 
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
@@ -188,7 +188,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
                 let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
                 let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-                SMLoading.showLoadingPage(viewcontroller: self)
+                IGLoading.showLoadingPage(viewcontroller: self)
 
                 editBill(userPhoneNumber: userPhoneNumber)
                 
@@ -198,7 +198,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
                 let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
                 let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-                SMLoading.showLoadingPage(viewcontroller: self)
+                IGLoading.showLoadingPage(viewcontroller: self)
 
                 addBill(userPhoneNumber: userPhoneNumber)
             }

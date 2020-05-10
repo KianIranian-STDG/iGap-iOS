@@ -62,9 +62,9 @@ class IGNewsCommentsTVController: BaseTableViewController {
     }
 
     private func getComments() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getNewsComments(page: "1", perPage: "9999999999" , articleId: articleID) { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 self.items = response!
                 self.tableView.reloadData()

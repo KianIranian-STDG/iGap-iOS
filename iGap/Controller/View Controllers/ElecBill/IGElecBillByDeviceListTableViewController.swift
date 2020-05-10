@@ -99,12 +99,12 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
 
     private func getBillList() {
         if self.selectedCode == nil || self.tfSerialNumber.text == "" || self.tfSerialNumber.text!.isEmpty {
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
 
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
         } else {
             IGApiElectricityBill.shared.searchBill(serialNumber: self.tfSerialNumber.text!.inEnglishNumbersNew(),companyCode: self.selectedCode, completion: {(success, response, errorMessage) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
 
                 if success {
                     self.myBillList = response?.data
@@ -117,7 +117,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
     }
     private func getCompaniesList() {
             IGApiElectricityBill.shared.getCompanies(completion: {(success, response, errorMessage) in
-                SMLoading.hideLoadingPage()
+                IGLoading.hideLoadingPage()
                 if success {
                     self.myCompaniesList = response?.data
                     self.openPickerView()
@@ -133,7 +133,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
 
     @IBAction func didTapOnShowCompanies(_ sender: UIButton) {
         if self.myCompaniesList == nil || self.myCompaniesList.count == 0 {
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             self.getCompaniesList()
         } else {
 
@@ -142,7 +142,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
 
     }
     @IBAction func didTapOnSearch(_ sender: UIButton) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
 
         self.getBillList()
     }

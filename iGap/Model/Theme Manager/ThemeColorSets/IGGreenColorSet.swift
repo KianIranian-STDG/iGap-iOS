@@ -61,6 +61,7 @@ class GreenColorSet: DayNightColorSetProtocol {
     var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColor")!
     
     var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+    var ShadowColor: UIColor = UIColor.hexStringToUIColor(hex: "0a0a0a")
 
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColor")!
     
@@ -234,7 +235,8 @@ class GreenColorSetNight: NightColorSetProtocol {
     
     var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColorNight")!
     
-    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "0f0f0f")
+    var ShadowColor: UIColor = UIColor.hexStringToUIColor(hex: "0a0a0a")
 
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColorNight")!
     

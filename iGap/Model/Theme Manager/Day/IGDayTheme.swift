@@ -60,7 +60,8 @@ class DayTheme: ThemeProtocol {
     var LabelSecondColor: UIColor = DayColorSetManager.currentColorSet.LabelSecondColor
     
     var ModalViewBackgroundColor: UIColor = DayColorSetManager.currentColorSet.ModalViewBackgroundColor
-    
+    var ShadowColor: UIColor = DayColorSetManager.currentColorSet.ShadowColor
+
     var ProgressBackgroundColor: UIColor = DayColorSetManager.currentColorSet.ProgressBackgroundColor
     
     var ProgressColor: UIColor = DayColorSetManager.currentColorSet.ProgressColor

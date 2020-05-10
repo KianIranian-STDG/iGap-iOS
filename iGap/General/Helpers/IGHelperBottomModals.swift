@@ -21,20 +21,60 @@ class IGHelperBottomModals {
     private var actionSubmit: (() -> Void)?
     private init() {}
     
-    func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {//}-> UIView {
-            var alertView = view
-            if alertView == nil {
-                alertView = UIApplication.topViewController()
-            }
-            let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
-            vc.mode = mode
-            if articleID != nil {
-                vc.articleID = articleID!
-            }
-            alertView!.presentPanModal(vc)
-    //        return UIView()
+    func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
         }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGThreeInputTVController") as! IGThreeInputTVController
+        vc.mode = mode
+        if articleID != nil {
+         vc.articleID = articleID!
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+    }
+    func showBlockCard(view: UIViewController? = nil,mode: String! = "BLOCK_CARD") {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGFourInputTVController") as! IGFourInputTVController
+        vc.mode = mode
+
+        UIApplication.topViewController()?.presentPanModal(vc)
+        
+    }
+    func showPayLoan(view: UIViewController? = nil,mode: String! = "PAY_LOAN",loanNumber : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGMBPayLoanTVController") as! IGMBPayLoanTVController
+        vc.mode = mode
+        if loanNumber != nil {
+            vc.selectedLoan = loanNumber!
+        }
+        UIApplication.topViewController()?.presentPanModal(vc)
+        
+    }
+    func showShebaModal(view: UIViewController? = nil,mode: String! = "SHEBA_CARD",data : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGOneLabelTVController") as! IGOneLabelTVController
+        vc.mode = mode
+
+        if data != nil {
+        vc.ShebaNumber = data!
+        }
+        
+        UIApplication.topViewController()?.presentPanModal(vc)
+    }
     
     //MARK: - MultiForward Modal
     func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false, giftId: String? = nil) {//}-> UIView {

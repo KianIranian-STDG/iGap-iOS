@@ -94,9 +94,9 @@ class IGNewsSectionInnerTableViewController: BaseTableViewController {
     }
     //forced to get all the Data at once an not page by page
     private func getData() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getNewsByID(serviceId: categoryID.inEnglishNumbersNew(), page: String(currentPage) , perPage: "999999999999") { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 if (response?.content) != nil {
                     self.items = (response?.content)!
@@ -128,9 +128,9 @@ class IGNewsSectionInnerTableViewController: BaseTableViewController {
         }
     }
     private func getMostControversialData() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getMostControversialNewsByID(serviceId: categoryID, page: String(currentPage) , perPage: "999999999999") { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 if (response?.content) != nil {
                     self.items = (response?.content)!
@@ -160,9 +160,9 @@ class IGNewsSectionInnerTableViewController: BaseTableViewController {
         }
     }
     private func getMostHitData() {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getMostHitNewsByID(serviceId: categoryID, page: String(currentPage) , perPage: "999999999999") { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 if (response?.content) != nil {
                     self.items = (response?.content)!
@@ -247,9 +247,9 @@ class IGNewsSectionInnerTableViewController: BaseTableViewController {
 
     }
     private func gotToNewsPage(articleID: String) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getNewsDetail(articleId: articleID) { (isSuccess, response) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if isSuccess {
                 let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
                 newsDetail.item = response!

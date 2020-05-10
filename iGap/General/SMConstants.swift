@@ -25,6 +25,11 @@ struct SMConstants {
 
 struct EventBusManager {
     
+    static let GoToTransactions = "GoToTransactions"
+    static let GoToCheque = "GoToCheque"
+    static let GoToLoans = "GoToLoans"
+    static let ShowDropDown = "ShowDropDown"
+    static let DroppDownPicked = "DroppDownPicked"
     static let initTheme = "initTheme"
     static let stopMusicPlayer = "stopMusicPlayer"
     static let playMusicPlayer = "playMusicPlayer"

@@ -173,7 +173,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     private func querySingleBill(userPhoneNumber: String!) {
 
         IGApiElectricityBill.shared.queryBill(billNumber: (tfBillIdNumber.text?.inEnglishNumbersNew())!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 print(response)
                 let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
@@ -191,7 +191,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     private func queryMultiBills(billNumber: String!,userPhoneNumber: String!) {
 
         IGApiElectricityBill.shared.queryBill(billNumber: billNumber, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 var billInfo = InqueryDataStruct()
                 billInfo.billIdentifier = billNumber
@@ -207,7 +207,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
 
     private func getBillList(userPhoneNumber: String!) {
         IGApiElectricityBill.shared.getBills(phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-            SMLoading.hideLoadingPage()
+            IGLoading.hideLoadingPage()
             if success {
                 self.myBillList = response?.data?.billData
 //                self.getBillsOtherData(bills: self.myBillList,userPhoneNumber: userPhoneNumber)
@@ -224,7 +224,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         })
     }
     private func getBillsOtherData(bills: [billObject],userPhoneNumber: String!) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         for bill in bills {
             queryMultiBills(billNumber: bill.billIdentifier, userPhoneNumber: userPhoneNumber)
         }
@@ -246,7 +246,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
         let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-        SMLoading.showLoadingPage(viewcontroller: self)
+        IGLoading.showLoadingPage(viewcontroller: self)
         getBillList(userPhoneNumber: userPhoneNumber)
     }
     @IBAction func didTapOnScanBarcode(_ sender: UIButton) {
@@ -266,7 +266,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
             let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
             let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-            SMLoading.showLoadingPage(viewcontroller: self)
+            IGLoading.showLoadingPage(viewcontroller: self)
             querySingleBill(userPhoneNumber: userPhoneNumber)
             
         }
