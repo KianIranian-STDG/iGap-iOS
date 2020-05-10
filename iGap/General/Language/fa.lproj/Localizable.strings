@@ -6836,5 +6836,11 @@ Page 4 introduce app */
 "can_not_copy" = "امکان کپی وجود ندارد!";
 "mb_information" = "اطلاعات";
 
+// Koknus
+"k_select_options_title" = "لطفا یکی از گزینه های زیر را انتخاب نمایید";
+"k_new_token" = "کیف توکن جدید";
+"k_login_with_recovery" = "ورود با کلمات بازیابی";
+"k_login_with_private_key" = "ورود با کلید خصوصی";
+
 
 

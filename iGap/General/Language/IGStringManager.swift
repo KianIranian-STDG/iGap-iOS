@@ -907,7 +907,12 @@ enum IGStringsManager : String {
     case MBFinancialReport = "financial_report"
     case MBUnavailableService = "mb_blocked_service"
     case MBInformation = "mb_information"
-
+    
+    // Koknus
+    case KSelectOptionsTitle = "k_select_options_title"
+    case KNewToken = "k_new_token"
+    case KLoginWithRecovery = "k_login_with_recovery"
+    case KLoginWithPrivateKey = "k_login_with_private_key"
 }
 
 
