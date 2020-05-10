@@ -125,7 +125,6 @@
 		8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA123408E8600A8CF65 /* ThemeColors.swift */; };
 		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
-		8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E88918C24604E9C00BB449A /* IGLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88918B24604E9C00BB449A /* IGLoading.swift */; };
 		8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */; };
 		8E8ABDC12394F2EA00DE00DB /* IGStructNewsMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */; };
@@ -519,7 +518,6 @@
 		D68C2402241678DC00ABF635 /* SMCheckGiftSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */; };
 		D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */; };
 		D68D4B7824599105005FCFD5 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; };
-		D68D4B7924599105005FCFD5 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D68D4B7724599105005FCFD5 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AF91E8245D893600586EC4 /* EncryptedMessageLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AF91E7245D893600586EC4 /* EncryptedMessageLocal.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
@@ -960,17 +958,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FAC0F08220F0AF0B00182758 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D68D4B7924599105005FCFD5 /* PecPayment.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAD744FE21B940D400801D2E /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4171,7 +4158,6 @@
 				FADF684C1DB2607B00DC5038 /* [RS] Set Build Number */,
 				FAF985B71E2E110900B26940 /* [RS] Copy Carthage Frameworks */,
 				FAC42C821E36262D00F2CB5C /* [RS] Fabric.io */,
-				FAC0F08220F0AF0B00182758 /* Embed Frameworks */,
 				FAD744FE21B940D400801D2E /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -5325,7 +5311,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 574;
+				CURRENT_PROJECT_VERSION = 579;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5366,7 +5352,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 574;
+				CURRENT_PROJECT_VERSION = 579;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5516,7 +5502,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 577;
+				CURRENT_PROJECT_VERSION = 579;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -5566,7 +5552,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 577;
+				CURRENT_PROJECT_VERSION = 579;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
