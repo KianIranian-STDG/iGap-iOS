@@ -54,7 +54,7 @@ enum IGStringsManager : String {
     case ViewContact = "view_contact"
     case TextCopied = "text_copied"
     case FetchingInfo = "fetching_info"
-    
+    case GlobalErrorHppend = "error_submit_qr_code"
     //MARK: -NEWS
     case NewsDetail =  "news_details"
     //MARK: - VOTE
