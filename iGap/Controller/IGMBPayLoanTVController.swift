@@ -22,6 +22,8 @@ class IGMBPayLoanTVController: BaseTableViewController {
     var isKeyboardPresented = false
     var isCustomAccount = true
     var userInDb : IGRegisteredUser!
+    var payAmount: String = "0"
+    var payAccount : String = "0"
     @IBOutlet weak var lblHeader : UILabel!
     @IBOutlet weak var lblAmount : UILabel!
     @IBOutlet weak var lblAccount : UILabel!
@@ -173,7 +175,8 @@ class IGMBPayLoanTVController: BaseTableViewController {
         tfAccount.rightViewMode = .always
         tfAccount.isEnabled = false
         btnAccounts.addTarget(self, action: #selector(didTapOnAccounts(sender:)), for: .touchUpInside)
-
+        tfAccount.text = payAccount.inEnglishNumbersNew()
+        tfAmount.text = payAmount.inEnglishNumbersNew()
     }
     @objc func didTapOnAccounts(sender: UIButton) {
         addTransparentView(frames: btnAccounts.frame)
@@ -210,7 +213,7 @@ class IGMBPayLoanTVController: BaseTableViewController {
     }
     private func payRequest() {
         IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
-        IGApiMobileBank.shared.payLoan(loanNumber: selectedLoan.inEnglishNumbersNew(), amount: Int( tfAmount.text!.inEnglishNumbersNew())!, secondPass: tfSecondaryPass.text!.inEnglishNumbersNew(), paymentMethod: isCustomAccount ? .CustomDeposit : .DefaultDeposit, depositNumber: isCustomAccount ? tfAccount.text!.inEnglishNumbersNew() : IGMBUser.current.currentDeposit?.depositNumber) { (result, error) in
+        IGApiMobileBank.shared.payLoan(loanNumber: selectedLoan.inEnglishNumbersNew(), amount: Int( tfAmount.text!.RemoveingCurrencyFormat().inEnglishNumbersNew())!, secondPass: tfSecondaryPass.text!.inEnglishNumbersNew(), paymentMethod: isCustomAccount ? .CustomDeposit : .DefaultDeposit, depositNumber: isCustomAccount ? tfAccount.text!.inEnglishNumbersNew() : IGMBUser.current.currentDeposit?.depositNumber) { (result, error) in
             if error != nil {
                 
                 IGLoading.hideLoadingPage()
@@ -230,7 +233,12 @@ class IGMBPayLoanTVController: BaseTableViewController {
                 return
             } else {
                 IGLoading.hideLoadingPage()
-                IGHelperMBAlert.shared.showMessageAlert(alertType: .noButton, title: IGStringsManager.GlobalSuccess.rawValue.localized , cancelBackColor: UIColor.hexStringToUIColor(hex: "B6774E"), cancelText: IGStringsManager.GlobalClose.rawValue.localized, message: IGStringsManager.SuccessPayment.rawValue.localized)
+                IGHelperMBAlert.shared.showMessageAlert(alertType: .oneButton, title: IGStringsManager.GlobalSuccess.rawValue.localized , doneBackColor: UIColor.hexStringToUIColor(hex: "B6774E"), doneText: IGStringsManager.GlobalClose.rawValue.localized, message: IGStringsManager.SuccessPayment.rawValue.localized,done: {
+                    SwiftEventBus.post(EventBusManager.UpdateData,sender: true)
+                    self.dismiss(animated: true, completion: nil)
+
+                })
+                
             }
         }
     }
@@ -441,7 +449,9 @@ extension IGMBPayLoanTVController: PanModalPresentable {
         panModalSetNeedsLayoutUpdate()
     }
     
-    
+    func panModalDidDismiss() {
+        print("didDismiss pan modal")
+    }
 }
 
 class DropBackView : UIView, UITableViewDataSource,UITableViewDelegate {

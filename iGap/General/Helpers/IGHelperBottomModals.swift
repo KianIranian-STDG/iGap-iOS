@@ -46,7 +46,7 @@ class IGHelperBottomModals {
         UIApplication.topViewController()?.presentPanModal(vc)
         
     }
-    func showPayLoan(view: UIViewController? = nil,mode: String! = "PAY_LOAN",loanNumber : String? = nil) {
+    func showPayLoan(view: UIViewController? = nil,mode: String! = "PAY_LOAN",loanNumber : String? = nil,amountToPay: String,Account: String? = nil) {
         var alertView = view
         if alertView == nil {
          alertView = UIApplication.topViewController()
@@ -56,6 +56,8 @@ class IGHelperBottomModals {
         vc.mode = mode
         if loanNumber != nil {
             vc.selectedLoan = loanNumber!
+            vc.payAmount = amountToPay
+            vc.payAccount = Account!
         }
         UIApplication.topViewController()?.presentPanModal(vc)
         

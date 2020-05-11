@@ -114,10 +114,13 @@ struct IGMBDeposit: Codable, Equatable {
         case depositAlias = "deposit_alias"
         case iban
     }
+
     
+
     static func ==(lhs: IGMBDeposit, rhs: IGMBDeposit) -> Bool {
         return lhs.depositNumber == rhs.depositNumber
     }
+
 }
 
 
@@ -305,9 +308,9 @@ enum IGMBLoanInstallmentPayStatus: String, Codable {
 }
 
 struct IGMBLoanPayment: Codable {
-    let appliedAmount: String
-    let documentNumber: String
-    let documentTitle: String
+    let appliedAmount: String?
+    let documentNumber: String?
+    let documentTitle: String?
     
     enum CodingKeys: String, CodingKey {
         case appliedAmount = "applied_amount"
