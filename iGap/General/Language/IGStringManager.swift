@@ -908,11 +908,22 @@ enum IGStringsManager : String {
     case MBUnavailableService = "mb_blocked_service"
     case MBInformation = "mb_information"
     
-    // Koknus
+    // MARK: - Koknus
     case KSelectOptionsTitle = "k_select_options_title"
     case KNewToken = "k_new_token"
     case KLoginWithRecovery = "k_login_with_recovery"
     case KLoginWithPrivateKey = "k_login_with_private_key"
+    
+    case KRecoveryWords = "k_recovery_words"
+    case KRecoveryWordsDescription = "k_recovery_words_description"
+    case KRecoveryWordsLanguage = "k_recovery_words_language"
+    case KRecoveryWordsCount = "k_recovery_words_count"
+    case KRecoveryKeyExample = "k_recovery_key_example"
+    case KRecoverySubmit = "k_recovery_submit"
+    
+    case LanguagePersian = "persian_language"
+    case LanguageEnglish = "english_language"
+    
 }
 
 

@@ -722,7 +722,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
 //        settingVC.hidesBottomBarWhenPushed = true
 //        self.navigationController!.pushViewController(settingVC, animated:true)
         
-        self.navigationController?.pushViewController(IGKIntroVC(), animated: true)
+        
+        let igk = IGKNewTokenVC()
+        igk.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(igk, animated: true)
         
     }
     

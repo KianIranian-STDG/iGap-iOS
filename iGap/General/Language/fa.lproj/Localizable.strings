@@ -6841,6 +6841,14 @@ Page 4 introduce app */
 "k_new_token" = "کیف توکن جدید";
 "k_login_with_recovery" = "ورود با کلمات بازیابی";
 "k_login_with_private_key" = "ورود با کلید خصوصی";
+"k_recovery_words" = "کلمات بازیابی";
+"k_recovery_words_description" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات درآینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
+"k_recovery_words_language" = "زبان کلمات بازیابی";
+"k_recovery_words_count" = "تعداد کلمات بازیابی";
+"k_recovery_key_example" = "صریح صفات دبستان تاریک آکندن محیا دامنه مجتمع ریاح ضدیت قصاب شهامت";
+"k_recovery_submit" = "کلمات را یادداشت کردم";
 
 
+"persian_language" = "فارسی";
+"english_language" = "انگلیسی";
 

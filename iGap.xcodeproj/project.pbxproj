@@ -434,6 +434,7 @@
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
+		D2B8D7242469112D001062EB /* IGKNewTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D7232469112D001062EB /* IGKNewTokenVC.swift */; };
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
@@ -1433,6 +1434,7 @@
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
+		D2B8D7232469112D001062EB /* IGKNewTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenVC.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
@@ -2783,6 +2785,7 @@
 			isa = PBXGroup;
 			children = (
 				D2FE641424681029000D861E /* IGKIntroVC.swift */,
+				D2B8D7232469112D001062EB /* IGKNewTokenVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5108,6 +5111,7 @@
 				8E8E505623E0012D0094A91C /* IGContactNode.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,
+				D2B8D7242469112D001062EB /* IGKNewTokenVC.swift in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
