@@ -139,7 +139,9 @@ class IGMplSetCardToCardResult : IGRequest {
 class IGMplGetCardToCardToken : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(toUserId: Int64 = 0) -> IGRequestWrapper {
-            return IGRequestWrapper(message: IGPMplGetCardToCardToken(), actionID: 9106, identity: "\(toUserId)")
+            var requestObject =  IGPMplGetCardToCardToken()
+            requestObject.igpToUserID = toUserId
+            return IGRequestWrapper(message: requestObject, actionID: 9106, identity: "\(toUserId)")
         }
     }
     
@@ -192,7 +194,10 @@ class IGMplTransactionInfo: IGRequest {
 class IGMplGetCardToCardTokenWithAmount : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(toUserId: Int64 = 0,amount:Int?,destinationCard: String?) -> IGRequestWrapper {
-            return IGRequestWrapper(message: IGPMplGetCardToCardToken(), actionID: 9106, identity: "\(toUserId)")
+            var requestObject =  IGPMplGetCardToCardToken()
+            requestObject.igpToUserID = toUserId
+
+            return IGRequestWrapper(message: requestObject, actionID: 9106, identity: "\(toUserId)")
         }
     }
     
