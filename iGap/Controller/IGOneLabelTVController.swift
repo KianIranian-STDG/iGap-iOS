@@ -103,6 +103,8 @@ class IGOneLabelTVController: BaseTableViewController {
         let pasteboard = UIPasteboard.general
         if lblFirstRow.text != "...." {
             pasteboard.string = lblFirstRow.text!
+            IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.TextCopied.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+
         } else {
             IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.GlobalCanNotCopy.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
         }

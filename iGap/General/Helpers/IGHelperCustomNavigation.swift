@@ -69,7 +69,11 @@ class IGHelperCustomNavigation {
             isMBAuthError = false
         } else {
             if UIApplication.topViewController()!.navigationController?.viewControllers.last! is IGMBMainContainerVC {
-                _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
+                if let vcToPOP = UIApplication.topViewController()!.navigationController?.viewControllers[indexOfMBLogin - 1] {
+                    _ = UIApplication.topViewController()!.navigationController?.popToViewController(vcToPOP, animated: true)
+
+                }
+
 
             } else {
                 _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)

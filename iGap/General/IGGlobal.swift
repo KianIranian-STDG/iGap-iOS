@@ -89,6 +89,7 @@ class IGGlobal {
     static let TEMP_DIR = "/temp"
     //static let TEMP_DIR = Folder.temporary.path + "/iGap"
     
+    static var MBLoginErrorCount : Int = 0
 
     static var visibleRowsCacheDic = NSCache<NSString, UIImage>()
     static var imgDic : [String: IGImageView] = [:]
