@@ -668,8 +668,8 @@ import Foundation
         
         if datee > Date() {
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            return formatter.string(from: Date()) + " 00:00:00"
+            formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            return formatter.string(from: Date())
         }else {
             return (dateFormatter.string(from: datee) + " 23:59:59")
         }
