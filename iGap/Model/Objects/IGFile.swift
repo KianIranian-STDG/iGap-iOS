@@ -155,19 +155,31 @@ public class IGFile: Object {
         }
         
         if igpFile.hasIgpSmallThumbnail {
-            file.smallThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpSmallThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
+            file.smallThumbnail = IGFile.putOrUpdateThumbnail(igpFile: igpFile, type: .smallThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
         }
         if igpFile.hasIgpLargeThumbnail {
-            file.largeThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpLargeThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
+            file.largeThumbnail = IGFile.putOrUpdateThumbnail(igpFile: igpFile, type: .largeThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
         }
         if igpFile.hasIgpWaveformThumbnail {
-            file.waveformThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpWaveformThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
+            file.waveformThumbnail = IGFile.putOrUpdateThumbnail(igpFile: igpFile, type: .waveformThumbnail, token:file.token, unmanagedObjects: unmanagedObjects)
         }
         
         return file
     }
     
-    static func putOrUpdateThumbnail(igpThumbnail: IGPThumbnail, token: String?, unmanagedObjects: Bool = false) -> IGFile {
+    static func putOrUpdateThumbnail(igpFile: IGPFile, type: PreviewType, token: String?, unmanagedObjects: Bool = false) -> IGFile {
+    
+        var igpThumbnail = IGPThumbnail()
+        
+        if type == .largeThumbnail {
+            igpThumbnail = igpFile.igpLargeThumbnail
+        } else if type == .smallThumbnail {
+            igpThumbnail = igpFile.igpSmallThumbnail
+        } else if type == .waveformThumbnail {
+            igpThumbnail = igpFile.igpWaveformThumbnail
+        } else {
+            return IGFile()
+        }
         
         var file: IGFile!
         
@@ -182,6 +194,7 @@ public class IGFile: Object {
         
         file.cacheID = igpThumbnail.igpCacheID
         file.token = token
+        file.publicUrl = igpFile.igpPublicURL
         file.size = igpThumbnail.igpSize
         file.width = Double(igpThumbnail.igpWidth)
         file.height = Double(igpThumbnail.igpHeight)

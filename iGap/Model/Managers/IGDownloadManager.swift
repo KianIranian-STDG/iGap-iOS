@@ -200,7 +200,28 @@ class IGDownloadManager {
         if thumbnailTasks.count > 0 && IGAppManager.sharedManager.isUserLoggiedIn(){
             let firstTaskInQueue = thumbnailTasks[0]
             if firstTaskInQueue.state == .pending {
-                downloadProtoThumbnail(task: firstTaskInQueue)
+                
+                
+                if firstTaskInQueue.file.publicUrl != nil && !(firstTaskInQueue.file.publicUrl?.isEmpty)! {
+                    let urlToDownload = firstTaskInQueue.file.publicUrl! + "?selector=\(firstTaskInQueue.type.rawValue)"
+                    if dictionaryPauseTask[firstTaskInQueue.file.token!] != nil {
+                        dictionaryPauseTask.removeValue(forKey: firstTaskInQueue.file.token!)
+                        
+//                        let urlToDownload
+//                        if firstTaskInQueue.type ==
+                        
+                        
+                        DiggerManager.shared.startTask(for: urlToDownload)
+                    } else {
+                        downloadCDN(task: firstTaskInQueue, publicURL: urlToDownload)
+                    }
+                } else {
+//                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.localPath))
+                    downloadProtoThumbnail(task: firstTaskInQueue)
+                }
+                
+                
+                
             } else if firstTaskInQueue.state == .finished {
                 thumbnailTasks.remove(at: 0)
                 startNextThumbnailTaskIfPossible()
@@ -235,9 +256,12 @@ class IGDownloadManager {
         downloadPicTask.resume()
     }
     
-    private func downloadCDN(task downloadTask:IGDownloadTask) {
+    private func downloadCDN(task downloadTask:IGDownloadTask, publicURL: String? = nil) {
+        var url = downloadTask.file.publicUrl
+        if publicURL != nil {
+            url = publicURL!
+        }
         
-        let url = downloadTask.file.publicUrl
         
         if  url != nil && !(url?.isEmpty)! {
             
