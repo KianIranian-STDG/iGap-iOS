@@ -29,6 +29,7 @@ struct EventBusManager {
     static let GoToCheque = "GoToCheque"
     static let GoToLoans = "GoToLoans"
     static let ShowDropDown = "ShowDropDown"
+    static let UpdateData = "UpdateData"
     static let DroppDownPicked = "DroppDownPicked"
     static let initTheme = "initTheme"
     static let stopMusicPlayer = "stopMusicPlayer"

@@ -124,7 +124,7 @@ class IGHelperMBAlert {
             imputTextfield.layer.borderColor = UIColor.lightGray.cgColor
             imputTextfield.layer.borderWidth = 1.0
             imputTextfield.layer.cornerRadius = 10
-            
+            imputTextfield.keyboardType = .numberPad
             imputTextfield.textAlignment = .center
             imputTextfield.backgroundColor = .white
             imputTextfield.translatesAutoresizingMaskIntoConstraints = false
