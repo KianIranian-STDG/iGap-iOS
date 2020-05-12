@@ -919,7 +919,10 @@ enum IGStringsManager : String {
     case KRecoveryWordsLanguage = "k_recovery_words_language"
     case KRecoveryWordsCount = "k_recovery_words_count"
     case KRecoveryKeyExample = "k_recovery_key_example"
-    case KRecoverySubmit = "k_recovery_submit"
+    case KNewTokenSubmitS1 = "k_recovery_submit_s1"
+    case KMakeNewPassword = "k_make_new_password"
+    case KNewPasswordDescription = "k_new_password_description"
+    case KSubmit = "k_submit"
     
     case LanguagePersian = "persian_language"
     case LanguageEnglish = "english_language"
