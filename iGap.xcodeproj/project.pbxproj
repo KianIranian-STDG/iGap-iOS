@@ -407,7 +407,7 @@
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
-		D229D192246AC529004FD7EE /* IGKIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D229D191246AC529004FD7EE /* IGKIntroVC.swift */; };
+		D2262DF8246AC9DF008C119A /* IGKIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */; };
 		D23488F6245D353900AF116C /* IGDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488F5245D353900AF116C /* IGDateTime.swift */; };
 		D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */; };
 		D23EE25B24598A71007784FF /* IGStructMobileBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EE25A24598A71007784FF /* IGStructMobileBank.swift */; };
@@ -1411,7 +1411,7 @@
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
-		D229D191246AC529004FD7EE /* IGKIntroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKIntroVC.swift; sourceTree = "<group>"; };
+		D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKIntroVC.swift; sourceTree = "<group>"; };
 		D23488F5245D353900AF116C /* IGDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDateTime.swift; sourceTree = "<group>"; };
 		D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBCardAdditionalInfo.swift; sourceTree = "<group>"; };
 		D23EE25A24598A71007784FF /* IGStructMobileBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMobileBank.swift; sourceTree = "<group>"; };
@@ -2792,7 +2792,7 @@
 		D2FE641224680ECD000D861E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D229D191246AC529004FD7EE /* IGKIntroVC.swift */,
+				D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */,
 				D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */,
 				D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */,
 			);
@@ -5062,7 +5062,7 @@
 				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				D67E985323A6796B003C1516 /* Zoomable.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
-				D229D192246AC529004FD7EE /* IGKIntroVC.swift in Sources */,
+				D2262DF8246AC9DF008C119A /* IGKIntroVC.swift in Sources */,
 				8EA8F3ED231F9E450099C4EF /* UICircularRing.swift in Sources */,
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */,
