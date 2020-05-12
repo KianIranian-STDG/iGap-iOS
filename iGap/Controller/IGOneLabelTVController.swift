@@ -97,7 +97,7 @@ class IGOneLabelTVController: BaseTableViewController {
   
     
     @IBAction func didTapOnInquery(_ sender: UIButton) {
-
+        self.dismiss(animated: true, completion: nil)
     }
     @IBAction func didTapOnCopy(_ sender: UIButton) {
         let pasteboard = UIPasteboard.general
