@@ -157,7 +157,6 @@
 		8E94B7412237E4A1005F6868 /* OLCOrm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7332237E4A1005F6868 /* OLCOrm.framework */; };
 		8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7352237E4A1005F6868 /* Motis.framework */; };
 		8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E94B7462237E61D005F6868 /* webServiceKey.txt */; };
-		8E94B7482237E61D005F6868 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E94B7462237E61D005F6868 /* webServiceKey.txt */; };
 		8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A300225A2318007D8A77 /* IGRequestWallet.swift */; };
 		8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A306225B4393007D8A77 /* mainRequest.swift */; };
 		8E96A309225B450E007D8A77 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E96A308225B450E007D8A77 /* Gloss.framework */; };
@@ -641,14 +640,6 @@
 		FA42EF0F1E5C224F00CF8A32 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF031E5C224F00CF8A32 /* UIImage.swift */; };
 		FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF041E5C224F00CF8A32 /* UIImageView.swift */; };
 		FA42EF111E5C224F00CF8A32 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF071E5C224F00CF8A32 /* ImageSourceHelpers.swift */; };
-		FA451F3E22662DAD005F4853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3422662DAD005F4853 /* Assets.xcassets */; };
-		FA451F3F22662DAD005F4853 /* GetURL.js in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3522662DAD005F4853 /* GetURL.js */; };
-		FA451F4022662DAD005F4853 /* ShareAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3622662DAD005F4853 /* ShareAvatar.swift */; };
-		FA451F4122662DAD005F4853 /* ShareBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3722662DAD005F4853 /* ShareBottomCell.swift */; };
-		FA451F4222662DAD005F4853 /* ShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3822662DAD005F4853 /* ShareCell.swift */; };
-		FA451F4322662DAD005F4853 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3922662DAD005F4853 /* ShareViewController.swift */; };
-		FA451F4522662DAD005F4853 /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3B22662DAD005F4853 /* ShareConfig.swift */; };
-		FA451F4622662DAD005F4853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3C22662DAD005F4853 /* MainInterface.storyboard */; };
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
 		FA4CBBD322894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */; };
@@ -876,7 +867,6 @@
 		FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */; };
 		FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7554F21D0CF7E001AB608 /* IGCallEventListener.swift */; };
 		FAC7555621D12D6D001AB608 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7555521D12D6D001AB608 /* CallManager.swift */; };
-		FAD1D35C21B956BE0035FF25 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
 		FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2B5811DFBF1ED007D6F87 /* IGProgress.swift */; };
 		FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */; };
 		FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */; };
@@ -890,12 +880,8 @@
 		FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5808E1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift */; };
 		FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */; };
 		FAD580971DDC61DD00A242DE /* IGMessageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580961DDC61DD00A242DE /* IGMessageCollectionView.swift */; };
-		FAD744FA21B940D400801D2E /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FAD744F021B940D400801D2E /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */; };
 		FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7451621B9447B00801D2E /* IGShareInfo.swift */; };
-		FAD7451821B945A500801D2E /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985941E2E10EC00B26940 /* Realm.framework */; };
-		FAD7451921B945A500801D2E /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985951E2E10EC00B26940 /* RealmSwift.framework */; };
-		FAD7452321B9462700801D2E /* IGShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7451621B9447B00801D2E /* IGShareInfo.swift */; };
 		FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */; };
 		FAD8A02E21EE095A006996E1 /* IGStructAdditionalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */; };
 		FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */; };
@@ -947,16 +933,6 @@
 		FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE11246204E982D009F402B /* IGCallListTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		FAD744F821B940D400801D2E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FAF795E21DAA330C0030509B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FAD744EF21B940D400801D2E;
-			remoteInfo = Share;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		D2DF12AD24682D67009F68AC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -974,7 +950,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				FAD744FA21B940D400801D2E /* Share.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1648,7 +1623,6 @@
 		FA451F3722662DAD005F4853 /* ShareBottomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareBottomCell.swift; sourceTree = "<group>"; };
 		FA451F3822662DAD005F4853 /* ShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareCell.swift; sourceTree = "<group>"; };
 		FA451F3922662DAD005F4853 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		FA451F3A22662DAD005F4853 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA451F3B22662DAD005F4853 /* ShareConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
 		FA451F3C22662DAD005F4853 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		FA451F3D22662DAD005F4853 /* Share.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
@@ -1910,7 +1884,6 @@
 		FAD5808E1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageGeneralCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGMessageCollectionViewCell.xib; sourceTree = "<group>"; };
 		FAD580961DDC61DD00A242DE /* IGMessageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageCollectionView.swift; sourceTree = "<group>"; };
-		FAD744F021B940D400801D2E /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetShareData.swift; sourceTree = "<group>"; };
 		FAD7451621B9447B00801D2E /* IGShareInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGShareInfo.swift; sourceTree = "<group>"; };
 		FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperJson.swift; sourceTree = "<group>"; };
@@ -1975,16 +1948,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FAD744ED21B940D400801D2E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAD1D35C21B956BE0035FF25 /* IGProtoBuff.framework in Frameworks */,
-				FAD7451821B945A500801D2E /* Realm.framework in Frameworks */,
-				FAD7451921B945A500801D2E /* RealmSwift.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAF795E71DAA330C0030509B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3847,7 +3810,6 @@
 			children = (
 				FA451F3422662DAD005F4853 /* Assets.xcassets */,
 				FA451F3522662DAD005F4853 /* GetURL.js */,
-				FA451F3A22662DAD005F4853 /* Info.plist */,
 				FA451F3C22662DAD005F4853 /* MainInterface.storyboard */,
 				FA451F3D22662DAD005F4853 /* Share.entitlements */,
 				FA451F3622662DAD005F4853 /* ShareAvatar.swift */,
@@ -3944,7 +3906,6 @@
 			isa = PBXGroup;
 			children = (
 				FAF795EA1DAA330C0030509B /* iGap.app */,
-				FAD744F021B940D400801D2E /* Share.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4141,23 +4102,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FAD744EF21B940D400801D2E /* Share */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FAD744FD21B940D400801D2E /* Build configuration list for PBXNativeTarget "Share" */;
-			buildPhases = (
-				FAD744EC21B940D400801D2E /* Sources */,
-				FAD744ED21B940D400801D2E /* Frameworks */,
-				FAD744EE21B940D400801D2E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Share;
-			productName = Share;
-			productReference = FAD744F021B940D400801D2E /* Share.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		FAF795E91DAA330C0030509B /* iGap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAF795FC1DAA330C0030509B /* Build configuration list for PBXNativeTarget "iGap" */;
@@ -4174,7 +4118,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				FAD744F921B940D400801D2E /* PBXTargetDependency */,
 			);
 			name = iGap;
 			productName = iGap;
@@ -4191,16 +4134,6 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Kianiranian STDG -www.kianiranian.com";
 				TargetAttributes = {
-					FAD744EF21B940D400801D2E = {
-						CreatedOnToolsVersion = 10.0;
-						DevelopmentTeam = MBL7BDXS99;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
-							};
-						};
-					};
 					FAF795E91DAA330C0030509B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = MBL7BDXS99;
@@ -4240,23 +4173,11 @@
 			projectRoot = "";
 			targets = (
 				FAF795E91DAA330C0030509B /* iGap */,
-				FAD744EF21B940D400801D2E /* Share */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FAD744EE21B940D400801D2E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FA451F4622662DAD005F4853 /* MainInterface.storyboard in Resources */,
-				FA451F3E22662DAD005F4853 /* Assets.xcassets in Resources */,
-				8E94B7482237E61D005F6868 /* webServiceKey.txt in Resources */,
-				FA451F3F22662DAD005F4853 /* GetURL.js in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAF795E81DAA330C0030509B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4496,19 +4417,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		FAD744EC21B940D400801D2E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FA451F4122662DAD005F4853 /* ShareBottomCell.swift in Sources */,
-				FA451F4322662DAD005F4853 /* ShareViewController.swift in Sources */,
-				FA451F4522662DAD005F4853 /* ShareConfig.swift in Sources */,
-				FA451F4222662DAD005F4853 /* ShareCell.swift in Sources */,
-				FA451F4022662DAD005F4853 /* ShareAvatar.swift in Sources */,
-				FAD7452321B9462700801D2E /* IGShareInfo.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAF795E61DAA330C0030509B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5243,14 +5151,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		FAD744F921B940D400801D2E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FAD744EF21B940D400801D2E /* Share */;
-			targetProxy = FAD744F821B940D400801D2E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -5304,87 +5204,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		FAD744FB21B940D400801D2E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 584;
-				DEVELOPMENT_TEAM = MBL7BDXS99;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2.1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = msg.iGap.Share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		FAD744FC21B940D400801D2E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 584;
-				DEVELOPMENT_TEAM = MBL7BDXS99;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2.1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = msg.iGap.Share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		FAF795FA1DAA330C0030509B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5625,15 +5444,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FAD744FD21B940D400801D2E /* Build configuration list for PBXNativeTarget "Share" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FAD744FB21B940D400801D2E /* Debug */,
-				FAD744FC21B940D400801D2E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		FAF795E51DAA330C0030509B /* Build configuration list for PBXProject "iGap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

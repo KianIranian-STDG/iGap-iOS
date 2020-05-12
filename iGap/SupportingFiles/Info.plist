@@ -161,6 +161,8 @@ It has access to record your voice, you want to record your voice and send it to
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>iGap needs to access your Photo-Library.
 This is the option to choose a photo from your gallery and send it to someone else.</string>
+	<key>PHProjectExtensionCustomTypesEnabled</key>
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>iGap_fontico.ttf</string>
