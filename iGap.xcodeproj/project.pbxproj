@@ -432,9 +432,12 @@
 		D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */; };
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
+		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
 		D2B8D7242469112D001062EB /* IGKNewTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D7232469112D001062EB /* IGKNewTokenVC.swift */; };
+		D2B8D72624696F0B001062EB /* IGKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72524696F0B001062EB /* IGKApi.swift */; };
+		D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72724696F45001062EB /* IGKBaseApi.swift */; };
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
@@ -1432,9 +1435,12 @@
 		D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactDetailController.swift; sourceTree = "<group>"; };
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
+		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
 		D2B8D7232469112D001062EB /* IGKNewTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenVC.swift; sourceTree = "<group>"; };
+		D2B8D72524696F0B001062EB /* IGKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKApi.swift; sourceTree = "<group>"; };
+		D2B8D72724696F45001062EB /* IGKBaseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBaseApi.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
@@ -2793,6 +2799,9 @@
 		D2FE641324680ED5000D861E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				D2B8D72524696F0B001062EB /* IGKApi.swift */,
+				D2B8D72724696F45001062EB /* IGKBaseApi.swift */,
+				D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -4534,6 +4543,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Files.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AsyncDisplayKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PecPayment.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/stellarsdk.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -4970,6 +4980,7 @@
 				FA4F47B8214D0C5400ABE7A0 /* IGRealmWallpaper.swift in Sources */,
 				8EA854C4239F8E4600C9442F /* IGAppIconsCVCell.swift in Sources */,
 				8E96A329225C91EB007D8A77 /* SMStringUtil.swift in Sources */,
+				D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */,
 				8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */,
 				FA075DED232A5F78002E7AC7 /* IGApiBase.swift in Sources */,
 				D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */,
@@ -5243,6 +5254,7 @@
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				8E3C6988236036E8001575BE /* PanModalPresentable+UIViewController.swift in Sources */,
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
+				D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */,
 				D2434DCC244EEF200057BA65 /* IGMBUserPass.swift in Sources */,
 				8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */,
 				D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */,
@@ -5271,6 +5283,7 @@
 				8EA8551F23A23A2F00C9442F /* IGGoldColorSet.swift in Sources */,
 				8EC42F11245AF271000889D3 /* onetwothreeViewController.swift in Sources */,
 				8E3360EB23D8840000CE766B /* ASReplyForwardNode.swift in Sources */,
+				D2B8D72624696F0B001062EB /* IGKApi.swift in Sources */,
 				FA8F224E1DD89AC5005A90D1 /* IGRoomMessage.swift in Sources */,
 				FA0953871E1B97E20043ED3F /* IGCreateNewChannelTableViewController.swift in Sources */,
 				FAD530631E0BD80800FE6C54 /* IGNavigationController.swift in Sources */,
