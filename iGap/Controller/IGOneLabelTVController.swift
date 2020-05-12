@@ -101,7 +101,7 @@ class IGOneLabelTVController: BaseTableViewController {
     }
     @IBAction func didTapOnCopy(_ sender: UIButton) {
         let pasteboard = UIPasteboard.general
-        if lblFirstRow.text != "...." {
+        if lblFirstRow.text != "" && lblFirstRow.text != IGStringsManager.FetchingInfo.rawValue.localized {
             pasteboard.string = lblFirstRow.text!
             IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.TextCopied.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
 
@@ -157,7 +157,7 @@ class IGOneLabelTVController: BaseTableViewController {
 
     
     private func requestShebaNumber() {
-        
+        lblFirstRow.text = IGStringsManager.FetchingInfo.rawValue.localized
         guard let deposit = IGMBUser.current.currentDeposit else {
             return
         }
