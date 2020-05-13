@@ -3203,8 +3203,3 @@ extension ASImageNode {
   }
 }
 
-func igPrint(_ string: String...) {
-    #if DEBUG
-    print(string)
-    #endif
-}
