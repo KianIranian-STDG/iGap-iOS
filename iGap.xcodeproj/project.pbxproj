@@ -136,6 +136,8 @@
 		8E8BE196246BC92600A32BC4 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE192246BC92600A32BC4 /* StringExtension.swift */; };
 		8E8BE197246BC92600A32BC4 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE194246BC92600A32BC4 /* TextHelper.swift */; };
 		8E8BE199246BEB7500A32BC4 /* IGKNewTokenS3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */; };
+		8E8BE19B246BF87300A32BC4 /* IGKNewTokenS4VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */; };
+		8E8BE19D246C2D8900A32BC4 /* IGKProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */; };
 		8E8CA3A8236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */; };
 		8E8CA3AB236FFF2B000DA358 /* ElectroBill.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8CA3AA236FFF2B000DA358 /* ElectroBill.storyboard */; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
@@ -1135,6 +1137,8 @@
 		8E8BE192246BC92600A32BC4 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		8E8BE194246BC92600A32BC4 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 		8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS3VC.swift; sourceTree = "<group>"; };
+		8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS4VC.swift; sourceTree = "<group>"; };
+		8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKProfileVC.swift; sourceTree = "<group>"; };
 		8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillMainPageTableViewController.swift; sourceTree = "<group>"; };
 		8E8CA3AA236FFF2B000DA358 /* ElectroBill.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ElectroBill.storyboard; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
@@ -2844,6 +2848,8 @@
 				D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */,
 				D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */,
 				8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */,
+				8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */,
+				8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5211,6 +5217,7 @@
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */,
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
+				8E8BE19D246C2D8900A32BC4 /* IGKProfileVC.swift in Sources */,
 				8EC42F072459CA38000889D3 /* RowSixCell.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
@@ -5315,6 +5322,7 @@
 				8E3C6988236036E8001575BE /* PanModalPresentable+UIViewController.swift in Sources */,
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
 				D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */,
+				8E8BE19B246BF87300A32BC4 /* IGKNewTokenS4VC.swift in Sources */,
 				D2434DCC244EEF200057BA65 /* IGMBUserPass.swift in Sources */,
 				8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */,
 				D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */,

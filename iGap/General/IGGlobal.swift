@@ -47,8 +47,11 @@ enum MBMode : Int {
     case Accounts = 1
     case Services = 2
 }
-enum PinFieldMode : Int {
-    case Pin = 0
+enum QoqnosType : Int {
+    case PMN = 0
+    case A101 = 1
+    case SKYC = 2
+    case Other = 3
 }
 
 enum themeMode : Int {

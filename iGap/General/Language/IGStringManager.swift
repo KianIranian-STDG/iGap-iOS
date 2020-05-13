@@ -931,6 +931,15 @@ enum IGStringsManager : String {
     case KSubmit = "kuknos_SignupInfo_submitBtn"
     case KConfirmPin = "kuknos_SetPassConf_title"
     case KReneterPin = "kuknos_SetPassConf_message"
+    case KUserInformation = "kuknos_SignupInfo_title"
+    case KCompleteFields = "kuknos_SignupInfo_desc"
+    case KName = "kuknoos_name"
+    case KIDNumber = "kuknoos_idnumber"
+    case KAssets = "kuknoos_assets"
+    case KHistory = "kuknos_panelStr_history"
+    case KSettings = "kuknoos_settings"
+    case KTrading = "kuknoos_trading"
+    case KBuyToken = "kuknoos_buy_token"
 
 }
 

@@ -6849,6 +6849,12 @@ Page 4 introduce app */
 "k_make_new_password" = "ساخت رمز ورودی ( ۴ حرفی ) داخلی";
 "k_new_password_description" = "رمز ورودی (چهار رقمی) جهت ورود به کیف پول و تایید فعالیت های شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
 "kuknos_SignupInfo_submitBtn" = "ثبت";
+"kuknoos_name" = "نام";
+"kuknoos_idnumber" = "کد ملی";
+"kuknoos_assets" = "دارایی ها";
+"kuknoos_settings" = "تنظیمات";
+"kuknoos_trading" = "مبادله";
+"kuknoos_buy_token" = "خرید دارایی";
 
 "k_qoqnos_title" = "ققنوس";
 

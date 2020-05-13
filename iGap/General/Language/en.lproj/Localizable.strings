@@ -6836,6 +6836,12 @@ TODO:// complete */
 "k_make_new_password" = "Create a 4 digit PIN";
 "k_new_password_description" = "This 4 numeric PIN will be used to encrypt your secret keys. Please make sure you choose a PIN that is difficult to guess for others.";
 "kuknos_SignupInfo_submitBtn" = "Submit";
+"kuknoos_name" = "Name";
+"kuknoos_idnumber" = "ID Number";
+"kuknoos_assets" = "Assets";
+"kuknoos_settings" = "Setting";
+"kuknoos_trading" = "Trading";
+"kuknoos_buy_token" = "Buy Token";
 
 "persian_language" = "Fa";
 "english_language" = "En";
