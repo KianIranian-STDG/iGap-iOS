@@ -47,6 +47,9 @@ enum MBMode : Int {
     case Accounts = 1
     case Services = 2
 }
+enum PinFieldMode : Int {
+    case Pin = 0
+}
 
 enum themeMode : Int {
     case night = 0

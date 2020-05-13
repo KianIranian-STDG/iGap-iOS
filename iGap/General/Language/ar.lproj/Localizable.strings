@@ -6771,3 +6771,6 @@ TODO:// translate */
 "send_link" = "إرسال الارتباط";
 "fetching_info" = "جارٍ جلب المعلومات ...";
 "not_allow_send_message" = "لا يسمح لك بإرسال رسائل!";
+"k_login_with_recovery" = "ورود با کلمات بازیابی";
+"k_login_with_private_key" = "ورود با کلید خصوصی";
+"k_qoqnos_title" = "ققنوس";

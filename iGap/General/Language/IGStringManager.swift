@@ -643,7 +643,6 @@ enum IGStringsManager : String {
     case VerifyEmail = "set_unconfirmed_email"
     case RecoverByEmail = "Recovery_with_email"
     case RecoverByQuestions = "Recovery_with_question"
-    case SelectOneOfBelow = "kuknos_Entry_Message"
     case TwoStepPassHeader = "two_step_verification_description"
     case TwoStepPassFooter = "your_email_desc"
     case Required = "mandatory"
@@ -908,25 +907,31 @@ enum IGStringsManager : String {
     case MBUnavailableService = "mb_blocked_service"
     case MBInformation = "mb_information"
     
-    // MARK: - Koknus
     case KSelectOptionsTitle = "k_select_options_title"
-    case KNewToken = "k_new_token"
-    case KLoginWithRecovery = "k_login_with_recovery"
-    case KLoginWithPrivateKey = "k_login_with_private_key"
     
-    case KRecoveryWords = "k_recovery_words"
-    case KRecoveryWordsDescription = "k_recovery_words_description"
-    case KRecoveryWordsLanguage = "k_recovery_words_language"
-    case KRecoveryWordsCount = "k_recovery_words_count"
-    case KRecoveryKeyExample = "k_recovery_key_example"
-    case KNewTokenSubmitS1 = "k_recovery_submit_s1"
-    case KMakeNewPassword = "k_make_new_password"
-    case KNewPasswordDescription = "k_new_password_description"
-    case KSubmit = "k_submit"
     
     case LanguagePersian = "persian_language"
     case LanguageEnglish = "english_language"
     
+    //KUKNOOS
+    case SelectOneOfBelow = "kuknos_Entry_Message"
+    case KUNewWallet = "kuknos_Entry_NT_str"
+    case KNewToken = "k_new_token"
+    case KLoginWithRecovery = "k_login_with_recovery"
+    case KLoginWithPrivateKey = "k_login_with_private_key"
+    case KQoqnosTitle = "k_qoqnos_title"
+    case KRecoveryWords = "kuknos_RecoverySK_Title"
+    case KRecoveryWordsDescription = "kuknos_RecoverySK_Message"
+    case KRecoveryWordsLanguage = "k_recovery_words_language"
+    case KRecoveryWordsCount = "k_recovery_words_count"
+    case KRecoveryKeyExample = "k_recovery_key_example"
+    case KNewTokenSubmitS1 = "kuknos_RecoverySK_Btn"
+    case KMakeNewPassword = "k_make_new_password"
+    case KNewPasswordDescription = "k_new_password_description"
+    case KSubmit = "kuknos_SignupInfo_submitBtn"
+    case KConfirmPin = "kuknos_SetPassConf_title"
+    case KReneterPin = "kuknos_SetPassConf_message"
+
 }
 
 

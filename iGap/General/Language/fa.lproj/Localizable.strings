@@ -5444,7 +5444,7 @@ Page 4 introduce app */
 "kuknos_login_progress_str" = "بررسی...";
 
 /*  */
-"kuknos_Entry_NT_str" = "کیف توکن جدید";
+"kuknos_Entry_NT_str" = "کیف جدید";
 
 /*  */
 "kuknos_Entry_RT_str" = "بازیابی کیف توکن";
@@ -5516,10 +5516,6 @@ Page 4 introduce app */
 "kuknos_SignupInfo_errorUsernameEmpty" = "لطفا نام کاربری خود را وارد نمایید.";
 
 /*  */
-"kuknos_RecoverySK_Title" = "کلمات بازیابی";
-
-/*  */
-"kuknos_RecoverySK_Message" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات در آینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
 
 /*  */
 "kuknos_RecoverySK_Btn" = "کلمات را یادداشت کردم.";
@@ -6844,13 +6840,15 @@ Page 4 introduce app */
 "k_new_token" = "کیف توکن جدید";
 "k_login_with_recovery" = "ورود با کلمات بازیابی";
 "k_login_with_private_key" = "ورود با کلید خصوصی";
-"k_recovery_words" = "کلمات بازیابی";
-"k_recovery_words_description" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات درآینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
+"kuknos_RecoverySK_Title" = "کلمات بازیابی";
+"kuknos_RecoverySK_Message" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات در آینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
 "k_recovery_words_language" = "زبان کلمات بازیابی";
 "k_recovery_words_count" = "تعداد کلمات بازیابی";
 "k_recovery_key_example" = "صریح صفات دبستان تاریک آکندن محیا دامنه مجتمع ریاح ضدیت قصاب شهامت";
-"k_recovery_submit_s1" = "کلمات را یادداشت کردم";
-"k_make_new_password" = "ساخت رمز ورودی داخلی";
+"kuknos_RecoverySK_Btn" = "کلمات را یادداشت کردم";
+"k_make_new_password" = "ساخت رمز ورودی ( ۴ حرفی ) داخلی";
 "k_new_password_description" = "رمز ورودی (چهار رقمی) جهت ورود به کیف پول و تایید فعالیت های شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
-"k_submit" = "ثبت";
+"kuknos_SignupInfo_submitBtn" = "ثبت";
+
+"k_qoqnos_title" = "ققنوس";
 

@@ -5611,7 +5611,7 @@ TODO:// complete */
 "kuknos_login_progress_str" = "Checking...";
 
 /*  */
-"kuknos_Entry_NT_str" = "New Token Wallet";
+"kuknos_Entry_NT_str" = "New Wallet";
 
 /*  */
 "kuknos_Entry_RT_str" = "Retrieve Token Wallet";
@@ -5659,7 +5659,6 @@ TODO:// complete */
 "kuknos_SignupInfo_email" = "Email Address";
 
 /*  */
-"kuknos_SignupInfo_submitBtn" = "Submit";
 
 /*  */
 "kuknos_SignupInfo_checkUsername" = "checking....";
@@ -5685,8 +5684,6 @@ TODO:// complete */
 /*  */
 "kuknos_RecoverySK_Title" = "Recovery keys";
 
-/*  */
-"kuknos_RecoverySK_Message" = "All of the below keywords are case sensitive. Please make sure you write down and save your recovery phrase. You will need this phrase to restore your wallet.";
 
 /*  */
 "kuknos_RecoverySK_Btn" = "Okay, I have written it down.";
@@ -6829,4 +6826,16 @@ TODO:// complete */
 
 
 
+"k_login_with_recovery" = "Retrieve wallet with Recovery Key";
+"k_login_with_private_key" = "Retrieve wallet with Seed Key";
+"k_qoqnos_title" = "Kuknos";
+"kuknos_RecoverySK_Message" = "All of the below keywords are case sensitive. Please make sure you write down and save your recovery phrase. You will need this phrase to restore your wallet.";
+"k_recovery_words_language" = "Recover Key's Language:";
+"k_recovery_words_count" = "Recovery Key's Length:";
+"kuknos_RecoverySK_Btn" = "Okay, I have written it down.";
+"k_make_new_password" = "Create a 4 digit PIN";
+"k_new_password_description" = "This 4 numeric PIN will be used to encrypt your secret keys. Please make sure you choose a PIN that is difficult to guess for others.";
+"kuknos_SignupInfo_submitBtn" = "Submit";
 
+"persian_language" = "Fa";
+"english_language" = "En";

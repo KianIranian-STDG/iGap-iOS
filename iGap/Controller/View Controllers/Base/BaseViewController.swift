@@ -56,7 +56,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightViewContainer?.addAction(rightAction)
     }
     
-    func iniCustomtNav(title: String? = nil,font : UIFont = UIFont.igFont(ofSize: 17.0, weight: .bold)) {
+    func initCustomtNav(title: String? = nil,font : UIFont = UIFont.igFont(ofSize: 17.0, weight: .bold)) {
         let barButton = IGHelperCustomNavigation.shared.createLeftButton()
         let titleView = IGHelperCustomNavigation.shared.createTitle(title: title,font : font)
         UIApplication.topViewController()!.navigationItem.titleView = titleView
