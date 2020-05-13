@@ -61,6 +61,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
          "0990":IGOperator.mci,
          "0991":IGOperator.mci,
          "0992":IGOperator.mci,
+         "09930":IGOperator.mci,
+         "09931":IGOperator.mci,
          
          "0901":IGOperator.irancell,
          "0902":IGOperator.irancell,

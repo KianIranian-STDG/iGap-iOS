@@ -46,6 +46,8 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         "0919" : IGOperator.mci,
         "0990" : IGOperator.mci,
         "0991" : IGOperator.mci,
+        "09930": IGOperator.mci,
+        "09931": IGOperator.mci,
         
         "0901" : IGOperator.irancell,
         "0902" : IGOperator.irancell,
