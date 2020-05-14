@@ -5333,7 +5333,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 584;
+				CURRENT_PROJECT_VERSION = 585;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -5355,7 +5355,7 @@
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
@@ -5383,7 +5383,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 584;
+				CURRENT_PROJECT_VERSION = 585;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5423,7 +5423,7 @@
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/bassopus",
 					"$(PROJECT_DIR)/iGap/Libraries/APAudioPlayer/bass/plugins/basswv",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
