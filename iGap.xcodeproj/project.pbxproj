@@ -1427,9 +1427,9 @@
 		94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FinancialHistory.storyboard; sourceTree = "<group>"; };
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
-		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Controller/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
+		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Model/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
-		D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKRealmUser.swift; path = iGap/Koknus/Helper/IGKRealmUser.swift; sourceTree = SOURCE_ROOT; };
+		D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKRealmUser.swift; path = iGap/Koknus/Model/IGKRealmUser.swift; sourceTree = SOURCE_ROOT; };
 		D21D98BC246BF976006BEB38 /* IGPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPrint.swift; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
@@ -2821,24 +2821,24 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		D2FE640F24680EB1000D861E /* Koknus */ = {
-			isa = PBXGroup;
-			children = (
-				D2FE641324680ED5000D861E /* Helper */,
-				D2FE641224680ECD000D861E /* Controller */,
-				D2FE641124680EC8000D861E /* View */,
-				D2FE641024680EC3000D861E /* Model */,
-			);
-			path = Koknus;
-			sourceTree = "<group>";
-		};
-		D2FE641024680EC3000D861E /* Model */ = {
+		D281C029246FEB0D00D0F5A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				D20E21EA246BCA5800341F21 /* IGKStruct.swift */,
 				D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D2FE640F24680EB1000D861E /* Koknus */ = {
+			isa = PBXGroup;
+			children = (
+				D2FE641324680ED5000D861E /* Helper */,
+				D281C029246FEB0D00D0F5A2 /* Model */,
+				D2FE641224680ECD000D861E /* Controller */,
+				D2FE641124680EC8000D861E /* View */,
+			);
+			path = Koknus;
 			sourceTree = "<group>";
 		};
 		D2FE641124680EC8000D861E /* View */ = {
