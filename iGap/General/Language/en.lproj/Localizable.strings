@@ -6847,7 +6847,7 @@ TODO:// complete */
 "kuknoos_wallet_add" = "Wallet Address";
 "kuknos_show_account_info" = "Show Account Info";
 "kuknos_save_account_info" = "Save Account Info";
-"kuknos_payman_regulations" = "Payman Regulations";
+"kuknos_payman_regulations" = "Paymon Regulations";
 "kuknos_all_info_in_qoqnos" = "Here is all the iformation related to your account in Kuknos platform ";
 "kuknos_recovery_words" = "Recovery Keys";
 "kuknos_account_info" = "Account Information";
@@ -6855,6 +6855,7 @@ TODO:// complete */
 "kuknos_private_key_Desc" = "This key is private and with this key ,you can access to your account and restore your wallet.Please be nofied that this key MUST not be shared with others";
 "kuknos_public_key" = "Public Key";
 "kuknos_public_key_Desc" = "This key is for you to share with others in order to get currencies from them";
-
+"kuknos_notice_text" = "Please be notified: this is the only key that you can use to access your account later.
+Do NOT share it with others.";
 "persian_language" = "Fa";
 "english_language" = "En";
