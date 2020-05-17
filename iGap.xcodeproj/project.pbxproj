@@ -459,6 +459,7 @@
 		D2B8D7242469112D001062EB /* IGKNewTokenS1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */; };
 		D2B8D72624696F0B001062EB /* IGKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72524696F0B001062EB /* IGKApi.swift */; };
 		D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72724696F45001062EB /* IGKBaseApi.swift */; };
+		D2C39395247145580051458C /* IGKNewTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C39394247145580051458C /* IGKNewTokenVM.swift */; };
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
@@ -1482,6 +1483,7 @@
 		D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS1VC.swift; sourceTree = "<group>"; };
 		D2B8D72524696F0B001062EB /* IGKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKApi.swift; sourceTree = "<group>"; };
 		D2B8D72724696F45001062EB /* IGKBaseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBaseApi.swift; sourceTree = "<group>"; };
+		D2C39394247145580051458C /* IGKNewTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenVM.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
@@ -2854,9 +2856,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D2C39393247145490051458C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2C39394247145580051458C /* IGKNewTokenVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D2FE640F24680EB1000D861E /* Koknus */ = {
 			isa = PBXGroup;
 			children = (
+				D2C39393247145490051458C /* ViewModel */,
 				D2FE641324680ED5000D861E /* Helper */,
 				D281C029246FEB0D00D0F5A2 /* Model */,
 				D2FE641224680ECD000D861E /* Controller */,
@@ -5295,6 +5306,7 @@
 				FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */,
 				FA5E159D1E0FD76300EC19A1 /* IGAvatarView.swift in Sources */,
 				FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */,
+				D2C39395247145580051458C /* IGKNewTokenVM.swift in Sources */,
 				FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */,
 				FA0953551E1B97700043ED3F /* IGSettingChatStickersTableViewController.swift in Sources */,
 				D67E981B23A67918003C1516 /* ImageZoomControllerActions.swift in Sources */,
