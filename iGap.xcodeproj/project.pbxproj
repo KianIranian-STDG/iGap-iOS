@@ -420,7 +420,6 @@
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D20E21EB246BCA5800341F21 /* IGKStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20E21EA246BCA5800341F21 /* IGKStruct.swift */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
-		D21D98BB246BF680006BEB38 /* IGKRealmUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */; };
 		D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D98BC246BF976006BEB38 /* IGPrint.swift */; };
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
@@ -433,6 +432,8 @@
 		D2434DCA244EEC070057BA65 /* IGMobileBankSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DC9244EEC070057BA65 /* IGMobileBankSecurityManager.swift */; };
 		D2434DCC244EEF200057BA65 /* IGMBUserPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DCB244EEF200057BA65 /* IGMBUserPass.swift */; };
 		D2434DD0244EF3990057BA65 /* IGMBApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */; };
+		D2449F0B24711B8A0046D48A /* IGKKeychainHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2449F0A24711B8A0046D48A /* IGKKeychainHandler.swift */; };
+		D2449F2D24713ABE0046D48A /* IGKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2449F2C24713ABE0046D48A /* IGKUser.swift */; };
 		D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */; };
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
 		D254C1D82450073E007767F4 /* IGMBMainContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */; };
@@ -1441,7 +1442,6 @@
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Model/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
-		D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKRealmUser.swift; path = iGap/Koknus/Model/IGKRealmUser.swift; sourceTree = SOURCE_ROOT; };
 		D21D98BC246BF976006BEB38 /* IGPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPrint.swift; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
@@ -1454,6 +1454,8 @@
 		D2434DC9244EEC070057BA65 /* IGMobileBankSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMobileBankSecurityManager.swift; sourceTree = "<group>"; };
 		D2434DCB244EEF200057BA65 /* IGMBUserPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBUserPass.swift; sourceTree = "<group>"; };
 		D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBApiBase.swift; sourceTree = "<group>"; };
+		D2449F0A24711B8A0046D48A /* IGKKeychainHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKKeychainHandler.swift; sourceTree = "<group>"; };
+		D2449F2C24713ABE0046D48A /* IGKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKUser.swift; sourceTree = "<group>"; };
 		D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocationNode.swift; sourceTree = "<group>"; };
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
 		D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBMainContainerVC.swift; sourceTree = "<group>"; };
@@ -2780,6 +2782,14 @@
 			path = MobileBank;
 			sourceTree = "<group>";
 		};
+		D2449F09247116DD0046D48A /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		D2522ED823D47993002B2D6C /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2837,7 +2847,7 @@
 			isa = PBXGroup;
 			children = (
 				D20E21EA246BCA5800341F21 /* IGKStruct.swift */,
-				D21D98BA246BF680006BEB38 /* IGKRealmUser.swift */,
+				D2449F2C24713ABE0046D48A /* IGKUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2851,14 +2861,6 @@
 				D2FE641124680EC8000D861E /* View */,
 			);
 			path = Koknus;
-			sourceTree = "<group>";
-		};
-		D2FE641024680EC3000D861E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D2FE641124680EC8000D861E /* View */ = {
@@ -2893,6 +2895,7 @@
 				D2B8D72524696F0B001062EB /* IGKApi.swift */,
 				D2B8D72724696F45001062EB /* IGKBaseApi.swift */,
 				D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */,
+				D2449F0A24711B8A0046D48A /* IGKKeychainHandler.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -4087,6 +4090,7 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
+				D2449F09247116DD0046D48A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5045,6 +5049,7 @@
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
 				FA85066222670703002EEBF7 /* SMMyBarCodeViewController.swift in Sources */,
 				D61B5DE7237D48B10060B9D9 /* AnimateloadingView.swift in Sources */,
+				D2449F0B24711B8A0046D48A /* IGKKeychainHandler.swift in Sources */,
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				D67E985E23A679AB003C1516 /* DefaultAnimators.swift in Sources */,
 				D67E982223A67921003C1516 /* Side.swift in Sources */,
@@ -5070,6 +5075,7 @@
 				8EA8551123A22A8800C9442F /* IGPinkColorSet.swift in Sources */,
 				FAE6062A21EB39DB00F03FFC /* SwiftWebVCActivity.swift in Sources */,
 				FA63BAA31DD70D94000B60AD /* IGRequestSystem.swift in Sources */,
+				D2449F2D24713ABE0046D48A /* IGKUser.swift in Sources */,
 				8E67494823B119400012BA0F /* IGUserContactsTableViewController.swift in Sources */,
 				D67E984523A67962003C1516 /* CGRect+Difference.swift in Sources */,
 				FA42EEF81E5C205D00CF8A32 /* IGImageView.swift in Sources */,
@@ -5105,7 +5111,6 @@
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
-				D21D98BB246BF680006BEB38 /* IGKRealmUser.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
