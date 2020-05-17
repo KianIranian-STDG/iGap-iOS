@@ -961,6 +961,10 @@ enum IGStringsManager : String {
     case KPublicKey = "kuknos_public_key"
     case KPublicKeyDesc = "kuknos_public_key_Desc"
     case KNoticeText = "kuknos_notice_text"
+    case KBuy = "kuknos_buyP_btn"
+    case KBuyToneDesc = "kuknos_buyP_message"
+    case KRealTimePrice = "kuknos_realtime_price"
+    case KCountOfTokenToBuy = "kuknos_numberof_token_to_buy"
 }
 
 
