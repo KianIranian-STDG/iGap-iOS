@@ -6842,6 +6842,19 @@ TODO:// complete */
 "kuknoos_settings" = "Setting";
 "kuknoos_trading" = "Trading";
 "kuknoos_buy_token" = "Buy Token";
+"kuknoos_via_id" = "Via Kuknos ID";
+"kuknoos_via_public_key" = "Via Public Key";
+"kuknoos_wallet_add" = "Wallet Address";
+"kuknos_show_account_info" = "Show Account Info";
+"kuknos_save_account_info" = "Save Account Info";
+"kuknos_payman_regulations" = "Payman Regulations";
+"kuknos_all_info_in_qoqnos" = "Here is all the iformation related to your account in Kuknos platform ";
+"kuknos_recovery_words" = "Recovery Keys";
+"kuknos_account_info" = "Account Information";
+"kuknos_private_key" = "Private Key";
+"kuknos_private_key_Desc" = "This key is private and with this key ,you can access to your account and restore your wallet.Please be nofied that this key MUST not be shared with others";
+"kuknos_public_key" = "Public Key";
+"kuknos_public_key_Desc" = "This key is for you to share with others in order to get currencies from them";
 
 "persian_language" = "Fa";
 "english_language" = "En";

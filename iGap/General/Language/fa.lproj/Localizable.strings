@@ -6855,6 +6855,19 @@ Page 4 introduce app */
 "kuknoos_settings" = "تنظیمات";
 "kuknoos_trading" = "مبادله";
 "kuknoos_buy_token" = "خرید دارایی";
+"kuknoos_wallet_add" = "آدرس کیف پول";
+"kuknos_show_account_info" = "نمایش اطلاعات کاربری";
+"kuknos_save_account_info" = "ذخیره اطلاعات کاربری";
+"kuknos_payman_regulations" = "سپیدنامه پیمان";
+"kuknos_account_info" = "اطلاعات حساب کاربری";
+"kuknos_private_key" = "کلید خصوصی";
+"kuknos_private_key_Desc" = "این کلید خصوصی شماست.با استفاده از این کلید امکان دسترسی مستقیم بهحساب شما وجود دارد.لطفا به هیچ وجه این کلید را با بقیه افراد به اشتراک نگذارید";
+"kuknos_public_key" = "کلید عمومی";
+"kuknos_public_key_Desc" = "با ارسال این کلید برای دیگران شما میتوانید از آنها درخواست ارسال توکن نمایید.";
+
+"kuknos_all_info_in_qoqnos" = "تمامی اطلاهات مربوط به اکانت شما در سامانه ققنوس.";
+"kuknos_recovery_words" = "رشته کلید بازگردانی حساب";
+
 
 "k_qoqnos_title" = "ققنوس";
 

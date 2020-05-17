@@ -138,6 +138,12 @@
 		8E8BE199246BEB7500A32BC4 /* IGKNewTokenS3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */; };
 		8E8BE19B246BF87300A32BC4 /* IGKNewTokenS4VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */; };
 		8E8BE19D246C2D8900A32BC4 /* IGKProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */; };
+		8E8BE19F246FA86A00A32BC4 /* IGKReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */; };
+		8E8BE1A1246FBEE200A32BC4 /* IGKSendTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */; };
+		8E8BE1A3246FEE8F00A32BC4 /* IGKHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */; };
+		8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */; };
+		8E8BE1A72470025D00A32BC4 /* IGFourButtonsTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */; };
+		8E8BE1A9247009B500A32BC4 /* IGKShowAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */; };
 		8E8CA3A8236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */; };
 		8E8CA3AB236FFF2B000DA358 /* ElectroBill.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8CA3AA236FFF2B000DA358 /* ElectroBill.storyboard */; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
@@ -1142,6 +1148,12 @@
 		8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS3VC.swift; sourceTree = "<group>"; };
 		8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS4VC.swift; sourceTree = "<group>"; };
 		8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKProfileVC.swift; sourceTree = "<group>"; };
+		8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKReceiveVC.swift; sourceTree = "<group>"; };
+		8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKSendTokenVC.swift; sourceTree = "<group>"; };
+		8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVC.swift; sourceTree = "<group>"; };
+		8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKHistoryModel.swift; path = iGap/Koknus/Controller/IGKHistoryModel.swift; sourceTree = SOURCE_ROOT; };
+		8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourButtonsTVController.swift; sourceTree = "<group>"; };
+		8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKShowAccountInfo.swift; sourceTree = "<group>"; };
 		8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillMainPageTableViewController.swift; sourceTree = "<group>"; };
 		8E8CA3AA236FFF2B000DA358 /* ElectroBill.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ElectroBill.storyboard; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
@@ -2841,6 +2853,14 @@
 			path = Koknus;
 			sourceTree = "<group>";
 		};
+		D2FE641024680EC3000D861E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D2FE641124680EC8000D861E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2858,6 +2878,11 @@
 				8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */,
 				8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */,
 				8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */,
+				8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */,
+				8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */,
+				8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */,
+				8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */,
+				8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4644,6 +4669,7 @@
 				D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */,
 				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
 				FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */,
+				8E8BE1A1246FBEE200A32BC4 /* IGKSendTokenVC.swift in Sources */,
 				FA58ADF022815BE5002A650E /* IGMessageLoader.swift in Sources */,
 				8E8E506823E82E3A0094A91C /* generateImage.swift in Sources */,
 				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
@@ -4686,6 +4712,7 @@
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
 				D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
+				8E8BE1A3246FEE8F00A32BC4 /* IGKHistoryVC.swift in Sources */,
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
@@ -4700,6 +4727,7 @@
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
 				FA42EF0A1E5C224F00CF8A32 /* FrameStore.swift in Sources */,
 				FAF45932205021AF005E0539 /* IGCallFromContactListObserver.swift in Sources */,
+				8E8BE1A72470025D00A32BC4 /* IGFourButtonsTVController.swift in Sources */,
 				D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */,
 				FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */,
 				8EC217C62259F59900105B5A /* SMCashout.swift in Sources */,
@@ -4796,6 +4824,7 @@
 				8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
+				8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */,
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
@@ -4811,6 +4840,7 @@
 				8EC0384C23978B1E00B525B5 /* IGStructNewsDetail.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
 				FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */,
+				8E8BE1A9247009B500A32BC4 /* IGKShowAccountInfo.swift in Sources */,
 				FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */,
 				FA96EF4E1DEB0431009BE640 /* IGMessageSender.swift in Sources */,
 				D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */,
@@ -5168,6 +5198,7 @@
 				8EA8F3EC231F9E450099C4EF /* UICircularRingLayer.swift in Sources */,
 				FA927E0820286FAD00DF7145 /* ContactCell.swift in Sources */,
 				FA0953861E1B97E20043ED3F /* IGContactTableViewCell.swift in Sources */,
+				8E8BE19F246FA86A00A32BC4 /* IGKReceiveVC.swift in Sources */,
 				8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */,
 				8E96A31E225C902B007D8A77 /* SMRecieptView.swift in Sources */,
 				8E3C6D23235C5FC300723E4A /* IGHelperMusicPlayer.swift in Sources */,
