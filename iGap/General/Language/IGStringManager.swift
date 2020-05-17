@@ -960,7 +960,7 @@ enum IGStringsManager : String {
     case KPrivateKeyDesc = "kuknos_private_key_Desc"
     case KPublicKey = "kuknos_public_key"
     case KPublicKeyDesc = "kuknos_public_key_Desc"
-
+    case KNoticeText = "kuknos_notice_text"
 }
 
 
