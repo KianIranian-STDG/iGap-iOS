@@ -968,6 +968,9 @@ enum IGStringsManager : String {
     case KRealTimePrice = "kuknos_realtime_price"
     case KCountOfTokenToBuy = "kuknos_numberof_token_to_buy"
     case KKeyGenerationFailed = "koknus_key_generation_error"
+    case KValidUsername = "kuknos_valid_username"
+    case KInValidUsername = "kuknos_invalid_username"
+
 }
 
 

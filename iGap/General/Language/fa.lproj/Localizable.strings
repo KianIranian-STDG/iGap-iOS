@@ -6872,6 +6872,8 @@ Page 4 introduce app */
 "kuknos_notice_text" = "توجه: این اطلاعات تنها راه دسترسی شما به حساب کاربری تان است.لطفا در حفظ و نگهداری این اطلاعات کوشا باشید و این اطلاعات را با کسی به اشتراک نگزارید";
 "kuknos_realtime_price" = "قیمت لحظه ای :";
 "kuknos_numberof_token_to_buy" = "تعداد توکن جهت خرید";
+"kuknos_valid_username" = "نام کاربری انتخابی معتبر می باشد";
+"kuknos_invalid_username" = "نام کاربری انتخابی نامعتبر می باشد";
 
 "k_qoqnos_title" = "ققنوس";
 "koknus_key_generation_error" = "خطا در ساخت کلیدها";

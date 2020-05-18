@@ -6862,6 +6862,8 @@ Do NOT share it with others.";
 "kuknos_realtime_price" = "Instant Price :";
 "kuknos_numberof_token_to_buy" = "Number of Token To buy";
 "koknus_key_generation_error" = "Key generation failed";
+"kuknos_valid_username" = "The selected username is Valid";
+"kuknos_invalid_username" = "The selected username is Invalid";
 
 "persian_language" = "Fa";
 "english_language" = "En";
