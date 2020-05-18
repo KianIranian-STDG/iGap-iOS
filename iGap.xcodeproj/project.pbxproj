@@ -380,6 +380,7 @@
 		8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */; };
 		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
 		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
+		8EF0DDC4247271E6007AC20C /* IGScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC3247271E6007AC20C /* IGScrollView.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1404,6 +1405,7 @@
 		8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
+		8EF0DDC3247271E6007AC20C /* IGScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScrollView.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -2880,6 +2882,7 @@
 			isa = PBXGroup;
 			children = (
 				D2FE6416246814F3000D861E /* IGKCustomButton.swift */,
+				8EF0DDC3247271E6007AC20C /* IGScrollView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4776,6 +4779,7 @@
 				FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */,
 				D67E982423A67921003C1516 /* AnimationEvent.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
+				8EF0DDC4247271E6007AC20C /* IGScrollView.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
 				8EFBE42D2463C7E800755464 /* IGMBPayLoanTVController.swift in Sources */,
 				8E03174A2378472700D5A2B5 /* IGStructBillByDevice.swift in Sources */,
