@@ -381,6 +381,7 @@
 		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
 		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
 		8EF0DDC4247271E6007AC20C /* IGScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC3247271E6007AC20C /* IGScrollView.swift */; };
+		8EF0DDC62472875F007AC20C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC52472875F007AC20C /* MainViewController.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1406,6 +1407,7 @@
 		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
 		8EF0DDC3247271E6007AC20C /* IGScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScrollView.swift; sourceTree = "<group>"; };
+		8EF0DDC52472875F007AC20C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -2902,6 +2904,7 @@
 				8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */,
 				8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */,
 				8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */,
+				8EF0DDC52472875F007AC20C /* MainViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5337,6 +5340,7 @@
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
 				FA1A9828234A157C00170BD3 /* BaseTableViewCell.swift in Sources */,
 				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,
+				8EF0DDC62472875F007AC20C /* MainViewController.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
 				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,

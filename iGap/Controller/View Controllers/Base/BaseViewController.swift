@@ -45,53 +45,6 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 //        self.hideKeyboardWhenTappedAround()
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.view.endEditing(true)
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc private func keyboardWillShow(_ notif: Notification) {
-        
-        guard let keyboardFrame: NSValue = notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-
-        let myViews = UIApplication.topViewController()!.view.subviews.compactMap{$0 as? IGScrollView}
-
-        if myViews.count > 0 {
-            let sv = myViews.first
-            sv!.changeContentSize(height: sv!.contentSize.height + keyboardHeight, width: view.frame.width)
-
-        } else { }
-    }
-    
-    @objc private func keyboardWillHide(_ notif: Notification) {
-        guard let keyboardFrame: NSValue = notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        let myViews = UIApplication.topViewController()!.view.subviews.compactMap{$0 as? IGScrollView}
-        
-        if myViews.count > 0 {
-            let sv = myViews.first
-            sv!.changeContentSize(height: sv!.contentSize.height - keyboardHeight, width: view.frame.width)
-        } else {}
-        
-        
-    }
-
     
     func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
         let navigationItem = self.navigationItem as! IGNavigationItem
