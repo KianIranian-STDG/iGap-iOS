@@ -6837,6 +6837,8 @@ TODO:// complete */
 "k_new_password_description" = "This 4 numeric PIN will be used to encrypt your secret keys. Please make sure you choose a PIN that is difficult to guess for others.";
 "kuknos_SignupInfo_submitBtn" = "Submit";
 "kuknoos_name" = "Name";
+"kuknoos_first_name" = "First name";
+"kuknoos_last_name" = "Last name";
 "kuknoos_idnumber" = "ID Number";
 "kuknoos_assets" = "Assets";
 "kuknoos_settings" = "Setting";
@@ -6859,6 +6861,7 @@ TODO:// complete */
 Do NOT share it with others.";
 "kuknos_realtime_price" = "Instant Price :";
 "kuknos_numberof_token_to_buy" = "Number of Token To buy";
+"koknus_key_generation_error" = "Key generation failed";
 
 "persian_language" = "Fa";
 "english_language" = "En";

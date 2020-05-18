@@ -934,6 +934,8 @@ enum IGStringsManager : String {
     case KUserInformation = "kuknos_SignupInfo_title"
     case KCompleteFields = "kuknos_SignupInfo_desc"
     case KName = "kuknoos_name"
+    case KFirstName = "kuknoos_first_name"
+    case KLastName = "kuknoos_last_name"
     case KIDNumber = "kuknoos_idnumber"
     case KAssets = "kuknoos_assets"
     case KHistory = "kuknos_panelStr_history"
@@ -965,6 +967,7 @@ enum IGStringsManager : String {
     case KBuyToneDesc = "kuknos_buyP_message"
     case KRealTimePrice = "kuknos_realtime_price"
     case KCountOfTokenToBuy = "kuknos_numberof_token_to_buy"
+    case KKeyGenerationFailed = "koknus_key_generation_error"
 }
 
 

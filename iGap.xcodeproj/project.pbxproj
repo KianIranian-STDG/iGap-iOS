@@ -2860,6 +2860,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D2B40D3B2472A2D300E359F8 /* New Token */ = {
+			isa = PBXGroup;
+			children = (
+				D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */,
+				D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */,
+				8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */,
+				8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */,
+			);
+			path = "New Token";
+			sourceTree = "<group>";
+		};
 		D2C39393247145490051458C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2893,10 +2904,7 @@
 			isa = PBXGroup;
 			children = (
 				D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */,
-				D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */,
-				D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */,
-				8E8BE198246BEB7500A32BC4 /* IGKNewTokenS3VC.swift */,
-				8E8BE19A246BF87300A32BC4 /* IGKNewTokenS4VC.swift */,
+				D2B40D3B2472A2D300E359F8 /* New Token */,
 				8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */,
 				8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */,
 				8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */,

@@ -6850,6 +6850,8 @@ Page 4 introduce app */
 "k_new_password_description" = "رمز ورودی (چهار رقمی) جهت ورود به کیف پول و تایید فعالیت های شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
 "kuknos_SignupInfo_submitBtn" = "ثبت";
 "kuknoos_name" = "نام";
+"kuknoos_first_name" = "نام";
+"kuknoos_last_name" = "نام خانوادگی";
 "kuknoos_idnumber" = "کد ملی";
 "kuknoos_assets" = "دارایی ها";
 "kuknoos_settings" = "تنظیمات";
@@ -6872,4 +6874,5 @@ Page 4 introduce app */
 "kuknos_numberof_token_to_buy" = "تعداد توکن جهت خرید";
 
 "k_qoqnos_title" = "ققنوس";
+"koknus_key_generation_error" = "خطا در ساخت کلیدها";
 
