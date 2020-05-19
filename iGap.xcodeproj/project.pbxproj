@@ -382,6 +382,8 @@
 		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
 		8EF0DDC4247271E6007AC20C /* IGScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC3247271E6007AC20C /* IGScrollView.swift */; };
 		8EF0DDC62472875F007AC20C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC52472875F007AC20C /* MainViewController.swift */; };
+		8EF0DDC82473C748007AC20C /* IGKRetrieveByRecoveryKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC72473C748007AC20C /* IGKRetrieveByRecoveryKey.swift */; };
+		8EF0DDCA2473C75C007AC20C /* IGKRetrieveBySeedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC92473C75C007AC20C /* IGKRetrieveBySeedKey.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1409,6 +1411,8 @@
 		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
 		8EF0DDC3247271E6007AC20C /* IGScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScrollView.swift; sourceTree = "<group>"; };
 		8EF0DDC52472875F007AC20C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8EF0DDC72473C748007AC20C /* IGKRetrieveByRecoveryKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetrieveByRecoveryKey.swift; sourceTree = "<group>"; };
+		8EF0DDC92473C75C007AC20C /* IGKRetrieveBySeedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetrieveBySeedKey.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -2696,6 +2700,15 @@
 			path = DropDown;
 			sourceTree = "<group>";
 		};
+		8EF0DDCB2473C769007AC20C /* RetrieveKey */ = {
+			isa = PBXGroup;
+			children = (
+				8EF0DDC72473C748007AC20C /* IGKRetrieveByRecoveryKey.swift */,
+				8EF0DDC92473C75C007AC20C /* IGKRetrieveBySeedKey.swift */,
+			);
+			path = RetrieveKey;
+			sourceTree = "<group>";
+		};
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -2916,6 +2929,7 @@
 				8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */,
 				8EF0DDC52472875F007AC20C /* MainViewController.swift */,
 				D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */,
+				8EF0DDCB2473C769007AC20C /* RetrieveKey */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4902,6 +4916,7 @@
 				FAA9DFBA1F4B1CC90076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewController.swift in Sources */,
 				FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */,
 				FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */,
+				8EF0DDCA2473C75C007AC20C /* IGKRetrieveBySeedKey.swift in Sources */,
 				940F9E73231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift in Sources */,
 				D670E5152445EC67002901AF /* ClearMessageLocal.swift in Sources */,
 				8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */,
@@ -5189,6 +5204,7 @@
 				8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */,
 				8E8BE18F246BC88500A32BC4 /* PinCodeTextField.swift in Sources */,
 				FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */,
+				8EF0DDC82473C748007AC20C /* IGKRetrieveByRecoveryKey.swift in Sources */,
 				8EEB1FF422C1F48400EFD2ED /* SMGetGift.swift in Sources */,
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
 				8EA8F3EE231F9E450099C4EF /* UICircularProgressRing.swift in Sources */,

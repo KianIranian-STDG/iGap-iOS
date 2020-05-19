@@ -972,7 +972,9 @@ enum IGStringsManager : String {
     case KInvalidPassword = "koknus_invalid_password"
     case KValidUsername = "kuknos_valid_username"
     case KInValidUsername = "kuknos_invalid_username"
-
+    case KEnterRecoveryKeyTitle = "kuknos_Restore_Title"
+    case KEnterRecoveryKeyDesc = "kuknos_Restore_Message"
+    case KRetrieve = "kuknos_Restore_Btn"
 }
 
 
