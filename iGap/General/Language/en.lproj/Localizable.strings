@@ -6865,6 +6865,7 @@ Do NOT share it with others.";
 "koknus_enter_password" = "Please enter you password";
 "koknus_invalid_password" = "Invalid Password";
 "kuknos_valid_username" = "The selected username is Valid";
+"koknus_checking_username" = "Cheking Username ...";
 "kuknos_invalid_username" = "The selected username is Invalid";
 "kuknos_enter_your_private_key" = "Please Enter your Private Key";
 "kuknos_Restore_private_Message" = "By using this Key, you will be able to retrieve your account.";

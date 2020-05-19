@@ -6873,6 +6873,7 @@ Page 4 introduce app */
 "kuknos_realtime_price" = "قیمت لحظه ای :";
 "kuknos_numberof_token_to_buy" = "تعداد توکن جهت خرید";
 "kuknos_valid_username" = "نام کاربری انتخابی معتبر می باشد";
+"koknus_checking_username" = "در حال بررسی نام کاربری ...";
 "kuknos_invalid_username" = "نام کاربری انتخابی نامعتبر می باشد";
 
 "k_qoqnos_title" = "ققنوس";
