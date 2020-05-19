@@ -718,7 +718,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         
         if IGKKeychainHandler.getFromKeychain(key: .Pin) == "" {
-            let igk = IGKIntroVC()
+            let igk = IGKProfileVC()
             igk.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(igk, animated: true)
         }else {

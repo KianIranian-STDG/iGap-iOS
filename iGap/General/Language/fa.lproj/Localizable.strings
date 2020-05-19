@@ -6882,4 +6882,13 @@ Page 4 introduce app */
 "koknus_invalid_password" = "رمز وارد شده صحیح نیست";
 "kuknos_Restore_private_Message" = "با استفاده از این کلید، شما میتوانید حساب خود را مجددا بازیابی نمایید.";
 "kuknos_enter_your_private_key" = "لطفا کلید خصوصی خود را وارد نمایید.";
+"kuknos_sell" = "فروش";
+"kuknos_buy" = "خرید";
+"kuknos_selling_header" = "فروشی";
+"kuknos_recieving_header" = "دریافتی";
+"kuknos_amount_header" = "مبلغ";
+"kuknos_price_header" = "قیمت";
 
+"kuknos_trades_title" = "معامله";
+"kuknos_openorders_title" = "سفارشات باز";
+"kuknos_tradeshistory_title" = "تاریخچه";

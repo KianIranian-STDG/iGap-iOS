@@ -6869,6 +6869,15 @@ Do NOT share it with others.";
 "kuknos_invalid_username" = "The selected username is Invalid";
 "kuknos_enter_your_private_key" = "Please Enter your Private Key";
 "kuknos_Restore_private_Message" = "By using this Key, you will be able to retrieve your account.";
+"kuknos_trades_title" = "Trade";
+"kuknos_openorders_title" = "Open Orders";
+"kuknos_tradeshistory_title" = "History";
+"kuknos_sell" = "Sell";
+"kuknos_buy" = "Buy";
+"kuknos_selling_header" = "Selling";
+"kuknos_recieving_header" = "Receiving";
+"kuknos_amount_header" = "Amount";
+"kuknos_price_header" = "Price";
 
 "persian_language" = "Fa";
 "english_language" = "En";

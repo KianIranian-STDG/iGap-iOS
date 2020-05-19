@@ -978,6 +978,15 @@ enum IGStringsManager : String {
     case KRetrieve = "kuknos_Restore_Btn"
     case KEnterPrivateKeyTitle = "kuknos_enter_your_private_key"
     case KEnterPrivateKeyDesc = "kuknos_Restore_private_Message"
+    case KTrades = "kuknos_trades_title"
+    case KOpenOrders = "kuknos_openorders_title"
+    case KTradesHistory = "kuknos_tradeshistory_title"
+    case KBuyT = "kuknos_buy"
+    case KSell = "kuknos_sell"
+    case KSellingHeader = "kuknos_selling_header"
+    case KReceivingHeader = "kuknos_recieving_header"
+    case KAmountHeader = "kuknos_amount_header"
+    case KPriceHeader = "kuknos_price_header"
 }
 
 
