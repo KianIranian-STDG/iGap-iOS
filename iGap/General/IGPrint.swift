@@ -13,7 +13,7 @@ enum ModuleType: String {
 }
 
 
-func IGPrint<T: Any>(module: ModuleType, description: String? = nil , _ string: T...) {
+func IGPrint<T: Any>(module: ModuleType, description: String? = nil , string: T...) {
     
     #if DEBUG
     print("=-=-=-=-=-=***** Start: \(module.rawValue) *****=-=-=-=-=-=")

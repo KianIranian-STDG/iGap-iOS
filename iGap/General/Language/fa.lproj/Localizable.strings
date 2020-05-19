@@ -6877,4 +6877,6 @@ Page 4 introduce app */
 
 "k_qoqnos_title" = "ققنوس";
 "koknus_key_generation_error" = "خطا در ساخت کلیدها";
+"koknus_enter_password" = "رمز ورود را وارد نمایید";
+"koknus_invalid_password" = "رمز وارد شده صحیح نیست";
 

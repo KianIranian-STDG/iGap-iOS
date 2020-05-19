@@ -716,17 +716,16 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
-//        goToSettings = false
-//
-//        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
-//        settingVC.hidesBottomBarWhenPushed = true
-//        self.navigationController!.pushViewController(settingVC, animated:true)
         
-        
-//        let igk = IGKIntroVC()
-        let igk = IGKProfileVC()
-        igk.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(igk, animated: true)
+        if IGKKeychainHandler.getFromKeychain(key: .Pin) == "" {
+            let igk = IGKIntroVC()
+            igk.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(igk, animated: true)
+        }else {
+            let igk = IGKPinLoginVC()
+            igk.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(igk, animated: true)
+        }
         
     }
     
