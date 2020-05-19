@@ -975,6 +975,8 @@ enum IGStringsManager : String {
     case KEnterRecoveryKeyTitle = "kuknos_Restore_Title"
     case KEnterRecoveryKeyDesc = "kuknos_Restore_Message"
     case KRetrieve = "kuknos_Restore_Btn"
+    case KEnterPrivateKeyTitle = "kuknos_enter_your_private_key"
+    case KEnterPrivateKeyDesc = "kuknos_Restore_private_Message"
 }
 
 
