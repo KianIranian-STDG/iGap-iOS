@@ -388,6 +388,8 @@
 		8EF0DDD02473E384007AC20C /* IGKTradesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDCF2473E384007AC20C /* IGKTradesVC.swift */; };
 		8EF0DDD22473E3B8007AC20C /* IGKOpenOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD12473E3B8007AC20C /* IGKOpenOrdersVC.swift */; };
 		8EF0DDD42473E3DB007AC20C /* IGKTradeHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */; };
+		8EF0DDD62474F180007AC20C /* CellRowTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD52474F180007AC20C /* CellRowTwo.swift */; };
+		8EF0DDD92474F1B0007AC20C /* CellRowOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1423,6 +1425,8 @@
 		8EF0DDCF2473E384007AC20C /* IGKTradesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradesVC.swift; sourceTree = "<group>"; };
 		8EF0DDD12473E3B8007AC20C /* IGKOpenOrdersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersVC.swift; sourceTree = "<group>"; };
 		8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryVC.swift; sourceTree = "<group>"; };
+		8EF0DDD52474F180007AC20C /* CellRowTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowTwo.swift; sourceTree = "<group>"; };
+		8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowOne.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -2729,8 +2733,18 @@
 				8EF0DDCF2473E384007AC20C /* IGKTradesVC.swift */,
 				8EF0DDD12473E3B8007AC20C /* IGKOpenOrdersVC.swift */,
 				8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */,
+				8EF0DDD72474F18D007AC20C /* View */,
 			);
 			path = Trading;
+			sourceTree = "<group>";
+		};
+		8EF0DDD72474F18D007AC20C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8EF0DDD52474F180007AC20C /* CellRowTwo.swift */,
+				8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
@@ -4915,6 +4929,7 @@
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				8EA8551B23A232D600C9442F /* IGRedColorSet.swift in Sources */,
 				8E8E506A23E82F540094A91C /* HepticFeedback.swift in Sources */,
+				8EF0DDD92474F1B0007AC20C /* CellRowOne.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				D25D0F3023F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGMemberChooseBottomCollectionCell.swift in Sources */,
@@ -5065,6 +5080,7 @@
 				FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */,
 				8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */,
 				8EA8551323A22D9700C9442F /* IGOrangeColorSet.swift in Sources */,
+				8EF0DDD62474F180007AC20C /* CellRowTwo.swift in Sources */,
 				940F9E7A231BC17400C26D50 /* IGStructFavouriteChannels.swift in Sources */,
 				FA50FE4A21EF40120043239D /* IGRealmAdditional.swift in Sources */,
 				8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */,
