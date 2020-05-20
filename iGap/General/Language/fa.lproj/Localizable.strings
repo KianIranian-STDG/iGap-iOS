@@ -6892,3 +6892,5 @@ Page 4 introduce app */
 "kuknos_trades_title" = "معامله";
 "kuknos_openorders_title" = "سفارشات باز";
 "kuknos_tradeshistory_title" = "تاریخچه";
+"koknus_enter_recovery_words" = "کلمات بازیابی خود را وارد کنید";
+"koknus_invalid_recovery_words" = "کلمات بازیابی صحیح نیست";

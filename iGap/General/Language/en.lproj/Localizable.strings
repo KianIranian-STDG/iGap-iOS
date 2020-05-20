@@ -6878,6 +6878,8 @@ Do NOT share it with others.";
 "kuknos_recieving_header" = "Receiving";
 "kuknos_amount_header" = "Amount";
 "kuknos_price_header" = "Price";
+"koknus_enter_recovery_words" = "Enter your Recovery words";
+"koknus_invalid_recovery_words" = "Invalid Recovery words";
 
 "persian_language" = "Fa";
 "english_language" = "En";

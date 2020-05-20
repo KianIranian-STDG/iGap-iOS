@@ -473,6 +473,7 @@
 		D2C39395247145580051458C /* IGKNewTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C39394247145580051458C /* IGKNewTokenVM.swift */; };
 		D2C3EF8F2473DDFC006CD084 /* IKGProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */; };
 		D2C3EF922473DFBC006CD084 /* CellClassAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3EF912473DFBC006CD084 /* CellClassAssets.swift */; };
+		D2C3EF942474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */; };
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
@@ -1510,6 +1511,7 @@
 		D2C39394247145580051458C /* IGKNewTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenVM.swift; sourceTree = "<group>"; };
 		D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IKGProfileVM.swift; sourceTree = "<group>"; };
 		D2C3EF912473DFBC006CD084 /* CellClassAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellClassAssets.swift; sourceTree = "<group>"; };
+		D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetreiveRecoveryKeyVM.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
@@ -2929,6 +2931,7 @@
 			children = (
 				D2C39394247145580051458C /* IGKNewTokenVM.swift */,
 				D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */,
+				D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5139,6 +5142,7 @@
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGMemberAddOrUpdateState.swift in Sources */,
 				8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */,
+				D2C3EF942474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift in Sources */,
 				8E82B24F2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift in Sources */,
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
 				D254C1E12450334A007767F4 /* IGMBAccountsParentView.swift in Sources */,
