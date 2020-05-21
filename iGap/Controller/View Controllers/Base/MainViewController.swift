@@ -71,8 +71,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
             if myViews.count > 0 {
                 let sv = myViews.first
-                print("ORG CONTENT SIZE IS :" ,  sv?.contentSize)
-                orgContentSize = sv?.contentSize
                 sv!.changeContentSize(height: sv!.contentSize.height + keyboardHeight, width: view.frame.width)
 
             } else { }

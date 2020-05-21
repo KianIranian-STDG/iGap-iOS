@@ -390,6 +390,7 @@
 		8EF0DDD42473E3DB007AC20C /* IGKTradeHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */; };
 		8EF0DDD62474F180007AC20C /* CellRowTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD52474F180007AC20C /* CellRowTwo.swift */; };
 		8EF0DDD92474F1B0007AC20C /* CellRowOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */; };
+		8EF0DDF724766D04007AC20C /* IGDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDF624766D04007AC20C /* IGDropDown.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1428,6 +1429,7 @@
 		8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryVC.swift; sourceTree = "<group>"; };
 		8EF0DDD52474F180007AC20C /* CellRowTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowTwo.swift; sourceTree = "<group>"; };
 		8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowOne.swift; sourceTree = "<group>"; };
+		8EF0DDF624766D04007AC20C /* IGDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDropDown.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -3373,6 +3375,7 @@
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				8EF0DDF624766D04007AC20C /* IGDropDown.swift */,
 				D680860423B8DE2300E456EA /* MemoryTest */,
 				FA4CFD0521A046BA005FCBF2 /* Helpers */,
 				FAD8A02C21EE08D4006996E1 /* Structs */,
@@ -4929,6 +4932,7 @@
 				8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */,
+				8EF0DDF724766D04007AC20C /* IGDropDown.swift in Sources */,
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				8EA8551B23A232D600C9442F /* IGRedColorSet.swift in Sources */,
 				8E8E506A23E82F540094A91C /* HepticFeedback.swift in Sources */,
