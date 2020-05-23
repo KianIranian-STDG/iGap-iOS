@@ -141,7 +141,11 @@ class IGStickerCell: UICollectionViewCell {
     }
     
     @objc func showBuyGiftCardView(_ gestureRecognizer: UITapGestureRecognizer) {
-        SwiftEventBus.postToMainThread(EventBusManager.giftCardTap, sender: self.stickerItemStruct)
+//        SwiftEventBus.postToMainThread(EventBusManager.giftCardTap, sender: self.stickerItemStruct)
+        IGStickerViewController.waitingGiftCardInfo.stickerStruct = IGRealmStickerItem(sticker: self.stickerItemStruct)
+        (UIApplication.topViewController() as! IGStickerViewController).giftStickerId = self.stickerItemStruct.id
+        IGHelperBottomModals.shared.showBuyGiftStickerModal(view: UIApplication.topViewController()!, token: self.stickerItemStruct.token, amount: String(describing: self.stickerItemStruct.giftAmount ?? 0))
+
     }
     
     /********************************/

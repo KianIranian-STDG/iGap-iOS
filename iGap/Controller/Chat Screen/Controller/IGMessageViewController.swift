@@ -66,6 +66,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //MARK: -NODE
 //    private let chatNode = ChatControllerNode()
     private(set) var chatsArray: [Chat] = []
+
     @IBOutlet weak var tableviewMessagesView : UIView!
     @IBOutlet weak var stackAttachment: UIStackView!
     @IBOutlet weak var attachmentBtnWidthConstraint: NSLayoutConstraint!
@@ -3534,6 +3535,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /************************************************************************/
     /*********************** MONEY TRANSACTIONS ***********************/
     /************************************************************************/
+
     @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
         self.messageTextView.resignFirstResponder()
         self.hideMoneyInputModal()
@@ -3542,83 +3544,105 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.hideGiftStickerAlertModal()
         self.hideGiftStickerCardInfoModal()
         self.hideGiftStickerInfoModal()
-        
-        if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
-            
-        }
-        else {
-            if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {
-                
-            }
-            else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+        if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {} else {
+            if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {} else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
                 self.isCardToCardRequestEnable = true
                 self.manageCardToCardInputBar()
-                
-            }
-            else {
-                
+            } else {
                 self.MoneyTransactionModalIsActive = true
                 self.MoneyInputModalIsActive = false
                 
-                if MoneyTransactionModal == nil {
-                    dismissBtn = UIButton()
-                    
-                    dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
-                    self.view.insertSubview(dismissBtn, at: 2)
-                    dismissBtn.addTarget(self, action: #selector(didtapOutSide), for: .touchUpInside)
-                    
-                    dismissBtn.snp.makeConstraints { (make) in
-                        make.top.equalTo(self.view.snp.top)
-                        make.bottom.equalTo(self.view.snp.bottom)
-                        make.right.equalTo(self.view.snp.right)
-                        make.left.equalTo(self.view.snp.left)
-                    }
-                    
-                    MoneyTransactionModal = SMMoneyTransactionOptions.loadFromNib()
-                    MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
-                    MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
-                    MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
-                    MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
-                    MoneyTransactionModal.btnGiftStickerIcon.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
-                    MoneyTransactionModal.btnGiftStickerTitle.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
-                    MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
-                    
-                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
-                    
-                    let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-                    swipeDown.direction = .down
-                    
-                    MoneyTransactionModal.addGestureRecognizer(swipeDown)
-                    self.view.addSubview(MoneyTransactionModal!)
-                    
-                }
-                else {
-                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
-                }
-                
-                if #available(iOS 11.0, *) {
-                    let window = UIApplication.shared.keyWindow
-                    let bottomPadding = window?.safeAreaInsets.bottom
-                    
-                    UIView.animate(withDuration: 0.3) {
-                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45 -  bottomPadding!, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
-                        
-                    }
-                }
-                else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
-                    }
-                }
-                
+                IGHelperBottomModals.shared.showChatMoneyTransactionsModal(view: self, roomID: self.room!.id)
             }
-            
         }
+
     }
+    
+//    @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
+//        self.messageTextView.resignFirstResponder()
+//        self.hideMoneyInputModal()
+//        self.hideCardToCardModal()
+//        self.hideGiftStickerModal()
+//        self.hideGiftStickerAlertModal()
+//        self.hideGiftStickerCardInfoModal()
+//        self.hideGiftStickerInfoModal()
+//
+//        if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+//
+//        }
+//        else {
+//            if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {
+//
+//            }
+//            else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+//                self.isCardToCardRequestEnable = true
+//                self.manageCardToCardInputBar()
+//
+//            }
+//            else {
+//
+//                self.MoneyTransactionModalIsActive = true
+//                self.MoneyInputModalIsActive = false
+//
+//                if MoneyTransactionModal == nil {
+//                    dismissBtn = UIButton()
+//
+//                    dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+//                    self.view.insertSubview(dismissBtn, at: 2)
+//                    dismissBtn.addTarget(self, action: #selector(didtapOutSide), for: .touchUpInside)
+//
+//                    dismissBtn.snp.makeConstraints { (make) in
+//                        make.top.equalTo(self.view.snp.top)
+//                        make.bottom.equalTo(self.view.snp.bottom)
+//                        make.right.equalTo(self.view.snp.right)
+//                        make.left.equalTo(self.view.snp.left)
+//                    }
+//
+//                    MoneyTransactionModal = SMMoneyTransactionOptions.loadFromNib()
+//                    MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
+//                    MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
+//                    MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+//                    MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+//                    MoneyTransactionModal.btnGiftStickerIcon.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
+//                    MoneyTransactionModal.btnGiftStickerTitle.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
+//                    MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
+//
+//                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
+//                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
+//                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
+//
+//                    let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+//                    swipeDown.direction = .down
+//
+//                    MoneyTransactionModal.addGestureRecognizer(swipeDown)
+//                    self.view.addSubview(MoneyTransactionModal!)
+//
+//                }
+//                else {
+//                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
+//                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
+//                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
+//                }
+//
+//                if #available(iOS 11.0, *) {
+//                    let window = UIApplication.shared.keyWindow
+//                    let bottomPadding = window?.safeAreaInsets.bottom
+//
+//                    UIView.animate(withDuration: 0.3) {
+//                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45 -  bottomPadding!, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
+//
+//                    }
+//                }
+//                else {
+//                    UIView.animate(withDuration: 0.3) {
+//                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//    }
     var hasValue = false
     var userCards: [SMCard]?
     var sourceCard: SMCard!

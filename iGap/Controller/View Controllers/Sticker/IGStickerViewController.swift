@@ -240,7 +240,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 self!.dismissBtn = UIButton()
                 self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
                 self!.view.insertSubview(self!.dismissBtn, at: 2)
-                self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
+//                self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
                 
                 self!.dismissBtn?.snp.makeConstraints { (make) in
                     make.top.equalTo(self!.view.snp.top)
@@ -249,22 +249,23 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                     make.left.equalTo(self!.view.snp.left)
                 }
                 
-                self!.giftStickerBuyModal = SMCheckGiftSticker.loadFromNib()
-                self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
-                self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
-                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
-                
-                let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-                swipeDown.direction = .down
-                
-                self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
-                self!.view.addSubview(self!.giftStickerBuyModal)
-                
-                let window = UIApplication.shared.keyWindow
-                let bottomPadding = window?.safeAreaInsets.bottom
-                UIView.animate(withDuration: 0.3) {
-                    self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
-                }
+//                IGHelperBottomModals.shared.showBuyGiftStickerModal(view: self, token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
+//                self!.giftStickerBuyModal = SMCheckGiftSticker.loadFromNib()
+//                self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
+//                self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
+//                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+//
+//                let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+//                swipeDown.direction = .down
+//
+//                self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
+//                self!.view.addSubview(self!.giftStickerBuyModal)
+//
+//                let window = UIApplication.shared.keyWindow
+//                let bottomPadding = window?.safeAreaInsets.bottom
+//                UIView.animate(withDuration: 0.3) {
+//                    self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+//                }
             }
             
             SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardPayment) { result in
@@ -333,23 +334,23 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         }
     }
     
-    @objc func didtapOutSide() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.giftStickerBuyModal.frame.origin.y = self.view.frame.height
-        }) { (true) in
-            
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-            self.giftStickerBuyModal?.removeFromSuperview()
-            self.giftStickerBuyModal = nil
-            
-            self.dismissBtn?.removeFromSuperview()
-            self.dismissBtn = nil
-        }
-    }
+//    @objc func didtapOutSide() {
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.giftStickerBuyModal.frame.origin.y = self.view.frame.height
+//        }) { (true) in
+//
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+//            self.giftStickerBuyModal?.removeFromSuperview()
+//            self.giftStickerBuyModal = nil
+//
+//            self.dismissBtn?.removeFromSuperview()
+//            self.dismissBtn = nil
+//        }
+//    }
     
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
-        self.didtapOutSide()
+//        self.didtapOutSide()
     }
     
     @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -359,7 +360,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         IGGlobal.prgShow()
         IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { [weak self] buyGiftSticker in
             self?.giftStickerId = nil
-            self?.didtapOutSide()
+//            self?.didtapOutSide()
             IGStickerViewController.waitingGiftCardInfo.giftId = buyGiftSticker.id
             IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
                 IGStickerViewController.waitingGiftCardInfo.orderId = giftCardPayment.info.orderID

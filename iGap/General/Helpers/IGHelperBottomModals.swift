@@ -21,6 +21,41 @@ class IGHelperBottomModals {
     private var actionSubmit: (() -> Void)?
     private init() {}
     
+    func showBuyGiftStickerModal(view: UIViewController? = nil,token : String, amount :String) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGCheckGiftStickerModal") as! IGCheckGiftStickerModal
+        vc.token = token
+        vc.amount = amount
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showNationalIDModal(view: UIViewController? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGNationalIDModal") as! IGNationalIDModal
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showChatMoneyTransactionsModal(view: UIViewController? = nil,roomID : Int64) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGChatPageMoneyModal") as! IGChatPageMoneyModal
+        if roomID != nil {
+            vc.roomID = roomID
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
     func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {
         var alertView = view
         if alertView == nil {

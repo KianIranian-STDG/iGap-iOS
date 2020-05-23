@@ -908,6 +908,8 @@ enum IGStringsManager : String {
     case MBUnavailableService = "mb_blocked_service"
     case MBInformation = "mb_information"
 
+                
+        case ChooseOne = "ig_choose_operation"
 }
 
 
