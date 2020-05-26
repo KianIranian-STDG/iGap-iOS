@@ -41,6 +41,9 @@
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E3265D9247D354E00AE2CB6 /* IGKNewAssetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265D8247D354E00AE2CB6 /* IGKNewAssetsVC.swift */; };
+		8E3265DC247D35DC00AE2CB6 /* CellClassCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */; };
+		8E3265DE247D37F300AE2CB6 /* IGKCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -1065,6 +1068,9 @@
 		8E2CCD1A237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E3265D8247D354E00AE2CB6 /* IGKNewAssetsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewAssetsVC.swift; sourceTree = "<group>"; };
+		8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellClassCurrentAssets.swift; sourceTree = "<group>"; };
+		8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCurrentAssets.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -2181,6 +2187,15 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		8E3265DA247D355400AE2CB6 /* AddAssets */ = {
+			isa = PBXGroup;
+			children = (
+				8E3265D8247D354E00AE2CB6 /* IGKNewAssetsVC.swift */,
+				8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */,
+			);
+			path = AddAssets;
+			sourceTree = "<group>";
+		};
 		8E3C6971236035FF001575BE /* PanModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -2942,6 +2957,7 @@
 			isa = PBXGroup;
 			children = (
 				D2C3EF912473DFBC006CD084 /* CellClassAssets.swift */,
+				8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -2983,6 +2999,7 @@
 				D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */,
 				8EF0DDCB2473C769007AC20C /* RetrieveKey */,
 				8EF0DDCE2473E0F8007AC20C /* Trading */,
+				8E3265DA247D355400AE2CB6 /* AddAssets */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4813,6 +4830,7 @@
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
 				8EA8549E239D59A000C9442F /* IGThemeManager.swift in Sources */,
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
+				8E3265DC247D35DC00AE2CB6 /* CellClassCurrentAssets.swift in Sources */,
 				D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				8E8BE1A3246FEE8F00A32BC4 /* IGKHistoryVC.swift in Sources */,
@@ -4896,6 +4914,7 @@
 				D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */,
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
 				8EC42F0D2459E584000889D3 /* IGFourInputTVController.swift in Sources */,
+				8E3265D9247D354E00AE2CB6 /* IGKNewAssetsVC.swift in Sources */,
 				D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */,
 				FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
@@ -5146,6 +5165,7 @@
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGMemberAddOrUpdateState.swift in Sources */,
 				8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */,
+				8E3265DE247D37F300AE2CB6 /* IGKCurrentAssets.swift in Sources */,
 				D2C3EF942474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift in Sources */,
 				8E82B24F2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift in Sources */,
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,

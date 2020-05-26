@@ -6881,6 +6881,8 @@ Do NOT share it with others.";
 "koknus_enter_recovery_words" = "Enter your Recovery words";
 "koknus_invalid_recovery_words" = "Invalid Recovery words";
 "koknus_account_not_exist" = "Account doesn't exist";
+"koknus_new_assets" = "New Assets";
+"koknus_current_assets" = "Current Assets";
 
 "persian_language" = "Fa";
 "english_language" = "En";

@@ -990,6 +990,8 @@ enum IGStringsManager : String {
     case KAmountHeader = "kuknos_amount_header"
     case KPriceHeader = "kuknos_price_header"
     case KAccountNotExist = "koknus_account_not_exist"
+    case KNewAssets = "koknus_new_assets"
+    case KCurrentAssets = "koknus_current_assets"
 }
 
 
