@@ -992,6 +992,8 @@ enum IGStringsManager : String {
     case KAccountNotExist = "koknus_account_not_exist"
     case KNewAssets = "koknus_new_assets"
     case KCurrentAssets = "koknus_current_assets"
+    case KEnterPin = "kuknos_enter_pin"
+    case KEnterYourPin = "kuknos_SetPass_error"
 }
 
 

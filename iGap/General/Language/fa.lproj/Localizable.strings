@@ -6890,6 +6890,7 @@ Page 4 introduce app */
 "kuknos_price_header" = "قیمت";
 "koknus_new_assets" = "دارایی جدید";
 "koknus_current_assets" = "دارایی فعلی";
+"kuknos_enter_pin" = "رمز خود را وارد نمایید";
 
 "kuknos_trades_title" = "معامله";
 "kuknos_openorders_title" = "سفارشات باز";

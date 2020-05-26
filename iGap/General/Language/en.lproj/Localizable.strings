@@ -6883,6 +6883,8 @@ Do NOT share it with others.";
 "koknus_account_not_exist" = "Account doesn't exist";
 "koknus_new_assets" = "New Assets";
 "koknus_current_assets" = "Current Assets";
+    "kuknos_enter_pin" = "Enter your Pin";
+
 
 "persian_language" = "Fa";
 "english_language" = "En";
