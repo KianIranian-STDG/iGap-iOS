@@ -989,6 +989,7 @@ enum IGStringsManager : String {
     case KReceivingHeader = "kuknos_recieving_header"
     case KAmountHeader = "kuknos_amount_header"
     case KPriceHeader = "kuknos_price_header"
+    case KAccountNotExist = "koknus_account_not_exist"
 }
 
 

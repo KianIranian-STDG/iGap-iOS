@@ -6880,6 +6880,7 @@ Do NOT share it with others.";
 "kuknos_price_header" = "Price";
 "koknus_enter_recovery_words" = "Enter your Recovery words";
 "koknus_invalid_recovery_words" = "Invalid Recovery words";
+"koknus_account_not_exist" = "Account doesn't exist";
 
 "persian_language" = "Fa";
 "english_language" = "En";
