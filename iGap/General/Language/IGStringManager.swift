@@ -994,6 +994,9 @@ enum IGStringsManager : String {
     case KCurrentAssets = "koknus_current_assets"
     case KEnterPin = "kuknos_enter_pin"
     case KEnterYourPin = "kuknos_SetPass_error"
+    case KExeedMaxBuy = "koknus_exeed_max_buy"
+    case KExeedMinBuy = "koknus_exeed_min_buy"
+    case KInvalidValue = "k_invalid_value"
 }
 
 

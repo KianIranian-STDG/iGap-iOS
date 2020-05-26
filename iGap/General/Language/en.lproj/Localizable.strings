@@ -6885,6 +6885,9 @@ Do NOT share it with others.";
 "koknus_current_assets" = "Current Assets";
     "kuknos_enter_pin" = "Enter your Pin";
 
+"koknus_exeed_max_buy" = "You are exceeding the maximum buyable value of this token.";
+"koknus_exeed_min_buy" = "Your order is less than the minimum buyable value of this token.";
+"k_invalid_value" = "Invalid Value";
 
 "persian_language" = "Fa";
 "english_language" = "En";

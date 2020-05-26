@@ -481,6 +481,7 @@
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
+		D2EC3C58247D2E2D00072B87 /* IGKAddTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
 		D2FE6417246814F3000D861E /* IGKCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6416246814F3000D861E /* IGKCustomButton.swift */; };
 		D2FE6BBB244EF99500CE8231 /* IGMBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */; };
@@ -1522,6 +1523,7 @@
 		D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetreiveRecoveryKeyVM.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
+		D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddTokenVM.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
 		D2FE6416246814F3000D861E /* IGKCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCustomButton.swift; sourceTree = "<group>"; };
 		D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBUser.swift; sourceTree = "<group>"; };
@@ -2949,6 +2951,7 @@
 				D2C39394247145580051458C /* IGKNewTokenVM.swift */,
 				D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */,
 				D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */,
+				D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5033,6 +5036,7 @@
 				8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */,
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
 				8EC94E0F239650D3003B3510 /* IGNewsSectionInnerTableViewController.swift in Sources */,
+				D2EC3C58247D2E2D00072B87 /* IGKAddTokenVM.swift in Sources */,
 				FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */,
 				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,

@@ -6898,3 +6898,7 @@ Page 4 introduce app */
 "koknus_enter_recovery_words" = "کلمات بازیابی خود را وارد کنید";
 "koknus_invalid_recovery_words" = "کلمات بازیابی صحیح نیست";
 "koknus_account_not_exist" = "حساب کاربری وجود ندارد";
+"koknus_exeed_max_buy" = "شما از حداکثر خرید این دارایی فراتر رفته اید.";
+"koknus_exeed_min_buy" = "میزان درخواستی شمااز حداقل تعداد خرید این توکن کمتر است";
+"k_invalid_value" = "مقادیر وارد شده صحیح نیست";
+
