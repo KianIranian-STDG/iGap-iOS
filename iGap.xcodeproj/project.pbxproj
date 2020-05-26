@@ -41,6 +41,7 @@
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E3265D7247CEA3700AE2CB6 /* IGWalletTransferModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265D6247CEA3700AE2CB6 /* IGWalletTransferModal.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -367,6 +368,7 @@
 		8EF0DE032478EA74007AC20C /* IGChatPageMoneyModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */; };
 		8EF0DE0524790093007AC20C /* IGNationalIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */; };
 		8EF0DE0724790F7E007AC20C /* IGCheckGiftStickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */; };
+		8EF0DE092479474C007AC20C /* IGCardToCardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -1001,6 +1003,7 @@
 		8E2CCD1A237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E3265D6247CEA3700AE2CB6 /* IGWalletTransferModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletTransferModal.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -1343,6 +1346,7 @@
 		8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGChatPageMoneyModal.swift; sourceTree = "<group>"; };
 		8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNationalIDModal.swift; sourceTree = "<group>"; };
 		8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCheckGiftStickerModal.swift; sourceTree = "<group>"; };
+		8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCardToCardModal.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -3994,6 +3998,8 @@
 				8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */,
 				8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */,
 				8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */,
+				8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */,
+				8E3265D6247CEA3700AE2CB6 /* IGWalletTransferModal.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
 			);
@@ -4479,6 +4485,7 @@
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
+				8EF0DE092479474C007AC20C /* IGCardToCardModal.swift in Sources */,
 				D67E982E23A6792C003C1516 /* ImageZoomControllerState.swift in Sources */,
 				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,
 				D67E984C23A67962003C1516 /* CGPoint+maximumAbsoluteValue.swift in Sources */,
@@ -4642,6 +4649,7 @@
 				8EC42F1B245D94DE000889D3 /* IGMBLoans.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
+				8E3265D7247CEA3700AE2CB6 /* IGWalletTransferModal.swift in Sources */,
 				8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */,
 				D67E984823A67962003C1516 /* UIImage+Color.swift in Sources */,
 				FA8F22521DD89C6B005A90D1 /* IGChatRoom.swift in Sources */,

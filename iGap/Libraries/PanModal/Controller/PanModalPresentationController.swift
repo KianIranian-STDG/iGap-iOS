@@ -478,7 +478,7 @@ private extension PanModalPresentationController {
 
         switch recognizer.state {
         case .began, .changed:
-
+            UIApplication.topViewController()!.view.endEditing(true)
             /**
              Respond accordingly to pan gesture translation
              */
@@ -513,6 +513,7 @@ private extension PanModalPresentationController {
                 } else if (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
                     && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false {
                     transition(to: .shortForm)
+                    UIApplication.topViewController()!.view.endEditing(true)
 
                 } else {
                     dismissPresentedViewController()

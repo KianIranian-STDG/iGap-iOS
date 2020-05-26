@@ -135,14 +135,14 @@ extension IGNationalIDModal: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(150)
+        return .contentHeight(180)
     }
     var longFormHeight: PanModalHeight {
 
         if isKeyboardPresented {
             return .contentHeight(450)
         } else {
-            return .contentHeight(150)
+            return .contentHeight(180)
         }
 
     }

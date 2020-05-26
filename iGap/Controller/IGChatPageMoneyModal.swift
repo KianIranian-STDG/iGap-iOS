@@ -81,10 +81,16 @@ class IGChatPageMoneyModal: BaseTableViewController {
 
     @objc func handleTapOnCardToCard(_ sender: UITapGestureRecognizer? = nil) {
 //        cardToCardDelegate.didTapOnCardToCard(button: btnGiftCard)
+        self.dismiss(animated: true, completion: {
+            IGHelperBottomModals.shared.showCardToCardModal(view: UIApplication.topViewController())
+        })
+
     }
 
     @objc func handleTapOnWalletCashout(_ sender: UITapGestureRecognizer? = nil) {
-//        CashoutDelegate.didTapOnCashout(button: btnWallet)
+        self.dismiss(animated: true, completion: {
+            IGHelperBottomModals.shared.showWalletTransferModal(view: UIApplication.topViewController())
+        })
     }
     
     private func initTheme() {

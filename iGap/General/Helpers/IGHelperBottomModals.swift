@@ -20,7 +20,28 @@ class IGHelperBottomModals {
 
     private var actionSubmit: (() -> Void)?
     private init() {}
+    func showWalletTransferModal(view: UIViewController? = nil,mode: String! = "WALLET_TRANSFER",articleID : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGWalletTransferModal") as! IGWalletTransferModal
+        vc.mode = mode
+        UIApplication.topViewController()!.presentPanModal(vc)
+    }
+    func showCardToCardModal(view: UIViewController? = nil,mode: String! = "CARDTOCARD",articleID : String? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGCardToCardModal") as! IGCardToCardModal
+        vc.mode = mode
     
+        
+        UIApplication.topViewController()!.presentPanModal(vc)
+    }
     func showBuyGiftStickerModal(view: UIViewController? = nil,token : String, amount :String) {
         var alertView = view
         if alertView == nil {

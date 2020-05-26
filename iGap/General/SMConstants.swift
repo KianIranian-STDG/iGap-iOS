@@ -63,6 +63,7 @@ struct EventBusManager {
     static let giftCardTap = "giftCardTap"
     static let giftCardPayment = "giftCardPayment"
     static let giftCardSendMessage = "giftCardSendMessage"
+    static let sendCardToCardMessage = "sendCardToCardMessage"
 }
 
 struct SMMessage {

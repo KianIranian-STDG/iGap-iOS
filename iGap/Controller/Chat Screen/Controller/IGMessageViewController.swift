@@ -1098,7 +1098,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
             self?.initTheme()
         }
-        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.sendCardToCardMessage) { [weak self] result in
+            let rMessage : IGRoomMessage = result?.object as! IGRoomMessage
+            self?.manageSendMessage(message: rMessage, addForwardOrReply: false)
+            
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            self?.sendMessageState(enable: false)
+            self?.isCardToCardRequestEnable = false
+            self?.messageTextView.text = ""
+            self?.currentAttachment = nil
+            self?.selectedMessageToReply = nil
+            self?.setInputBarHeight()
+
+        }
+
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { [weak self] result in
             self?.stopButtonPlayForRow()
         }

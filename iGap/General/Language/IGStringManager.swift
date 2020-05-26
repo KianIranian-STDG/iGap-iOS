@@ -235,6 +235,7 @@ enum IGStringsManager : String {
     case BankCard = "card_bank"
     case PaidTo = "pay_to"
     case Amount = "amount_2"
+    case AmountInRial = "amount_in_rial"
     case AmountPlaceHolder = "amount"
     case MyQr = "my_qr"
     case MyQrToPayHint = "my_qr_hint"
