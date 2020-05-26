@@ -724,7 +724,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }else {
             IGKNewTokenVM.make()
             IGKNewTokenVM.shared?.getDataFromKeychain()
-            let igk = IGKNewTokenS3VC(vc: IGKProfileVC()) //IGKProfileVC()
+            let igk = IGKPinLoginVC(vc: IGKProfileVC())
             igk.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(igk, animated: true)
         }

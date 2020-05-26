@@ -5587,7 +5587,7 @@ Page 4 introduce app */
 "kuknos_recieve_title" = "جهت دریافت اعتبار از افراد دیگر، شناسه کیف پول خود را برای آنها ارسال نمایید.";
 
 /*  */
-"kuknos_recieve_walletID" = "شناسه کیف پول شما: SDJUKILLBBBTGGGGYHRFFD";
+"kuknos_recieve_walletID" = "شناسه کیف پول شما:";
 
 /*  */
 "kuknos_recieve_copyBtn" = "کپی کردن شناسه";

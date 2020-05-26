@@ -5486,7 +5486,7 @@
 "kuknos_recieve_title" = "veuillez envoyer votre identifiant de portefeuille pour recevoir le crédit de la part des autres";
 
 /*  */
-"kuknos_recieve_walletID" = "votre identifiant de portefeuille est  SDJUKILLBBBTGGGGYHRFFD";
+"kuknos_recieve_walletID" = "votre identifiant de portefeuille est";
 
 /*  */
 "kuknos_recieve_copyBtn" = "copier identifiant";
