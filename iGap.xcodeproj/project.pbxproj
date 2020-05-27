@@ -467,10 +467,12 @@
 		D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */; };
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
+		D28F5803247E6E5700701645 /* IGKAddAssetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
+		D2B58EA2247E23D000423519 /* IGKTradingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B58EA1247E23D000423519 /* IGKTradingVM.swift */; };
 		D2B8D7242469112D001062EB /* IGKNewTokenS1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */; };
 		D2B8D72624696F0B001062EB /* IGKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72524696F0B001062EB /* IGKApi.swift */; };
 		D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72724696F45001062EB /* IGKBaseApi.swift */; };
@@ -1510,10 +1512,12 @@
 		D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactDetailController.swift; sourceTree = "<group>"; };
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
+		D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddAssetVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
+		D2B58EA1247E23D000423519 /* IGKTradingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradingVM.swift; sourceTree = "<group>"; };
 		D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS1VC.swift; sourceTree = "<group>"; };
 		D2B8D72524696F0B001062EB /* IGKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKApi.swift; sourceTree = "<group>"; };
 		D2B8D72724696F45001062EB /* IGKBaseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBaseApi.swift; sourceTree = "<group>"; };
@@ -2754,18 +2758,17 @@
 				8EF0DDCF2473E384007AC20C /* IGKTradesVC.swift */,
 				8EF0DDD12473E3B8007AC20C /* IGKOpenOrdersVC.swift */,
 				8EF0DDD32473E3DB007AC20C /* IGKTradeHistoryVC.swift */,
-				8EF0DDD72474F18D007AC20C /* View */,
 			);
 			path = Trading;
 			sourceTree = "<group>";
 		};
-		8EF0DDD72474F18D007AC20C /* View */ = {
+		8EF0DDD72474F18D007AC20C /* TradingCustomCell */ = {
 			isa = PBXGroup;
 			children = (
 				8EF0DDD52474F180007AC20C /* CellRowTwo.swift */,
 				8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */,
 			);
-			path = View;
+			path = TradingCustomCell;
 			sourceTree = "<group>";
 		};
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
@@ -2952,6 +2955,8 @@
 				D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */,
 				D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */,
 				D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */,
+				D2B58EA1247E23D000423519 /* IGKTradingVM.swift */,
+				D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2959,6 +2964,7 @@
 		D2C3EF902473DFA8006CD084 /* Custom Cell */ = {
 			isa = PBXGroup;
 			children = (
+				8EF0DDD72474F18D007AC20C /* TradingCustomCell */,
 				D2C3EF912473DFBC006CD084 /* CellClassAssets.swift */,
 				8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */,
 			);
@@ -5196,6 +5202,7 @@
 				8EA854A2239D5A8B00C9442F /* IGClassicTheme.swift in Sources */,
 				8EC217A92259B90F00105B5A /* walletModalViewController.swift in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
+				D28F5803247E6E5700701645 /* IGKAddAssetVM.swift in Sources */,
 				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
 				FA0953581E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift in Sources */,
 				FA09536C1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell.swift in Sources */,
@@ -5248,6 +5255,7 @@
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
 				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
+				D2B58EA2247E23D000423519 /* IGKTradingVM.swift in Sources */,
 				94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
 				D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */,
