@@ -903,34 +903,70 @@ class AbstractDashboardCell: UICollectionViewCell {
             break
             
         case .charity:
-            guard let jsonValue = valueType.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
+            guard let jsonValue = valueType.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, var price = jsonValue["price"] as? Int else {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 break
             }
-            IGGlobal.prgShow()
-            IGApiCharity.shared.getHelpPaymentToken(charityId: id, amount: price) { (isSuccess, token) in
-                if isSuccess {
-                    guard let token = token else { IGGlobal.prgHide(); return }
-                    print("Success: " + token)
-                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
-                        IGGlobal.prgHide()
-                        let paymentView = IGPaymentView.sharedInstance
-                        if success {
-                            guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-                                return
-                            }
-                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, payToken: token, payment: paymentData)
+            if price == 0 {
+                IGHelperMBAlert.shared.showEnterAmount(view: UIApplication.topViewController(),showCloseIcon: false, alertType: .twoButton, title: IGStringsManager.AmountInRial.rawValue.localized, buttonOneTitleColor: .white, buttonOneBackColor: UIColor.iGapRed(), buttonOneText: IGStringsManager.GlobalClose.rawValue.localized, buttonOneAction: {
+                    print("CLOSETAPPED")
+                }, buttonTwoTitleColor: .white, buttonTwoBackColor: ThemeManager.currentTheme.NavigationSecondColor, buttonTwoText: IGStringsManager.GlobalOK.rawValue.localized, buttonTwoAction: {
+                    print("SENDTAPPED")
+                    if (IGHelperMBAlert.shared.imputTextfield.text!) != "" {
+                        price = Int(IGHelperMBAlert.shared.imputTextfield.text!)!
+                    }
+                    IGGlobal.prgShow()
+
+                    IGApiCharity.shared.getHelpPaymentToken(charityId: id, amount: price) { (isSuccess, token) in
+                        if isSuccess {
+                            guard let token = token else { IGGlobal.prgHide(); return }
+                            print("Success: " + token)
+                            IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                                IGGlobal.prgHide()
+                                let paymentView = IGPaymentView.sharedInstance
+                                if success {
+                                    guard let paymentData = payment else {
+                                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                        return
+                                    }
+                                    paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, payToken: token, payment: paymentData)
+                                } else {
+                                    paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                                }
+                            })
                         } else {
-                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                            IGGlobal.prgHide()
                         }
-                    })
-                } else {
-                    IGGlobal.prgHide()
+                    }
+
+                })
+                break
+
+            } else {
+                IGGlobal.prgShow()
+                IGApiCharity.shared.getHelpPaymentToken(charityId: id, amount: price) { (isSuccess, token) in
+                    if isSuccess {
+                        guard let token = token else { IGGlobal.prgHide(); return }
+                        print("Success: " + token)
+                        IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                            IGGlobal.prgHide()
+                            let paymentView = IGPaymentView.sharedInstance
+                            if success {
+                                guard let paymentData = payment else {
+                                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                    return
+                                }
+                                paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, payToken: token, payment: paymentData)
+                            } else {
+                                paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Charity.rawValue.localized, message: errorMessage ?? "", payToken: token)
+                            }
+                        })
+                    } else {
+                        IGGlobal.prgHide()
+                    }
                 }
+                break
             }
-            break
-            
         case .news:
             if !(agreementSlug == "") && (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                 carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)

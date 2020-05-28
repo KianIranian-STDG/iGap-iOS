@@ -34,7 +34,7 @@ class IGHelperMBAlert {
     let window = UIApplication.shared.keyWindow
     var imputTextfield : UITextField!
     
-    func showEnterAmount(view: UIViewController? = nil, alertType: helperAlertType! = helperAlertType.twoButton, title: String? = nil , buttonOneTitleColor: UIColor = UIColor.darkGray,buttonOneBackColor : UIColor = UIColor.white, buttonOneText: String? = nil, buttonOneAction: (() -> Void)? = nil ,buttonTwoTitleColor: UIColor = UIColor.white,buttonTwoBackColor : UIColor = UIColor.hexStringToUIColor(hex: "B6774E"), buttonTwoText: String? = nil, buttonTwoAction: (() -> Void)? = nil) {
+    func showEnterAmount(view: UIViewController? = nil,showCloseIcon: Bool = true, alertType: helperAlertType! = helperAlertType.twoButton, title: String? = nil , buttonOneTitleColor: UIColor = UIColor.darkGray,buttonOneBackColor : UIColor = UIColor.white, buttonOneText: String? = nil, buttonOneAction: (() -> Void)? = nil ,buttonTwoTitleColor: UIColor = UIColor.white,buttonTwoBackColor : UIColor = UIColor.hexStringToUIColor(hex: "B6774E"), buttonTwoText: String? = nil, buttonTwoAction: (() -> Void)? = nil) {
         
         let alertView : UIWindow? = UIApplication.shared.keyWindow
 
@@ -55,7 +55,7 @@ class IGHelperMBAlert {
                 self.window!.addSubview(self.customAlert)
 
             
-            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:150)///setConstraintsTo CustomeAlert
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:180)///setConstraintsTo CustomeAlert
             ///create StackView for holding Buttons
             let stackButtons : UIStackView
             stackButtons = UIStackView()
@@ -64,6 +64,8 @@ class IGHelperMBAlert {
             stackButtons.distribution = .fillEqually
             stackButtons.spacing = 5
             self.customAlert.addSubview(stackButtons)
+            let tapDismiss: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+            self.customAlert.addGestureRecognizer(tapDismiss)
             ///set Constraints for stackView
             self.setConstraintsToButtonsStackView(customStack: stackButtons, customAlertView: self.customAlert)
             ///set Constraints for borderView above stack of Buttons
@@ -116,7 +118,7 @@ class IGHelperMBAlert {
             stackButtons.translatesAutoresizingMaskIntoConstraints = false
 
             let stackTitleAndIcon = UIStackView()
-            createCloseAndTitleStack(stk: stackTitleAndIcon,title: title!,customAlertView: self.customAlert)
+            createCloseAndTitleStack(stk: stackTitleAndIcon,title: title!,customAlertView: self.customAlert,showIcon: showCloseIcon)
 
 
             imputTextfield = UITextField()
@@ -130,6 +132,7 @@ class IGHelperMBAlert {
             imputTextfield.translatesAutoresizingMaskIntoConstraints = false
             imputTextfield.leadingAnchor.constraint(equalTo: self.customAlert.leadingAnchor,constant: 20).isActive = true
             imputTextfield.trailingAnchor.constraint(equalTo: self.customAlert.trailingAnchor,constant: -20).isActive = true
+            imputTextfield.heightAnchor.constraint(equalToConstant: 30).isActive = true
             imputTextfield.topAnchor.constraint(equalTo: stackTitleAndIcon.bottomAnchor,constant: 20).isActive = true
             imputTextfield.bottomAnchor.constraint(equalTo: stackButtons.topAnchor,constant: -20).isActive = true
             
@@ -142,7 +145,11 @@ class IGHelperMBAlert {
 
         
     }
-    
+    @objc func dismissKeyboard() {
+        customAlert.endEditing(true)
+        bgView.endEditing(true)
+    }
+
     func showPickAccount(view: UIViewController? = nil,accountsArray: [IGMBCardDeposit], alertType: helperAlertType! = helperAlertType.oneButton, title: String? = nil , cancelTitleColor: UIColor = UIColor.darkGray,cancelBackColor : UIColor = UIColor.white, cancelText: String? = nil, cancel: (() -> Void)? = nil, accountOneDidTap: (() -> Void)? = nil, accountTwoDidTap: (() -> Void)? = nil) {
         
         let alertView : UIWindow? = UIApplication.shared.keyWindow
@@ -475,7 +482,7 @@ class IGHelperMBAlert {
 
         
     }
-    private func createCloseAndTitleStack(stk : UIStackView,title : String,customAlertView: UIView) {
+    private func createCloseAndTitleStack(stk : UIStackView,title : String,customAlertView: UIView,showIcon: Bool = true) {
         stk.axis = .horizontal
         stk.alignment = .fill
         stk.distribution = .fill
@@ -485,7 +492,12 @@ class IGHelperMBAlert {
         
         titleLabel.font = UIFont.igFont(ofSize: 13,weight: .bold)
         titleIcon.font = UIFont.iGapFonticon(ofSize: 13)
-        titleIcon.text = ""
+        if showIcon {
+            titleIcon.text = ""
+        } else {
+            titleIcon.text = ""
+        }
+        
         titleLabel.numberOfLines = 1
         
         titleLabel.textColor = ThemeManager.currentTheme.LabelColor
