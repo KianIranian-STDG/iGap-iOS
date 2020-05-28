@@ -57,9 +57,8 @@ class IGHelperCustomNavigation {
     }
     @objc func  onClcikBack(sender: UIButton!)  {
         // isMBAuthError is true when the Auth is expired so the param will be true
+        //the if will only be called in MB and inner if in the "else" will only be called in MB too
 
-
-        
         if isMBAuthError {
             if let vcToPOP = UIApplication.topViewController()!.navigationController?.viewControllers[indexOfMBLogin - 1] {
                 _ = UIApplication.topViewController()!.navigationController?.popToViewController(vcToPOP, animated: true)
@@ -68,11 +67,24 @@ class IGHelperCustomNavigation {
             }
             isMBAuthError = false
         } else {
+            //is for MB only
             if UIApplication.topViewController()!.navigationController?.viewControllers.last! is IGMBMainContainerVC {
                 _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
-
             } else {
-                _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)
+                //this if and else is called only for KUKNOS
+                //if topVC is profile vc on back tap go to root otherwise use the else
+                if UIApplication.topViewController() is IGKProfileVC {
+                    if let vcToPOP = UIApplication.topViewController()!.navigationController?.viewControllers[indexOfPinKuknos - 1] {
+                        _ = UIApplication.topViewController()!.navigationController?.popToViewController(vcToPOP, animated: true)
+                    } else {
+                        _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+                //whole App
+                else {
+                    _ = UIApplication.topViewController()!.navigationController?.popViewController(animated: true)
+
+                }
 
             }
 
