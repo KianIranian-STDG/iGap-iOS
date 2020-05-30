@@ -156,6 +156,8 @@ class IGGlobal {
         var total: Int = 0
         var count: Int = 0
     }
+
+    
     internal static func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
 
@@ -1113,7 +1115,16 @@ extension Date {
         let min = calendar.component(Calendar.Component.minute, from: self)
         return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
     }
-    
+    func convertToHumanReadableTime() -> String {
+        let dateFormatter = DateFormatter()
+        
+        let calendar = NSCalendar.current
+
+        dateFormatter.dateFormat = "HH:mm"
+        let hour = calendar.component(Calendar.Component.hour, from: self)
+        let min = calendar.component(Calendar.Component.minute, from: self)
+        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
+    }
     func completeHumanReadableTime(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm"
@@ -2464,6 +2475,7 @@ extension UITextView {
     }
     
 }
+
 extension String {
     var localizedDirection: NSTextAlignment {
         if LocaleManager.isRTL {
@@ -2764,9 +2776,25 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = format
+        
         return dateFormatter.date(from: self)?.completeHumanReadableTime(showHour: showHour)
     }
+    func getTimeFromStringDate(format: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = format
+        
+        return dateFormatter.date(from: self)?.convertToHumanReadableTime()
+    }
+    func getDateFromStringDate(format: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = format
+        
+        return dateFormatter.date(from: self)?.completeOnlyDate()
+    }
     
+
     /** start phone number with zero format instead 98
      */
     func phoneConvert98to0() -> String {

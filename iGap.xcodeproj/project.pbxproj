@@ -44,6 +44,9 @@
 		8E3265D9247D354E00AE2CB6 /* IGKNewAssetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265D8247D354E00AE2CB6 /* IGKNewAssetsVC.swift */; };
 		8E3265DC247D35DC00AE2CB6 /* CellClassCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */; };
 		8E3265DE247D37F300AE2CB6 /* IGKCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */; };
+		8E3265E0247F9F6800AE2CB6 /* IGKHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */; };
+		8E3265E2247FB64600AE2CB6 /* IGKHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */; };
+		8E3265E4247FB6A000AE2CB6 /* IGKHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -1074,6 +1077,9 @@
 		8E3265D8247D354E00AE2CB6 /* IGKNewAssetsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewAssetsVC.swift; sourceTree = "<group>"; };
 		8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellClassCurrentAssets.swift; sourceTree = "<group>"; };
 		8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCurrentAssets.swift; sourceTree = "<group>"; };
+		8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVM.swift; sourceTree = "<group>"; };
+		8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryDataSource.swift; sourceTree = "<group>"; };
+		8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryCell.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -2957,6 +2963,8 @@
 				D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */,
 				D2B58EA1247E23D000423519 /* IGKTradingVM.swift */,
 				D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */,
+				8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */,
+				8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2989,6 +2997,7 @@
 				D2C3EF902473DFA8006CD084 /* Custom Cell */,
 				D2FE6416246814F3000D861E /* IGKCustomButton.swift */,
 				8EF0DDC3247271E6007AC20C /* IGScrollView.swift */,
+				8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5047,6 +5056,7 @@
 				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
 				FA99FF702235428A009035DF /* DashboardCell5.swift in Sources */,
+				8E3265E2247FB64600AE2CB6 /* IGKHistoryDataSource.swift in Sources */,
 				8E96A325225C9182007D8A77 /* SMGradientView.swift in Sources */,
 				8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGMemberChoose.swift in Sources */,
@@ -5299,6 +5309,7 @@
 				8E8BE18F246BC88500A32BC4 /* PinCodeTextField.swift in Sources */,
 				FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */,
 				8EF0DDC82473C748007AC20C /* IGKRetrieveByRecoveryKey.swift in Sources */,
+				8E3265E0247F9F6800AE2CB6 /* IGKHistoryVM.swift in Sources */,
 				8EEB1FF422C1F48400EFD2ED /* SMGetGift.swift in Sources */,
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
 				8EA8F3EE231F9E450099C4EF /* UICircularProgressRing.swift in Sources */,
@@ -5484,6 +5495,7 @@
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */,
 				FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */,
+				8E3265E4247FB6A000AE2CB6 /* IGKHistoryCell.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
 				D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */,
 				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
