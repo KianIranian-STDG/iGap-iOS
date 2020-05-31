@@ -6888,6 +6888,8 @@ Do NOT share it with others.";
 "koknus_exeed_max_buy" = "You are exceeding the maximum buyable value of this token.";
 "koknus_exeed_min_buy" = "Your order is less than the minimum buyable value of this token.";
 "k_invalid_value" = "Invalid Value";
+"k_recieve" = "Recieve";
+"k_send" = "Send";
 
 "persian_language" = "Fa";
 "english_language" = "En";

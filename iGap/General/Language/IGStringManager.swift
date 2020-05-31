@@ -997,6 +997,8 @@ enum IGStringsManager : String {
     case KExeedMaxBuy = "koknus_exeed_max_buy"
     case KExeedMinBuy = "koknus_exeed_min_buy"
     case KInvalidValue = "k_invalid_value"
+    case Krecieve = "k_recieve"
+    case Ksend = "k_send"
 }
 
 

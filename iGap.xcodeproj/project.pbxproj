@@ -47,6 +47,10 @@
 		8E3265E0247F9F6800AE2CB6 /* IGKHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */; };
 		8E3265E2247FB64600AE2CB6 /* IGKHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */; };
 		8E3265E4247FB6A000AE2CB6 /* IGKHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */; };
+		8E3265E624827A3E00AE2CB6 /* IGKTradeHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */; };
+		8E3265E824827A9800AE2CB6 /* IGKTradeHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */; };
+		8E3265EA2482807E00AE2CB6 /* IGKOpenOrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E92482807E00AE2CB6 /* IGKOpenOrdersCell.swift */; };
+		8E3265EC2482808F00AE2CB6 /* IGKOpenOrdersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -1081,6 +1085,10 @@
 		8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVM.swift; sourceTree = "<group>"; };
 		8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryDataSource.swift; sourceTree = "<group>"; };
 		8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryCell.swift; sourceTree = "<group>"; };
+		8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryVM.swift; sourceTree = "<group>"; };
+		8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryCell.swift; sourceTree = "<group>"; };
+		8E3265E92482807E00AE2CB6 /* IGKOpenOrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersCell.swift; sourceTree = "<group>"; };
+		8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersVM.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -2968,6 +2976,8 @@
 				8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */,
 				8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */,
 				D23B65B4247E94A0003A0AE5 /* SendTokenVM.swift */,
+				8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */,
+				8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3001,6 +3011,8 @@
 				D2FE6416246814F3000D861E /* IGKCustomButton.swift */,
 				8EF0DDC3247271E6007AC20C /* IGScrollView.swift */,
 				8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */,
+				8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */,
+				8E3265E92482807E00AE2CB6 /* IGKOpenOrdersCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5125,6 +5137,7 @@
 				8E3360E723D8123B00CE766B /* ASAvatarView.swift in Sources */,
 				FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */,
 				8E3C698A236036E8001575BE /* PanModalPresentable.swift in Sources */,
+				8E3265EA2482807E00AE2CB6 /* IGKOpenOrdersCell.swift in Sources */,
 				FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */,
 				FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */,
 				8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */,
@@ -5433,6 +5446,7 @@
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,
 				8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */,
 				8E67494623B119030012BA0F /* IGUserContactsTableViewCell.swift in Sources */,
+				8E3265EC2482808F00AE2CB6 /* IGKOpenOrdersVM.swift in Sources */,
 				8EC217BC2259E1A100105B5A /* SMConstants.swift in Sources */,
 				D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */,
 				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,
@@ -5443,6 +5457,7 @@
 				FA87B94C22BFB46100200650 /* IGHelperMessage.swift in Sources */,
 				D67E983F23A67962003C1516 /* UIImageView+Zoomable.swift in Sources */,
 				D2FE6BBB244EF99500CE8231 /* IGMBUser.swift in Sources */,
+				8E3265E624827A3E00AE2CB6 /* IGKTradeHistoryVM.swift in Sources */,
 				FA075DE5232A47B0002E7AC7 /* IGInternetPackageViewController.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
 				FAC7555621D12D6D001AB608 /* CallManager.swift in Sources */,
@@ -5567,6 +5582,7 @@
 				FA0953871E1B97E20043ED3F /* IGCreateNewChannelTableViewController.swift in Sources */,
 				FAD530631E0BD80800FE6C54 /* IGNavigationController.swift in Sources */,
 				FAD8A02E21EE095A006996E1 /* IGStructAdditionalButton.swift in Sources */,
+				8E3265E824827A9800AE2CB6 /* IGKTradeHistoryCell.swift in Sources */,
 				8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */,
 				FA865C752078A32000B9D585 /* IGMap.swift in Sources */,
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
