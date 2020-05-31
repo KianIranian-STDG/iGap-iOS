@@ -6896,6 +6896,8 @@ Do NOT share it with others.";
 "k_parsian_tcheck_text_one" = "I vote to Kuknos Inc,which has this address: ";
 "k_parsian_tcheck_text_two" = "I set https://pdpco.ir as the home domain of my wallet";
 "k_agree_to_terms" = "I Agree To The Terms";
+"k_invalid_wallet_id" = "Invalid wallet id";
+"k_transfer_successful" = "Transfer Succeded";
 
 "persian_language" = "Fa";
 "english_language" = "En";
