@@ -371,7 +371,7 @@
 		8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED8054123B772FB0097A4A6 /* IGLiveStickerCell.swift */; };
 		8ED8054423B772FB0097A4A6 /* IGLiveStickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ED8054223B772FB0097A4A6 /* IGLiveStickerCell.xib */; };
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
-		8EDB7B8E247144BB001DFD69 /* IGKAddTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB7B8D247144BB001DFD69 /* IGKAddTokenVC.swift */; };
+		8EDB7B8E247144BB001DFD69 /* IGKBuyTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB7B8D247144BB001DFD69 /* IGKBuyTokenVC.swift */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */; };
 		8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */; };
@@ -494,7 +494,7 @@
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
-		D2EC3C58247D2E2D00072B87 /* IGKAddTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */; };
+		D2EC3C58247D2E2D00072B87 /* IGKBuyTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
 		D2FE6417246814F3000D861E /* IGKCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6416246814F3000D861E /* IGKCustomButton.swift */; };
 		D2FE6BBB244EF99500CE8231 /* IGMBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */; };
@@ -1423,7 +1423,7 @@
 		8ED8054123B772FB0097A4A6 /* IGLiveStickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLiveStickerCell.swift; sourceTree = "<group>"; };
 		8ED8054223B772FB0097A4A6 /* IGLiveStickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGLiveStickerCell.xib; sourceTree = "<group>"; };
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
-		8EDB7B8D247144BB001DFD69 /* IGKAddTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddTokenVC.swift; sourceTree = "<group>"; };
+		8EDB7B8D247144BB001DFD69 /* IGKBuyTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBuyTokenVC.swift; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNormalAlertViewController.swift; sourceTree = "<group>"; };
@@ -1549,7 +1549,7 @@
 		D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetreiveRecoveryKeyVM.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
-		D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddTokenVM.swift; sourceTree = "<group>"; };
+		D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBuyTokenVM.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
 		D2FE6416246814F3000D861E /* IGKCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCustomButton.swift; sourceTree = "<group>"; };
 		D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBUser.swift; sourceTree = "<group>"; };
@@ -2976,7 +2976,7 @@
 				D2C39394247145580051458C /* IGKNewTokenVM.swift */,
 				D2C3EF8E2473DDFC006CD084 /* IKGProfileVM.swift */,
 				D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */,
-				D2EC3C57247D2E2D00072B87 /* IGKAddTokenVM.swift */,
+				D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */,
 				D2B58EA1247E23D000423519 /* IGKTradingVM.swift */,
 				D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */,
 				8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */,
@@ -3034,7 +3034,7 @@
 				8E8BE19C246C2D8900A32BC4 /* IGKProfileVC.swift */,
 				8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */,
 				8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */,
-				8EDB7B8D247144BB001DFD69 /* IGKAddTokenVC.swift */,
+				8EDB7B8D247144BB001DFD69 /* IGKBuyTokenVC.swift */,
 				8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */,
 				8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */,
 				8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */,
@@ -5077,7 +5077,7 @@
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
 				8EC94E0F239650D3003B3510 /* IGNewsSectionInnerTableViewController.swift in Sources */,
 				8E3266C32483B6B700AE2CB6 /* IGKNewAssetsCell.swift in Sources */,
-				D2EC3C58247D2E2D00072B87 /* IGKAddTokenVM.swift in Sources */,
+				D2EC3C58247D2E2D00072B87 /* IGKBuyTokenVM.swift in Sources */,
 				FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */,
 				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
@@ -5509,7 +5509,7 @@
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
 				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
-				8EDB7B8E247144BB001DFD69 /* IGKAddTokenVC.swift in Sources */,
+				8EDB7B8E247144BB001DFD69 /* IGKBuyTokenVC.swift in Sources */,
 				D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */,
 				8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */,
 				8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */,
