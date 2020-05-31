@@ -331,7 +331,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5O-fF-Cal">
-                                                <rect key="frame" x="134" y="18" width="146" height="20.5"/>
+                                                <rect key="frame" x="143.5" y="20.5" width="127" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                 <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>

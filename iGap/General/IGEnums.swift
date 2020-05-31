@@ -462,6 +462,7 @@ enum BarcodeScanner {
     case Verify
     case IVandScore
     case BillBarcode
+    case KUKNOS
 }
 
 enum AdditionalType: Int32 {

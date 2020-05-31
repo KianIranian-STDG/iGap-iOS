@@ -21,7 +21,8 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     var previewView: UIView!
     var scanner: MTBBarcodeScanner?
     var scannerPageType: BarcodeScanner = .Verify
-    
+    var delegate: codeDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -108,10 +109,24 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             resolveScannedQrCode(code)
         } else if scannerPageType == .IVandScore {
             setActivity(plancode: code)
+        } else if scannerPageType == .KUKNOS {
+            resolveKuknosWalletID( code)
         } else {
             manageBillBarcode(code)
         }
     }
+    private func resolveKuknosWalletID(_ code: String) {
+
+
+        print("================")
+        print(code)
+        self.delegate?.passData(code: code)
+        self.navigationController?.popViewController(animated: true)
+
+        print("================")
+
+    }
+
     
     private func manageBillBarcode(_ code: String) {
         print("BARCODE SCANEED",code)
