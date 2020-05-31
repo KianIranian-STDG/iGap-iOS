@@ -51,7 +51,7 @@
 		8E3265E824827A9800AE2CB6 /* IGKTradeHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */; };
 		8E3265EA2482807E00AE2CB6 /* IGKOpenOrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E92482807E00AE2CB6 /* IGKOpenOrdersCell.swift */; };
 		8E3265EC2482808F00AE2CB6 /* IGKOpenOrdersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */; };
-		8E3266C124838EE000AE2CB6 /* IGKTermsAndConditionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3266C024838EE000AE2CB6 /* IGKTermsAndConditionsVC.swift */; };
+		8E3266C124838EE000AE2CB6 /* IGKRequestHomeDomainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3266C024838EE000AE2CB6 /* IGKRequestHomeDomainVC.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -477,6 +477,7 @@
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D28F5803247E6E5700701645 /* IGKAddAssetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */; };
+		D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
@@ -1090,7 +1091,7 @@
 		8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryCell.swift; sourceTree = "<group>"; };
 		8E3265E92482807E00AE2CB6 /* IGKOpenOrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersCell.swift; sourceTree = "<group>"; };
 		8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersVM.swift; sourceTree = "<group>"; };
-		8E3266C024838EE000AE2CB6 /* IGKTermsAndConditionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTermsAndConditionsVC.swift; sourceTree = "<group>"; };
+		8E3266C024838EE000AE2CB6 /* IGKRequestHomeDomainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVC.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -1531,6 +1532,7 @@
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddAssetVM.swift; sourceTree = "<group>"; };
+		D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
@@ -2980,6 +2982,7 @@
 				D23B65B4247E94A0003A0AE5 /* SendTokenVM.swift */,
 				8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */,
 				8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */,
+				D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3032,7 +3035,7 @@
 				8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */,
 				8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */,
 				D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */,
-				8E3266C024838EE000AE2CB6 /* IGKTermsAndConditionsVC.swift */,
+				8E3266C024838EE000AE2CB6 /* IGKRequestHomeDomainVC.swift */,
 				8EF0DDCB2473C769007AC20C /* RetrieveKey */,
 				8EF0DDCE2473E0F8007AC20C /* Trading */,
 				8E3265DA247D355400AE2CB6 /* AddAssets */,
@@ -5257,6 +5260,7 @@
 				D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */,
 				8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */,
 				FA075DED232A5F78002E7AC7 /* IGApiBase.swift in Sources */,
+				D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */,
 				D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */,
 				FA42EF0F1E5C224F00CF8A32 /* UIImage.swift in Sources */,
 				8EBF552822DCA9B000834E6A /* SliderTypeOneCell.swift in Sources */,
@@ -5488,7 +5492,7 @@
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
 				8EC42F15245B25FC000889D3 /* IGOneLabelTVController.swift in Sources */,
-				8E3266C124838EE000AE2CB6 /* IGKTermsAndConditionsVC.swift in Sources */,
+				8E3266C124838EE000AE2CB6 /* IGKRequestHomeDomainVC.swift in Sources */,
 				8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */,
 				949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
