@@ -999,6 +999,11 @@ enum IGStringsManager : String {
     case KInvalidValue = "k_invalid_value"
     case Krecieve = "k_recieve"
     case Ksend = "k_send"
+    case KAgreeToTerms = "k_agree_to_terms"
+    case KparsianTermsAndConditionsTitle = "k_parsian_terms_conditions"
+    case KparsianDesc = "k_parsian_desc"
+    case KParsianCheckTextOne = "k_parsian_tcheck_text_one"
+    case KParsianCheckTextTwo = "k_parsian_tcheck_text_two"
 }
 
 
