@@ -6859,7 +6859,7 @@ TODO:// complete */
 "kuknos_public_key_Desc" = "This key is for you to share with others in order to get currencies from them";
 "kuknos_notice_text" = "Please be notified: this is the only key that you can use to access your account later.
 Do NOT share it with others.";
-"kuknos_realtime_price" = "Instant Price :";
+"kuknos_realtime_price" = "Instant Price ";
 "kuknos_numberof_token_to_buy" = "Number of Token To buy";
 "koknus_key_generation_error" = "Key generation failed";
 "koknus_enter_password" = "Please enter you password";

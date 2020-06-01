@@ -6870,7 +6870,7 @@ Page 4 introduce app */
 "kuknos_all_info_in_qoqnos" = "تمامی اطلاهات مربوط به اکانت شما در سامانه ققنوس.";
 "kuknos_recovery_words" = "رشته کلید بازگردانی حساب";
 "kuknos_notice_text" = "توجه: این اطلاعات تنها راه دسترسی شما به حساب کاربری تان است.لطفا در حفظ و نگهداری این اطلاعات کوشا باشید و این اطلاعات را با کسی به اشتراک نگزارید";
-"kuknos_realtime_price" = "قیمت لحظه ای :";
+"kuknos_realtime_price" = "قیمت لحظه ای ";
 "kuknos_numberof_token_to_buy" = "تعداد توکن جهت خرید";
 "kuknos_valid_username" = "نام کاربری انتخابی معتبر می باشد";
 "koknus_checking_username" = "در حال بررسی نام کاربری ...";
