@@ -223,7 +223,7 @@ open class IGDropDown : UITextField{
         if height < (keyboardHeight+tableheightX){
             y = self.pointToParent.y - tableheightX
         }
-        UIView.animate(withDuration: 0.9,
+        UIView.animate(withDuration: 0.3,
                        delay: 0,
                        usingSpringWithDamping: 0.4,
                        initialSpringVelocity: 0.1,
@@ -251,7 +251,7 @@ open class IGDropDown : UITextField{
 
     public func hideList() {
         TableWillDisappearCompletion()
-        UIView.animate(withDuration: 1.0,
+        UIView.animate(withDuration: 0.3,
                        delay: 0.4,
                        usingSpringWithDamping: 0.9,
                        initialSpringVelocity: 0.1,

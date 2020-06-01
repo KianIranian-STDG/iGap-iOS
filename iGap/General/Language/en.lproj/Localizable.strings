@@ -6898,6 +6898,8 @@ Do NOT share it with others.";
 "k_agree_to_terms" = "I Agree To The Terms";
 "k_invalid_wallet_id" = "Invalid wallet id";
 "k_transfer_successful" = "Transfer Succeded";
+"k_u_already_have_it" = "Yoy Already have this Token";
+"k_ur_username" = "Your Username :";
 
 "persian_language" = "Fa";
 "english_language" = "En";

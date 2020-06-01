@@ -1006,6 +1006,8 @@ enum IGStringsManager : String {
     case KParsianCheckTextTwo = "k_parsian_tcheck_text_two"
     case KInvalidWalletId = "k_invalid_wallet_id"
     case KTransferSuccessful = "k_transfer_successful"
+    case KalreadyHaveThisToken = "k_u_already_have_it"
+    case KyourUsername = "k_ur_username"
 }
 
 
