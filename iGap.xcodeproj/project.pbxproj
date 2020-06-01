@@ -478,6 +478,7 @@
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D28F5803247E6E5700701645 /* IGKAddAssetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */; };
+		D29036D42484D7350092E625 /* IGKTradeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29036D32484D7350092E625 /* IGKTradeVM.swift */; };
 		D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
@@ -1534,6 +1535,7 @@
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKAddAssetVM.swift; sourceTree = "<group>"; };
+		D29036D32484D7350092E625 /* IGKTradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeVM.swift; sourceTree = "<group>"; };
 		D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
@@ -2985,6 +2987,7 @@
 				8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */,
 				8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */,
 				D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */,
+				D29036D32484D7350092E625 /* IGKTradeVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5264,6 +5267,7 @@
 				8E96A329225C91EB007D8A77 /* SMStringUtil.swift in Sources */,
 				D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */,
 				8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */,
+				D29036D42484D7350092E625 /* IGKTradeVM.swift in Sources */,
 				FA075DED232A5F78002E7AC7 /* IGApiBase.swift in Sources */,
 				D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */,
 				D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */,
