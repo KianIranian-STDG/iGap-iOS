@@ -463,7 +463,7 @@ class DropBackView : UIView, UITableViewDataSource,UITableViewDelegate {
         
         cardTable.delegate = self
         cardTable.dataSource = self
-        cardTable.register(CellClass.self, forCellReuseIdentifier: "Cell")
+        cardTable.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         addSubview(cardTable)
         cardTable.translatesAutoresizingMaskIntoConstraints = false
         cardTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
