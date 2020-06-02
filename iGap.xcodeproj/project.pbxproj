@@ -45,7 +45,6 @@
 		8E3265DC247D35DC00AE2CB6 /* CellClassCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */; };
 		8E3265DE247D37F300AE2CB6 /* IGKCurrentAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */; };
 		8E3265E0247F9F6800AE2CB6 /* IGKHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */; };
-		8E3265E2247FB64600AE2CB6 /* IGKHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */; };
 		8E3265E4247FB6A000AE2CB6 /* IGKHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */; };
 		8E3265E624827A3E00AE2CB6 /* IGKTradeHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */; };
 		8E3265E824827A9800AE2CB6 /* IGKTradeHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */; };
@@ -1088,7 +1087,6 @@
 		8E3265DB247D35DC00AE2CB6 /* CellClassCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellClassCurrentAssets.swift; sourceTree = "<group>"; };
 		8E3265DD247D37F300AE2CB6 /* IGKCurrentAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCurrentAssets.swift; sourceTree = "<group>"; };
 		8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVM.swift; sourceTree = "<group>"; };
-		8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryDataSource.swift; sourceTree = "<group>"; };
 		8E3265E3247FB6A000AE2CB6 /* IGKHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryCell.swift; sourceTree = "<group>"; };
 		8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryVM.swift; sourceTree = "<group>"; };
 		8E3265E724827A9800AE2CB6 /* IGKTradeHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradeHistoryCell.swift; sourceTree = "<group>"; };
@@ -2984,7 +2982,6 @@
 				D2B58EA1247E23D000423519 /* IGKTradingVM.swift */,
 				D28F5802247E6E5700701645 /* IGKAddAssetVM.swift */,
 				8E3265DF247F9F6800AE2CB6 /* IGKHistoryVM.swift */,
-				8E3265E1247FB64600AE2CB6 /* IGKHistoryDataSource.swift */,
 				D23B65B4247E94A0003A0AE5 /* SendTokenVM.swift */,
 				8E3265E524827A3E00AE2CB6 /* IGKTradeHistoryVM.swift */,
 				8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */,
@@ -5089,7 +5086,6 @@
 				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
 				FA99FF702235428A009035DF /* DashboardCell5.swift in Sources */,
-				8E3265E2247FB64600AE2CB6 /* IGKHistoryDataSource.swift in Sources */,
 				8E96A325225C9182007D8A77 /* SMGradientView.swift in Sources */,
 				8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGMemberChoose.swift in Sources */,
