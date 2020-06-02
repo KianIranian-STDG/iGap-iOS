@@ -58,7 +58,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     private var orgContentSize : CGSize!
-    private var isPresented: Bool = false
+    var isPresented: Bool = false
     @objc private func keyboardWillShow(_ notif: Notification) {
         
         guard let keyboardFrame: NSValue = notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
@@ -76,6 +76,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
             } else { }
             isPresented = true
         }
+        if (UIApplication.topViewController() is IGKMainContainerVC) {
+            if (UIApplication.topViewController() as! IGKMainContainerVC).mode == "TRADING" {
+                if (UIApplication.topViewController() as! IGKMainContainerVC).TradingMode == "TRADE" {
+                    (UIApplication.topViewController() as! IGKMainContainerVC).tradesView.myTable.beginUpdates()
+                    (UIApplication.topViewController() as! IGKMainContainerVC).tradesView.myTable.endUpdates()
+                }
+            }
+        }
     }
     
     @objc private func keyboardWillHide(_ notif: Notification) {
@@ -91,7 +99,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
             sv!.changeContentSize(height: sv!.contentSize.height - keyboardHeight, width: view.frame.width)
         } else {}
         isPresented = false
-
+        if (UIApplication.topViewController() is IGKMainContainerVC) {
+            if (UIApplication.topViewController() as! IGKMainContainerVC).mode == "TRADING" {
+                if (UIApplication.topViewController() as! IGKMainContainerVC).TradingMode == "TRADE" {
+                    (UIApplication.topViewController() as! IGKMainContainerVC).tradesView.myTable.beginUpdates()
+                    (UIApplication.topViewController() as! IGKMainContainerVC).tradesView.myTable.endUpdates()
+                }
+            }
+        }
         
     }
 
