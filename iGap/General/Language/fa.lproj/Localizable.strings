@@ -6913,6 +6913,9 @@ Page 4 introduce app */
 "k_agree_to_terms" = "با شرایط موافقم";
 "k_u_already_have_it" = "شما هم اکنون این توکن را در کیف پول خود دارید";
 "k_ur_username" = "نام کاربری شما :";
+"kuknoos_asset_code" = "کد دارایی";
+"kuknoos_asset_count" = "تعداد دارایی";
+"kuknoos_asset_price" = "مبلغ دارایی";
 
 
 "k_invalid_wallet_id" = "آدرس کیف توکن معتبر نیست";

@@ -938,6 +938,9 @@ enum IGStringsManager : String {
     case KLastName = "kuknoos_last_name"
     case KIDNumber = "kuknoos_idnumber"
     case KAssets = "kuknoos_assets"
+    case KAssetCode = "kuknoos_asset_code"
+    case KAssetCount = "kuknoos_asset_count"
+    case KAssetPrice = "kuknoos_asset_price"
     case KHistory = "kuknos_panelStr_history"
     case KSettings = "kuknoos_settings"
     case KTrading = "kuknoos_trading"
@@ -1008,6 +1011,7 @@ enum IGStringsManager : String {
     case KTransferSuccessful = "k_transfer_successful"
     case KalreadyHaveThisToken = "k_u_already_have_it"
     case KyourUsername = "k_ur_username"
+    case KTotalPrice = "total_price"
 }
 
 

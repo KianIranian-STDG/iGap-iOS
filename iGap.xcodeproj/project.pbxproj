@@ -53,6 +53,7 @@
 		8E3265EC2482808F00AE2CB6 /* IGKOpenOrdersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */; };
 		8E3266C32483B6B700AE2CB6 /* IGKNewAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3266C22483B6B700AE2CB6 /* IGKNewAssetsCell.swift */; };
 		8E3266C52483E00800AE2CB6 /* IGKRequestHomeDomainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3266C42483E00800AE2CB6 /* IGKRequestHomeDomainVC.swift */; };
+		8E3266C7248526DF00AE2CB6 /* IGHelperKoknusAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3266C6248526DF00AE2CB6 /* IGHelperKoknusAlert.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
@@ -1095,6 +1096,7 @@
 		8E3265EB2482808F00AE2CB6 /* IGKOpenOrdersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKOpenOrdersVM.swift; sourceTree = "<group>"; };
 		8E3266C22483B6B700AE2CB6 /* IGKNewAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewAssetsCell.swift; sourceTree = "<group>"; };
 		8E3266C42483E00800AE2CB6 /* IGKRequestHomeDomainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVC.swift; sourceTree = "<group>"; };
+		8E3266C6248526DF00AE2CB6 /* IGHelperKoknusAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperKoknusAlert.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -3549,6 +3551,7 @@
 				8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */,
 				D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */,
 				8EC42EF02455A80C000889D3 /* IGHelperMBAlert.swift */,
+				8E3266C6248526DF00AE2CB6 /* IGHelperKoknusAlert.swift */,
 				8EC42F12245B04C2000889D3 /* IGHelperToast.swift */,
 				8EFBE42A2462776F00755464 /* IGHelperCustomNavigation.swift */,
 			);
@@ -4997,6 +5000,7 @@
 				8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */,
+				8E3266C7248526DF00AE2CB6 /* IGHelperKoknusAlert.swift in Sources */,
 				8EF0DDF724766D04007AC20C /* IGDropDown.swift in Sources */,
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				8EA8551B23A232D600C9442F /* IGRedColorSet.swift in Sources */,

@@ -6900,6 +6900,10 @@ Do NOT share it with others.";
 "k_transfer_successful" = "Transfer Succeded";
 "k_u_already_have_it" = "Yoy Already have this Token";
 "k_ur_username" = "Your Username :";
+"kuknoos_asset_code" = "Asset Code";
+"kuknoos_asset_count" = "Asset Count";
+"kuknoos_asset_price" = "Asset Price";
+
 
 "persian_language" = "Fa";
 "english_language" = "En";
