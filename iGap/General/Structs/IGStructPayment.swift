@@ -69,6 +69,7 @@ struct IGStructPaymentStatus: Decodable {
             var tel_num: String?
             var type: String?
             var vendor: String?
+            var refType: String?
             var user: User?
             
             struct User: Decodable {

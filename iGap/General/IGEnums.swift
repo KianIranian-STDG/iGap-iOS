@@ -662,3 +662,17 @@ enum MemberEditTypes {
     case EditMember
     case EditRoom
 }
+
+enum PurchaseType: String {
+    case BeepTunesPurchase = "BeepTunesPurchase"
+    case Charity = "Charity"
+    case MciTopup = "MciTopup"
+    case MciInternetPackage = "MciInternetPackage"
+    case KuknosPurchase = "KuknosPurchase"
+    case AtiTickets = "AtiTickets"
+    case AtiCpayCharge = "AtiCpayCharge"
+    case AtiCpayReseve = "AtiCpayReseve"
+    case GiftSticker = "GiftSticker"
+    case PaidSticker = "PaidSticker"
+    case other = "other"
+}
