@@ -118,7 +118,8 @@ class IGUserLoginRequest: IGRequest {
             userLoginRequestMessage.igpPlatformVersion = UIDevice.current.systemVersion
             userLoginRequestMessage.igpAppName = "iGap iOS"
             userLoginRequestMessage.igpAppID = Int32(IGAppManager.sharedManager.APP_ID)
-            
+            userLoginRequestMessage.igpSymmetricKey = IGSecurityManager.sharedManager.symmetricKey.data(using: .utf8)!
+
             switch UIDevice.current.userInterfaceIdiom {
             case .pad:
                 userLoginRequestMessage.igpDevice = IGPDevice.tablet

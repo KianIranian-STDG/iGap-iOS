@@ -105,7 +105,7 @@ class DeeplinkNavigator {
                     return
                 }
                 if paymentView.payToken != nil {
-                    paymentView.reloadPaymentResult(status: status, message: message, RRN: "\(paymentStatus.info?.rrn ?? 0)")
+                    paymentView.reloadPaymentResult(paymentStatusData: paymentStatus, status: status, message: message, RRN: "\(paymentStatus.info?.rrn ?? 0)")
                 } else {
                     // get data
                     paymentView.showPaymentResult(on: UIApplication.shared.keyWindow!, paymentStatusData: paymentStatus, paymentStatus: status, message: message)

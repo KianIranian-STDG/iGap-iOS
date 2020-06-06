@@ -32,6 +32,7 @@ class IGConnectionSecuringRequest : IGRequest {
             IGWebSocketManager.sharedManager.connectionProblemTimerDelay = Double(connectionSecuringResponseMessage.igpHeartbeatInterval+5)
             
             let symmetricKey = IGSecurityManager.sharedManager.generateEncryptedSymmetricKeyData(length: symmetricKeyLength,secondaryChunkSize:secondaryChunkSize)
+            IGAppManager.sharedManager.setSymmetricKey(key: symmetricKey)
             IGConnectionSymmetricKeyRequest.sendRequest(symmetricKey: symmetricKey)
         }
     }

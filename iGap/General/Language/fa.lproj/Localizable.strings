@@ -5444,7 +5444,7 @@ Page 4 introduce app */
 "kuknos_login_progress_str" = "بررسی...";
 
 /*  */
-"kuknos_Entry_NT_str" = "کیف توکن جدید";
+"kuknos_Entry_NT_str" = "کیف جدید";
 
 /*  */
 "kuknos_Entry_RT_str" = "بازیابی کیف توکن";
@@ -5516,10 +5516,6 @@ Page 4 introduce app */
 "kuknos_SignupInfo_errorUsernameEmpty" = "لطفا نام کاربری خود را وارد نمایید.";
 
 /*  */
-"kuknos_RecoverySK_Title" = "کلمات بازیابی";
-
-/*  */
-"kuknos_RecoverySK_Message" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات در آینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
 
 /*  */
 "kuknos_RecoverySK_Btn" = "کلمات را یادداشت کردم.";
@@ -5591,7 +5587,7 @@ Page 4 introduce app */
 "kuknos_recieve_title" = "جهت دریافت اعتبار از افراد دیگر، شناسه کیف پول خود را برای آنها ارسال نمایید.";
 
 /*  */
-"kuknos_recieve_walletID" = "شناسه کیف پول شما: SDJUKILLBBBTGGGGYHRFFD";
+"kuknos_recieve_walletID" = "شناسه کیف پول شما:";
 
 /*  */
 "kuknos_recieve_copyBtn" = "کپی کردن شناسه";
@@ -6839,3 +6835,91 @@ Page 4 introduce app */
 
 "ig_choose_operation" = "انتخاب نمایید";
 
+// Koknus
+"persian_language" = "فارسی";
+"english_language" = "انگلیسی";
+
+"k_select_options_title" = "لطفا یکی از گزینه های زیر را انتخاب نمایید";
+"k_new_token" = "کیف توکن جدید";
+"k_login_with_recovery" = "ورود با کلمات بازیابی";
+"k_login_with_private_key" = "ورود با کلید خصوصی";
+"kuknos_RecoverySK_Title" = "کلمات بازیابی";
+"kuknos_RecoverySK_Message" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات در آینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
+"k_recovery_words_language" = "زبان کلمات بازیابی";
+"k_recovery_words_count" = "تعداد کلمات بازیابی";
+"k_recovery_key_example" = "صریح صفات دبستان تاریک آکندن محیا دامنه مجتمع ریاح ضدیت قصاب شهامت";
+"kuknos_RecoverySK_Btn" = "کلمات را یادداشت کردم";
+"k_make_new_password" = "ساخت رمز ورودی ( ۴ حرفی ) داخلی";
+"k_new_password_description" = "رمز ورودی (چهار رقمی) جهت ورود به کیف پول و تایید فعالیت های شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
+"kuknos_SignupInfo_submitBtn" = "ثبت";
+"kuknoos_name" = "نام";
+"kuknoos_first_name" = "نام";
+"kuknoos_last_name" = "نام خانوادگی";
+"kuknoos_idnumber" = "کد ملی";
+"kuknoos_assets" = "دارایی ها";
+"kuknoos_settings" = "تنظیمات";
+"kuknoos_trading" = "مبادله";
+"kuknoos_buy_token" = "خرید دارایی";
+"kuknoos_wallet_add" = "آدرس کیف پول";
+"kuknos_show_account_info" = "نمایش اطلاعات کاربری";
+"kuknos_save_account_info" = "ذخیره اطلاعات کاربری";
+"kuknos_payman_regulations" = "سپیدنامه پیمان";
+"kuknos_account_info" = "اطلاعات حساب کاربری";
+"kuknos_private_key" = "کلید خصوصی";
+"kuknos_private_key_Desc" = "این کلید خصوصی شماست.با استفاده از این کلید امکان دسترسی مستقیم بهحساب شما وجود دارد.لطفا به هیچ وجه این کلید را با بقیه افراد به اشتراک نگذارید";
+"kuknos_public_key" = "کلید عمومی";
+"kuknos_public_key_Desc" = "با ارسال این کلید برای دیگران شما میتوانید از آنها درخواست ارسال توکن نمایید.";
+
+"kuknos_all_info_in_qoqnos" = "تمامی اطلاهات مربوط به اکانت شما در سامانه ققنوس.";
+"kuknos_recovery_words" = "رشته کلید بازگردانی حساب";
+"kuknos_notice_text" = "توجه: این اطلاعات تنها راه دسترسی شما به حساب کاربری تان است.لطفا در حفظ و نگهداری این اطلاعات کوشا باشید و این اطلاعات را با کسی به اشتراک نگزارید";
+"kuknos_realtime_price" = "قیمت لحظه ای ";
+"kuknos_numberof_token_to_buy" = "تعداد توکن جهت خرید";
+"kuknos_valid_username" = "نام کاربری انتخابی معتبر می باشد";
+"koknus_checking_username" = "در حال بررسی نام کاربری ...";
+"kuknos_invalid_username" = "نام کاربری انتخابی نامعتبر می باشد";
+
+"k_qoqnos_title" = "ققنوس";
+"koknus_key_generation_error" = "خطا در ساخت کلیدها";
+"koknus_enter_password" = "رمز ورود را وارد نمایید";
+"koknus_invalid_password" = "رمز وارد شده صحیح نیست";
+"kuknos_Restore_private_Message" = "با استفاده از این کلید، شما میتوانید حساب خود را مجددا بازیابی نمایید.";
+"kuknos_enter_your_private_key" = "لطفا کلید خصوصی خود را وارد نمایید.";
+"kuknos_sell" = "فروش";
+"kuknos_buy" = "خرید";
+"kuknos_selling_header" = "فروشی";
+"kuknos_recieving_header" = "دریافتی";
+"kuknos_amount_header" = "مبلغ";
+"kuknos_price_header" = "قیمت";
+"koknus_new_assets" = "دارایی جدید";
+"koknus_current_assets" = "دارایی فعلی";
+"kuknos_enter_pin" = "رمز خود را وارد نمایید";
+"kuknoos_via_id" = "ازطریق نام کاربری";
+"kuknoos_via_public_key" = "ازطریق کلید عمومی";
+"k_recieve" = "دریافت";
+"k_send" = "ارسال";
+
+"kuknos_trades_title" = "معامله";
+"kuknos_openorders_title" = "سفارشات باز";
+"kuknos_tradeshistory_title" = "تاریخچه";
+"koknus_enter_recovery_words" = "کلمات بازیابی خود را وارد کنید";
+"koknus_invalid_recovery_words" = "کلمات بازیابی صحیح نیست";
+"koknus_account_not_exist" = "حساب کاربری وجود ندارد";
+"koknus_exeed_max_buy" = "شما از حداکثر خرید این دارایی فراتر رفته اید.";
+"koknus_exeed_min_buy" = "میزان درخواستی شمااز حداقل تعداد خرید این توکن کمتر است";
+"k_invalid_value" = "مقادیر وارد شده صحیح نیست";
+
+"k_parsian_terms_conditions" = "قوانین و مقررات پارسیان";
+"k_parsian_desc" = "برای مشاهده و استفاده از خدمات کیف پول ققنوس پارسیان،شما باید تغییرات زیر در مفاد قرارداد پارسیان و ققنوس را تایید نمایید";
+"k_parsian_tcheck_text_one" = "من به آدرس شرکت پارسیان که در زیر ذکر شده است رای می دهم : ";
+"k_parsian_tcheck_text_two" = "من موافقت می نمایم تا آدرس دامنه پارسیان که در زیر آمده است به عنوان دامنه اصلی کیف پول من استفاده شود .";
+"k_agree_to_terms" = "با شرایط موافقم";
+"k_u_already_have_it" = "شما هم اکنون این توکن را در کیف پول خود دارید";
+"k_ur_username" = "نام کاربری شما :";
+"kuknoos_asset_code" = "کد دارایی";
+"kuknoos_asset_count" = "تعداد دارایی";
+"kuknoos_asset_price" = "مبلغ دارایی";
+"k_hash" = "رسید ققنوس: ";
+
+"k_invalid_wallet_id" = "آدرس کیف توکن معتبر نیست";
+"k_transfer_successful" = "انتفال با موفقیت انجام شد";

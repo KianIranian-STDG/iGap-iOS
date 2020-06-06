@@ -5611,7 +5611,7 @@ TODO:// complete */
 "kuknos_login_progress_str" = "Checking...";
 
 /*  */
-"kuknos_Entry_NT_str" = "New Token Wallet";
+"kuknos_Entry_NT_str" = "New Wallet";
 
 /*  */
 "kuknos_Entry_RT_str" = "Retrieve Token Wallet";
@@ -5659,7 +5659,6 @@ TODO:// complete */
 "kuknos_SignupInfo_email" = "Email Address";
 
 /*  */
-"kuknos_SignupInfo_submitBtn" = "Submit";
 
 /*  */
 "kuknos_SignupInfo_checkUsername" = "checking....";
@@ -5685,8 +5684,6 @@ TODO:// complete */
 /*  */
 "kuknos_RecoverySK_Title" = "Recovery keys";
 
-/*  */
-"kuknos_RecoverySK_Message" = "All of the below keywords are case sensitive. Please make sure you write down and save your recovery phrase. You will need this phrase to restore your wallet.";
 
 /*  */
 "kuknos_RecoverySK_Btn" = "Okay, I have written it down.";
@@ -5932,7 +5929,7 @@ TODO:// complete */
 "kuknos_buyP_title" = "Buy Peyman";
 
 /*  */
-"kuknos_buyP_message" = "Kuknos is a multi-token platform that provides issues of any assets.\n        In Kuknos platform we have an assets called Paymon (PMN) which is the native assets for Kuknos.";
+"kuknos_buyP_message" = "Kuknos is a multi-token platform that provides issues of any assets.\nIn Kuknos platform we have an assets called Paymon (PMN) which is the native assets for Kuknos.";
 
 /*  */
 "kuknos_buyP_amount" = "Number of Peymen (PMN)* :";
@@ -6829,4 +6826,84 @@ TODO:// complete */
 
 
 
+"k_login_with_recovery" = "Retrieve wallet with Recovery Key";
+"k_login_with_private_key" = "Retrieve wallet with Seed Key";
+"k_qoqnos_title" = "Kuknos";
+"kuknos_RecoverySK_Message" = "All of the below keywords are case sensitive. Please make sure you write down and save your recovery phrase. You will need this phrase to restore your wallet.";
+"k_recovery_words_language" = "Recover Key's Language:";
+"k_recovery_words_count" = "Recovery Key's Length:";
+"kuknos_RecoverySK_Btn" = "Okay, I have written it down.";
+"k_make_new_password" = "Create a 4 digit PIN";
+"k_new_password_description" = "This 4 numeric PIN will be used to encrypt your secret keys. Please make sure you choose a PIN that is difficult to guess for others.";
+"kuknos_SignupInfo_submitBtn" = "Submit";
+"kuknoos_name" = "Name";
+"kuknoos_first_name" = "First name";
+"kuknoos_last_name" = "Last name";
+"kuknoos_idnumber" = "ID Number";
+"kuknoos_assets" = "Assets";
+"kuknoos_settings" = "Setting";
+"kuknoos_trading" = "Trading";
+"kuknoos_buy_token" = "Buy Token";
+"kuknoos_via_id" = "Via Kuknos ID";
+"kuknoos_via_public_key" = "Via Public Key";
+"kuknoos_wallet_add" = "Wallet Address";
+"kuknos_show_account_info" = "Show Account Info";
+"kuknos_save_account_info" = "Save Account Info";
+"kuknos_payman_regulations" = "Paymon Regulations";
+"kuknos_all_info_in_qoqnos" = "Here is all the iformation related to your account in Kuknos platform ";
+"kuknos_recovery_words" = "Recovery Keys";
+"kuknos_account_info" = "Account Information";
+"kuknos_private_key" = "Private Key";
+"kuknos_private_key_Desc" = "This key is private and with this key ,you can access to your account and restore your wallet.Please be nofied that this key MUST not be shared with others";
+"kuknos_public_key" = "Public Key";
+"kuknos_public_key_Desc" = "This key is for you to share with others in order to get currencies from them";
+"kuknos_notice_text" = "Please be notified: this is the only key that you can use to access your account later.
+Do NOT share it with others.";
+"kuknos_realtime_price" = "Instant Price ";
+"kuknos_numberof_token_to_buy" = "Number of Token To buy";
+"koknus_key_generation_error" = "Key generation failed";
+"koknus_enter_password" = "Please enter you password";
+"koknus_invalid_password" = "Invalid Password";
+"kuknos_valid_username" = "The selected username is Valid";
+"koknus_checking_username" = "Cheking Username ...";
+"kuknos_invalid_username" = "The selected username is Invalid";
+"kuknos_enter_your_private_key" = "Please Enter your Private Key";
+"kuknos_Restore_private_Message" = "By using this Key, you will be able to retrieve your account.";
+"kuknos_trades_title" = "Trade";
+"kuknos_openorders_title" = "Open Orders";
+"kuknos_tradeshistory_title" = "History";
+"kuknos_sell" = "Sell";
+"kuknos_buy" = "Buy";
+"kuknos_selling_header" = "Selling";
+"kuknos_recieving_header" = "Receiving";
+"kuknos_amount_header" = "Amount";
+"kuknos_price_header" = "Price";
+"koknus_enter_recovery_words" = "Enter your Recovery words";
+"koknus_invalid_recovery_words" = "Invalid Recovery words";
+"koknus_account_not_exist" = "Account doesn't exist";
+"koknus_new_assets" = "New Assets";
+"koknus_current_assets" = "Current Assets";
+    "kuknos_enter_pin" = "Enter your Pin";
 
+"koknus_exeed_max_buy" = "You are exceeding the maximum buyable value of this token.";
+"koknus_exeed_min_buy" = "Your order is less than the minimum buyable value of this token.";
+"k_invalid_value" = "Invalid Value";
+"k_recieve" = "Recieve";
+"k_send" = "Send";
+
+"k_parsian_terms_conditions" = "Parsian Terms and Conditions";
+"k_parsian_desc" = "To Proceed and using Parsian Kuknos wallet, the following changesust be applied in complince with the Kuknos Terms of Services";
+"k_parsian_tcheck_text_one" = "I vote to Kuknos Inc,which has this address: ";
+"k_parsian_tcheck_text_two" = "I set https://pdpco.ir as the home domain of my wallet";
+"k_agree_to_terms" = "I Agree To The Terms";
+"k_invalid_wallet_id" = "Invalid wallet id";
+"k_transfer_successful" = "Transfer Succeded";
+"k_u_already_have_it" = "Yoy Already have this Token";
+"k_ur_username" = "Your Username :";
+"kuknoos_asset_code" = "Asset Code";
+"kuknoos_asset_count" = "Asset Count";
+"kuknoos_asset_price" = "Asset Price";
+"k_hash" = "Kuknos Hash: ";
+
+"persian_language" = "Fa";
+"english_language" = "En";

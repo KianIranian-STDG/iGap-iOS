@@ -998,6 +998,19 @@ class AbstractDashboardCell: UICollectionViewCell {
         case .parsland:
             UIApplication.topViewController()?.navigationController?.pushViewController(IGMBLoginVC(), animated: true)
             break
+            
+        case .blockchain:
+            if IGKKeychainHandler.getFromKeychain(key: .Pin) == "" {
+                let igk = IGKIntroVC()
+                igk.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(igk, animated: true)
+            }else {
+                IGKNewTokenVM.make()
+                IGKNewTokenVM.shared?.getDataFromKeychain()
+                let igk = IGKPinLoginVC(vc: IGKProfileVC())
+                igk.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(igk, animated: true)
+            }
 
         default:
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InstallLatestVersion.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)

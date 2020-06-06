@@ -24,6 +24,7 @@ import PushKit
 import CallKit
 import SwiftEventBus
 import AsyncDisplayKit
+import KeychainSwift
 
 
 @UIApplicationMain
@@ -81,7 +82,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         //        let x : [AnyHashable: Any] = ["deepLink": "discovery/3/311"]
         //        DeepLinkManager.shared.handleRemoteNotification(x)
         
-        
+        let userDefaults = UserDefaults.standard
+        if !userDefaults.bool(forKey: "hasRunBefore") {
+            
+            // Remove KeyChain Old Data
+            let keychain = KeychainSwift()
+            keychain.clear()
+            
+            userDefaults.set(true, forKey: "hasRunBefore")
+        }
         
         
         return true

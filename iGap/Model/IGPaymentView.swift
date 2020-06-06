@@ -10,6 +10,8 @@
 
 import Foundation
 import SwiftEventBus
+import RxSwift
+import RxCocoa
 
 enum PaymentStatus: String {
     case canceledByUser = "CANCELED_BY_USER"
@@ -72,7 +74,13 @@ class IGPaymentView: UIView {
     private var giftCardPaymentData: IGStructGiftCardPayment!
     private var paymentStatus: PaymentStatus? = nil
     private var orderId: String? = nil
+//    var paymentResult : BehaviorSubject<IGPaymentResult> = BehaviorSubject(value: IGPaymentResult(purchaseType: .other, status: .pending, rrn: ""))
     
+//    let observ :Observable<IGPaymentResult> = Observable<IGPaymentResult>.empty()
+    
+    var paymentResult = PublishSubject<IGPaymentResult>()
+    
+        
     // MARK: - Init functions
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -279,11 +287,11 @@ class IGPaymentView: UIView {
         }
         
         guard let status = paymentStatusData.status else { return }
-        self.reloadPaymentResult(status: PaymentStatus(rawValue: status) ?? .failure, message: message, RRN: "\(paymentStatusData.info?.rrn ?? 0)")
+        self.reloadPaymentResult(paymentStatusData: paymentStatusData, status: PaymentStatus(rawValue: status) ?? .failure, message: message, RRN: "\(paymentStatusData.info?.rrn ?? 0)")
     }
     
     /// reload payment view on payment result
-    func reloadPaymentResult(status: PaymentStatus, message: String, RRN: String) {
+    func reloadPaymentResult(paymentStatusData: IGStructPaymentStatus, status: PaymentStatus, message: String, RRN: String) {
         hideDiscountView()
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
@@ -294,6 +302,16 @@ class IGPaymentView: UIView {
         self.acceptBtn.isHidden = true
         self.cancelBtn.setTitle(IGStringsManager.GlobalClose.rawValue.localized, for: .normal)
         
+        var pType: PurchaseType = .other
+        if let pStatusInfo = paymentStatusData.info {
+            if let pStatusProduct = pStatusInfo.product {
+                if let reftype = pStatusProduct.refType {
+                    pType = PurchaseType(rawValue: reftype) ?? .other
+                }
+            }
+        }
+        
+        let res = IGPaymentResult(purchaseType: pType, status: .success, rrn: RRN)
         switch status {
             
         case .canceledByUser:
@@ -301,12 +319,14 @@ class IGPaymentView: UIView {
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
             self.cancelBtn.backgroundColor = UIColor.iGapRed()
+            res.status = .canceledByUser
             
         case .failure:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
             self.cancelBtn.backgroundColor = UIColor.iGapRed()
+            res.status = .failure
             
         case .moneyReversed:
             self.topIconLbl.text = ""
@@ -325,8 +345,9 @@ class IGPaymentView: UIView {
             self.topIconLbl.textColor = UIColor.iGapGreen()
             self.statusCodeLbl.isHidden = false
             self.cancelBtn.backgroundColor = UIColor.iGapGreen()
-            
         }
+//        paymentResult.onNext(res)
+        paymentResult.onNext(res)
     }
     
     /// show payment view modal with error
@@ -534,4 +555,20 @@ extension UIView {
             bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
         }
     }
+    
+    class IGPaymentResult {
+        var purchaseType = PurchaseType.other
+        var status = PaymentStatus.pending
+        var rrn = ""
+        
+        init() {}
+        init(purchaseType: PurchaseType, status: PaymentStatus, rrn: String) {
+            self.purchaseType = purchaseType
+            self.status = status
+            self.rrn = rrn
+        }
+    }
+    
 }
+
+

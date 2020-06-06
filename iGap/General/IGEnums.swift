@@ -462,6 +462,7 @@ enum BarcodeScanner {
     case Verify
     case IVandScore
     case BillBarcode
+    case KUKNOS
 }
 
 enum AdditionalType: Int32 {
@@ -660,4 +661,18 @@ enum MemberEditTypes {
     case EditAdmin
     case EditMember
     case EditRoom
+}
+
+enum PurchaseType: String {
+    case BeepTunesPurchase = "BeepTunesPurchase"
+    case Charity = "Charity"
+    case MciTopup = "MciTopup"
+    case MciInternetPackage = "MciInternetPackage"
+    case KuknosPurchase = "KuknosPurchase"
+    case AtiTickets = "AtiTickets"
+    case AtiCpayCharge = "AtiCpayCharge"
+    case AtiCpayReseve = "AtiCpayReseve"
+    case GiftSticker = "GiftSticker"
+    case PaidSticker = "PaidSticker"
+    case other = "other"
 }
