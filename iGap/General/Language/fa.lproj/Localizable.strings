@@ -6927,3 +6927,5 @@ Page 4 introduce app */
 
 
 "increase_score" = "همین حالا امتیازت \n رو افزایش بده!";
+//payment services
+"payment_services_last_purchases" = "خرید های قبلی";

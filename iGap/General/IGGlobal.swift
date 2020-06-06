@@ -48,6 +48,11 @@ enum MBMode : Int {
     case Accounts = 1
     case Services = 2
 }
+enum PaymentServicesType : Int {
+    case TopUp = 0
+    case NetworkPackage = 1
+    case Bill = 2
+}
 enum QoqnosType : Int {
     case PMN = 0
     case A101 = 1

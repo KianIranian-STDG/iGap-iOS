@@ -6910,3 +6910,5 @@ Do NOT share it with others.";
 "english_language" = "En";
 
 "increase_score" = "Increase your score \n right now!";
+//payment servcies
+"payment_services_last_purchases" = "Last Purchases";
