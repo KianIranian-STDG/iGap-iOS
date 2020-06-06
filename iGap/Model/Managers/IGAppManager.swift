@@ -53,6 +53,7 @@ class IGAppManager: NSObject {
     private var _walletRegistered: Bool = false
     private var _walletActive: Bool = false
     private var _AccessToken: String!
+    private var _SymmetricKey: Data!
 
     public let LOAD_ROOM_LIMIT = 50
     public let APP_ID = 3
@@ -399,7 +400,12 @@ class IGAppManager: NSObject {
     public func setWalletActive(enable: Bool) {
         _walletActive = enable
     }
-    
+    public func symmetricKey() -> Data {
+        return _SymmetricKey
+    }
+    public func setSymmetricKey(key: Data) {
+        _SymmetricKey = key
+    }
     public func setAccessToken(accessToken: String, completion: (() -> Void)? = nil) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
