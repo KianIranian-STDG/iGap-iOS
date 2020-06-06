@@ -19,7 +19,7 @@ enum IGCipherMethod {
 class IGSecurityManager: NSObject {
     static let sharedManager = IGSecurityManager()
     
-    private var symmetricKey                = ""
+    public var symmetricKey                = ""
     private var encryptedSymmetricKeyData   = Data()
     private var publicKey             : String    = ""
     private var embeddedPublicKey     : String    = "-----BEGIN PUBLIC KEY-----\n" +
