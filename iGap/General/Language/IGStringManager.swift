@@ -914,6 +914,7 @@ enum IGStringsManager : String {
     case LanguageEnglish = "english_language"
     
     //KUKNOOS
+    case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"
     case KUNewWallet = "kuknos_Entry_NT_str"
     case KNewToken = "k_new_token"
