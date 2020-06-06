@@ -106,10 +106,10 @@ class IGHelperKoknusAlert {
         let lblThreeTitle = UILabel()
         let lblFourTitle = UILabel()
         
-        lblOneTitle.text = IGStringsManager.KTotalPrice.rawValue.localized
-        lblTwoTitle.text = IGStringsManager.KAssetCode.rawValue.localized
-        lblThreeTitle.text = IGStringsManager.KAssetCount.rawValue.localized
-        lblFourTitle.text = IGStringsManager.KAssetPrice.rawValue.localized
+        lblOneTitle.text = IGStringsManager.KAssetCount.rawValue.localized
+        lblTwoTitle.text = IGStringsManager.KAssetPrice.rawValue.localized
+        lblThreeTitle.text = IGStringsManager.KTotalPrice.rawValue.localized
+        lblFourTitle.text = IGStringsManager.KHash.rawValue.localized
 
         lblOneTitle.font = UIFont.igFont(ofSize: 13)
         lblTwoTitle.font = UIFont.igFont(ofSize: 13)
@@ -137,8 +137,8 @@ class IGHelperKoknusAlert {
         lblFourData.translatesAutoresizingMaskIntoConstraints = false
 
         lblOneData.text = data1
-        lblTwoData.text = data2
-        lblThreeData.text = data3
+        lblTwoData.text = data2 + IGStringsManager.Currency.rawValue.localized
+        lblThreeData.text = data3 + IGStringsManager.Currency.rawValue.localized
         lblFourData.text = data4
 
         lblOneData.textAlignment = lblOneData.localizedDirection

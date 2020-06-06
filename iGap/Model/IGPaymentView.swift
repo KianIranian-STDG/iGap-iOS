@@ -74,8 +74,13 @@ class IGPaymentView: UIView {
     private var giftCardPaymentData: IGStructGiftCardPayment!
     private var paymentStatus: PaymentStatus? = nil
     private var orderId: String? = nil
-    var paymentResult : BehaviorRelay<IGPaymentResult> = BehaviorRelay(value: IGPaymentResult(purchaseType: .other, status: .pending, rrn: ""))
+//    var paymentResult : BehaviorSubject<IGPaymentResult> = BehaviorSubject(value: IGPaymentResult(purchaseType: .other, status: .pending, rrn: ""))
     
+//    let observ :Observable<IGPaymentResult> = Observable<IGPaymentResult>.empty()
+    
+    var paymentResult = PublishSubject<IGPaymentResult>()
+    
+        
     // MARK: - Init functions
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -341,7 +346,8 @@ class IGPaymentView: UIView {
             self.statusCodeLbl.isHidden = false
             self.cancelBtn.backgroundColor = UIColor.iGapGreen()
         }
-        paymentResult.accept(res)
+//        paymentResult.onNext(res)
+        paymentResult.onNext(res)
     }
     
     /// show payment view modal with error

@@ -1013,6 +1013,7 @@ enum IGStringsManager : String {
     case KalreadyHaveThisToken = "k_u_already_have_it"
     case KyourUsername = "k_ur_username"
     case KTotalPrice = "total_price"
+    case KHash = "k_hash"
 }
 
 

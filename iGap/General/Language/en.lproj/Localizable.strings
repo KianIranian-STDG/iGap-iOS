@@ -6903,7 +6903,7 @@ Do NOT share it with others.";
 "kuknoos_asset_code" = "Asset Code";
 "kuknoos_asset_count" = "Asset Count";
 "kuknoos_asset_price" = "Asset Price";
-
+"k_hash" = "Kuknos Hash: ";
 
 "persian_language" = "Fa";
 "english_language" = "En";
