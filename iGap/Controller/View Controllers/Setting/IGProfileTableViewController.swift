@@ -716,23 +716,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
-        
-        if IGKKeychainHandler.getFromKeychain(key: .Pin) == "" {
-            let igk = IGKIntroVC()
-            igk.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(igk, animated: true)
-        }else {
-            IGKNewTokenVM.make()
-            IGKNewTokenVM.shared?.getDataFromKeychain()
-            let igk = IGKPinLoginVC(vc: IGKProfileVC())
-            igk.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(igk, animated: true)
-        }
-//                    let igk = IGKPinLoginVC(vc: IGKProfileVC())
-//                    igk.hidesBottomBarWhenPushed = true
-//                    self.navigationController?.pushViewController(igk, animated: true)
-
-        
+        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        settingVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(settingVC, animated:true)
     }
     
     //Hint: - Go To Cloud Action Handler
