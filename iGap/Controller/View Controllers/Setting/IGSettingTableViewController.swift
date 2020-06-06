@@ -184,10 +184,12 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
             }
             else {
-                showLogoutActionSheet()
+//                showLogoutActionSheet()
+                let vc = IGPSTopUpMainVC()
+                vc.hidesBottomBarWhenPushed = true
+                vc.pageType = .TopUp
+                self.navigationController?.pushViewController(vc, animated: true)
 
-
-//                self.navigationController?.pushViewController(IGRoomListNodeController(), animated: true)
 
             }
         }

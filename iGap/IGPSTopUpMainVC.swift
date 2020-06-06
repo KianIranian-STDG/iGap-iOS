@@ -69,8 +69,8 @@ class IGPSTopUpMainVC : MainViewController {
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
         btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btn.backgroundColor = .clear
-        
+        btn.backgroundColor = UIColor.lightGray.lighter(by: 20)
+
         return btn
     }()
     private let btnLastPurchases : UIView = {
@@ -79,11 +79,31 @@ class IGPSTopUpMainVC : MainViewController {
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
         btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btn.backgroundColor = .clear
-        
+        btn.backgroundColor = UIColor.lightGray.lighter(by: 20)
+
         return btn
     }()
     
+    private let lblOperatorTitle : UILabel = {
+        
+        let lbl = UILabel()
+        lbl.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.textAlignment = lbl.localizedDirection
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.ChooseOperatorTitle.rawValue.localized
+        return lbl
+    }()
+    private let  operatorsHolder : UIStackView = {
+        let stk = UIStackView()
+        stk.axis = .horizontal
+        stk.distribution = .fillEqually
+        stk.alignment = .fill
+        stk.spacing = 10
+        return stk
+        
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         vm = IGPSTopUpMainVM(viewController: self)
@@ -116,6 +136,8 @@ class IGPSTopUpMainVC : MainViewController {
         addPhoneTextField()
         addButtonsContacts()
         addButtonLastPurchases()
+        addOperatorTitle()
+        addOperatorsHolder()
         addButtonSubmit()
         manageActions()
     }
@@ -133,39 +155,40 @@ class IGPSTopUpMainVC : MainViewController {
         tfPhoneNUmber.topAnchor.constraint(equalTo: lblTitle.bottomAnchor,constant: 10).isActive = true
         tfPhoneNUmber.centerXAnchor.constraint(equalTo: self.scrollView.contentView.centerXAnchor).isActive = true
         tfPhoneNUmber.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        lblTitle.leadingAnchor.constraint(equalTo: lblTitle.leadingAnchor , constant: 30).isActive = true
-        lblTitle.trailingAnchor.constraint(equalTo: lblTitle.trailingAnchor , constant: -30).isActive = true
+        tfPhoneNUmber.leadingAnchor.constraint(equalTo: lblTitle.leadingAnchor , constant: 0).isActive = true
+        tfPhoneNUmber.trailingAnchor.constraint(equalTo: lblTitle.trailingAnchor , constant: 0).isActive = true
 
     }
     private func addButtonsContacts() {
         self.scrollView.contentView.addSubview(btnContactList)
 
         btnContactList.topAnchor.constraint(equalTo: tfPhoneNUmber.bottomAnchor,constant: 10).isActive = true
-        btnContactList.widthAnchor.constraint(equalTo: self.scrollView.contentView.widthAnchor,multiplier: 0.45).isActive = true
         btnContactList.heightAnchor.constraint(equalToConstant: 50).isActive = true
         btnContactList.leadingAnchor.constraint(equalTo: self.scrollView.contentView.centerXAnchor,constant: 10).isActive = true
         btnContactList.trailingAnchor.constraint(equalTo: lblTitle.trailingAnchor,constant: 0).isActive = true
         
         let lbl = UILabel()
         lbl.text = IGStringsManager.Contacts.rawValue.localized
-        lbl.font = UIFont.igFont(ofSize: 15)
+        lbl.font = UIFont.igFont(ofSize: 10)
         lbl.textAlignment = .center
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
         let lblIcon = UILabel()
         lblIcon.text = ""
         lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
         lblIcon.textAlignment = .center
+        lblIcon.textColor = ThemeManager.currentTheme.LabelColor
         lblIcon.translatesAutoresizingMaskIntoConstraints = false
         
-        btnLastPurchases.addSubview(lbl)
-        btnLastPurchases.addSubview(lblIcon)
-        lbl.centerYAnchor.constraint(equalTo: btnLastPurchases.centerYAnchor).isActive = true
-        lbl.leadingAnchor.constraint(equalTo: btnLastPurchases.leadingAnchor,constant: 25).isActive = true
-        lbl.trailingAnchor.constraint(equalTo: btnLastPurchases.trailingAnchor,constant: -25).isActive = true
+        btnContactList.addSubview(lbl)
+        btnContactList.addSubview(lblIcon)
+        lbl.centerYAnchor.constraint(equalTo: btnContactList.centerYAnchor).isActive = true
+        lbl.leadingAnchor.constraint(equalTo: btnContactList.leadingAnchor,constant: 25).isActive = true
+        lbl.trailingAnchor.constraint(equalTo: btnContactList.trailingAnchor,constant: -25).isActive = true
 
-        lblIcon.centerYAnchor.constraint(equalTo: btnLastPurchases.centerYAnchor).isActive = true
-        lblIcon.trailingAnchor.constraint(equalTo: btnLastPurchases.trailingAnchor,constant: -5).isActive = true
+        lblIcon.centerYAnchor.constraint(equalTo: btnContactList.centerYAnchor).isActive = true
+        lblIcon.trailingAnchor.constraint(equalTo: btnContactList.trailingAnchor,constant: -5).isActive = true
         lblIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
 
 
@@ -174,7 +197,6 @@ class IGPSTopUpMainVC : MainViewController {
         self.scrollView.contentView.addSubview(btnLastPurchases)
 
         btnLastPurchases.topAnchor.constraint(equalTo: tfPhoneNUmber.bottomAnchor,constant: 10).isActive = true
-        btnLastPurchases.widthAnchor.constraint(equalTo: self.scrollView.contentView.widthAnchor,multiplier: 0.45).isActive = true
         btnLastPurchases.heightAnchor.constraint(equalToConstant: 50).isActive = true
         btnLastPurchases.trailingAnchor.constraint(equalTo: self.scrollView.contentView.centerXAnchor,constant: -10).isActive = true
         btnLastPurchases.leadingAnchor.constraint(equalTo: lblTitle.leadingAnchor,constant: 0).isActive = true
@@ -182,16 +204,18 @@ class IGPSTopUpMainVC : MainViewController {
         
         let lbl = UILabel()
         lbl.text = IGStringsManager.PSLastPurchases.rawValue.localized
-        lbl.font = UIFont.igFont(ofSize: 15)
+        lbl.font = UIFont.igFont(ofSize: 10)
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+
         let lblIcon = UILabel()
         lblIcon.text = ""
         lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
         lblIcon.textAlignment = .center
         lblIcon.translatesAutoresizingMaskIntoConstraints = false
-        
+        lblIcon.textColor = ThemeManager.currentTheme.LabelColor
+
         btnLastPurchases.addSubview(lbl)
         btnLastPurchases.addSubview(lblIcon)
         lbl.centerYAnchor.constraint(equalTo: btnLastPurchases.centerYAnchor).isActive = true
@@ -205,12 +229,46 @@ class IGPSTopUpMainVC : MainViewController {
 
 
     }
+    private func addOperatorTitle() {
+        self.scrollView.contentView.addSubview(lblOperatorTitle)
+
+        lblOperatorTitle.topAnchor.constraint(equalTo: btnLastPurchases.bottomAnchor,constant: 25).isActive = true
+        lblOperatorTitle.leadingAnchor.constraint(equalTo: self.scrollView.contentView.leadingAnchor , constant: 30).isActive = true
+        lblOperatorTitle.trailingAnchor.constraint(equalTo: self.scrollView.contentView.trailingAnchor , constant: -30).isActive = true
+    }
+
+    private func addOperatorsHolder() {
+        self.scrollView.contentView.addSubview(operatorsHolder)
+
+        operatorsHolder.topAnchor.constraint(equalTo: lblOperatorTitle.bottomAnchor,constant: 25).isActive = true
+        operatorsHolder.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        operatorsHolder.leadingAnchor.constraint(equalTo: self.scrollView.contentView.leadingAnchor , constant: 30).isActive = true
+        operatorsHolder.trailingAnchor.constraint(equalTo: self.scrollView.contentView.trailingAnchor , constant: -30).isActive = true
+        
+//        let btnMCI = UIView()
+//        let btnMTN = UIView()
+//        let btnRightel = UIView()
+//        
+//        
+//        btnMCI.translatesAutoresizingMaskIntoConstraints = false
+//        btnMTN.translatesAutoresizingMaskIntoConstraints = false
+//        btnRightel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        btnRightel.backgroundColor = .red
+//        btnMTN.backgroundColor = .red
+//        btnMCI.backgroundColor = .red
+//        operatorsHolder.addArrangedSubview(btnMCI)
+//        operatorsHolder.addArrangedSubview(btnMTN)
+//        operatorsHolder.addArrangedSubview(btnRightel)
+
+        
+    }
     private func addButtonSubmit() {
         manageButoonColor() // this method is forced because the button initializer is being called once
         scrollView.contentView.addSubview(btnSubmit)
         btnSubmit.cornerValue = 10
         btnSubmit.centerXAnchor.constraint(equalTo: scrollView.contentView.centerXAnchor).isActive = true
-        btnSubmit.topAnchor.constraint(equalTo: btnLastPurchases.bottomAnchor, constant: 25).isActive = true
+        btnSubmit.topAnchor.constraint(equalTo: lblOperatorTitle.bottomAnchor, constant: 25).isActive = true
         btnSubmit.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor, multiplier: 3/4).isActive = true
         btnSubmit.heightAnchor.constraint(equalToConstant: 50).isActive = true
         btnSubmit.bottomAnchor.constraint(equalTo: scrollView.contentView.bottomAnchor).isActive = true

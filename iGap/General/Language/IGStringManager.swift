@@ -475,6 +475,7 @@ enum IGStringsManager : String {
     case PortedSubsEnable = "ported_subscriber_enable"
     case PortedSubsDisable = "ported_subscriber_disable"
     case ChooseOperator = "please_select_operator"
+    case ChooseOperatorTitle = "select_operator"
     case ChargePrice = "charge_amount"
     case ChooseChargeType = "charge_type_error_message"
     case ChargeType = "charge_type"
