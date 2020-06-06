@@ -56,7 +56,7 @@ class IGHelperKoknusAlert {
                 self.window!.addSubview(self.customAlert)
 
             
-            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:250)///setConstraintsTo CustomeAlert
+            self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:280)///setConstraintsTo CustomeAlert
             ///create StackView for holding Buttons
             let stackButtons : UIStackView
             stackButtons = UIStackView()
@@ -150,7 +150,7 @@ class IGHelperKoknusAlert {
         lblTwoData.font = UIFont.igFont(ofSize: 13)
         lblThreeData.font = UIFont.igFont(ofSize: 13)
         lblFourData.font = UIFont.igFont(ofSize: 13)
-        
+        lblFourData.numberOfLines = 2
         
         customAlertView.addSubview(lblOneTitle)
         customAlertView.addSubview(lblTwoTitle)
@@ -190,8 +190,8 @@ class IGHelperKoknusAlert {
         lblThreeData.leadingAnchor.constraint(equalTo: lblThreeTitle.trailingAnchor,constant: 10).isActive = true
         lblThreeData.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
 
-        lblFourData.topAnchor.constraint(equalTo: lblThreeData.bottomAnchor,constant: 10).isActive = true
-        lblFourData.leadingAnchor.constraint(equalTo: lblFourTitle.trailingAnchor,constant: 10).isActive = true
+        lblFourData.topAnchor.constraint(equalTo: lblFourTitle.bottomAnchor,constant: 10).isActive = true
+        lblFourData.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 10).isActive = true
         lblFourData.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
 
 
