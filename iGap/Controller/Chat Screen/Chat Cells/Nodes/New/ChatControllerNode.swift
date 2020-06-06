@@ -5344,7 +5344,7 @@ class ChatControllerNode: ASCellNode {
                         
                     } else {
                         
-                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label, textColor: .white, size: 11, weight: .bold, font: .igapFont, alignment: .center)
+                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label!, textColor: .white, size: 11, weight: .bold, font: .igapFont, alignment: .center)
 
                     }
 
@@ -5393,7 +5393,7 @@ class ChatControllerNode: ASCellNode {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
-                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value)
+                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value!)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
@@ -5401,11 +5401,11 @@ class ChatControllerNode: ASCellNode {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
-                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value, joinToRoom: false)
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value!, joinToRoom: false)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
-                IGHelperOpenLink.openLink(urlString: structAdditional.value, forceOpenInApp: true)
+                IGHelperOpenLink.openLink(urlString: structAdditional.value!, forceOpenInApp: true)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
@@ -5417,7 +5417,7 @@ class ChatControllerNode: ASCellNode {
                 IGFinancialServiceBill.isTrafficOffenses = false
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
@@ -5427,7 +5427,7 @@ class ChatControllerNode: ASCellNode {
                 IGFinancialServiceBill.isTrafficOffenses = true
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
@@ -5439,9 +5439,9 @@ class ChatControllerNode: ASCellNode {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
-                guard let jsonValue = structAdditional.valueJson as? String, let json = jsonValue.toJSON() as? [String:AnyObject], let token = json["token"] as? String else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-                    break
+                guard let token = (structAdditional.valueJson as? [String:AnyObject])?.first?.value as? String else {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                break
                 }
                 IGGlobal.prgShow()
                 IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in

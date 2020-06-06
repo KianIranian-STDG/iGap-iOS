@@ -1956,14 +1956,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     // MARK: - Bot Actions
     private func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
-        let message = IGRoomMessage(body: structAdditional.label)
+        let message = IGRoomMessage(body: structAdditional.label!)
         message.type = .text
-        message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
+        message.additional = IGRealmAdditional(additionalData: structAdditional.json!, additionalType: 3)
         manageSendMessage(message: message.detach(), addForwardOrReply: false)
     }
     
     private func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
-        openWebView(url: structAdditional.value)
+        openWebView(url: structAdditional.value!)
     }
     
     private func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton){

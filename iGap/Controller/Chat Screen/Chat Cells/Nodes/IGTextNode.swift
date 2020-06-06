@@ -132,7 +132,7 @@ class IGTextNode: AbstractNode {
                         
                     } else {
                         
-                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label, textColor: .white, weight: .regular, font: .igapFont, alignment: .center)
+                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label!, textColor: .white, weight: .regular, font: .igapFont, alignment: .center)
 
                     }
 
@@ -180,7 +180,7 @@ class IGTextNode: AbstractNode {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
-                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value)
+                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value!)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
@@ -188,11 +188,11 @@ class IGTextNode: AbstractNode {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
-                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value, joinToRoom: false)
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value!, joinToRoom: false)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
-                IGHelperOpenLink.openLink(urlString: structAdditional.value, forceOpenInApp: true)
+                IGHelperOpenLink.openLink(urlString: structAdditional.value!, forceOpenInApp: true)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
@@ -204,7 +204,7 @@ class IGTextNode: AbstractNode {
                 IGFinancialServiceBill.isTrafficOffenses = false
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
@@ -214,7 +214,7 @@ class IGTextNode: AbstractNode {
                 IGFinancialServiceBill.isTrafficOffenses = true
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break

@@ -280,7 +280,7 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
-                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value)
+                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value!)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
@@ -288,11 +288,11 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
-                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value, joinToRoom: false)
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value!, joinToRoom: false)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
-                IGHelperOpenLink.openLink(urlString: structAdditional.value, forceOpenInApp: true)
+                IGHelperOpenLink.openLink(urlString: structAdditional.value!, forceOpenInApp: true)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
@@ -304,7 +304,7 @@ class IGHelperBot {
                 IGFinancialServiceBill.isTrafficOffenses = false
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
@@ -314,7 +314,7 @@ class IGHelperBot {
                 IGFinancialServiceBill.isTrafficOffenses = true
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value!)
                 messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
