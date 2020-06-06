@@ -913,6 +913,8 @@ enum IGStringsManager : String {
     case LanguagePersian = "persian_language"
     case LanguageEnglish = "english_language"
     
+    //TOPUP
+    case PSLastPurchases = "payment_services_last_purchases"
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

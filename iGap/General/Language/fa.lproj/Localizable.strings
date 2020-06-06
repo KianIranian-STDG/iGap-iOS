@@ -6919,3 +6919,6 @@ Page 4 introduce app */
 
 "k_invalid_wallet_id" = "آدرس کیف توکن معتبر نیست";
 "k_transfer_successful" = "انتفال با موفقیت انجام شد";
+
+//payment services
+"payment_services_last_purchases" = "خرید های قبلی";

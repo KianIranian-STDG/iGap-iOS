@@ -6907,3 +6907,5 @@ Do NOT share it with others.";
 
 "persian_language" = "Fa";
 "english_language" = "En";
+//payment servcies
+"payment_services_last_purchases" = "Last Purchases";

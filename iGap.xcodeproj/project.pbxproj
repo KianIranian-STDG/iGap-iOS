@@ -61,6 +61,8 @@
 		8E3360E723D8123B00CE766B /* ASAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E623D8123A00CE766B /* ASAvatarView.swift */; };
 		8E3360E923D835D300CE766B /* ASImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E823D835D300CE766B /* ASImageView.swift */; };
 		8E3360EB23D8840000CE766B /* ASReplyForwardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360EA23D883FF00CE766B /* ASReplyForwardNode.swift */; };
+		8E382482248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */; };
+		8E382484248BABAC00F5DE97 /* IGPSTopUpMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -1103,6 +1105,8 @@
 		8E3360E623D8123A00CE766B /* ASAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAvatarView.swift; sourceTree = "<group>"; };
 		8E3360E823D835D300CE766B /* ASImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASImageView.swift; sourceTree = "<group>"; };
 		8E3360EA23D883FF00CE766B /* ASReplyForwardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASReplyForwardNode.swift; sourceTree = "<group>"; };
+		8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSTopUpMainVC.swift; sourceTree = "<group>"; };
+		8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSTopUpMainVM.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2249,6 +2253,7 @@
 		8E38247C248BAAD100F5DE97 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -2256,6 +2261,7 @@
 		8E38247D248BAAD800F5DE97 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -5025,6 +5031,7 @@
 				8E4177F9233CDABD00CEB3AF /* AKMaskFieldStatus.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
+				8E382484248BABAC00F5DE97 /* IGPSTopUpMainVM.swift in Sources */,
 				8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */,
 				8E96A327225C9182007D8A77 /* SMCardGradient.swift in Sources */,
 				8E96A312225B6DCC007D8A77 /* SMHistoryDetailTableViewController.swift in Sources */,
@@ -5549,6 +5556,7 @@
 				FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */,
 				D6AF91E8245D893600586EC4 /* EncryptedMessageLocal.swift in Sources */,
 				FA930D9B1E5B178F00069EE1 /* WebSocket.swift in Sources */,
+				8E382482248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift in Sources */,
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,
 				8E599D7B2325331C00D75376 /* TGPControlsTicksProtocol.swift in Sources */,

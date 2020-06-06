@@ -717,20 +717,11 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         
-        if IGKKeychainHandler.getFromKeychain(key: .Pin) == "" {
-            let igk = IGKIntroVC()
-            igk.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(igk, animated: true)
-        }else {
-            IGKNewTokenVM.make()
-            IGKNewTokenVM.shared?.getDataFromKeychain()
-            let igk = IGKPinLoginVC(vc: IGKProfileVC())
-            igk.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(igk, animated: true)
-        }
-//                    let igk = IGKPinLoginVC(vc: IGKProfileVC())
-//                    igk.hidesBottomBarWhenPushed = true
-//                    self.navigationController?.pushViewController(igk, animated: true)
+
+                    let vc = IGPSTopUpMainVC()
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.pageType = .TopUp
+                    self.navigationController?.pushViewController(vc, animated: true)
 
         
     }
