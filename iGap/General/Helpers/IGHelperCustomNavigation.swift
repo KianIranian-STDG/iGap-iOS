@@ -79,6 +79,8 @@ class IGHelperCustomNavigation {
                     } else {
                         _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
                     }
+                } else if UIApplication.topViewController() is IGKRequestHomeDomainVC {
+                    _ = UIApplication.topViewController()!.navigationController?.popToRootViewController(animated: true)
                 }
                 //whole App
                 else {
