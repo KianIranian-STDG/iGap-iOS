@@ -718,10 +718,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         
 
-                    let vc = IGPSTopUpMainVC()
-                    vc.hidesBottomBarWhenPushed = true
-                    vc.pageType = .TopUp
-                    self.navigationController?.pushViewController(vc, animated: true)
+
+        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        settingVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(settingVC, animated:true)
 
         
     }
