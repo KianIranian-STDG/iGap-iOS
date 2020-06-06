@@ -172,6 +172,7 @@ class IGHelperKoknusAlert {
         lblFourTitle.widthAnchor.constraint(equalToConstant: 100).isActive = true
         lblFourTitle.topAnchor.constraint(equalTo: lblThreeTitle.bottomAnchor,constant: 10).isActive = true
         lblFourTitle.leadingAnchor.constraint(equalTo: customAlertView.leadingAnchor,constant: 10).isActive = true
+        lblFourTitle.trailingAnchor.constraint(equalTo: customAlertView.trailingAnchor,constant: -10).isActive = true
 
         customAlertView.addSubview(lblOneData)
         customAlertView.addSubview(lblTwoData)
