@@ -79,6 +79,12 @@ enum messageMainTopViewState : Int {
     case none = 3
 }
 
+enum selectedOperator : Int {
+    case MTN = 0
+    case MCI = 1
+    case Rightel = 2
+}
+
 class IGGlobal {
     
     /***** Base of Directories *****/

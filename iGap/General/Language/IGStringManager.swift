@@ -916,6 +916,7 @@ enum IGStringsManager : String {
     
     //TOPUP
     case PSLastPurchases = "payment_services_last_purchases"
+    case PSChoseOperatorMessage = "payment_services_choose_trabord"
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

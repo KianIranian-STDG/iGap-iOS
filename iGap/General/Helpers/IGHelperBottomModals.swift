@@ -21,6 +21,19 @@ class IGHelperBottomModals {
     private var actionSubmit: (() -> Void)?
     private init() {}
     
+    func showChargeList(view: UIViewController? = nil,chargeList: [String]) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+
+        let vc = IGPSChargeListTVC()
+        vc.delegate = IGPSTopUpMainVC()
+
+        vc.chargeList = chargeList
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
     func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {
         var alertView = view
         if alertView == nil {

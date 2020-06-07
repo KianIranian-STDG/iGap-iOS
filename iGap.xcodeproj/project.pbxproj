@@ -63,6 +63,8 @@
 		8E3360EB23D8840000CE766B /* ASReplyForwardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360EA23D883FF00CE766B /* ASReplyForwardNode.swift */; };
 		8E382482248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */; };
 		8E382484248BABAC00F5DE97 /* IGPSTopUpMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */; };
+		8E382486248C052A00F5DE97 /* IGHelperPaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */; };
+		8E382488248C9AA200F5DE97 /* IGPSChargeListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -1107,6 +1109,8 @@
 		8E3360EA23D883FF00CE766B /* ASReplyForwardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASReplyForwardNode.swift; sourceTree = "<group>"; };
 		8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSTopUpMainVC.swift; sourceTree = "<group>"; };
 		8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSTopUpMainVM.swift; sourceTree = "<group>"; };
+		8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPaymentService.swift; sourceTree = "<group>"; };
+		8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSChargeListTVC.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2262,6 +2266,7 @@
 			isa = PBXGroup;
 			children = (
 				8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */,
+				8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2276,6 +2281,7 @@
 		8E38247F248BAAE500F5DE97 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -5494,6 +5500,7 @@
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
 				8E3FC94E23705A5A003C9C6C /* IGStructInqueryBill.swift in Sources */,
 				FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */,
+				8E382486248C052A00F5DE97 /* IGHelperPaymentService.swift in Sources */,
 				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,
 				8E0A79912394FD86001A7EB6 /* IGApiNews.swift in Sources */,
 				8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */,
@@ -5579,6 +5586,7 @@
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
 				8EDB7B8E247144BB001DFD69 /* IGKBuyTokenVC.swift in Sources */,
 				D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */,
+				8E382488248C9AA200F5DE97 /* IGPSChargeListTVC.swift in Sources */,
 				8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */,
 				8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,

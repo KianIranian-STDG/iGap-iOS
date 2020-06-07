@@ -6910,3 +6910,4 @@ Do NOT share it with others.";
 //payment servcies
 "payment_services_last_purchases" = "Last Purchases";
 "select_operator" = "Choose Operator";
+"payment_services_choose_trabord" = "If you have ported your operator,Please choose your new one";

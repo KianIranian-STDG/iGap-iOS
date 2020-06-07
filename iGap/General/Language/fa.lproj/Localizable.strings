@@ -6923,3 +6923,4 @@ Page 4 introduce app */
 //payment services
 "payment_services_last_purchases" = "خرید های قبلی";
 "select_operator" = "انتخاب اپراتور";
+"payment_services_choose_trabord" = "در صورتی که ترابرد کرده اید ، اپراتور جدید خود را انتخاب نمایید";
