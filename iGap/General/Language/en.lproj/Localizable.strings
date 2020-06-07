@@ -6638,6 +6638,7 @@ TODO:// complete */
 "call_question" = "Which number do you want to call?";
 "Channels" = "Channels";
 "long_press_to_record" = "Long Press To Record";
+"microphone_permission_requeired" = "Microphone access permission required";
 "unpin_are_u_sure" = "Are you sure unpin this message?";
 "unpin_for_all" = "Unpin for all users";
 "unpin_for_me" = "Unpin for me";

@@ -2432,21 +2432,33 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
     @IBAction func didTapOnMicButton(_ sender: UIButton) {
+        showPopAlert(sender: sender, text: IGStringsManager.LongPressToRecord.rawValue.localized)
+    }
+    
+    private var isShowingPopAlert = false
+    private func showPopAlert(sender: UIButton, text: String) {
+        if isShowingPopAlert {
+            return
+        }
+        isShowingPopAlert = true
         sender.backgroundColor = ThemeManager.currentTheme.LabelColor
         sender.titleLabel!.textColor = UIColor.red
         
         sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        IGHelperShowToastAlertView.shared.showPopAlert(view: self, innerView: holderMessageTextView, message: IGStringsManager.LongPressToRecord.rawValue.localized, time: 2.0, type: .alert)
+        IGHelperShowToastAlertView.shared.showPopAlert(view: self, innerView: holderMessageTextView, message: text, time: 2.0, type: .alert)
         
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             sender.transform = CGAffineTransform.identity
             sender.backgroundColor = UIColor.clear
             sender.titleLabel!.textColor = UIColor.red
             sender.layoutIfNeeded()
-        }, completion: { (completed) in
+        }, completion: {[weak self] (completed) in
+            guard let sSelf = self else {
+                return
+            }
             sender.titleLabel!.textColor = UIColor.red
             sender.titleLabel!.textColor = ThemeManager.currentTheme.LabelColor
-            
+            sSelf.isShowingPopAlert = false
             sender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
             
         })
@@ -2454,8 +2466,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func didLongTapOnMicButton(gesture: UILongPressGestureRecognizer) {
+        
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSessionRecordPermission.granted:
+            break
+        case AVAudioSessionRecordPermission.denied:
+            showPopAlert(sender: btnMicInner, text: IGStringsManager.MicrophonePermissionRequeired.rawValue.localized)
+            return
+        case AVAudioSessionRecordPermission.undetermined:
+            AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
+                return
+            })
+        @unknown default:
+            return
+        }
+        
         switch gesture.state {
-            
         case .began :
             startRecording()
             initialLongTapOnRecordButtonPosition = gesture.location(in: self.view)

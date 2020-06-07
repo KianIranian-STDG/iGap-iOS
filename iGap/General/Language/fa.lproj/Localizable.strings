@@ -6649,6 +6649,7 @@ Page 4 introduce app */
 "call_question" = "تمایل به برقراری تماس به کدام شماره را دارید؟";
 "Channels" = "کانال ها";
 "long_press_to_record" = "برای شروع ضبط دست خود را نگه دارید";
+"microphone_permission_requeired" = "دسترسی میکروفون نیاز است";
 "unpin_are_u_sure" = "آیا از برداشتن پین این پیام مطمئنید؟";
 "unpin_for_all" = "برداشتن پین برای همه";
 "unpin_for_me" = "برداشتن پین برای من";

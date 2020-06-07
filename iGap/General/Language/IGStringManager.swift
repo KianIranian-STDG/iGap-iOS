@@ -765,6 +765,7 @@ enum IGStringsManager : String {
     case Start = "start"
     case SlideToCancel = "slide_to_cancel_en"
     case LongPressToRecord = "long_press_to_record"
+    case MicrophonePermissionRequeired = "microphone_permission_requeired"
     case UnpinForMe = "unpin_for_me"
     case UnpinForAll = "unpin_for_all"
     case ContactPermission = "permission_contact"
