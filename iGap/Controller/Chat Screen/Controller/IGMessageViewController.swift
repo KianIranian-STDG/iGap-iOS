@@ -689,11 +689,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             })
 //        }
         
+        detectWriteMessagePermission()
         
         if room!.isReadOnly {
             if room!.isParticipant == false {
                 mainHolder.isHidden = true
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 showJoinButton()
+//                })
             } else {
                 mainHolder.isHidden = true
                 collectionViewTopInsetOffset = 8.0
@@ -714,7 +717,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
             if messagesCount == 0 {
                 mainHolder.isHidden = true
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 showJoinButton()
+//                })
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.manageKeyboard(firstEnter: true)
@@ -801,14 +806,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
         tableViewNode.view.addGestureRecognizer(mainViewTap)
         
-        detectWriteMessagePermission()
+        
     }
     
     private func detectWriteMessagePermission(){
         if self.room!.type == .chat {return}
 
         if  !(self.roomAccess?.postMessageRights.sendText ?? true) {
-            
+
             if self.room!.isParticipant {
                 if self.room!.type == .group {
                     joinButton.isHidden = false
@@ -816,7 +821,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     mainHolder.isHidden = true
                     self.messageTextView.text = ""
                     self.view.endEditing(true)
-                    
+
                 } else if self.room!.type == .channel {
                     if self.room!.channelRoom?.role == IGPChannelRoom.IGPRole.admin {
                         joinButton.isHidden = false
@@ -832,18 +837,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                 }
             }
-            
+
         } else {
 
             self.forceHideAttachButton = !(self.roomAccess?.postMessageRights.sendMedia ?? false)
             self.forceHideStickerButton = !(self.roomAccess?.postMessageRights.sendSticker ?? false)
-            
+
             if self.forceHideAttachButton {
                 attachmentBtnWidthConstraint.constant = 0
             } else {
                 attachmentBtnWidthConstraint.constant = 35
-
             }
+            
             showHideStickerButton(shouldShow: !self.forceHideStickerButton)
 
             joinButton.isHidden = true
@@ -856,7 +861,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func showJoinButton(){
         joinButton.isHidden = false
-        joinButton.setTitle(IGStringsManager.Start.rawValue.localized, for: UIControl.State.normal)
+        if self.room!.type == .channel {
+            joinButton.setTitle(IGStringsManager.Join.rawValue.localized, for: UIControl.State.normal)
+        } else {
+            joinButton.setTitle(IGStringsManager.Start.rawValue.localized, for: UIControl.State.normal)
+        }
         joinButton.layer.cornerRadius = 5
         joinButton.layer.masksToBounds = false
         joinButton.layer.shadowColor = UIColor.black.cgColor
