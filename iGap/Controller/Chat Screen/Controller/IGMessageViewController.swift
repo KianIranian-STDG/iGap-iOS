@@ -322,6 +322,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var roomAccess: IGRealmRoomAccess?
     private var forceHideAttachButton = false
     private var forceHideStickerButton = false
+    private var giftStickerAlertViewBottomConstraint: NSLayoutConstraint!
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -3941,53 +3942,69 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
     }
-    
+    var giftInfo : IGStructGiftCardSticker!
+
     private func showCardInfo(stickerInfo: IGStructGiftCardStatus){
-        self.dismissBtn = UIButton()
-        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
-        self.view.insertSubview(self.dismissBtn, at: 2)
-        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+        giftInfo = stickerInfo.sticker
+        IGHelperBottomModals.shared.showBuyGiftStickerModal(view: UIApplication.topViewController()!, token: stickerInfo.sticker.token, amount: String(describing: stickerInfo.sticker.giftAmount ?? 0), mode : "SEND_STICKER")
         
-        self.dismissBtn?.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top)
-            make.bottom.equalTo(self.view.snp.bottom)
-            make.right.equalTo(self.view.snp.right)
-            make.left.equalTo(self.view.snp.left)
-        }
-        
-        self.giftCardInfo = stickerInfo
-        self.giftStickerInfo = SMCheckGiftSticker.loadFromNib()
-        self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
-        self.giftStickerInfo.setInfo(giftSticker: stickerInfo)
-        self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
-        self.giftStickerInfo.infoLblOne.text = IGStringsManager.GiftCard.rawValue.localized
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-        swipeDown.direction = .down
-        
-        self.giftStickerInfo.addGestureRecognizer(swipeDown)
-        self.view.addSubview(self.giftStickerInfo)
-        
-       if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
-            let bottomPadding = window?.safeAreaInsets.bottom
-            
-            UIView.animate(withDuration: 0.3) {
-                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
-            }
-        } else {
-            UIView.animate(withDuration: 0.3) {
-                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
-            }
-        }
+//        return
+//
+//
+//        self.giftStickerModalIsActive = true
+//        self.dismissBtn = UIButton()
+//        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+//        self.view.insertSubview(self.dismissBtn, at: 2)
+//        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+//
+//        self.dismissBtn?.snp.makeConstraints { (make) in
+//            make.top.equalTo(self.view.snp.top)
+//            make.bottom.equalTo(self.view.snp.bottom)
+//            make.right.equalTo(self.view.snp.right)
+//            make.left.equalTo(self.view.snp.left)
+//        }
+//
+//        self.giftCardInfo = stickerInfo
+//        self.giftStickerInfo = SMCheckGiftSticker.loadFromNib()
+//        self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
+//        self.giftStickerInfo.setInfo(giftSticker: stickerInfo)
+//        self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+//        self.giftStickerInfo.infoLblOne.text = IGStringsManager.GiftCard.rawValue.localized
+//
+//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+//        swipeDown.direction = .down
+//
+//        self.giftStickerInfo.addGestureRecognizer(swipeDown)
+//        self.view.addSubview(self.giftStickerInfo)
+//
+//       if #available(iOS 11.0, *) {
+//            let window = UIApplication.shared.keyWindow
+//            let bottomPadding = window?.safeAreaInsets.bottom
+//
+//            UIView.animate(withDuration: 0.3) {
+//                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+//            }
+//        } else {
+//            UIView.animate(withDuration: 0.3) {
+//                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+//            }
+//        }
     }
     
     private func showActiveOrForward(fetchNationalCode: Bool = false){
+        self.giftStickerModalIsActive = true
         self.needToNationalCode = fetchNationalCode
         self.giftStickerAlertView = SMGiftStickerAlertView.loadFromNib()
         self.giftStickerAlertView.btnOne.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
-        self.giftStickerAlertView.btnTwo.addTarget(self, action: #selector(self.sendToAnother), for: .touchUpInside)
+//        self.giftStickerAlertView.btnTwo.addTarget(self, action: #selector(self.sendToAnother), for: .touchUpInside)
         self.giftStickerAlertView.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
+//        self.giftStickerAlertView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([giftStickerAlertView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//                                     giftStickerAlertView.heightAnchor.constraint(equalToConstant: giftStickerAlertView.frame.height),
+//                                     giftStickerAlertView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+//        giftStickerAlertViewBottomConstraint = giftStickerAlertView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+//        giftStickerAlertViewBottomConstraint.isActive = true
+        
         manageButtonsView(buttons: [giftStickerAlertView.btnOne, giftStickerAlertView.btnTwo])
         giftStickerAlertView.btnOne.setTitle(IGStringsManager.Activation.rawValue.localized, for: UIControl.State.normal)
         giftStickerAlertView.btnTwo.setTitle(IGStringsManager.GiftStickerSendToOther.rawValue.localized, for: UIControl.State.normal)
@@ -4154,30 +4171,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
-        
-        IGGlobal.prgShow()
-        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
-            IGGlobal.prgHide()
-            if !success {
-                return
-            }
-            if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: (self?.giftCardInfo.sticker.token)!) {
-                let message = IGRoomMessage(body: (self?.giftCardInfo.sticker.name)!)
+     func sendToAnother() {
+
+            if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: (giftInfo.token)) {
+                let message = IGRoomMessage(body: (giftInfo.name))
                 message.type = .sticker
                 message.attachment = attachment
-                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!, giftId: (self?.giftCardInfo.id)!)
+                let stickerItem = IGRealmStickerItem(sticker: (giftInfo)!, giftId: (self.giftInfo.id))
                 message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
                 IGAttachmentManager.sharedManager.add(attachment: attachment)
                 
                 IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
                     DispatchQueue.main.async {
-                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self?.giftCardInfo.id ?? "")
+                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self!.giftInfo.id ?? "")
                     }
                 }
             }
-        }
     }
     
     @objc func didtapOutSide(keepBackground: Bool = false) {
@@ -4326,6 +4335,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func hideGiftStickerAlertModal() {
+        
         if giftStickerAlertView != nil {
             
             UIView.animate(withDuration: 0.3, animations: {

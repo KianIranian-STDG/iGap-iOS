@@ -8,28 +8,43 @@
 
 import Foundation
 
-class IGCheckGiftStickerModal: BaseTableViewController {
+class IGGIftPayInfoModal: BaseTableViewController {
 
     var issecuredPass : Bool = false
 
-    var mode : String = "BUY_STICKER"
-    var roomID : Int64 = 0
-    var token : String = "0"
-    var amount : String = "0"
-    var giftcard : IGStructGiftCardSticker!
+    var mode : String = "GIFT_PAY_INFO"
+
+    var giftCardInfo : IGStructGiftCardInfo! {
+        didSet {
+            lblCardData.text = giftCardInfo.cardNumber
+            lblCVVData.text = giftCardInfo.cvv2
+            lblEXPData.text = giftCardInfo.expireDate
+            lblPinData.text = giftCardInfo.secondPassword
+        }
+    }
+
     var isShortFormEnabled = true
     var isKeyboardPresented = false
 
-    @IBOutlet weak var imgGiftCard : UIImageView!
     @IBOutlet weak var lblHeader : UILabel!
-    @IBOutlet weak var lblStickerData : UILabel!
+    @IBOutlet weak var lblCardTitle : UILabel!
+    @IBOutlet weak var lblCardData : UILabel!
+    @IBOutlet weak var lblCVV : UILabel!
+    @IBOutlet weak var lblCVVData : UILabel!
+
+    @IBOutlet weak var lblEXP : UILabel!
+    @IBOutlet weak var lblEXPData : UILabel!
+
+    @IBOutlet weak var lblPin : UILabel!
+    @IBOutlet weak var lblPinData : UILabel!
+
     @IBOutlet weak var btnInquery : UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initFont()
         switch mode {
-        case "BUY_STICKER" :
+        case "GIFT_PAY_INFO" :
             initView()
             break
         default :
@@ -37,12 +52,12 @@ class IGCheckGiftStickerModal: BaseTableViewController {
             break
         }
         initTheme()
-        btnInquery.addTarget(self, action: #selector(didTapOnInquery), for: .touchUpInside)
-        setInfo(token: token, amount: amount)
+        btnInquery.addTarget(self, action: #selector(didTapOnCopy), for: .touchUpInside)
+
     }
 
-    @objc func didTapOnInquery() {
-        if mode == "BUY_STICKER" {
+    @objc func didTapOnCopy() {
+        if mode == "GIFT_PAY_INFO" {
 
             dismiss(animated: true, completion: {
                 var phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0)
@@ -81,7 +96,16 @@ class IGCheckGiftStickerModal: BaseTableViewController {
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         lblHeader.textColor = ThemeManager.currentTheme.LabelColor
-        lblStickerData.textColor = ThemeManager.currentTheme.LabelColor
+        lblCVV.textColor = ThemeManager.currentTheme.LabelColor
+        lblEXP.textColor = ThemeManager.currentTheme.LabelColor
+        lblPin.textColor = ThemeManager.currentTheme.LabelColor
+        lblCVVData.textColor = ThemeManager.currentTheme.LabelColor
+        lblPinData.textColor = ThemeManager.currentTheme.LabelColor
+        lblEXPData.textColor = ThemeManager.currentTheme.LabelColor
+
+        lblCardData.textColor = ThemeManager.currentTheme.LabelColor
+        lblCardTitle.textColor = ThemeManager.currentTheme.LabelColor
+
         btnInquery.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnInquery.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         
@@ -118,11 +142,13 @@ class IGCheckGiftStickerModal: BaseTableViewController {
     
     private func initView() {
         lblHeader.text = IGStringsManager.GiftStickerBuy.rawValue.localized
-        if mode == "BUY_STICKER" {
-            btnInquery.setTitle(IGStringsManager.Payment.rawValue.localized, for: .normal)
+        lblCardTitle.text = IGStringsManager.CardNumber.rawValue.localized
+        lblCVV.text = IGStringsManager.CVV2.rawValue.localized
+        lblEXP.text = IGStringsManager.ExpireDate.rawValue.localized
+        lblPin.text = IGStringsManager.Pin.rawValue.localized
 
-        }else {
-            btnInquery.setTitle(IGStringsManager.ActivateOrSendAsMessage.rawValue.localized, for: .normal)
+        if mode == "GIFT_PAY_INFO" {
+            btnInquery.setTitle(IGStringsManager.Copy.rawValue.localized, for: .normal)
 
         }
         btnInquery.layer.cornerRadius = 10
@@ -130,36 +156,30 @@ class IGCheckGiftStickerModal: BaseTableViewController {
     private func initFont() {
 
         lblHeader.font = UIFont.igFont(ofSize: 13)
-        lblStickerData.font = UIFont.igFont(ofSize: 15)
+        lblCardTitle.font = UIFont.igFont(ofSize: 15)
+        lblCardData.font = UIFont.igFont(ofSize: 15)
+        lblCVVData.font = UIFont.igFont(ofSize: 15)
+        lblCVV.font = UIFont.igFont(ofSize: 15)
+        lblPinData.font = UIFont.igFont(ofSize: 15)
+        lblPin.font = UIFont.igFont(ofSize: 15)
+        lblEXPData.font = UIFont.igFont(ofSize: 15)
+        lblEXP.font = UIFont.igFont(ofSize: 15)
+
         btnInquery.titleLabel!.font = UIFont.igFont(ofSize: 15)
 
         
         lblHeader.textAlignment = lblHeader.localizedDirection
-        lblStickerData.textAlignment = .center
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
     }
     
-    func setInfo(token: String, amount: String){
-        if mode == "BUY_STICKER" {
-            btnInquery.setTitle(IGStringsManager.Payment.rawValue.localized, for: .normal)
-        }else {
-            btnInquery.setTitle(IGStringsManager.ActivateOrSendAsMessage.rawValue.localized, for: .normal)
-        }
-
-        IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
-            DispatchQueue.main.async {
-                self.imgGiftCard.setSticker(for: file)
-            }
-        })
-        
-        lblStickerData.text = IGStringsManager.GiftCardSelected.rawValue.localized + "\n" + amount.inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
-    }
+    
 
 }
 
-extension IGCheckGiftStickerModal: PanModalPresentable {
+extension IGGIftPayInfoModal: PanModalPresentable {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

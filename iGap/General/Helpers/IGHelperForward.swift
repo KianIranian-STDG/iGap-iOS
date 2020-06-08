@@ -154,7 +154,7 @@ class IGHelperForward {
             roomVC.forwardFromCloud = isFromCloud
             roomVC.forwardedMessageArray = messageArray
             roomVC.hidesBottomBarWhenPushed = true
-            viewController.navigationController!.pushViewController(roomVC, animated: true)
+            UIApplication.topViewController()?.navigationController!.pushViewController(roomVC, animated: true)
         }
     }
 }

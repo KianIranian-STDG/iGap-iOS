@@ -42,7 +42,7 @@ class IGHelperBottomModals {
         
         UIApplication.topViewController()!.presentPanModal(vc)
     }
-    func showBuyGiftStickerModal(view: UIViewController? = nil,token : String, amount :String) {
+    func showBuyGiftStickerModal(view: UIViewController? = nil,token : String, amount :String,mode : String = "BUY_STICKER") {
         var alertView = view
         if alertView == nil {
          alertView = UIApplication.topViewController()
@@ -51,16 +51,67 @@ class IGHelperBottomModals {
         let vc = storyboard.instantiateViewController(withIdentifier: "IGCheckGiftStickerModal") as! IGCheckGiftStickerModal
         vc.token = token
         vc.amount = amount
+        if mode == "SEND_STICKER" {
+            vc.mode = mode
+
+        }
         UIApplication.topViewController()!.presentPanModal(vc)
 
     }
-    func showNationalIDModal(view: UIViewController? = nil) {
+    func showGiftStickerModal(view: UIViewController? = nil,token : String, amount :String,mode : String = "BUY_STICKER",giftcard : IGStructGiftCardSticker) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGCheckGiftStickerModal") as! IGCheckGiftStickerModal
+        vc.token = token
+        vc.amount = amount
+        if mode == "SEND_STICKER" {
+            vc.mode = mode
+            vc.giftcard = giftcard
+
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+
+    func showNationalIDModal(view: UIViewController? = nil,mode : String = "NATIONAL_ID_Buy") {
         var alertView = view
         if alertView == nil {
          alertView = UIApplication.topViewController()
         }
         let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGNationalIDModal") as! IGNationalIDModal
+        if mode != "NATIONAL_ID_Buy" {
+            vc.mode = mode
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func checkNationalIDModal(view: UIViewController? = nil,mode : String = "NATIONAL_ID_Buy",giftcard : IGStructGiftCardSticker) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGNationalIDModal") as! IGNationalIDModal
+        if mode != "NATIONAL_ID_Buy" {
+            vc.mode = mode
+            vc.giftcard = giftcard
+
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showGiftPayInfoModal(view: UIViewController? = nil,giftCardInfo : IGStructGiftCardInfo) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGGIftPayInfoModal") as! IGGIftPayInfoModal
+
         UIApplication.topViewController()!.presentPanModal(vc)
 
     }
