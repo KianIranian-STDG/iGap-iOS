@@ -1,5 +1,5 @@
 //
-//  IGPSChargeListTVC.swift
+//  IGPSChargeTypesTVC.swift
 //  iGap
 //
 //  Created by BenyaminMokhtarpour on 6/7/20.
@@ -8,19 +8,19 @@
 
 import UIKit
 
-
-class IGPSChargeListTVC: BaseTableViewController {
-
-    var chargeList = [String]()
+class IGPSChargeTypesTVC: BaseTableViewController {
+    
+    var numberOfRows : Int = 2
+    var chargeTypes = [String]()
     var isShortFormEnabled = true
     var isKeyboardPresented = false
-    var delegate: chargeDelegate?
-
+    var selectedOperator : selectedOperator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         self.tableView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+
     }
 
     // MARK: - Table view data source
@@ -32,8 +32,9 @@ class IGPSChargeListTVC: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 7
+        return (chargeTypes.count) + 1
     }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         cell.textLabel?.font = UIFont.igFont(ofSize: 15)
@@ -42,44 +43,31 @@ class IGPSChargeListTVC: BaseTableViewController {
         
         switch indexPath.row {
         case 0 :
-            cell.textLabel!.text = IGStringsManager.EnterChargePrice.rawValue.localized
+            cell.textLabel!.text = IGStringsManager.ChooseChargeType.rawValue.localized
             return cell
-        case 1,2,3,4,5 :
-            cell.textLabel!.text = "\(chargeList[(indexPath.row) - 1])".inLocalizedLanguage()
+        default :
+            cell.textLabel!.text = "\(chargeTypes[(indexPath.row) - 1])".inLocalizedLanguage()
             return cell
-        case 6 :
-            cell.textLabel!.text = IGStringsManager.PSEnterChargeAmount.rawValue.localized
-            return cell
-        default : return UITableViewCell()
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0 : break
-        case 1,2,3,4,5 :
-            self.dismiss(animated: true, completion: {
+        default :
+            self.dismiss(animated: true, completion: {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                (UIApplication.topViewController() as! IGPSTopUpMainVC).btnChargeType.setTitle("\(sSelf.chargeTypes[(indexPath.row) - 1])", for: .normal)
+                (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedChargeType["\(sSelf.chargeTypes[(indexPath.row) - 1])"] = (indexPath.row) - 1
                 
-//                (UIApplication.topViewController() as! IGPSTopUpMainVC).tfChargeAmount.text = "\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedCharge["\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()] = (indexPath.row) - 1
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).chargeAmount = "\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()
             })
-        case 6 :
-            self.dismiss(animated: true, completion: {
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).tfChargeAmount.becomeFirstResponder()
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedCharge.removeAll()
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).tfChargeAmount.text = nil
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).scrollView.shouldScrollToEnd = true
-
-            })
-
-        default : break
         }
     }
 
 }
-class chargeCell : UITableViewCell {}
 
-extension IGPSChargeListTVC: PanModalPresentable {
+extension IGPSChargeTypesTVC: PanModalPresentable {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -92,14 +80,14 @@ extension IGPSChargeListTVC: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(350)
+        return .contentHeight(CGFloat((80) * chargeTypes.count))
     }
     var longFormHeight: PanModalHeight {
 
         if isKeyboardPresented {
             return .contentHeight(500)
         } else {
-            return .contentHeight(350)
+            return .contentHeight(CGFloat((80) * chargeTypes.count))
         }
 
     }

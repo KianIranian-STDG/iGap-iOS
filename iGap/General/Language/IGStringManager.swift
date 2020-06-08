@@ -917,6 +917,15 @@ enum IGStringsManager : String {
     //TOPUP
     case PSLastPurchases = "payment_services_last_purchases"
     case PSChoseOperatorMessage = "payment_services_choose_trabord"
+    case PSPermanentSim = "payment_services_incash_simcard"
+    case PSCreditSim = "payment_services_prepaid_simcard"
+    case PSPermanentTDLTE = "payment_services_incash_lte_simcard"
+    case PSCreditTDLTE = "payment_services_prepaid_lte_simcard"
+    case PSDataSim = "payment_services_data_simcard"
+    case PSEnterChargeAmount = "payment_services_custome_charge_amount"
+    case PSYouthCharge = "payment_services_mci_youth_charge"
+    case PSLadiesCharge = "payment_services_mci_ladies_charge"
+
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

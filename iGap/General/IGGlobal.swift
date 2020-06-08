@@ -2811,6 +2811,9 @@ extension String {
     func phoneConvert98to0() -> String {
         return ("+"+self).replace("+98", withString: "0")
     }
+    func remove98() -> String {
+        return (self).replace("+98", withString: "0")
+    }
 }
 
 extension Character {

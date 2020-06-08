@@ -21,6 +21,7 @@ class IGHelperBottomModals {
     private var actionSubmit: (() -> Void)?
     private init() {}
     
+    
     func showChargeList(view: UIViewController? = nil,chargeList: [String]) {
         var alertView = view
         if alertView == nil {
@@ -31,6 +32,18 @@ class IGHelperBottomModals {
         vc.delegate = IGPSTopUpMainVC()
 
         vc.chargeList = chargeList
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showChargeType(view: UIViewController? = nil,chargeTypes: [String],selectedOperator : selectedOperator) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+
+        let vc = IGPSChargeTypesTVC()
+        vc.chargeTypes = chargeTypes
+        vc.selectedOperator = selectedOperator
         UIApplication.topViewController()!.presentPanModal(vc)
 
     }
