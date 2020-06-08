@@ -392,10 +392,6 @@
 		8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */; };
 		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
 		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
-		8EF0DE032478EA74007AC20C /* IGChatPageMoneyModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */; };
-		8EF0DE0524790093007AC20C /* IGNationalIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */; };
-		8EF0DE0724790F7E007AC20C /* IGCheckGiftStickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */; };
-		8EF0DE092479474C007AC20C /* IGCardToCardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */; };
 		8EF0DDC4247271E6007AC20C /* IGScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC3247271E6007AC20C /* IGScrollView.swift */; };
 		8EF0DDC62472875F007AC20C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC52472875F007AC20C /* MainViewController.swift */; };
 		8EF0DDC82473C748007AC20C /* IGKRetrieveByRecoveryKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDC72473C748007AC20C /* IGKRetrieveByRecoveryKey.swift */; };
@@ -407,6 +403,10 @@
 		8EF0DDD62474F180007AC20C /* CellRowTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD52474F180007AC20C /* CellRowTwo.swift */; };
 		8EF0DDD92474F1B0007AC20C /* CellRowOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */; };
 		8EF0DDF724766D04007AC20C /* IGDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DDF624766D04007AC20C /* IGDropDown.swift */; };
+		8EF0DE032478EA74007AC20C /* IGChatPageMoneyModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */; };
+		8EF0DE0524790093007AC20C /* IGNationalIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */; };
+		8EF0DE0724790F7E007AC20C /* IGCheckGiftStickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */; };
+		8EF0DE092479474C007AC20C /* IGCardToCardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */; };
 		8EFBE423246169AE00755464 /* IGMBChequesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE422246169AE00755464 /* IGMBChequesVC.swift */; };
 		8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE424246169DE00755464 /* ChequeCell.swift */; };
 		8EFBE4272461847700755464 /* ChequeCellInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBE4262461847700755464 /* ChequeCellInner.swift */; };
@@ -499,6 +499,10 @@
 		D2CC151024515EF00083FF48 /* MBCardPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */; };
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
+		D2E2E70D248E201D00FA2F3A /* libwebp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70C248E201D00FA2F3A /* libwebp.framework */; };
+		D2E2E70E248E201E00FA2F3A /* libwebp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70C248E201D00FA2F3A /* libwebp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D2E2E710248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */; };
+		D2E2E711248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2EC3C58247D2E2D00072B87 /* IGKBuyTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
 		D2FE6417246814F3000D861E /* IGKCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6416246814F3000D861E /* IGKCustomButton.swift */; };
@@ -1005,6 +1009,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D2E2E711248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Embed Frameworks */,
+				D2E2E70E248E201E00FA2F3A /* libwebp.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1430,10 +1436,6 @@
 		8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
-		8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGChatPageMoneyModal.swift; sourceTree = "<group>"; };
-		8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNationalIDModal.swift; sourceTree = "<group>"; };
-		8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCheckGiftStickerModal.swift; sourceTree = "<group>"; };
-		8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCardToCardModal.swift; sourceTree = "<group>"; };
 		8EF0DDC3247271E6007AC20C /* IGScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScrollView.swift; sourceTree = "<group>"; };
 		8EF0DDC52472875F007AC20C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8EF0DDC72473C748007AC20C /* IGKRetrieveByRecoveryKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetrieveByRecoveryKey.swift; sourceTree = "<group>"; };
@@ -1445,6 +1447,10 @@
 		8EF0DDD52474F180007AC20C /* CellRowTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowTwo.swift; sourceTree = "<group>"; };
 		8EF0DDD82474F1B0007AC20C /* CellRowOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRowOne.swift; sourceTree = "<group>"; };
 		8EF0DDF624766D04007AC20C /* IGDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDropDown.swift; sourceTree = "<group>"; };
+		8EF0DE022478EA74007AC20C /* IGChatPageMoneyModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGChatPageMoneyModal.swift; sourceTree = "<group>"; };
+		8EF0DE0424790093007AC20C /* IGNationalIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNationalIDModal.swift; sourceTree = "<group>"; };
+		8EF0DE0624790F7E007AC20C /* IGCheckGiftStickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCheckGiftStickerModal.swift; sourceTree = "<group>"; };
+		8EF0DE082479474C007AC20C /* IGCardToCardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCardToCardModal.swift; sourceTree = "<group>"; };
 		8EFBE422246169AE00755464 /* IGMBChequesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBChequesVC.swift; sourceTree = "<group>"; };
 		8EFBE424246169DE00755464 /* ChequeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCell.swift; sourceTree = "<group>"; };
 		8EFBE4262461847700755464 /* ChequeCellInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequeCellInner.swift; sourceTree = "<group>"; };
@@ -1536,6 +1542,8 @@
 		D2C3EF932474379D006CD084 /* IGKRetreiveRecoveryKeyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRetreiveRecoveryKeyVM.swift; sourceTree = "<group>"; };
 		D2CC150F24515EF00083FF48 /* MBCardPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardPagerCell.swift; sourceTree = "<group>"; };
 		D2CC15112451751C0083FF48 /* MBCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCardCell.swift; sourceTree = "<group>"; };
+		D2E2E70C248E201D00FA2F3A /* libwebp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libwebp.framework; path = Carthage/Build/iOS/libwebp.framework; sourceTree = "<group>"; };
+		D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImageWebPCoder.framework; path = Carthage/Build/iOS/SDWebImageWebPCoder.framework; sourceTree = "<group>"; };
 		D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBuyTokenVM.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
 		D2FE6416246814F3000D861E /* IGKCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCustomButton.swift; sourceTree = "<group>"; };
@@ -2139,9 +2147,11 @@
 				FAF985AF1E2E10EC00B26940 /* RxRealm.framework in Frameworks */,
 				FAF985B01E2E10EC00B26940 /* RxSwift.framework in Frameworks */,
 				FAC42C861E36267400F2CB5C /* Crashlytics.framework in Frameworks */,
+				D2E2E710248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Frameworks */,
 				FAF985B21E2E10EC00B26940 /* SnapKit.framework in Frameworks */,
 				FAF985B51E2E10EC00B26940 /* SwiftyRSA.framework in Frameworks */,
 				93CE90811EC4B93F002BFEC1 /* NVActivityIndicatorView.framework in Frameworks */,
+				D2E2E70D248E201D00FA2F3A /* libwebp.framework in Frameworks */,
 				FAF5D2E71F8D81A900A26EE1 /* SwiftProtobuf.framework in Frameworks */,
 				FA6F312522B8C3D300DB942E /* libsqlite3.tbd in Frameworks */,
 				FA6F312322B8C37600DB942E /* libz.tbd in Frameworks */,
@@ -4350,6 +4360,8 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */,
+				D2E2E70C248E201D00FA2F3A /* libwebp.framework */,
 				D68D4B7724599105005FCFD5 /* PecPayment.framework */,
 				D6AFC17023DD6AAD002584D5 /* Files.framework */,
 				D65179A7239B8F6C00557E5B /* FSPagerView.framework */,
@@ -4738,6 +4750,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/AsyncDisplayKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PecPayment.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/stellarsdk.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/libwebp.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SDWebImageWebPCoder.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (

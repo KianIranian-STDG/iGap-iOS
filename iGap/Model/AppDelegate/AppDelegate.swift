@@ -25,7 +25,8 @@ import CallKit
 import SwiftEventBus
 import AsyncDisplayKit
 import KeychainSwift
-
+import SDWebImage
+import SDWebImageWebPCoder
 
 @UIApplicationMain
 class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate, CXProviderDelegate {
@@ -92,6 +93,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             userDefaults.set(true, forKey: "hasRunBefore")
         }
         
+        let WebPCoder = SDImageWebPCoder.shared
+        SDImageCodersManager.shared.addCoder(WebPCoder)
         
         return true
     }
