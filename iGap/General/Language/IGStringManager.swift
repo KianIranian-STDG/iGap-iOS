@@ -925,7 +925,7 @@ enum IGStringsManager : String {
     case PSEnterChargeAmount = "payment_services_custome_charge_amount"
     case PSYouthCharge = "payment_services_mci_youth_charge"
     case PSLadiesCharge = "payment_services_mci_ladies_charge"
-
+    case PSOperator = "payment_serices_operator"
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

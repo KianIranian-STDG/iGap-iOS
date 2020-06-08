@@ -20,16 +20,22 @@ class IGPSLastPurchasesVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         TopUpPurchases.count
     }
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let v = (vc!).makeHeader()
+            v.semanticContentAttribute = (UIApplication.topViewController() as! MainViewController).semantic
+
+            return v
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let vc = vc as? IGPSLastPurchasesVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IGPSTOPUPLastPurchasesCell", for: indexPath) as! IGPSTOPUPLastPurchasesCell
             cell.item = TopUpPurchases[indexPath.row]
             cell.delegate = delegate
             return cell
-        }
-        return UITableViewCell()
+        
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

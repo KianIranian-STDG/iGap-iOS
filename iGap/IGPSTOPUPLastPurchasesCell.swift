@@ -17,6 +17,7 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
         didSet {
             
             lblPhoneNumber.text = item.phoneNumber?.inLocalizedLanguage()
+            lblOperator.text = item.simOperatorTitle
             lblAmount.text = "\(item.amount ?? 0)".inRialFormat() + IGStringsManager.Currency.rawValue.localized        }
     }
     private let holder : UIView = {
@@ -34,6 +35,15 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
     
     
     private let lblPhoneNumber : UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.igFont(ofSize: 10)
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.textAlignment = .center
+        lbl.text = ""
+        return lbl
+    }()
+    private let lblOperator : UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.igFont(ofSize: 10)
         lbl.textColor = ThemeManager.currentTheme.LabelColor
@@ -78,8 +88,8 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
         
         holder.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         holder.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        holder.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20).isActive = true
-        holder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20).isActive = true
+        holder.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 0).isActive = true
+        holder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: 0).isActive = true
         holder.heightAnchor.constraint(equalTo: self.heightAnchor,multiplier: 0.8).isActive = true
         
         
@@ -97,6 +107,7 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
         stk.heightAnchor.constraint(equalTo: holder.heightAnchor).isActive = true
         
         stk.addArrangedSubview(lblPhoneNumber)
+        stk.addArrangedSubview(lblOperator)
         stk.addArrangedSubview(lblAmount)
         
         holder.addTapGestureRecognizer(action: { [weak self] in
