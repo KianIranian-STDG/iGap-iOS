@@ -53,18 +53,21 @@ class IGNationalIDModal: BaseTableViewController {
         showActiveOrForward()
     }
     private func sendToOther() {
-//        guard let nationalCode = tfNationalID.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
-//
-//        btnSendToAnother.setTitle(IGStringsManager.GlobalLoading.rawValue.localized, for: .normal)
-//        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
-//            IGGlobal.prgHide()
-//            if !success {
-//                return
-//            }
-            self.dismiss(animated: true, completion: {
+        guard let nationalCode = tfNationalID.text?.inEnglishNumbersNew(), let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+
+        btnSendToAnother.setTitle(IGStringsManager.GlobalLoading.rawValue.localized, for: .normal)
+        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
+            guard let sSelf = self else {
+                return
+            }
+            IGGlobal.prgHide()
+            if !success {
+                return
+            }
+            sSelf.dismiss(animated: true, completion: {
                 (UIApplication.topViewController() as! IGMessageViewController).sendToAnother()
             })
-//        }
+        }
     }
     
     private func showActiveOrForward(fetchNationalCode: Bool = false) {

@@ -4183,7 +4183,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
                     DispatchQueue.main.async {
-                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self!.giftInfo.id ?? "")
+                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self!.giftInfo.id )
                     }
                 }
             }
