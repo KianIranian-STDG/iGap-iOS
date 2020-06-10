@@ -554,7 +554,12 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         if IGGlobal.shouldShowChart {
             return CGSize(width: screenWidth, height: computeHeight(scale: pollList[indexPath.section].igpScale) + 4)
         } else {
-            return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 4)
+            if discoveries[indexPath.section].igpDiscoveryfields[0].igpActiontype == IGPDiscoveryField.IGPButtonActionType.ivand {
+                return CGSize(width: screenWidth, height: 82)
+            }else {
+                return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 4)
+            }
+//            return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 4)
         }
     }
     

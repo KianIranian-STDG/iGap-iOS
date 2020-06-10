@@ -37,6 +37,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = ""
         lbl.textAlignment = .center
+        lbl.isUserInteractionEnabled = false
         return lbl
     }()
     
@@ -47,6 +48,8 @@ class AbstractDashboardCell: UICollectionViewCell {
         lbl.text = IGStringsManager.YourScore.rawValue.localized
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .center
+        lbl.adjustsFontSizeToFitWidth = true
+        lbl.isUserInteractionEnabled = false
         return lbl
     }()
     
@@ -56,6 +59,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         lbl.textColor = ThemeManager.currentTheme.iVandColor
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .center
+        lbl.isUserInteractionEnabled = false
         return lbl
     }()
     
@@ -65,6 +69,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         vi.layer.cornerRadius = 10
         vi.clipsToBounds = true
         vi.translatesAutoresizingMaskIntoConstraints = false
+        vi.isUserInteractionEnabled = false
         return vi
     }()
     
@@ -76,6 +81,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         lbl.font = UIFont.igFont(ofSize: 15, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .center
+        lbl.isUserInteractionEnabled = false
         return lbl
     }()
     
@@ -88,7 +94,17 @@ class AbstractDashboardCell: UICollectionViewCell {
         self.dashboardAbs = dashboard
         if img1Abs != nil {
             if dashboard[0].igpActiontype == IGPDiscoveryField.IGPButtonActionType.ivand {
-//                img1Abs?.backgroundColor = .red
+                
+                for vi in subviews{
+                    vi.backgroundColor = .clear
+                }
+                
+                lblStar.alpha = 1
+                lblTitle.alpha = 1
+                lblYourScoreTitle.alpha = 1
+                lblYourScore.alpha = 1
+                viewSeparatorLine.alpha = 1
+                lblTitle.alpha = 1
                 makeCreditCellView()
                 img1Abs?.image = nil
             } else {
@@ -1132,9 +1148,13 @@ class AbstractDashboardCell: UICollectionViewCell {
             lblYourScore.semanticContentAttribute = .forceLeftToRight
             lblTitle.semanticContentAttribute = .forceLeftToRight
         }
-        
+        lblStar.textColor = ThemeManager.currentTheme.iVandColor
+        lblYourScore.textColor = ThemeManager.currentTheme.iVandColor
+        lblTitle.textColor = ThemeManager.currentTheme.iVandColor
+
     }
     
+ 
     private func getScore(){
         lblYourScore.text = "..."
         IGUserIVandGetScoreRequest.Generator.generate().success({ [weak self] (protoResponse) in
