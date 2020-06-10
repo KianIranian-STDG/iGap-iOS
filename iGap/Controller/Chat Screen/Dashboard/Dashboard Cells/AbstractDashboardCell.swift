@@ -94,20 +94,12 @@ class AbstractDashboardCell: UICollectionViewCell {
         self.dashboardAbs = dashboard
         if img1Abs != nil {
             if dashboard[0].igpActiontype == IGPDiscoveryField.IGPButtonActionType.ivand {
-                
-                for vi in subviews{
-                    vi.backgroundColor = .clear
-                }
-                
-                lblStar.alpha = 1
-                lblTitle.alpha = 1
-                lblYourScoreTitle.alpha = 1
-                lblYourScore.alpha = 1
-                viewSeparatorLine.alpha = 1
-                lblTitle.alpha = 1
                 makeCreditCellView()
                 img1Abs?.image = nil
+                view1Abs?.backgroundColor = .clear
+
             } else {
+                removeCreditCellView()
                 customizeImage(img: img1Abs!, view: view1Abs)
                 if dashboard.count > 0, let url = URL(string: dashboard[0].igpImageurl) {
                     img1Abs?.sd_setImage(with: url, completed: nil)
@@ -1089,7 +1081,13 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
         }
     }
-    
+    private func removeCreditCellView() {
+        lblStar.removeFromSuperview()
+        lblYourScoreTitle.removeFromSuperview()
+        lblYourScore.removeFromSuperview()
+        viewSeparatorLine.removeFromSuperview()
+        lblTitle.removeFromSuperview()
+    }
     private func makeCreditCellView() {
         addSubview(lblStar)
         addSubview(lblYourScoreTitle)
