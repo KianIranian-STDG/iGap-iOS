@@ -41,4 +41,19 @@ class DashboardCell1: AbstractDashboardCell {
         view1Abs = view
         super.initViewPoll(dashboard: dashboard)
     }
+    
+    
+}
+
+class Animations {
+    static func circularShake(on onView: UIView) {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.duration = 0.1
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = Double.pi/32
+        animation.toValue = -(Double.pi/32)
+        
+        onView.layer.add(animation, forKey: "rotationAnimation")
+    }
 }

@@ -102,6 +102,7 @@ class PinkColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "CE4C9F")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "CE4C9F")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -282,6 +283,7 @@ class PinkColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "CE4C9F")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "CE4C9F")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

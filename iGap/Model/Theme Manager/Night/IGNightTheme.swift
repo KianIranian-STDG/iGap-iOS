@@ -11,6 +11,8 @@
 import UIKit
 
 class NightTheme: ThemeProtocol {
+    var iVandColor: UIColor = NightColorSetManager.currentColorSet.iVandColor
+
     var replyMSGColor : UIColor = NightColorSetManager.currentColorSet.replyMSGColor
 
     var timeColor : UIColor = NightColorSetManager.currentColorSet.timeColor

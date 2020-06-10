@@ -14,6 +14,7 @@ import UIKit
 
 protocol DefaultColorSetProtocol {
     var replyMSGColor : UIColor { get }
+    var iVandColor : UIColor { get }
 
     var timeColor : UIColor { get }
     
@@ -111,6 +112,7 @@ protocol DefaultColorSetProtocol {
 
 protocol DayNightColorSetProtocol {
     var replyMSGColor : UIColor { get }
+    var iVandColor : UIColor { get }
 
     var timeColor : UIColor { get }
 
@@ -221,6 +223,7 @@ protocol DayNightColorSetProtocol {
 
 protocol NightColorSetProtocol {
     var replyMSGColor : UIColor { get }
+    var iVandColor : UIColor { get }
 
     var timeColor : UIColor { get }
 

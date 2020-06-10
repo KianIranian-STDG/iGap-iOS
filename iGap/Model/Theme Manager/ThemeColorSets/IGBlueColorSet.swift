@@ -13,6 +13,7 @@ import UIKit
 class BlueColorSet: DayNightColorSetProtocol {
     
     var replyMSGColor : UIColor = UIColor.hexStringToUIColor(hex: "474747")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "4529F8")
 
     var timeColor : UIColor = UIColor.hexStringToUIColor(hex: "202020")
 
@@ -188,6 +189,7 @@ class BlueColorSet: DayNightColorSetProtocol {
 
 class BlueColorSetNight: NightColorSetProtocol {
     var replyMSGColor : UIColor = UIColor.hexStringToUIColor(hex: "474747")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "4529F8")
 
     var timeColor : UIColor = UIColor.hexStringToUIColor(hex: "202020")
 

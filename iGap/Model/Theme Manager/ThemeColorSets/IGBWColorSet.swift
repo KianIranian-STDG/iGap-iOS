@@ -101,6 +101,7 @@ class BWColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "1e1e1e")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
 
@@ -278,6 +279,7 @@ class BWColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "1e1e1e")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

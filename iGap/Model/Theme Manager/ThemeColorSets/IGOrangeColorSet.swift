@@ -103,6 +103,7 @@ class OrangeColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "D7801E")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "D66E1E")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "D66E1E")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -281,6 +282,7 @@ class OrangeColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "D7801E")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "D66E1E")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "D66E1E")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

@@ -102,6 +102,7 @@ class TorquoiseColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D9FEB")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "6D9FEB")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -277,6 +278,7 @@ class TorquoiseColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D9FEB")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "6D9FEB")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

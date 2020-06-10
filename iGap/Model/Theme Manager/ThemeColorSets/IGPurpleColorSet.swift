@@ -103,6 +103,7 @@ class PurpleColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "8B4BEB")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "8B4BEB")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -279,6 +280,7 @@ class PurpleColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "8B4BEB")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "8B4BEB")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

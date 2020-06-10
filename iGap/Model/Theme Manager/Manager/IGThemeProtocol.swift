@@ -13,6 +13,7 @@ import UIKit
 
 
 protocol ThemeProtocol {
+    var iVandColor : UIColor { get }
     var replyMSGColor : UIColor { get }
     
     var timeColor : UIColor { get }

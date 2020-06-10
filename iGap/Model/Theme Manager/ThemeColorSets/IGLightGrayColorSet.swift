@@ -102,6 +102,7 @@ class LightGrayColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -278,6 +279,7 @@ class LightGrayColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

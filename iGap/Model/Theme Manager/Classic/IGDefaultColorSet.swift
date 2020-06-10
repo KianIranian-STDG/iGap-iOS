@@ -13,7 +13,8 @@ import UIKit
 class DefaultColorSet: DefaultColorSetProtocol {
     
     var replyMSGColor : UIColor = UIColor(named: "IGreplyMSGColor")!
-    
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "41B01F")
+
     var timeColor : UIColor = UIColor(named: "IGTimeColor")!
 
     var TopViewHolderBGColor : UIColor = UIColor(named: "TopViewHolderBGColorGreen")!

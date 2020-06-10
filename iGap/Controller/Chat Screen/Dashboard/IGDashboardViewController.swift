@@ -41,6 +41,8 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.semanticContentAttribute = self.semantic
+        
         eventBusInitializer()
         
         isfromPacket = false
@@ -106,6 +108,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         
         initFont()
+        collectionView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -425,6 +428,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             let item = pollList[indexPath.section]
             if item.igpModel == .model1 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
+                cell.semanticContentAttribute = semantic
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
@@ -491,7 +495,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             let item = discoveries[indexPath.section]
             if item.igpModel == .model1 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
-                
+                cell.semanticContentAttribute = semantic
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 

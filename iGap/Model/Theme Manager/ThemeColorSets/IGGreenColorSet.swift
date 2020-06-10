@@ -103,6 +103,7 @@ class GreenColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "669737")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "669737")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -278,6 +279,7 @@ class GreenColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "669737")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "669737")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

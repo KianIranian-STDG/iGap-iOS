@@ -102,6 +102,7 @@ class GoldColorSet: DayNightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "D49829")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "D49829")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
@@ -279,6 +280,7 @@ class GoldColorSetNight: NightColorSetProtocol {
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
     var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "D49829")
+    var iVandColor : UIColor = UIColor.hexStringToUIColor(hex: "D49829")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 

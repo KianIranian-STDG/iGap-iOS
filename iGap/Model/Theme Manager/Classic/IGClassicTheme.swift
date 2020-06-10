@@ -12,6 +12,7 @@ import UIKit
 
 class ClassicTheme: ThemeProtocol {
     var replyMSGColor : UIColor = DefaultColorSet().replyMSGColor
+    var iVandColor : UIColor = DefaultColorSet().iVandColor
 
     var timeColor : UIColor = DefaultColorSet().timeColor
     var TopViewHolderBGColor : UIColor = DefaultColorSet().TopViewHolderBGColor
