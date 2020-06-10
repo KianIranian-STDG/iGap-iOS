@@ -72,8 +72,8 @@ class IGMediaPagerCell: FSPagerViewCell {
         
         /* Rx Start */
         if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
-            if let disposable = IGGlobal.dispoasDic[cacheId] {
-                IGGlobal.dispoasDic.removeValue(forKey: cacheId)
+            if let disposable = IGGlobal.mediaPagerDisposeDic[cacheId] {
+                IGGlobal.mediaPagerDisposeDic.removeValue(forKey: cacheId)
                 disposable.dispose()
             }
             let subscriber = variableInCache.asObservable().subscribe({ (event) in
@@ -81,7 +81,7 @@ class IGMediaPagerCell: FSPagerViewCell {
                     self.showMedia()
                 }
             })
-            IGGlobal.dispoasDic[cacheId] = subscriber
+            IGGlobal.mediaPagerDisposeDic[cacheId] = subscriber
         }
     }
     
