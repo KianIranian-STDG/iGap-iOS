@@ -3943,10 +3943,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     var giftInfo : IGStructGiftCardSticker!
+    var giftId: String!
 
     private func showCardInfo(stickerInfo: IGStructGiftCardStatus){
         giftInfo = stickerInfo.sticker
-        IGHelperBottomModals.shared.showBuyGiftStickerModal(view: UIApplication.topViewController()!, token: stickerInfo.sticker.token, amount: String(describing: stickerInfo.sticker.giftAmount ?? 0), mode : "SEND_STICKER")
+        giftId = stickerInfo.id
+        IGHelperBottomModals.shared.showBuyGiftStickerModal(view: UIApplication.topViewController()!, token: stickerInfo.sticker.token, amount: String(describing: stickerInfo.sticker.giftAmount), mode : "SEND_STICKER")
         
 //        return
 //
@@ -4177,13 +4179,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let message = IGRoomMessage(body: (giftInfo.name))
                 message.type = .sticker
                 message.attachment = attachment
-                let stickerItem = IGRealmStickerItem(sticker: (giftInfo)!, giftId: (self.giftInfo.id))
+                let stickerItem = IGRealmStickerItem(sticker: (giftInfo)!, giftId: (giftId))
                 message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
                 IGAttachmentManager.sharedManager.add(attachment: attachment)
                 
                 IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
                     DispatchQueue.main.async {
-                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self!.giftInfo.id )
+                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: stickerItem.giftId)
                     }
                 }
             }
