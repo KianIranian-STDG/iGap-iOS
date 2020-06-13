@@ -23,6 +23,10 @@ class IGApiTopup: IGApiBase {
         case rightelTopUp
         case MTNTopUp
         case LastPurchases
+        case MTNSetFavourites
+        case MCISetFavourites
+        case rightelSetFavourites
+        
         var url: String {
             var urlString = IGApiTopup.topupPurchasesBaseUrl
             
@@ -37,8 +41,14 @@ class IGApiTopup: IGApiBase {
                 urlString += "/mci/topup/purchase"
             case .LastPurchases:
                 urlString += "/topup/get-favorite"
+            case .MTNSetFavourites:
+                urlString += "/mtn/topup/set-favorite"
+            case .MCISetFavourites:
+                urlString += "/mci/topup/set-favorite"
+            case .rightelSetFavourites:
+                urlString += "/rightel/topup/set-favorite"
             }
-                
+            
             return urlString
         }
     }
@@ -47,6 +57,35 @@ class IGApiTopup: IGApiBase {
 //    private static let topupBaseUrl = "https://api.igap.net/services/v1.0"
     private static let topupPurchasesBaseUrl = "https://api.igap.net/operator-services/v1.0"
 
+    func saveToHistory(opType : String, telNum: String, cost: String,type: String, completion: @escaping ((_ success: Bool) -> Void)) {
+        let parameters: Parameters = ["phone_number" : telNum.dropFirst(), "charge_type" : type, "amount" : cost]
+        var url = Endpoint.MCISetFavourites.url
+        switch opType {
+        case "MCI" : url = Endpoint.MCISetFavourites.url
+        case "MTN" : url = Endpoint.MTNSetFavourites.url
+        case "RIGHTEL" : url = Endpoint.rightelSetFavourites.url
+        default : url = Endpoint.MCISetFavourites.url
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+            
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.saveToHistory(opType: opType, telNum: telNum, cost: cost, type: type, completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                case .success(_):
+
+                    completion(true)
+
+                case .failure(_):
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    completion(false)
+                }
+            }
+        }
+
+    }
     func getLastPurchases(completion: @escaping PSLastTopUpsResponse){
         let url = Endpoint.LastPurchases.url
         AF.request(url,  method: .get, headers: self.getHeader()).responseGetLastTopUps {[weak self] (response) in

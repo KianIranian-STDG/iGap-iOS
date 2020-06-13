@@ -13,15 +13,26 @@ class IGPSLastPurchasesVC : MainViewController {
     private var vm : IGPSLastPurchasesVM!
     var table = UITableView()
     var TopUpPurchases = [IGPSLastTopUpPurchases]()
+    var InternetPurchases = [IGPSLastInternetPackagesPurchases]()
     var titlePage : String = ""
     var delegate: chargeDelegate?
+    var pageType : PaymentServicesType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         table.register(IGPSTOPUPLastPurchasesCell.self, forCellReuseIdentifier: "IGPSTOPUPLastPurchasesCell")
 
         vm = IGPSLastPurchasesVM(viewController: self)
-        vm.TopUpPurchases =  TopUpPurchases
+        switch pageType {
+        case .NetworkPackage :
+            vm.InternetPurchases =  InternetPurchases
+            vm.pageType = pageType
+        case .TopUp :
+            vm.TopUpPurchases =  TopUpPurchases
+            vm.pageType = pageType
+
+        default : break
+        }
         vm.delegate = delegate
         table.delegate = vm
         table.dataSource = vm
@@ -80,7 +91,13 @@ class IGPSLastPurchasesVC : MainViewController {
         lblAmount.translatesAutoresizingMaskIntoConstraints = false
 
         stk.addArrangedSubview(lblPhoneNumber)
-        stk.addArrangedSubview(lblOperator)
+        switch pageType {
+        case .TopUp :
+            stk.addArrangedSubview(lblOperator)
+        default : break
+        }
+
+        
         stk.addArrangedSubview(lblAmount)
 
 

@@ -70,6 +70,10 @@
 		8E38248E248DED9100F5DE97 /* IGPSLastPurchasesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */; };
 		8E382490248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */; };
 		8E382492248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382491248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift */; };
+		8E382495248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382494248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift */; };
+		8E382498248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */; };
+		8E38249A248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */; };
+		8E38249C248F9F1500F5DE97 /* IGPSDataArrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -1121,6 +1125,10 @@
 		8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSLastPurchasesVC.swift; sourceTree = "<group>"; };
 		8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSLastPurchasesVM.swift; sourceTree = "<group>"; };
 		8E382491248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSTOPUPLastPurchasesCell.swift; sourceTree = "<group>"; };
+		8E382494248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSInternetPackagesVC.swift; sourceTree = "<group>"; };
+		8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSInternetPackagesVM.swift; sourceTree = "<group>"; };
+		8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSInternetPackagesCell.swift; sourceTree = "<group>"; };
+		8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSDataArrayVC.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2267,8 +2275,8 @@
 		8E38247C248BAAD100F5DE97 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
-				8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */,
+				8E382496248F5E9A00F5DE97 /* TOPUP */,
+				8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -2277,9 +2285,9 @@
 			isa = PBXGroup;
 			children = (
 				8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */,
-				8E382489248CF9EF00F5DE97 /* IGPSChargeTypesTVC.swift */,
-				8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */,
-				8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */,
+				8E382493248F5E4C00F5DE97 /* TOPUP */,
+				8E382494248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift */,
+				8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2295,6 +2303,7 @@
 		8E38247F248BAAE500F5DE97 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				FA075DEA232A5E9C002E7AC7 /* IGApiInternetPackage.swift */,
 				94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */,
 				8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */,
 			);
@@ -2305,8 +2314,28 @@
 			isa = PBXGroup;
 			children = (
 				8E382491248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift */,
+				8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		8E382493248F5E4C00F5DE97 /* TOPUP */ = {
+			isa = PBXGroup;
+			children = (
+				8E382489248CF9EF00F5DE97 /* IGPSChargeTypesTVC.swift */,
+				8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */,
+				8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */,
+			);
+			name = TOPUP;
+			sourceTree = "<group>";
+		};
+		8E382496248F5E9A00F5DE97 /* TOPUP */ = {
+			isa = PBXGroup;
+			children = (
+				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
+				8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */,
+			);
+			name = TOPUP;
 			sourceTree = "<group>";
 		};
 		8E3C6971236035FF001575BE /* PanModal */ = {
@@ -2455,11 +2484,11 @@
 		8E8ABDBF2394F2CE00DE00DB /* News */ = {
 			isa = PBXGroup;
 			children = (
-				8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */,
 				8EC038492396766500B525B5 /* IGStructNewsInnerByID.swift */,
 				8EC0384B23978B1E00B525B5 /* IGStructNewsDetail.swift */,
 				8EC0384F2397EC1B00B525B5 /* IGStructNewsComment.swift */,
 				8EC03857239BCAF700B525B5 /* IGStructPostComment.swift */,
+				8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -3900,7 +3929,6 @@
 				FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */,
 				940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */,
 				94909E1D2328B1CD000D04A6 /* IGApiPayment.swift */,
-				FA075DEA232A5E9C002E7AC7 /* IGApiInternetPackage.swift */,
 				FA3C24B32332142D00848261 /* IGApiCharity.swift */,
 				8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */,
 				8E0A79902394FD86001A7EB6 /* IGApiNews.swift */,
@@ -4264,12 +4292,12 @@
 				FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */,
 				FAB4367222097B850073EEE1 /* IGStructSticker.swift */,
 				FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */,
+				FA075DEE232A631E002E7AC7 /* IGStructInternetCategory.swift */,
 				FAC1330422C098D000817044 /* IGStructMessageOption.swift */,
 				FAA4E85A23124B110091199B /* IGForwardStruct.swift */,
 				FADA7B7F23291EAC0017A69B /* IGStructPayment.swift */,
 				940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */,
 				D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */,
-				FA075DEE232A631E002E7AC7 /* IGStructInternetCategory.swift */,
 				8E0405C52371B9AC00516DEB /* ElectricityBills */,
 				8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */,
 			);
@@ -5196,6 +5224,7 @@
 				FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */,
+				8E38249A248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift in Sources */,
 				8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */,
 				8EC038502397EC1B00B525B5 /* IGStructNewsComment.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
@@ -5286,6 +5315,7 @@
 				D65F7A6A241CC95B00E7FDF1 /* IGGiftStickerListCell.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
+				8E382498248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
 				8ECC182A222FB862006E43E8 /* viewX.swift in Sources */,
 				8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */,
@@ -5394,6 +5424,7 @@
 				D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */,
 				8E0405C92371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift in Sources */,
 				8EC42F0124587CD3000889D3 /* RowFourCell.swift in Sources */,
+				8E38249C248F9F1500F5DE97 /* IGPSDataArrayVC.swift in Sources */,
 				8E5FBCA3231BD7440069D4F2 /* IGLocalizationManager.swift in Sources */,
 				8E599D812328C59600D75376 /* UICollectionViewCustom.swift in Sources */,
 				FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */,
@@ -5665,6 +5696,7 @@
 				8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,
 				8E599D7C2325331C00D75376 /* TGPCamelLabels.swift in Sources */,
+				8E382495248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift in Sources */,
 				8E96A326225C9182007D8A77 /* SMGradientButton.swift in Sources */,
 				FA09536D1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsTableViewController.swift in Sources */,
 				8EC0384E2397915700B525B5 /* IGNewsDetailTableViewController.swift in Sources */,

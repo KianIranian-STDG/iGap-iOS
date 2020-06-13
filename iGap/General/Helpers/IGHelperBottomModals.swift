@@ -144,4 +144,17 @@ class IGHelperBottomModals {
             alertView!.presentPanModal(vc)
     //        return UIView()
         }
+    func showDataModal(view: UIViewController? = nil,categories : [IGPSInternetCategory],isTraffic : Bool = false ) {
+        
+            var alertView = view
+            if alertView == nil {
+             alertView = UIApplication.topViewController()
+            }
+
+            let vc = IGPSDataArrayVC()
+            vc.items = categories
+            vc.isTraffic = isTraffic
+            UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
 }

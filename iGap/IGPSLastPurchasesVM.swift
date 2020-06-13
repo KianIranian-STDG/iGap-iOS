@@ -11,19 +11,27 @@ class IGPSLastPurchasesVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     
     weak var vc : IGPSLastPurchasesVC?
     var TopUpPurchases = [IGPSLastTopUpPurchases]()
+    var InternetPurchases = [IGPSLastInternetPackagesPurchases]()
     var delegate: chargeDelegate?
+    var pageType : PaymentServicesType!
 
     init(viewController: IGPSLastPurchasesVC) {
         self.vc = viewController
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        TopUpPurchases.count
+        switch pageType {
+        case .TopUp :
+            return TopUpPurchases.count
+        case .NetworkPackage :
+            return InternetPurchases.count
+
+        default : return 0
+        }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             let v = (vc!).makeHeader()
             v.semanticContentAttribute = (UIApplication.topViewController() as! MainViewController).semantic
-
             return v
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -31,10 +39,20 @@ class IGPSLastPurchasesVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let cell = tableView.dequeueReusableCell(withIdentifier: "IGPSTOPUPLastPurchasesCell", for: indexPath) as! IGPSTOPUPLastPurchasesCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IGPSTOPUPLastPurchasesCell", for: indexPath) as! IGPSTOPUPLastPurchasesCell
+
+        switch pageType {
+        case .TopUp :
             cell.item = TopUpPurchases[indexPath.row]
-            cell.delegate = delegate
-            return cell
+        case .NetworkPackage :
+            cell.itemInternet = InternetPurchases[indexPath.row]
+        default : cell.item = TopUpPurchases[indexPath.row]
+            
+        }
+        
+        cell.delegate = delegate
+        return cell
         
     }
 

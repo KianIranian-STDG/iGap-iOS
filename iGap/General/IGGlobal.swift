@@ -150,7 +150,8 @@ class IGGlobal {
     static var stickerCurrentGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
     static var stickerImageDic: [String:UIImageView] = [:]
     static var stickerAnimationDic: [String:AnimationView] = [:]
-    
+    static var isTopUpResult : Bool = false
+
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height) +

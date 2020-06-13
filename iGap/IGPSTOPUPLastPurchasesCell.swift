@@ -12,27 +12,51 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
     
     var indexPath : IndexPath!
     var delegate: chargeDelegate?
-    
+    var pageType : PaymentServicesType! {
+        didSet {
+            updateStk()
+        }
+    }
+    var itemInternet : IGPSLastInternetPackagesPurchases! {
+        didSet {
+            lblPhoneNumber.text = (itemInternet.phoneNumber?.inLocalizedLanguage())!
+//            lblOperator.text = itemInternet.simOperatorTitle
+            lblAmount.text = itemInternet.packageDesc?.inLocalizedLanguage()
+            pageType = .NetworkPackage
+
+        }
+
+        
+    }
     var item : IGPSLastTopUpPurchases! {
         didSet {
             
             lblPhoneNumber.text = item.phoneNumber?.inLocalizedLanguage()
             lblOperator.text = item.simOperatorTitle
-            lblAmount.text = "\(item.amount ?? 0)".inRialFormat() + IGStringsManager.Currency.rawValue.localized        }
+            lblAmount.text = "\(item.amount ?? 0)".inRialFormat() + IGStringsManager.Currency.rawValue.localized
+            pageType = .TopUp
+        }
     }
+
     private let holder : UIView = {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
         view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowRadius = 4.0
+        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+
         return view
     }()
     
-    
+    private let stk : UIStackView = {
+        let stk = UIStackView()
+        return stk
+    }()
     
     private let lblPhoneNumber : UILabel = {
         let lbl = UILabel()
@@ -88,43 +112,57 @@ class IGPSTOPUPLastPurchasesCell: BaseTableViewCell {
         
         holder.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         holder.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        holder.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 0).isActive = true
-        holder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: 0).isActive = true
+        holder.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 5).isActive = true
+        holder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -5).isActive = true
         holder.heightAnchor.constraint(equalTo: self.heightAnchor,multiplier: 0.8).isActive = true
         
         
-        let stk = UIStackView()
         stk.translatesAutoresizingMaskIntoConstraints = false
-        stk.distribution = .fillEqually
         stk.alignment = .center
         stk.axis = .horizontal
         stk.semanticContentAttribute = self.semantic
         holder.addSubview(stk)
         stk.centerYAnchor.constraint(equalTo: holder.centerYAnchor).isActive = true
         stk.centerXAnchor.constraint(equalTo: holder.centerXAnchor).isActive = true
-        stk.leadingAnchor.constraint(equalTo: holder.leadingAnchor).isActive = true
-        stk.trailingAnchor.constraint(equalTo: holder.trailingAnchor).isActive = true
+        stk.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 5).isActive = true
+        stk.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -5).isActive = true
         stk.heightAnchor.constraint(equalTo: holder.heightAnchor).isActive = true
         
+        
+
+    }
+    
+    func updateStk() {
+        if pageType == PaymentServicesType.TopUp {
+            stk.distribution = .fillEqually
+        } else {
+            stk.distribution = .fillProportionally
+        }
         stk.addArrangedSubview(lblPhoneNumber)
-        stk.addArrangedSubview(lblOperator)
+        if pageType == PaymentServicesType.TopUp {
+            stk.addArrangedSubview(lblOperator)
+            lblPhoneNumber.textAlignment = .center
+            holder.addTapGestureRecognizer(action: { [weak self] in
+                guard let sSelf = self else {return}
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true, completion: {
+                    sSelf.delegate?.passData(phone: [(sSelf.item.phoneNumber)! : "\(sSelf.item.amount ?? 0)"], currentOperator: sSelf.item!.simOperator!)
+                })
+
+            })
+        } else if pageType == PaymentServicesType.NetworkPackage {
+            lblPhoneNumber.textAlignment = lblPhoneNumber.localizedDirection
+            holder.addTapGestureRecognizer(action: { [weak self] in
+                guard let sSelf = self else {return}
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true, completion: {
+                    sSelf.delegate?.passDataInternet(phone: [(sSelf.itemInternet.phoneNumber)! : (sSelf.itemInternet.packageType!)], currentOperator: sSelf.itemInternet!.simOperator!, selectedPackage: sSelf.itemInternet)
+                })
+
+            })
+        }
         stk.addArrangedSubview(lblAmount)
         
-        holder.addTapGestureRecognizer(action: { [weak self] in
-            guard let sSelf = self else {return}
-            UIApplication.topViewController()?.navigationController?.popViewController(animated: true, completion: {
-                sSelf.delegate?.passData(phone: [(sSelf.item.phoneNumber)! : "\(sSelf.item.amount ?? 0)"], currentOperator: sSelf.item!.simOperator!)
-            })
+    
 
-        })
     }
-    
-    
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
 }
+

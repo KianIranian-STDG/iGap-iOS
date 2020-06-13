@@ -8,9 +8,12 @@
 
 import Foundation
 import UIKit
+import SwiftEventBus
 
 protocol chargeDelegate {
     func passData(phone: [String: String], currentOperator: String)
+    func passDataInternet(phone: [String: String], currentOperator: String, selectedPackage: IGPSLastInternetPackagesPurchases)
+
 }
 
 class IGPSTopUpMainVC : MainViewController,chargeDelegate {
@@ -34,6 +37,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             btnChargeType.setTitle(selectedChargeType.keys.first, for: .normal)
         }
     }
+    var selectedPackage : IGPSLastInternetPackagesPurchases!
     var selectedSimcardType : String!
     var chargeAmount: String! {
         didSet {
@@ -245,9 +249,25 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         self.view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
         tfChargeAmount.delegate = self
+        vm.pageType = pageType
+        initEventBus()
         
     }
+    private func initEventBus() {
+
+        SwiftEventBus.onMainThread(self, name: EventBusManager.TopUpAddToFavourite) { result in
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.PSAddToLastPurchases.rawValue.localized, doneText: IGStringsManager.Add.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
+                print("TAP CANCEL")
+            }, done: {
+                self.vm.addToHistory()
+            })
+        }
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SwiftEventBus.unregister(self)
+    }
     private let packagesHolder : UIView = {
         let av = UIView()
         av.translatesAutoresizingMaskIntoConstraints = false
@@ -329,6 +349,14 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         addChildView(type: pageType)
         addButtonSubmit()
         manageActions()
+        switch pageType {
+        case .NetworkPackage :
+            btnSubmit.setTitle = IGStringsManager.GlobalContinue.rawValue.localized
+            selectedSimcardType = "CREDIT"
+        case .TopUp :
+            btnSubmit.setTitle = IGStringsManager.KSubmit.rawValue.localized
+        default : break
+        }
     }
     private func addTitleLabel() {
         self.scrollView.contentView.addSubview(lblTitle)
@@ -420,10 +448,11 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         
         btnLastPurchases.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
-            sSelf.vm.requestGetLastTopUpPurchases()
+
+            sSelf.vm.requestGetLastTopUpPurchases(type: sSelf.pageType)
+
         })
 
-        
     }
     private func addOperatorTitle() {
         self.scrollView.contentView.addSubview(lblOperatorTitle)
@@ -721,44 +750,16 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 return
             }
-            sSelf.vm.selectedAmount = sSelf.tfChargeAmount.text!
             sSelf.vm.selectedPhone = sSelf.tfPhoneNUmber.text!
             sSelf.vm.selectedOp = sSelf.selectedOperator
-            switch sSelf.selectedOperator {
-            case .MCI:
-                switch sSelf.selectedChargeType.first?.value {
-                case 0 :
-                    sSelf.vm.selectedType = "DIRECT"
-                case 1 :
-                    sSelf.vm.selectedType = "YOUTH"
-                case 2 :
-                    sSelf.vm.selectedType = "LADIES"
-                default :
-                    sSelf.vm.selectedType = "DIRECT"
-                }
-            case .MTN:
-                switch sSelf.selectedChargeType.first?.value {
-                case 0 :
-                    sSelf.vm.selectedType = "MTN_NORMAL"
-                case 1 :
-                    sSelf.vm.selectedType = "MTN_AMAZING"
-                default :
-                    sSelf.vm.selectedType = "MTN_NORMAL"
-                }
 
-            case .Rightel :
-                switch sSelf.selectedChargeType.first?.value {
-                case 0 :
-                    sSelf.vm.selectedType = "RIGHTEL_NORMAL"
-                case 1 :
-                    sSelf.vm.selectedType = "RIGHTEL_EXCITING"
-                default :
-                    sSelf.vm.selectedType = "RIGHTEL_NORMAL"
-                }
-
+            switch sSelf.pageType {
+            case .TopUp :
+                sSelf.handleTopUpBuy()
+            case .NetworkPackage :
+                sSelf.handleNetworkPackageBuy()
             default: break
-            }            
-            sSelf.vm.buyRequest()
+            }
         }
         btnMTN.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
@@ -775,6 +776,55 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         })
     }
     
+    private func handleTopUpBuy() {
+
+
+        vm.selectedAmount = tfChargeAmount.text!
+        switch selectedOperator {
+        case .MCI:
+            switch selectedChargeType.first?.value {
+            case 0 :
+                vm.selectedType = "DIRECT"
+            case 1 :
+                vm.selectedType = "YOUTH"
+            case 2 :
+                vm.selectedType = "LADIES"
+            default :
+                vm.selectedType = "DIRECT"
+            }
+        case .MTN:
+            switch selectedChargeType.first?.value {
+            case 0 :
+                vm.selectedType = "MTN_NORMAL"
+            case 1 :
+                vm.selectedType = "MTN_AMAZING"
+            default :
+                vm.selectedType = "MTN_NORMAL"
+            }
+
+        case .Rightel :
+            switch selectedChargeType.first?.value {
+            case 0 :
+                vm.selectedType = "RIGHTEL_NORMAL"
+            case 1 :
+                vm.selectedType = "RIGHTEL_EXCITING"
+            default :
+                vm.selectedType = "RIGHTEL_NORMAL"
+            }
+
+        default: break
+        }
+        vm.buyRequest()
+
+    }
+    private func handleNetworkPackageBuy() {
+        
+        vm.selectedType = selectedSimcardType
+        if self.selectedPackage != nil {
+            vm.selectedPackage = self.selectedPackage
+        }
+        vm.getInternetPackages()
+    }
     private func btnMTNAction() {
         
         btnRightel.layer.borderWidth = 0.0
@@ -828,29 +878,19 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         scrollView.shouldScrollToEnd = true
         
     }
-    
-    func passData(phone: [String: String], currentOperator: String) {
+    func passDataInternet(phone: [String: String], currentOperator: String, selectedPackage: IGPSLastInternetPackagesPurchases) {
         print("CHANGE CHARGE AMOUNT")
-        tfPhoneNUmber.text = ("0" + phone.first!.key).inLocalizedLanguage()
-        var iIndex = Int()
-
-        switch phone.first!.value {
-        case "10000" :
-            iIndex = 0
-        case "20000" :
-            iIndex = 1
-        case "50000" :
-            iIndex = 2
-        case "100000" :
-            iIndex = 3
-        case "200000" :
-            iIndex = 4
-        default : break
+        if phone.first!.key.starts(with: "0") {
+            tfPhoneNUmber.text = (phone.first!.key).inLocalizedLanguage()
+            
+        }else {
+            tfPhoneNUmber.text = ("0" + phone.first!.key).inLocalizedLanguage()
+            
         }
+        
         selectedCharge.removeAll()
-        selectedCharge[phone.first!.value] = iIndex
-//        btnChargeAmount.setTitle(selectedCharge.first!.key + " " + rials, for: .normal)
-        tfChargeAmount.text = selectedCharge.first!.key + " " + rials
+        //        btnChargeAmount.setTitle(selectedCharge.first!.key + " " + rials, for: .normal)
+        //        tfChargeAmount.text = phone.first!.value + " " + rials
         
         if currentOperator == "mci" {
             btnMCIAction()
@@ -859,13 +899,70 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         }else if currentOperator == "rightel" {
             btnRightelAction()
         }
+        if pageType == .NetworkPackage {
+            self.selectedPackage = selectedPackage
+            if self.selectedPackage.simOperator == "mtn" ||  self.selectedPackage.simOperator == "mci" {
+                switch self.selectedPackage.chargeType {
+                case "CREDIT" : didTapOnSimOne()
+                    
+                case "PERMANENT" : didTapOnSimTwo()
+                    
+                case "CREDIT_TD_LTE" : didTapOnSimThree()
+                    
+                case "PERMANENT_TD_LTE" : didTapOnSimFour()
+                default : break
+                }
+            }  else {
+                switch self.selectedPackage.chargeType {
+                case "CREDIT" : didTapOnSimOne()
+                    
+                case "PERMANENT" : didTapOnSimTwo()
+                    
+                case "DATA" : didTapOnSimThree()
+                default : break
+                    
+                }
+            }
+        } else {
+            chargeAmount = phone.first!.value + " " + rials
+        }
+        
+        
+    }
+
+    func passData(phone: [String: String], currentOperator: String) {
+        print("CHANGE CHARGE AMOUNT")
+        if phone.first!.key.starts(with: "0") {
+            tfPhoneNUmber.text = (phone.first!.key).inLocalizedLanguage()
+
+        }else {
+            tfPhoneNUmber.text = ("0" + phone.first!.key).inLocalizedLanguage()
+
+        }
+
+        selectedCharge.removeAll()
+//        btnChargeAmount.setTitle(selectedCharge.first!.key + " " + rials, for: .normal)
+//        tfChargeAmount.text = phone.first!.value + " " + rials
+        
+        if currentOperator == "mci" {
+            btnMCIAction()
+        }else if currentOperator == "mtn" {
+            btnMTNAction()
+        }else if currentOperator == "rightel" {
+            btnRightelAction()
+        }
+        if pageType == .NetworkPackage {
+            
+        } else {
+            chargeAmount = phone.first!.value + " " + rials
+        }
+
         
     }
     
     //MARK: - ACTIONS
     
     @objc func didTapOnPlus() {
-        var currentIndex : Int = selectedCharge.values.first!
         if chargePrice.count > 0 {
             var amount = Int64(chargeAmount.onlyDigitChars())!
 
@@ -1014,6 +1111,17 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        manageButoonColor()
+        switch pageType {
+        case .NetworkPackage :
+            btnSubmit.setTitle = IGStringsManager.GlobalContinue.rawValue.localized
+        case .TopUp :
+            btnSubmit.setTitle = IGStringsManager.KSubmit.rawValue.localized
+        default : break
+        }
+
+    }
 }
 
 extension IGPSTopUpMainVC : EPPickerDelegate {
