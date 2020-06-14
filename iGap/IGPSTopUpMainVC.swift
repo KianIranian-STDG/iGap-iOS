@@ -842,7 +842,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-        scrollView.shouldScrollToEnd = true
+//        scrollView.shouldScrollToEnd = true
         
     }
     
@@ -860,7 +860,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-        scrollView.shouldScrollToEnd = true
+//        scrollView.shouldScrollToEnd = true
         
     }
     
@@ -878,7 +878,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-        scrollView.shouldScrollToEnd = true
+//        scrollView.shouldScrollToEnd = true
         
     }
     func passDataInternet(phone: [String: String], currentOperator: String, selectedPackage: IGPSLastInternetPackagesPurchases) {
@@ -1160,22 +1160,28 @@ extension IGPSTopUpMainVC : UITextFieldDelegate {
             let count = textFieldText.count - substringToReplace.count + string.count
             
 
-            if textFieldText.starts(with: "۰") || textFieldText.starts(with: "0") || textFieldText.starts(with: "0".inLocalizedLanguage()) {
+        if textFieldText.starts(with: "۰") || textFieldText.starts(with: "0") || textFieldText.starts(with: "0".inLocalizedLanguage()) {
+            
+            if  textFieldText.inEnglishNumbersNew().substring(offset: 4).count > 3 {
+                if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
+                    selectedOperator = operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)]!
 
-                if  textFieldText.inEnglishNumbersNew().substring(offset: 4).count > 3 {
-                            selectedOperator = operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)]!
-
-                                switch selectedOperator {
-                                case .MCI : btnMCIAction()
-                                case .MTN: btnMTNAction()
-                                case .Rightel: btnRightelAction()
-                                default : break
-                                }
-
-
-                            }
+                    switch selectedOperator {
+                    case .MCI : btnMCIAction()
+                    case .MTN: btnMTNAction()
+                    case .Rightel: btnRightelAction()
+                    default : break
+                    }
+                    
                 }
+            }
+        }
+        
+        if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
             return count <= 11
+        } else {
+            return count <= 4
+        }
 
         
     }
