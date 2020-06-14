@@ -61,7 +61,9 @@ class IGPaymentView: UIView {
     @IBOutlet var statusCodeLbl: UILabel!
     @IBOutlet var errorMessageLbl: UILabel!
     @IBOutlet weak var discountSeparatorLbl: UILabel!
-    
+    private var actionDone: (() -> Void)?
+    private var actionCancel: (() -> Void)?
+
     // MARK: - Variables
     private var parentView: UIView!
     /// define a variable to store initial touch position on pan gesture
@@ -79,8 +81,7 @@ class IGPaymentView: UIView {
 //    let observ :Observable<IGPaymentResult> = Observable<IGPaymentResult>.empty()
     
     var paymentResult = PublishSubject<IGPaymentResult>()
-    
-        
+    var isTopUpResult : Bool = false
     // MARK: - Init functions
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -195,7 +196,7 @@ class IGPaymentView: UIView {
     }
     
     /// show payment view modal
-    func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment) {
+    func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment,isFromTopUp: Bool = false) {
         parentView.endEditing(true)
         self.parentView = parentView
         self.title = title
@@ -213,7 +214,6 @@ class IGPaymentView: UIView {
             self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height - self.contentView.bounds.height, width: parentView.frame.width, height: self.contentView.bounds.height)
         }
         parentView.bringSubviewToFront(self)
-        
         self.topIconLbl.text = ""
         self.topIconLbl.textColor = ThemeManager.currentTheme.LabelColor
         
@@ -287,11 +287,11 @@ class IGPaymentView: UIView {
         }
         
         guard let status = paymentStatusData.status else { return }
-        self.reloadPaymentResult(paymentStatusData: paymentStatusData, status: PaymentStatus(rawValue: status) ?? .failure, message: message, RRN: "\(paymentStatusData.info?.rrn ?? 0)")
+        self.reloadPaymentResult(paymentStatusData: paymentStatusData, status: PaymentStatus(rawValue: status) ?? .failure, message: message, RRN: "\(paymentStatusData.info?.rrn ?? 0)",isTopUp :IGGlobal.isTopUpResult)
     }
     
     /// reload payment view on payment result
-    func reloadPaymentResult(paymentStatusData: IGStructPaymentStatus, status: PaymentStatus, message: String, RRN: String) {
+    func reloadPaymentResult(paymentStatusData: IGStructPaymentStatus, status: PaymentStatus, message: String, RRN: String,isTopUp: Bool = false) {
         hideDiscountView()
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
@@ -301,7 +301,9 @@ class IGPaymentView: UIView {
         self.errorMessageLbl.isHidden = true
         self.acceptBtn.isHidden = true
         self.cancelBtn.setTitle(IGStringsManager.GlobalClose.rawValue.localized, for: .normal)
-        
+        if IGGlobal.isTopUpResult {
+            isTopUpResult = true
+        }
         var pType: PurchaseType = .other
         if let pStatusInfo = paymentStatusData.info {
             if let pStatusProduct = pStatusInfo.product {
@@ -310,7 +312,6 @@ class IGPaymentView: UIView {
                 }
             }
         }
-        
         let res = IGPaymentResult(purchaseType: pType, status: .success, rrn: RRN)
         switch status {
             
@@ -320,20 +321,23 @@ class IGPaymentView: UIView {
             self.statusCodeLbl.isHidden = true
             self.cancelBtn.backgroundColor = UIColor.iGapRed()
             res.status = .canceledByUser
-            
+            IGGlobal.isTopUpResult = false
+
         case .failure:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
             self.cancelBtn.backgroundColor = UIColor.iGapRed()
             res.status = .failure
-            
+            IGGlobal.isTopUpResult = false
+
         case .moneyReversed:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
             self.cancelBtn.backgroundColor = UIColor.iGapRed()
-            
+            IGGlobal.isTopUpResult = false
+
         case .pending:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapGreen()
@@ -345,6 +349,9 @@ class IGPaymentView: UIView {
             self.topIconLbl.textColor = UIColor.iGapGreen()
             self.statusCodeLbl.isHidden = false
             self.cancelBtn.backgroundColor = UIColor.iGapGreen()
+
+
+            
         }
 //        paymentResult.onNext(res)
         paymentResult.onNext(res)
@@ -429,6 +436,9 @@ class IGPaymentView: UIView {
     
     /// hides the view
     func hideView() {
+        IGGlobal.isTopUpResult = false
+        self.isTopUpResult = false
+
         self.superview?.hideMaskView()
         UIView.animate(withDuration: 0.3, animations: {
             self.frame.origin.y += self.frame.height
@@ -447,6 +457,11 @@ class IGPaymentView: UIView {
     
     // MARK: - Actions
     @IBAction func cancelTapped(_ sender: UIButton) {
+       if IGGlobal.isTopUpResult && isTopUpResult {
+                SwiftEventBus.post(EventBusManager.InternetPackageAddToFavourite)
+        }
+        IGGlobal.isTopUpResult = false
+        self.isTopUpResult = false
         hideView()
     }
     

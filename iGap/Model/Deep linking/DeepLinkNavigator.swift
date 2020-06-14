@@ -102,6 +102,8 @@ class DeeplinkNavigator {
             if isSuccess {
                 guard let paymentStatus = paymentStatus else {
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    IGGlobal.isTopUpResult = false
+
                     return
                 }
                 if paymentView.payToken != nil {

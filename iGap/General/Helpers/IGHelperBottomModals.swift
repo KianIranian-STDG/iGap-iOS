@@ -225,4 +225,42 @@ class IGHelperBottomModals {
             alertView!.presentPanModal(vc)
     //        return UIView()
         }
+    func showChargeList(view: UIViewController? = nil,chargeList: [String]) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+
+        let vc = IGPSChargeListTVC()
+        vc.delegate = IGPSTopUpMainVC()
+
+        vc.chargeList = chargeList
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showChargeType(view: UIViewController? = nil,chargeTypes: [String],selectedOperator : IGSelectedOperator) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+
+        let vc = IGPSChargeTypesTVC()
+        vc.chargeTypes = chargeTypes
+        vc.selectedOperator = selectedOperator
+        UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
+    func showDataModal(view: UIViewController? = nil,categories : [IGPSInternetCategory],isTraffic : Bool = false ) {
+        
+            var alertView = view
+            if alertView == nil {
+             alertView = UIApplication.topViewController()
+            }
+
+            let vc = IGPSDataArrayVC()
+            vc.items = categories
+            vc.isTraffic = isTraffic
+            UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
 }

@@ -144,6 +144,10 @@ extension String {
     }
    
     func inPersianNumbersNew() -> String {
+        if self.first == "0" || self.first == "۰" || self.first == "٠" || self.starts(with: "0") || self.starts(with: "۰") || self.starts(with: "٠") {
+            return self.inPersianNumbers()
+        }
+
         numberFormatter.locale = Locale(identifier: "fa")
         guard let final = numberFormatter.number(from: self) else { return self.inPersianNumbers() }
         return numberFormatter.string(from: final) ?? self.inPersianNumbers()

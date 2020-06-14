@@ -13,6 +13,11 @@ enum IGStringsManager : String {
     
     //MARK: - Global Vars
     case Inventory = "Inventory"
+   case GlobalDay = "payment_serices_Day"
+    case GlobalHour = "payment_serices_Hour"
+    case GlobalMonth = "payment_serices_Month"
+    case GlobalYear = "payment_serices_Year"
+
     case GlobalCanNotCopy = "can_not_copy"
     case GlobalConnecting = "connecting"
     case GlobalCommingSoon = "comming_soon"
@@ -55,6 +60,8 @@ enum IGStringsManager : String {
     case TextCopied = "text_copied"
     case FetchingInfo = "fetching_info"
     case GlobalErrorHppend = "error_submit_qr_code"
+    case GlobalContinue = "payment_serices_global_continue"
+    case GlobalSort = "payment_serices_global_filter"
     //MARK: -NEWS
     case NewsDetail =  "news_details"
     //MARK: - VOTE
@@ -921,6 +928,23 @@ enum IGStringsManager : String {
     
     //TOPUP
     case PSLastPurchases = "payment_services_last_purchases"
+    case PSChoseOperatorMessage = "payment_services_choose_trabord"
+    case PSPermanentSim = "payment_services_incash_simcard"
+    case PSCreditSim = "payment_services_prepaid_simcard"
+    case PSPermanentTDLTE = "payment_services_incash_lte_simcard"
+    case PSCreditTDLTE = "payment_services_prepaid_lte_simcard"
+    case PSDataSim = "payment_services_data_simcard"
+    case PSEnterChargeAmount = "payment_services_custome_charge_amount"
+    case PSYouthCharge = "payment_services_mci_youth_charge"
+    case PSLadiesCharge = "payment_services_mci_ladies_charge"
+    case PSOperator = "payment_serices_operator"
+    case PSSuggestedPackages = "payment_serices_suggested_packages"
+    case PSNormalPackages = "payment_serices_normal_packages"
+    case PSChooseVolume = "payment_services_custome_choose_volume"
+    case PSChooseDuration = "payment_services_choose_time"
+    case PSAddToLastPurchases = "payment_services_add_to_last_purchases"
+    case PSAdeddSuccessFully = "payment_services_addedSuccessfully"
+
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

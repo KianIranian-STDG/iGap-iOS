@@ -79,6 +79,12 @@ enum messageMainTopViewState : Int {
     case none = 3
 }
 
+enum IGSelectedOperator : Int {
+    case MTN = 0
+    case MCI = 1
+    case Rightel = 2
+}
+
 class IGGlobal {
     
     /***** Base of Directories *****/
@@ -146,7 +152,8 @@ class IGGlobal {
     static var stickerCurrentGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
     static var stickerImageDic: [String:UIImageView] = [:]
     static var stickerAnimationDic: [String:AnimationView] = [:]
-    
+    static var isTopUpResult : Bool = false
+
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height) +
@@ -2806,6 +2813,9 @@ extension String {
      */
     func phoneConvert98to0() -> String {
         return ("+"+self).replace("+98", withString: "0")
+    }
+    func remove98() -> String {
+        return (self).replace("+98", withString: "0")
     }
 }
 

@@ -633,15 +633,17 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
-                    messagesVc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated: true)
+                    let vc = IGPSTopUpMainVC()
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.pageType = .TopUp
+                    UIApplication.topViewController()!.navigationController?.pushViewController(vc, animated: true)
                     return
                 }
             } else {
-                let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
-                messagesVc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                let vc = IGPSTopUpMainVC()
+                vc.hidesBottomBarWhenPushed = true
+                vc.pageType = .TopUp
+                UIApplication.topViewController()!.navigationController?.pushViewController(vc, animated: true)
                 return
             }
         case .billMenu:
@@ -961,9 +963,11 @@ class AbstractDashboardCell: UICollectionViewCell {
             break
             
         case .internetPackageMenu:
-            let internetPackage = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
-            internetPackage.hidesBottomBarWhenPushed = true
-            UIApplication.topViewController()!.navigationController!.pushViewController(internetPackage, animated:true)
+            
+            let vc = IGPSTopUpMainVC()
+            vc.hidesBottomBarWhenPushed = true
+            vc.pageType = .NetworkPackage
+            UIApplication.topViewController()!.navigationController?.pushViewController(vc, animated: true)
             break
             
         case .charity:

@@ -6913,3 +6913,28 @@ Do NOT share it with others.";
 //payment servcies
 "payment_services_last_purchases" = "Last Purchases";
 "select_operator" = "Choose Operator";
+//payment servcies
+"payment_services_last_purchases" = "Last Purchases";
+"select_operator" = "Choose Operator";
+"payment_services_choose_trabord" = "If you have ported your operator,Please choose your new one";
+"payment_services_prepaid_simcard" = "Credit Simcard";
+"payment_services_incash_simcard" = "Permanent Simcard";
+"payment_services_data_simcard" = "Data Sim";
+"payment_services_incash_lte_simcard" = "Permanent TDLTE Simcard";
+"payment_services_prepaid_lte_simcard" = "Credit TDLTE Simcard";
+"payment_services_custome_charge_amount" = "Enter Charge Amount";
+"payment_services_mci_youth_charge" = "Youth charge";
+"payment_services_mci_ladies_charge" = "Ladies charge";
+"payment_serices_operator" = "Operator";
+"payment_serices_global_continue" = "Continue";
+"payment_serices_global_filter" = "Sort By :";
+"payment_serices_suggested_packages" = "Suggested Packages";
+"payment_serices_normal_packages" = "Normal Packages";
+"payment_serices_Day" = " Day";
+"payment_serices_Hour" = " Hour";
+"payment_serices_Month" = " Month";
+"payment_serices_Year" = " Year";
+"payment_services_custome_choose_volume" = "Choose Volume of your Package.";
+"payment_services_choose_time" = "Choose duration of your Package";
+"payment_services_add_to_last_purchases" = "Do you want to save the purchase in history?";
+"payment_services_addedSuccessfully" = "Successfully added to the List";
