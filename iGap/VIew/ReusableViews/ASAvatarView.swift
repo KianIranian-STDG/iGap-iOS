@@ -37,7 +37,8 @@ class ASAvatarView: ASDisplayNode {
     private func configure() {
         layer.cornerRadius = frame.width / 2.0
         layer.masksToBounds = true
-        backgroundColor = .purple
+        backgroundColor = .clear
+        alpha = 0
         
         if initialLettersView == nil {
             initialLettersView = ASDisplayNode()
@@ -46,7 +47,6 @@ class ASAvatarView: ASDisplayNode {
         
         if initialLettersLabel == nil {
             initialLettersLabel = ASTextNode()
-//            initialLettersLabel?.style.preferredSize = CGSize(width: 50, height: 50)
             initialLettersLabel?.style.width = ASDimension(unit: .points, value: 50)
         }
         
@@ -54,85 +54,22 @@ class ASAvatarView: ASDisplayNode {
             avatarASImageView = ASNetworkImageNode()
             avatarASImageView?.style.preferredSize = CGSize(width: 50, height: 50)
         }
-        
-        
-        
-        
-//        self.subnodes!.forEach {
-//            $0.removeFromSupernode()
-//        }
-//        self.initialLettersView = ASDisplayNode()
-//        addSubnode(self.initialLettersView!)
-//        initialLettersView!.style.height = ASDimension(unit: .points, value: 50.0)
-
-//        self.initialLettersLabel = ASTextNode()
-
-//        addSubnode(self.initialLettersLabel!)
-//        self.avatarASImageView = ASNetworkImageNode()
-//        addSubnode(self.avatarASImageView!)
-//        avatarASImageView!.style.height = ASDimension(unit: .points, value: 50.0)
-//        avatarASImageView!.style.width = ASDimension(unit: .points, value: 50.0)
 
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-//        let stack = ASStackLayoutSpec()
-//        stack.direction = .vertical
-//        stack.style.flexShrink = 1.0
-//        stack.style.flexGrow = 1.0
-//        stack.justifyContent = .spaceBetween
-//        stack.alignItems = .stretch
-//        stack.spacing = 5
-        
-        
         let centerInitial = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: initialLettersLabel!)
         let initalOverlay = ASOverlayLayoutSpec(child: initialLettersView!, overlay: centerInitial)
         return ASOverlayLayoutSpec(child: initalOverlay, overlay: avatarASImageView!)
-        
-//        stack.children?.append(self.initialLettersView!)
-//        if hasAvatar {
-//            let ASCStack = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: self.avatarASImageView!)
-//            let ASBGStack = ASBackgroundLayoutSpec(child: ASCStack, background: self.initialLettersView!)
-//
-//            return ASBGStack
-//
-//        } else {
-//            let ASCStack = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: self.initialLettersLabel!)
-//            let ASBGStack = ASBackgroundLayoutSpec(child: ASCStack, background: self.initialLettersView!)
-//
-//            return ASBGStack
-//
-//        }
-        
     }
     func setUser(_ user: IGRegisteredUser) {
         if user.isInvalidated {
             return
         }
-
-//        if user.avatar != nil {
-//            hasAvatar = true
-//        } else {
-//            hasAvatar = false
-//        }
-//        if hasAvatar {
-//            self.initialLettersLabel?.removeFromSupernode() //removes the initial label if the user has Avatar
-//            self.avatarASImageView?.setAvatar(avatar: user.avatar!.file!)
-////            self.avatarASImageView?.image = UIImage(named: "AppIcon")
-//        } else {
-//            self.avatarASImageView?.removeFromSupernode() //removes the Avatar Image Node if the user has not Avatar
-//
-//            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: user.initials, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
-//            let color = UIColor.hexStringToUIColor(hex: user.color)
-//            self.initialLettersView!.backgroundColor = color
-//
-//        }
-        
-//        self.avatarASImageView?.image = UIImage(named: "AppIcon")
-        
+        alpha = 1
         IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: user.initials, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.initialLettersView!.backgroundColor = UIColor.hexStringToUIColor(hex: user.color)
+        avatarASImageView?.alpha = 0
         if user.avatar != nil {
-//            self.avatarASImageView?.setAvatar(avatar: user.avatar!.file!)
             getAvatar(networkAvatarNode: avatarASImageView!, avatar: user.avatar!.file!) {[weak self] (image) in
                 guard let sSelf = self else {
                     return
@@ -151,16 +88,12 @@ class ASAvatarView: ASDisplayNode {
     private let avatarThread = DispatchQueue(label: "serial.queue.avatar", qos: .userInteractive)
     
     private func getAvatar(networkAvatarNode: ASNetworkImageNode, avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail, completion: @escaping((UIImage?)->Void)) {
-           
-                // remove imageview from download list on t on cell reuse
-//        DispatchQueue.main.async {
-        avatarThread.sync {
+        avatarThread.sync(flags: .barrier) {
                 let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as? [String]
                 keys?.forEach { (key) in
                     ASNetworkimagesMap.removeValue(forKey: key)
                 }
         }
-//        }
         
         var file : IGFile!
         var previewType : PreviewType!
@@ -174,7 +107,6 @@ class ASAvatarView: ASDisplayNode {
         }
         
         if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size) {
-            //            self.sd_setImage(with: avatar.path(), completed: nil)
             if let data = try? Data(contentsOf: avatar.localUrl!) {
                 if let image = UIImage(data: data) {
                     completion(image)
@@ -185,7 +117,6 @@ class ASAvatarView: ASDisplayNode {
 
                 let path = file.localUrl
                 if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                    //                    self.sd_setImage(with: path, completed: nil)
                     if let data = try? Data(contentsOf: path!) {
                         if let image = UIImage(data: data) {
                             completion(image)
@@ -206,7 +137,6 @@ class ASAvatarView: ASDisplayNode {
                             sSelf.avatarThread.async {
                                 if let imageMain = ASNetworkimagesMap[attachment.token!] {
                                     let path = attachment.localUrl
-                                    //imageMain.sd_setImage(with: path)
                                     DispatchQueue.global(qos:.userInteractive).async {
                                         if let data = try? Data(contentsOf: path!) {
                                             if let image = UIImage(data: data) {
