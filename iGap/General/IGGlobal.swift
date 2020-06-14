@@ -79,7 +79,7 @@ enum messageMainTopViewState : Int {
     case none = 3
 }
 
-enum selectedOperator : Int {
+enum IGSelectedOperator : Int {
     case MTN = 0
     case MCI = 1
     case Rightel = 2

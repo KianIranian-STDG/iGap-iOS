@@ -77,7 +77,7 @@ class IGApiInternetPackage: IGApiBase {
     private static let internetPackageBaseUrl = "https://api.igap.net/operator-services/v1.0"
     
     
-    func getCategories(opType: selectedOperator = .MCI,completion: @escaping PSInternetCategoriesResponse ) {
+    func getCategories(opType: IGSelectedOperator = .MCI,completion: @escaping PSInternetCategoriesResponse ) {
         
         var urlinner = Endpoint.MCIcategories.url
         switch opType {
@@ -136,7 +136,7 @@ class IGApiInternetPackage: IGApiBase {
         
     }
     
-    func getPackages(opType: selectedOperator = .MCI,type: String = "CREDIT" ,completion: @escaping PSInternetPackagesResponse ) {
+    func getPackages(opType: IGSelectedOperator = .MCI,type: String = "CREDIT" ,completion: @escaping PSInternetPackagesResponse ) {
         var urlinner = Endpoint.MCIcategories.url
         switch opType {
         case .MCI : urlinner = Endpoint.MCIpackages.url
@@ -196,7 +196,7 @@ class IGApiInternetPackage: IGApiBase {
     }
     
     
-    func getVolumes(opType: selectedOperator = .MCI ,completion: @escaping PSInternetPackagesResponse ) {
+    func getVolumes(opType: IGSelectedOperator = .MCI ,completion: @escaping PSInternetPackagesResponse ) {
         var urlinner = Endpoint.MCIcategories.url
         switch opType {
         case .MCI : urlinner = Endpoint.MCIpackages.url
@@ -331,7 +331,7 @@ class IGApiInternetPackage: IGApiBase {
         }
 
     }
-    func purchase(opType: selectedOperator,telNum: String, type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
+    func purchase(opType: IGSelectedOperator,telNum: String, type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "type" : type]
        var urlinner = Endpoint.MCIpurchase.url

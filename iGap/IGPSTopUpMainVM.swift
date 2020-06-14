@@ -14,7 +14,7 @@ class IGPSTopUpMainVM : NSObject {
     private var allListsPackages = [IGPSLastInternetPackagesPurchases]()
     var selectedAmount : String!
     var selectedPhone : String!
-    var selectedOp : selectedOperator!
+    var selectedOp : IGSelectedOperator!
     var selectedType : String!
     var pageType  : PaymentServicesType!
     var selectedPackage : IGPSLastInternetPackagesPurchases!
@@ -203,7 +203,7 @@ class IGPSTopUpMainVM : NSObject {
                     vcc.selectedPackage = sSelf.selectedPackage
                 }
                 vcc.internetCategories = response
-                vcc.selectedOp = sSelf.selectedOp ?? selectedOperator.MTN
+                vcc.selectedOp = sSelf.selectedOp ?? IGSelectedOperator.MTN
                 vcc.selectedPhone = sSelf.selectedPhone
                 UIApplication.topViewController()?.navigationController?.pushViewController(vcc, animated: true)
             }

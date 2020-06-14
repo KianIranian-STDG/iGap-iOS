@@ -35,7 +35,7 @@ class IGHelperBottomModals {
         UIApplication.topViewController()!.presentPanModal(vc)
 
     }
-    func showChargeType(view: UIViewController? = nil,chargeTypes: [String],selectedOperator : selectedOperator) {
+    func showChargeType(view: UIViewController? = nil,chargeTypes: [String],selectedOperator : IGSelectedOperator) {
         var alertView = view
         if alertView == nil {
          alertView = UIApplication.topViewController()

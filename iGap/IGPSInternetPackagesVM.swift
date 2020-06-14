@@ -11,7 +11,7 @@ import Foundation
 class IGPSInternetPackagesVM : NSObject {
     weak var vc : IGPSInternetPackagesVC?
     var selectedPhone : String!
-    var selectedOp : selectedOperator!
+    var selectedOp : IGSelectedOperator!
     var selectedType : String!
     var currentSelectedCellIndexPath : IndexPath?
     var internetPackages: [IGPSInternetPackages]!

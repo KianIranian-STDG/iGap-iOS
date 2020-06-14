@@ -15,7 +15,7 @@ class IGPSInternetPackagesVC : MainViewController {
     var table = UITableView()
     let stk = UIStackView()
     var selectedPhone : String!
-    var selectedOp : selectedOperator!
+    var selectedOp : IGSelectedOperator!
 
     let btnTime : UIButton = {
         let btn = UIButton()
@@ -204,8 +204,23 @@ class IGPSInternetPackagesVC : MainViewController {
             guard let sSelf = self else {return}
 
             let timeArray  = sSelf.internetCategories.filter({ $0.category?.type == "DURATION" })
-            
-            IGHelperBottomModals.shared.showDataModal(categories: timeArray,isTraffic : false)
+            let dayArray = timeArray.filter({ (elem) -> Bool in
+                return elem.category?.subType == "DAY"
+            }).sorted { (elemOne, elemTwo) -> Bool in
+                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+            }
+            let monthArray = timeArray.filter({ (elem) -> Bool in
+                return elem.category?.subType == "MONTH"
+            }).sorted { (elemOne, elemTwo) -> Bool in
+                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+            }
+            let yearArray = timeArray.filter({ (elem) -> Bool in
+                return elem.category?.subType == "YEAR"
+            }).sorted { (elemOne, elemTwo) -> Bool in
+                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+            }
+
+            IGHelperBottomModals.shared.showDataModal(categories: dayArray + monthArray + yearArray ,isTraffic : false)
         })
         btnVolume.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
@@ -221,9 +236,21 @@ class IGPSInternetPackagesVC : MainViewController {
     }
 
     func fetchTrafficPackage() {
-        let trafficArray  = internetCategories.filter({ $0.category?.type == "TRAFFIC" })
-        IGHelperBottomModals.shared.showDataModal(categories: trafficArray,isTraffic : true)
+        var trafficArray  = internetCategories.filter({ $0.category?.type == "TRAFFIC" })
+        let gbArray = trafficArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "GB"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        let mbArray = trafficArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "MB"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        
+        IGHelperBottomModals.shared.showDataModal(categories: mbArray + gbArray,isTraffic : true)
     }
+    
     func fetchDurationPackage() {
         
     }

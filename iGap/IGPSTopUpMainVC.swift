@@ -44,39 +44,39 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
                 self.tfChargeAmount.text = self.chargeAmount.currencyFormat()
         }
     }
-    var operatorDictionary: [String:IGOperator] =
-        ["0910":IGOperator.mci,
-         "0911":IGOperator.mci,
-         "0912":IGOperator.mci,
-         "0913":IGOperator.mci,
-         "0914":IGOperator.mci,
-         "0915":IGOperator.mci,
-         "0916":IGOperator.mci,
-         "0917":IGOperator.mci,
-         "0918":IGOperator.mci,
-         "0919":IGOperator.mci,
-         "0990":IGOperator.mci,
-         "0991":IGOperator.mci,
-         "0992":IGOperator.mci,
+    var operatorDictionary: [String:IGSelectedOperator] =
+        ["0910": IGSelectedOperator.MCI,
+         "0911":IGSelectedOperator.MCI,
+         "0912":IGSelectedOperator.MCI,
+         "0913":IGSelectedOperator.MCI,
+         "0914":IGSelectedOperator.MCI,
+         "0915":IGSelectedOperator.MCI,
+         "0916":IGSelectedOperator.MCI,
+         "0917":IGSelectedOperator.MCI,
+         "0918":IGSelectedOperator.MCI,
+         "0919":IGSelectedOperator.MCI,
+         "0990":IGSelectedOperator.MCI,
+         "0991":IGSelectedOperator.MCI,
+         "0992":IGSelectedOperator.MCI,
          
-         "0901":IGOperator.irancell,
-         "0902":IGOperator.irancell,
-         "0903":IGOperator.irancell,
-         "0930":IGOperator.irancell,
-         "0933":IGOperator.irancell,
-         "0935":IGOperator.irancell,
-         "0936":IGOperator.irancell,
-         "0937":IGOperator.irancell,
-         "0938":IGOperator.irancell,
-         "0939":IGOperator.irancell,
+         "0901":IGSelectedOperator.MTN,
+         "0902":IGSelectedOperator.MTN,
+         "0903":IGSelectedOperator.MTN,
+         "0930":IGSelectedOperator.MTN,
+         "0933":IGSelectedOperator.MTN,
+         "0935":IGSelectedOperator.MTN,
+         "0936":IGSelectedOperator.MTN,
+         "0937":IGSelectedOperator.MTN,
+         "0938":IGSelectedOperator.MTN,
+         "0939":IGSelectedOperator.MTN,
          
-         "0920":IGOperator.rightel,
-         "0921":IGOperator.rightel,
-         "0922":IGOperator.rightel
+         "0920":IGSelectedOperator.Rightel,
+         "0921":IGSelectedOperator.Rightel,
+         "0922":IGSelectedOperator.Rightel
     ]
 
     
-    private var selectedOperator : selectedOperator = .MTN
+    private var selectedOperator : IGSelectedOperator = .MTN
     var pageType : PaymentServicesType = .TopUp {
         didSet {
             if pageType == .TopUp {
@@ -249,6 +249,9 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         self.view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
         tfChargeAmount.delegate = self
+        if pageType == .TopUp {
+            tfPhoneNUmber.delegate = self
+        }
         vm.pageType = pageType
         initEventBus()
         
@@ -1147,32 +1150,64 @@ extension IGPSTopUpMainVC : EPPickerDelegate {
     
 }
 extension IGPSTopUpMainVC : UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        selectedCharge = ["\(P5000) \(rials)".inLocalizedLanguage() : 2]
-        if chargeAmount == "" || textField.text == "" {
-                    tfChargeAmount.text = selectedCharge.keys.first
-        } else {
-                let amount = textField.text!
-                switch selectedOperator {
-                case .MCI :
-                    let price : String! = amount
-                    if (price as! NSString).longLongValue > Int64(1000000) {
-                        textField.text = "1000000".currencyFormat()
-                    }
-                case .MTN :
-                    let price : String! = amount
-                    if (price as! NSString).longLongValue > Int64(20000000) {
-                        textField.text = "20000000".currencyFormat()
-                    }
-                case .Rightel :
-                    let price : String! = amount
-                    if (price as! NSString).longLongValue > Int64(20000000) {
-                        textField.text = "20000000".currencyFormat()
-                    }
-
-                default : break
-                }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            guard let textFieldText = tfPhoneNUmber.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
             
+
+            if textFieldText.starts(with: "۰") || textFieldText.starts(with: "0") || textFieldText.starts(with: "0".inLocalizedLanguage()) {
+
+                if  textFieldText.inEnglishNumbersNew().substring(offset: 4).count > 3 {
+                            selectedOperator = operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)]!
+
+                                switch selectedOperator {
+                                case .MCI : btnMCIAction()
+                                case .MTN: btnMTNAction()
+                                case .Rightel: btnRightelAction()
+                                default : break
+                                }
+
+
+                            }
+                }
+            return count <= 11
+
+        
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfChargeAmount {
+
+            selectedCharge = ["\(P5000) \(rials)".inLocalizedLanguage() : 2]
+            if chargeAmount == "" || textField.text == "" {
+                        tfChargeAmount.text = selectedCharge.keys.first
+            } else {
+                    let amount = textField.text!
+                    switch selectedOperator {
+                    case .MCI :
+                        let price : String! = amount
+                        if (price as! NSString).longLongValue > Int64(1000000) {
+                            textField.text = "1000000".currencyFormat()
+                        }
+                    case .MTN :
+                        let price : String! = amount
+                        if (price as! NSString).longLongValue > Int64(20000000) {
+                            textField.text = "20000000".currencyFormat()
+                        }
+                    case .Rightel :
+                        let price : String! = amount
+                        if (price as! NSString).longLongValue > Int64(20000000) {
+                            textField.text = "20000000".currencyFormat()
+                        }
+
+                    default : break
+                    }
+                
+            }
         }
         
     }

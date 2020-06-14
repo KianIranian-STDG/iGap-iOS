@@ -14,7 +14,7 @@ class IGPSChargeTypesTVC: BaseTableViewController {
     var chargeTypes = [String]()
     var isShortFormEnabled = true
     var isKeyboardPresented = false
-    var selectedOperator : selectedOperator!
+    var selectedOperator : IGSelectedOperator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class IGPSChargeTypesTVC: BaseTableViewController {
                 guard let sSelf = self else {
                     return
                 }
-                (UIApplication.topViewController() as! IGPSTopUpMainVC).btnChargeType.setTitle("\(sSelf.chargeTypes[(indexPath.row) - 1])", for: .normal)
+                (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedChargeType.removeAll()
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedChargeType["\(sSelf.chargeTypes[(indexPath.row) - 1])"] = (indexPath.row) - 1
                 
             })
