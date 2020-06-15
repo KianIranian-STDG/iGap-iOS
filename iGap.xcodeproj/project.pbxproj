@@ -2237,93 +2237,6 @@
 			path = AddAssets;
 			sourceTree = "<group>";
 		};
-		8E38247A248BAABB00F5DE97 /* Payment Services */ = {
-			isa = PBXGroup;
-			children = (
-				8E38247B248BAACB00F5DE97 /* TopUp */,
-			);
-			name = "Payment Services";
-			sourceTree = "<group>";
-		};
-		8E38247B248BAACB00F5DE97 /* TopUp */ = {
-			isa = PBXGroup;
-			children = (
-				8E382480248BAAEE00F5DE97 /* View */,
-				8E38247F248BAAE500F5DE97 /* Helper */,
-				8E38247E248BAADE00F5DE97 /* Model */,
-				8E38247D248BAAD800F5DE97 /* Controller */,
-				8E38247C248BAAD100F5DE97 /* View Model */,
-			);
-			name = TopUp;
-			sourceTree = "<group>";
-		};
-		8E38247C248BAAD100F5DE97 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
-				8E382496248F5E9A00F5DE97 /* TOPUP */,
-				8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */,
-			);
-			name = "View Model";
-			sourceTree = "<group>";
-		};
-		8E38247D248BAAD800F5DE97 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */,
-				8E382493248F5E4C00F5DE97 /* TOPUP */,
-				8E382494248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift */,
-				8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		8E38247E248BAADE00F5DE97 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8E38248B248D375700F5DE97 /* IGPSStruct.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		8E38247F248BAAE500F5DE97 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				FA075DEA232A5E9C002E7AC7 /* IGApiInternetPackage.swift */,
-				94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */,
-				8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */,
-			);
-			name = Helper;
-			sourceTree = "<group>";
-		};
-		8E382480248BAAEE00F5DE97 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				8E382491248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift */,
-				8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		8E382493248F5E4C00F5DE97 /* TOPUP */ = {
-			isa = PBXGroup;
-			children = (
-				8E382489248CF9EF00F5DE97 /* IGPSChargeTypesTVC.swift */,
-				8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */,
-				8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */,
-			);
-			name = TOPUP;
-			sourceTree = "<group>";
-		};
-		8E382496248F5E9A00F5DE97 /* TOPUP */ = {
-			isa = PBXGroup;
-			children = (
-				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
-				8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */,
-			);
-			name = TOPUP;
-			sourceTree = "<group>";
-		};
 		8E3C6971236035FF001575BE /* PanModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -3048,6 +2961,92 @@
 				8E53BD90245EDE970008E045 /* LoanCellInnerBottom.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D25C330524975FF400A86828 /* Payment Services */ = {
+			isa = PBXGroup;
+			children = (
+				D25C330B2497615100A86828 /* TopUp */,
+			);
+			path = "Payment Services";
+			sourceTree = "<group>";
+		};
+		D25C33062497600000A86828 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E382491248DF25200F5DE97 /* IGPSTOPUPLastPurchasesCell.swift */,
+				8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D25C33072497600800A86828 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FA075DEA232A5E9C002E7AC7 /* IGApiInternetPackage.swift */,
+				94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */,
+				8E382485248C052A00F5DE97 /* IGHelperPaymentService.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		D25C33082497605800A86828 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D25C330C2497618E00A86828 /* TOPUP */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D25C3309249760C100A86828 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E38248B248D375700F5DE97 /* IGPSStruct.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D25C330A249760C900A86828 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E382481248BAB4D00F5DE97 /* IGPSTopUpMainVC.swift */,
+				8E382494248F5E6A00F5DE97 /* IGPSInternetPackagesVC.swift */,
+				8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */,
+				D25C330D249761BE00A86828 /* TOPUP */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D25C330B2497615100A86828 /* TopUp */ = {
+			isa = PBXGroup;
+			children = (
+				D25C33062497600000A86828 /* View */,
+				D25C33072497600800A86828 /* Helper */,
+				D25C3309249760C100A86828 /* Model */,
+				D25C330A249760C900A86828 /* Controller */,
+				D25C33082497605800A86828 /* ViewModel */,
+			);
+			path = TopUp;
+			sourceTree = "<group>";
+		};
+		D25C330C2497618E00A86828 /* TOPUP */ = {
+			isa = PBXGroup;
+			children = (
+				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
+				8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */,
+				8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */,
+			);
+			path = TOPUP;
+			sourceTree = "<group>";
+		};
+		D25C330D249761BE00A86828 /* TOPUP */ = {
+			isa = PBXGroup;
+			children = (
+				8E382489248CF9EF00F5DE97 /* IGPSChargeTypesTVC.swift */,
+				8E382487248C9AA200F5DE97 /* IGPSChargeListTVC.swift */,
+				8E38248D248DED9100F5DE97 /* IGPSLastPurchasesVC.swift */,
+			);
+			path = TOPUP;
 			sourceTree = "<group>";
 		};
 		D281C029246FEB0D00D0F5A2 /* Model */ = {
@@ -4361,7 +4360,7 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
-				8E38247A248BAABB00F5DE97 /* Payment Services */,
+				D25C330524975FF400A86828 /* Payment Services */,
 				D2FE640F24680EB1000D861E /* Koknus */,
 				8EC217B82259DCFA00105B5A /* Entity */,
 				FA8FCBAD219C02C80028457F /* Api */,
