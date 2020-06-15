@@ -513,9 +513,7 @@
 		D2CC15122451751C0083FF48 /* MBCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC15112451751C0083FF48 /* MBCardCell.swift */; };
 		D2DF12AB24682D67009F68AC /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		D2E2E70D248E201D00FA2F3A /* libwebp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70C248E201D00FA2F3A /* libwebp.framework */; };
-		D2E2E70E248E201E00FA2F3A /* libwebp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70C248E201D00FA2F3A /* libwebp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2E2E710248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */; };
-		D2E2E711248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2E2E70F248E202E00FA2F3A /* SDWebImageWebPCoder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2E2E713248E739F00FA2F3A /* IGGIftPayInfoModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E2E712248E739F00FA2F3A /* IGGIftPayInfoModal.swift */; };
 		D2EC3C58247D2E2D00072B87 /* IGKBuyTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
@@ -1017,18 +1015,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D2DF12AD24682D67009F68AC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D2E2E711248E202E00FA2F3A /* SDWebImageWebPCoder.framework in Embed Frameworks */,
-				D2E2E70E248E201E00FA2F3A /* libwebp.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAD744FE21B940D400801D2E /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4570,7 +4556,6 @@
 				FAF985B71E2E110900B26940 /* [RS] Copy Carthage Frameworks */,
 				FAC42C821E36262D00F2CB5C /* [RS] Fabric.io */,
 				FAD744FE21B940D400801D2E /* Embed App Extensions */,
-				D2DF12AD24682D67009F68AC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5866,7 +5851,6 @@
 		FAF795FD1DAA330C0030509B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iGap/iGap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5916,7 +5900,6 @@
 		FAF795FE1DAA330C0030509B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iGap/iGap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
