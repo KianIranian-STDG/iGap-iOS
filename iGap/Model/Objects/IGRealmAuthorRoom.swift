@@ -74,7 +74,7 @@ class IGRealmAuthorRoom: Object {
     func detach() -> IGRealmAuthorRoom {
         let authorRoom = IGRealmAuthorRoom(value: self)
         if let roomInfo = authorRoom.roomInfo {
-            authorRoom.roomInfo = roomInfo.detach()
+            authorRoom.roomInfo = roomInfo.detach(copyMessage: false)
         }
         return authorRoom
     }

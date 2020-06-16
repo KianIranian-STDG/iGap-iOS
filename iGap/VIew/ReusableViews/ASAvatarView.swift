@@ -125,7 +125,7 @@ class ASAvatarView: ASDisplayNode {
                     
                 } else {
                     file = file.detach()
-                    avatarThread.sync {
+                    avatarThread.async(flags: .barrier) {
                         ASNetworkimagesMap[file.token!] = networkAvatarNode
                     }
                     DispatchQueue.main.async {
@@ -134,7 +134,7 @@ class ASAvatarView: ASDisplayNode {
                             guard let sSelf = self else {
                                 return
                             }
-                            sSelf.avatarThread.async {
+                            sSelf.avatarThread.sync {
                                 if let imageMain = ASNetworkimagesMap[attachment.token!] {
                                     let path = attachment.localUrl
                                     DispatchQueue.global(qos:.userInteractive).async {
