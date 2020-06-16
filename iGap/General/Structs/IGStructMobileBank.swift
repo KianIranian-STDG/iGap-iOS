@@ -163,7 +163,7 @@ struct IGMBChequeBook: Codable {
 }
 
 struct IGMBCheque: Codable {
-    let balance: Int?
+    let balance: Int64?
     let changeStatusDate: String
     let chequeDescription: String?
     let number: String

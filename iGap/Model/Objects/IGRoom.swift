@@ -231,8 +231,6 @@ class IGRoom: Object {
         
         let predicate = NSPredicate(format: "id = %lld", igpRoom.igpID)
         var room: IGRoom! = realm.objects(IGRoom.self).filter(predicate).first
-        IGPrint(module: .igap, string: room?.id)
-        
         if room == nil {
             room = IGRoom()
             room.id = igpRoom.igpID
