@@ -12,6 +12,7 @@ import Foundation
 
 enum ModuleType: String {
     case Koknus = "Koknus"
+    case igap = "iGap"
 }
 
 

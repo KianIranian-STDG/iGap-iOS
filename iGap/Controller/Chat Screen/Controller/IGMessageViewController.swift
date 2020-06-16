@@ -1339,25 +1339,48 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
                 /* fetch user info and notify collection item if exist in visible items into the collection */
-//                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
-//                    DispatchQueue.main.async {
-//                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
-//                            for indexPath in visibleItems {
-//                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
-//                                    if let msg = cell.message {
-//                                        if !msg.isInvalidated, let authorUser = msg.authorUser, !authorUser.isInvalidated {
-//                                            if let peerId = msg.authorUser?.userId, userInfo.igpID == peerId {
+                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
+                    DispatchQueue.main.async {
+                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
+                            for indexPath in visibleItems {
+                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+                                    if let msg = cell.message {
+                                        if !msg.isInvalidated, let authorUser = msg.authorUser, !authorUser.isInvalidated {
+                                            if let peerId = msg.authorUser?.userId, userInfo.igpID == peerId {
+//                                                cell.updateUserInfo()
 //                                                cell.updateAvatar()
-////                                                self?.updateItem(cellPosition: indexPath.row)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
+                                                self?.updateItem(cellPosition: indexPath.row)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 
+            }else if let onFetchRoomInfo = result?.object as? (action: ChatMessageAction, roomId: Int64), onFetchRoomInfo.action == ChatMessageAction.roomInfo {
+                  
+                IGClientGetRoomRequest.sendRequestAvoidDuplicate(roomId: onFetchRoomInfo.roomId) {[weak self] (room) in
+                    DispatchQueue.main.async {
+                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
+                            for indexPath in visibleItems {
+                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+                                    if let msg = cell.message {
+                                        if !msg.isInvalidated, let authorUser = msg.authorUser, !authorUser.isInvalidated {
+                                            if let roomId = msg.authorRoom?.roomId, room.id == roomId {
+//                                                cell.updateUserInfo()
+//                                                cell.updateAvatar()
+                                                self?.updateItem(cellPosition: indexPath.row)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
                 
             } else if let onAddWaitingProgress = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection), onAddWaitingProgress.action == ChatMessageAction.addProgress {
                 if onAddWaitingProgress.roomId == self?.room?.id ?? -1 {
@@ -5374,7 +5397,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if let user = finalMessage.authorUser?.user {
             self.lblReplyName.text = user.displayName
         } else if let room = finalMessage.authorRoom {
-            self.lblReplyName.text = room.title
+            self.lblReplyName.text = room.roomInfo?.title
         }
         
         let textMessage = finalMessage.message
@@ -7439,7 +7462,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if forwardMessage.authorUser != nil {
                 usernameType = .user
             }
-            IGHelperChatOpener.manageOpenChatOrProfile(usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom)
+            IGHelperChatOpener.manageOpenChatOrProfile(usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom?.roomInfo)
         }
     }
     

@@ -658,7 +658,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 if let user = realmRoomMessage.authorUser?.user {
                     txtSenderNameAbs.text = user.displayName
                 } else if let sender = realmRoomMessage.authorRoom {
-                    txtSenderNameAbs.text = sender.title
+                    txtSenderNameAbs.text = sender.roomInfo?.title
                 } else {
                     txtSenderNameAbs.text = ""
                 }
@@ -1023,7 +1023,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
         }
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.roomInfo?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
     }
     
     @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -1031,7 +1031,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
         }
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.roomInfo?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -1171,7 +1171,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             if let user = repliedMessage.authorUser?.user {
                 txtReplyDisplayNameAbs.text = user.displayName
             } else if let room = repliedMessage.authorRoom {
-                txtReplyDisplayNameAbs.text = room.title
+                txtReplyDisplayNameAbs.text = room.roomInfo?.title
             }
             
             let body = repliedMessage.message
@@ -1222,7 +1222,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                     SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.room.id)", sender: (action: ChatMessageAction.userInfo, userId: authorUser.userId))
                 }
             } else if let room = originalMessage.authorRoom {
-                txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(room.title != nil ? room.title! : "")"
+                txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(room.roomInfo?.title != nil ? room.roomInfo?.title! : "")"
             } else {
                 txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized
             }
@@ -1436,7 +1436,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             attributedString.setAttributes([NSAttributedString.Key.baselineOffset: 0], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
-            if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
+            if let channel = messageVote.authorRoom?.roomInfo?.channelRoom, channel.hasReaction {
                 makeVoteAction()
                 let attributedVoteUp = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")", attributes: nil)
                 let textVoteUp = (attributedVoteUp.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")")
@@ -1453,7 +1453,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 removeVoteAction()
             }
             
-            var roomId = messageVote.authorRoom?.id
+            var roomId = messageVote.authorRoom?.roomInfo?.id
             if roomId == nil {
                 roomId = messageVote.roomId
             }

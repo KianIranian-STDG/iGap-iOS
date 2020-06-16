@@ -246,7 +246,7 @@ class CellSizeCalculator: NSObject {
                         }
                         
                         var replySenderTitle: String = ""
-                        if let roomTitle = reply.authorRoom?.title {
+                        if let roomTitle = reply.authorRoom?.roomInfo?.title {
                             replySenderTitle = roomTitle
                         } else if let userDisplayName = reply.authorUser?.user?.displayName {
                             replySenderTitle = userDisplayName
@@ -270,7 +270,7 @@ class CellSizeCalculator: NSObject {
                     } else if let forward = message.forwardedFrom {
                         
                         var forwardMessage: String = ""
-                        if let roomTitle = forward.authorRoom?.title {
+                        if let roomTitle = forward.authorRoom?.roomInfo?.title {
                             forwardMessage = roomTitle
                         } else if let userDisplayName = forward.authorUser?.user?.displayName {
                             forwardMessage = userDisplayName

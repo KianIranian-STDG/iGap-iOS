@@ -555,6 +555,7 @@ enum ChatMessageAction {
     case locallyUpdateStatus
     case channelGetMessageState
     case userInfo
+    case roomInfo
     case addProgress
     case removeProgress
     case none

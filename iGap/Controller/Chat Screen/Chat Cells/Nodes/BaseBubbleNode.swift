@@ -411,7 +411,7 @@ class BaseBubbleNode: ASCellNode {
             IGGlobal.makeAsyncText(for: self.lblEyeText, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
 
             
-            if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
+            if let channel = messageVote.authorRoom?.roomInfo?.channelRoom, channel.hasReaction {
                 hasReAction = true
 
                 IGGlobal.makeAsyncText(for: self.lblLikeText, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -426,7 +426,7 @@ class BaseBubbleNode: ASCellNode {
                 lblDisLikeText.removeFromSupernode()
             }
             
-            var roomId = messageVote.authorRoom?.id
+            var roomId = messageVote.authorRoom?.roomInfo?.id
             if roomId == nil {
                 roomId = messageVote.roomId
             }
@@ -1570,7 +1570,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
         }
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.roomInfo?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
     }
 
     @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -1578,7 +1578,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
         }
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.roomInfo?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
     }
 
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -129,7 +129,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())! , size: 12, numberOfLines: 1, font: .igapFont)
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.roomInfo?.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())! , size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
@@ -149,7 +149,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.roomInfo?.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
@@ -210,7 +210,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.roomInfo?.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
@@ -240,7 +240,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.roomInfo?.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
@@ -280,16 +280,31 @@ class ASReplyForwardNode: ASDisplayNode {
                 imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
 
+            
             IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: IGStringsManager.ForwardedFrom.rawValue.localized, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)//shows Forwarded Message at top
 
                 if let user = extraMessage.authorUser?.user { //get Forward message sender Name
                     IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get Forward message sender Room Title
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: sender.roomInfo?.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
 
         }
     }
+    
+//    private func fetchRoomInfo() {
+//        
+//        if let user = realmRoomMessage.authorUser?.user {
+//            avatarViewAbs.avatarImageView?.backgroundColor = UIColor.clear
+//            avatarViewAbs.setUser(user)
+//        } else if let userId = realmRoomMessage.authorUser?.userId {
+//            avatarViewAbs.avatarImageView?.backgroundColor = UIColor.white
+//            avatarViewAbs.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+//            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.room.id)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+//        }
+//        
+//    }
+    
 }

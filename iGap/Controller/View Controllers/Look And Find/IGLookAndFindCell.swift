@@ -125,7 +125,7 @@ class IGLookAndFindCell: UITableViewCell {
         if let user = finalMessage.authorUser?.user {
             setUser(user: user, message: finalMessage.message)
         } else if let room = message.authorRoom {
-            setRoom(room: room, message: finalMessage.message)
+            setRoom(room: room.roomInfo, message: finalMessage.message)
         }
         //setRoom(room: IGRoom.getRoomInfo(roomId: message.roomId), message: message.message)
     }

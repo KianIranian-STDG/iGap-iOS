@@ -341,7 +341,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             if let forwarded = lastMessage.forwardedFrom {
                 if let user = forwarded.authorUser!.user {
                     self.lastMessageLabel.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(user.displayName)"
-                } else if let title = forwarded.authorRoom?.title {
+                } else if let title = forwarded.authorRoom?.roomInfo?.title {
                     self.lastMessageLabel.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(title)"
                 } else {
                     self.lastMessageLabel.text = IGStringsManager.ForwardedMessage.rawValue.localized

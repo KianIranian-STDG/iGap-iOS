@@ -19,7 +19,7 @@ class IGRoomMessage: Object {
     @objc dynamic var updateTime:         Date?
     @objc dynamic var authorHash:         String?
     @objc dynamic var authorUser:         IGRealmAuthorUser? // When sent in a chat/group
-    @objc dynamic var authorRoom:         IGRoom?           // When sent in a channel
+    @objc dynamic var authorRoom:         IGRealmAuthorRoom?           // When sent in a channel
     @objc dynamic var attachment:         IGFile?
     @objc dynamic var forwardedFrom:      IGRoomMessage?
     @objc dynamic var repliedTo:          IGRoomMessage?
@@ -156,17 +156,21 @@ class IGRoomMessage: Object {
                 self.authorRoom = nil
                 
             } else if author.hasIgpRoom {
-                let authorRoom = author.igpRoom
-                //read realm for existing room
-                let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
-                if let roomInDb = realm.objects(IGRoom.self).filter(predicate).first {
-                    self.authorRoom = roomInDb
-                    self.authorUser = nil
-                } else {
-                    //if your code reaches here there is something wrong
-                    //you MUST fetch all dependecies befor performing any action
-                    //assertionFailure()
-                }
+                
+                self.authorRoom = IGRealmAuthorRoom(author.igpRoom)
+                self.authorUser = nil
+                
+//                let authorRoom = author.igpRoom
+//                //read realm for existing room
+//                let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
+//                if let roomInDb = realm.objects(IGRoom.self).filter(predicate).first {
+//                    self.authorRoom?.roomInfo = roomInDb
+//                    self.authorUser = nil
+//                } else {
+//                    //if your code reaches here there is something wrong
+//                    //you MUST fetch all dependecies befor performing any action
+//                    //assertionFailure()
+//                }
             }
         }
         if igpMessage.hasIgpLocation {
@@ -359,7 +363,6 @@ class IGRoomMessage: Object {
                 message.futureMessageId = message.id
             }
         }
-        
         message.roomId = roomId
         message.id = messageId
         message.message = igpMessage.igpMessage
@@ -390,12 +393,23 @@ class IGRoomMessage: Object {
                 message.authorRoom = nil
                 
             } else if author.hasIgpRoom {
-                let authorRoom = author.igpRoom
-                let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
-                if let roomInDb = realmFinal.objects(IGRoom.self).filter(predicate).first {
-                    message.authorRoom = roomInDb
-                    message.authorUser = nil
-                }
+                
+                message.authorRoom = IGRealmAuthorRoom(author.igpRoom)
+                message.authorUser = nil
+                
+//                let authorRoom = author.igpRoom
+//                let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
+//                if let roomInDb = realmFinal.objects(IGRealmAuthorRoom.self).filter(predicate).first {
+//                    message.authorRoom = roomInDb
+//                    message.authorUser = nil
+//                } else {
+////                    var igpRoom = IGPRoom()
+////                    igpRoom.igpID = authorRoom.igpRoomID
+////                    message.authorRoom = IGRoom.putOrUpdate(igpRoom)
+//                    message.authorRoom = IGRealmAuthorRoom(author.igpRoom)
+//                    message.authorUser = nil
+//
+//                }
             }
         }
         
@@ -538,12 +552,18 @@ class IGRoomMessage: Object {
             detachedMessage.authorUser = nil
         }
         
-        if let author = self.authorRoom, detachRoom {
-            let detachedAuthor = author.detach(copyLastMessage: true)
-            detachedMessage.authorRoom = detachedAuthor
+        if let author = self.authorRoom {
+            detachedMessage.authorRoom = author.detach()
         } else {
             detachedMessage.authorRoom = nil
         }
+        
+//        if let author = self.authorRoom, detachRoom {
+//            let detachedAuthor = author.detach()
+//            detachedMessage.authorRoom = detachedAuthor
+//        } else {
+//            detachedMessage.authorRoom = nil
+//        }
         
         if let attach = self.attachment {
             detachedMessage.attachment = attach.detach()

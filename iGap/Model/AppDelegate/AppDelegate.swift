@@ -106,7 +106,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
      
     func realmConfig() {
         let config = Realm.Configuration (
-            schemaVersion: 56//HINT: change schemaVersion in 'ShareConfig'
+            schemaVersion: 57//HINT: change schemaVersion in 'ShareConfig'
         )
         Realm.Configuration.defaultConfiguration = config
         compactRealm()
