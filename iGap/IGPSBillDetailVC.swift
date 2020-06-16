@@ -1,0 +1,432 @@
+//
+//  IGPSBillDetailVC.swift
+//  iGap
+//
+//  Created by BenyaminMokhtarpour on 6/15/20.
+//  Copyright © 2020 Kianiranian STDG -www.kianiranian.com. All rights reserved.
+//
+
+import Foundation
+import RealmSwift
+
+class IGPSBillDetailVC : MainViewController {
+
+    private var vm : IGPSBillDetailVM!
+    let scrollView = IGScrollView()
+    private var holderHeightC : NSLayoutConstraint!
+    private var showBillImageC : NSLayoutConstraint!
+    private var branchIndoC : NSLayoutConstraint!
+    var hasQureed : Bool = false
+    var billNumber : String! {
+        didSet {
+            lblBillNumberData.text = billNumber.inLocalizedLanguage()
+        }
+    }
+    var canEditBill : Bool = false {
+        didSet {
+            btnAddToMyBills.setTitle(canEditBill ? IGStringsManager.BillEditMode.rawValue.localized : IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
+        }
+    }
+
+    var billPayNumber : String! {
+        didSet {
+            lblBillPayNumberData.text = billPayNumber.inLocalizedLanguage()
+        }
+    }
+    var billPayAmount : String! {
+        didSet {
+            lblBillPayAmountData.text = billPayAmount.currencyFormat().inLocalizedLanguage() + " " +  IGStringsManager.Currency.rawValue.localized
+        }
+    }
+    var billPayDeadLine : String! {
+        didSet {
+            lblBillPayDeadLineData.text = billPayDeadLine.inLocalizedLanguage()
+        }
+    }
+    private let holder : UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        view.layer.cornerRadius = 10
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowRadius = 4.0
+        return view
+    }()
+
+    private let imgBillType : UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFit
+        iv.layer.cornerRadius = 50
+        iv.layer.borderColor = ThemeManager.currentTheme.NavigationFirstColor.cgColor
+        iv.layer.borderWidth = 2.0
+        iv.clipsToBounds = true
+        iv.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        return iv
+    }()
+    private let btnMYBills : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.layer.cornerRadius = 15
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+        btn.layer.borderWidth = 1.0
+        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.MyBills.rawValue.localized, for: .normal)
+        return btn
+    }()
+
+    
+    private let btnPay : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        btn.layer.cornerRadius = 15
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
+        return btn
+    }()
+    private let btnPayMid : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        btn.layer.cornerRadius = 15
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.PSPayMidTerm.rawValue.localized, for: .normal)
+        return btn
+    }()
+    private let btnBranchInfo : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.layer.cornerRadius = 15
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+        btn.layer.borderWidth = 1.0
+        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.BillBranchingInfo.rawValue.localized, for: .normal)
+        return btn
+    }()
+    private let btnAddToMyBills : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.layer.cornerRadius = 15
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+        btn.layer.borderWidth = 1.0
+        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
+        return btn
+    }()
+    private let btnShowBillImage : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.layer.cornerRadius = 15
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+        btn.layer.borderWidth = 1.0
+        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitle(IGStringsManager.BillImage.rawValue.localized, for: .normal)
+        return btn
+    }()
+    private let lblBillNumber : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirection
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.BillId.rawValue.localized
+        return lbl
+    }()
+    private let lblBillNumberData : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirectionOposit
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.GlobalLoading.rawValue.localized
+        lbl.text = lbl.text?.inLocalizedLanguage()
+        return lbl
+    }()
+    private let lblBillPayNumber : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirection
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.PayIdentifier.rawValue.localized
+        return lbl
+    }()
+    private let lblBillPayNumberData : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirectionOposit
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.GlobalLoading.rawValue.localized
+        lbl.text = lbl.text?.inLocalizedLanguage()
+        
+        return lbl
+    }()
+    private let lblBillPayAmount : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirection
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.BillPrice.rawValue.localized
+        return lbl
+    }()
+    private let lblBillPayAmountData : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirectionOposit
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.GlobalLoading.rawValue.localized
+        lbl.text = lbl.text?.inLocalizedLanguage()
+        
+        return lbl
+    }()
+    private let lblBillPayDeadLine : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirection
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.BillPayDate.rawValue.localized
+        return lbl
+    }()
+    private let lblBillPayDeadLineData : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.igFont(ofSize: 13)
+        lbl.textAlignment = lbl.localizedDirectionOposit
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
+        lbl.text = IGStringsManager.GlobalLoading.rawValue.localized
+        lbl.text = lbl.text?.inLocalizedLanguage()
+        
+        return lbl
+    }()
+    var billType : IGBillType!  {
+        didSet
+        {
+            switch billType {
+            case .Gas :
+                imgBillType.image = UIImage(named: "bill_gaz_pec")
+            case .Elec :
+                imgBillType.image = UIImage(named: "bill_elc_pec")
+            case .Phone :
+                imgBillType.image = UIImage(named: "bill_telecom_pec")
+            case .Mobile :
+                imgBillType.image = UIImage(named: "MCILogo")
+                
+            default : break
+            }
+
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        vm = IGPSBillDetailVM(viewController: self)
+        initView()
+        initCustomtNav(title: IGStringsManager.BillOperations.rawValue.localized)
+        self.view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
+        initServices()
+    }
+   
+    private func initView() {
+        setupScrollView()
+        addContent()
+        manageSemantic()
+        manageActions()
+        
+    }
+    private func initServices() {
+                    let realm = try! Realm()
+                    let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+                    let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+                    let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
+
+                    if billType == .Gas {
+                        vm?.queryGasBill(billType: "GAS", billID: billNumber)
+                    } else if billType == .Elec {
+                        vm?.queryElecBill(billType: "ELECTRICITY", telNum: userPhoneNumber, billID: billNumber)
+                    } else if billType == .Phone {
+            //            vm?.queryBill(billType: "PHONE", telNum: <#T##String?#>)
+                    } else if billType == .Mobile {
+            //            vm?.queryBill(billType: "MOBILE_MCI", telNum: <#T##String?#>, billID: <#T##String?#>)
+                    }
+    
+    }
+    private func manageSemantic() {
+        self.scrollView.semanticContentAttribute = self.semantic
+        self.holder.semanticContentAttribute = self.semantic
+    }
+    private func setupScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollView)
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+    }
+    private func addContent() {
+        scrollView.addSubview(holder)
+        holderHeightC = holder.heightAnchor.constraint(equalToConstant: 250)
+        holder.widthAnchor.constraint(equalTo: scrollView.widthAnchor,multiplier: 0.9).isActive = true
+        holder.topAnchor.constraint(equalTo: scrollView.topAnchor,constant: 75).isActive = true
+        holder.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        holderHeightC.isActive = true
+
+        scrollView.addSubview(imgBillType)
+        imgBillType.heightAnchor.constraint(equalToConstant : 100).isActive = true
+        imgBillType.widthAnchor.constraint(equalToConstant : 100).isActive = true
+        imgBillType.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        imgBillType.centerYAnchor.constraint(equalTo: holder.topAnchor).isActive = true
+        holderHeightC.isActive = true
+        //MARK: Bill ID
+        holder.addSubview(lblBillNumber)
+        lblBillNumber.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        lblBillNumber.topAnchor.constraint(equalTo: imgBillType.bottomAnchor,constant: 25).isActive = true
+        lblBillNumber.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 10).isActive = true
+
+        holder.addSubview(lblBillNumberData)
+        lblBillNumberData.topAnchor.constraint(equalTo: imgBillType.bottomAnchor,constant: 25).isActive = true
+        lblBillNumberData.leadingAnchor.constraint(equalTo: lblBillNumber.trailingAnchor,constant: 25).isActive = true
+        lblBillNumberData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
+        //MARK: Bill PAY ID
+        holder.addSubview(lblBillPayNumber)
+        lblBillPayNumber.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        lblBillPayNumber.topAnchor.constraint(equalTo: lblBillNumber.bottomAnchor,constant: 25).isActive = true
+        lblBillPayNumber.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 10).isActive = true
+
+        holder.addSubview(lblBillPayNumberData)
+        lblBillPayNumberData.topAnchor.constraint(equalTo: lblBillNumberData.bottomAnchor,constant: 25).isActive = true
+        lblBillPayNumberData.leadingAnchor.constraint(equalTo: lblBillPayNumber.trailingAnchor,constant: 25).isActive = true
+        lblBillPayNumberData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
+        //MARK: Bill Amount
+        holder.addSubview(lblBillPayAmount)
+        lblBillPayAmount.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        lblBillPayAmount.topAnchor.constraint(equalTo: lblBillPayNumber.bottomAnchor,constant: 25).isActive = true
+        lblBillPayAmount.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 10).isActive = true
+
+        holder.addSubview(lblBillPayAmountData)
+        lblBillPayAmountData.topAnchor.constraint(equalTo: lblBillPayNumberData.bottomAnchor,constant: 25).isActive = true
+        lblBillPayAmountData.leadingAnchor.constraint(equalTo: lblBillPayAmount.trailingAnchor,constant: 25).isActive = true
+        lblBillPayAmountData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
+        //MARK: Bill PAY DeadLine
+        holder.addSubview(lblBillPayDeadLine)
+        lblBillPayDeadLine.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        lblBillPayDeadLine.topAnchor.constraint(equalTo: lblBillPayAmount.bottomAnchor,constant: 25).isActive = true
+        lblBillPayDeadLine.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 10).isActive = true
+
+        holder.addSubview(lblBillPayDeadLineData)
+        lblBillPayDeadLineData.topAnchor.constraint(equalTo: lblBillPayAmountData.bottomAnchor,constant: 25).isActive = true
+        lblBillPayDeadLineData.leadingAnchor.constraint(equalTo: lblBillPayDeadLine.trailingAnchor,constant: 25).isActive = true
+        lblBillPayDeadLineData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
+
+        let stk = UIStackView()
+        stk.alignment = .center
+        stk.axis = .horizontal
+        stk.distribution = .fillEqually
+        stk.spacing = 10
+        stk.addArrangedSubview(btnPay)
+        stk.addArrangedSubview(btnPayMid)
+        stk.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stk)
+
+        stk.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        stk.widthAnchor.constraint(equalTo: scrollView.widthAnchor,multiplier: 0.9).isActive = true
+        stk.topAnchor.constraint(equalTo: holder.bottomAnchor,constant: 25).isActive = true
+        stk.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        btnPay.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btnPayMid.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        scrollView.addSubview(btnBranchInfo)
+        branchIndoC = btnBranchInfo.heightAnchor.constraint(equalToConstant: 50)
+        btnBranchInfo.widthAnchor.constraint(equalTo: scrollView.widthAnchor,multiplier: 0.9).isActive = true
+        btnBranchInfo.topAnchor.constraint(equalTo: btnPay.bottomAnchor,constant: 50).isActive = true
+        btnBranchInfo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        branchIndoC.isActive = true
+        scrollView.addSubview(btnAddToMyBills)
+        btnAddToMyBills.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btnAddToMyBills.widthAnchor.constraint(equalTo: scrollView.widthAnchor,multiplier: 0.9).isActive = true
+        btnAddToMyBills.topAnchor.constraint(equalTo: btnBranchInfo.bottomAnchor,constant: 10).isActive = true
+        btnAddToMyBills.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+
+        scrollView.addSubview(btnShowBillImage)
+        showBillImageC = btnShowBillImage.heightAnchor.constraint(equalToConstant: 50)
+        btnShowBillImage.widthAnchor.constraint(equalTo: scrollView.widthAnchor,multiplier: 0.9).isActive = true
+        btnShowBillImage.topAnchor.constraint(equalTo: btnAddToMyBills.bottomAnchor,constant: 10).isActive = true
+        btnShowBillImage.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,constant: -10).isActive = true
+        btnShowBillImage.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        showBillImageC.isActive = true
+        manageBtnSHowImage()
+        
+        
+    }
+    private func manageBtnSHowImage() {
+        switch billType {
+        case .Elec :
+            showBillImageC.constant = 50
+            branchIndoC.constant = 50
+            btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
+            btnPayMid.isHidden = true
+            
+        case .Gas :
+            showBillImageC.constant = 0
+            branchIndoC.constant = 50
+            btnShowBillImage.setTitle(nil, for: .normal)
+            btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
+            btnPayMid.isHidden = true
+
+        case .Phone :
+            btnPay.setTitle(IGStringsManager.PSPayLastTerm.rawValue.localized, for: .normal)
+            btnPayMid.setTitle(IGStringsManager.PSPayMidTerm.rawValue.localized, for: .normal)
+            btnPayMid.isHidden = false
+            branchIndoC.constant = 0
+            showBillImageC.constant = 0
+            btnBranchInfo.setTitle(nil, for: .normal)
+            btnShowBillImage.setTitle(nil, for: .normal)
+
+        case .Mobile :
+            btnPay.setTitle(IGStringsManager.PSPayLastTerm.rawValue.localized, for: .normal)
+            btnPayMid.setTitle(IGStringsManager.PSPayMidTerm.rawValue.localized, for: .normal)
+            btnPayMid.isHidden = false
+            branchIndoC.constant = 0
+            showBillImageC.constant = 0
+            btnBranchInfo.setTitle(nil, for: .normal)
+            btnShowBillImage.setTitle(nil, for: .normal)
+
+        default : break
+            
+        }
+
+
+    }
+    private func manageActions() {
+        btnPay.addTarget(self, action: #selector(didTapOnQuery), for: .touchUpInside)
+    }
+
+    @objc private func didTapOnQuery() {
+        print("DIDTAP")
+    }
+
+    @objc private func tapAction() {
+        view.endEditing(true)
+    }
+
+}

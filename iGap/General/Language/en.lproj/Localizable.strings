@@ -6581,7 +6581,7 @@ TODO:// complete */
 "amount_out" = "Amount Out";
 "please_wait_data_loading" = "Please wait while Data is Loading ...";
 "invalid_bill_message" = "The bill is invalid";
-"elec_bill_operations" = "Electricity Bill Operations";
+"elec_bill_operations" = "Bill Operations";
 "elec_bill_name" = "Electricity Bill Name";
 "elec_provider_company_code" = "Company Code";
 "elec_provider_company_name" = "Company Name";
@@ -6938,3 +6938,15 @@ Do NOT share it with others.";
 "payment_services_choose_time" = "Choose duration of your Package";
 "payment_services_add_to_last_purchases" = "Do you want to save the purchase in history?";
 "payment_services_addedSuccessfully" = "Successfully added to the List";
+//Bill
+"payment_services_inquiry_title" = "Bill inquiry and quick payment";
+"payment_services_bill_1_segment" = "Service Bills";
+"payment_services_bill_2_segment" = "Phone Bills";
+"payment_enter_phoneNumber_desc" = "Please Enter Your Mobile or Phone Number :\nPhone number Example : 021********\nMobile number Example : 09*********";
+"payment_enter_gas_bill" = "Gas Bill";
+"payment_enter_elec_bill" = "Electricity Bill";
+"payment_enter_Choose_bill" = "Choose Bill";
+"payment_enter_customer_code" = "Subscription Code";
+"Bill_Entry_lengthError" = "Please Check Lenght of your subscription number";
+"payment_service_midterm_pay" = "Pay Mid-Term";
+"payment_service_lastterm_pay" = "Pay Last-Term";

@@ -263,4 +263,16 @@ class IGHelperBottomModals {
             UIApplication.topViewController()!.presentPanModal(vc)
 
     }
+    func showBillTypes(view: UIViewController? = nil,types : [String]) {
+        
+            var alertView = view
+            if alertView == nil {
+             alertView = UIApplication.topViewController()
+            }
+
+            let vc = IGPSBillTypesVC()
+            vc.types = types
+            UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
 }

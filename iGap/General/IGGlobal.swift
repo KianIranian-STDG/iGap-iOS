@@ -84,6 +84,12 @@ enum IGSelectedOperator : Int {
     case MCI = 1
     case Rightel = 2
 }
+enum IGBillType : Int {
+    case Elec = 0
+    case Gas = 1
+    case Phone = 2
+    case Mobile = 3
+}
 
 class IGGlobal {
     
@@ -2514,7 +2520,18 @@ extension UILabel {
             }
         }
     }
-    
+    var localizedDirectionOposit: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.left
+        } else {
+            guard let txt = self.text else { return NSTextAlignment.left }
+            if txt.isRTL() {
+                return NSTextAlignment.left
+            } else {
+                return NSTextAlignment.right
+            }
+        }
+    }
     var localizedDirectionDescriptions: NSTextAlignment {
         if LocaleManager.isRTL {
             return NSTextAlignment.right

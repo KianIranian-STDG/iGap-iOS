@@ -75,6 +75,13 @@
 		8E382498248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */; };
 		8E38249A248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */; };
 		8E38249C248F9F1500F5DE97 /* IGPSDataArrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */; };
+		8E3824A4249649CD00F5DE97 /* IGPSBillMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824A3249649CD00F5DE97 /* IGPSBillMainVC.swift */; };
+		8E3824A624964AB700F5DE97 /* IGPSBillMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824A524964AB700F5DE97 /* IGPSBillMainVM.swift */; };
+		8E3824A824969B4500F5DE97 /* IGPSBillTypesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824A724969B4500F5DE97 /* IGPSBillTypesVC.swift */; };
+		8E3824AA2497412B00F5DE97 /* IGPSBillDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824A92497412B00F5DE97 /* IGPSBillDetailVC.swift */; };
+		8E3824AC2497414400F5DE97 /* IGPSBillDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */; };
+		8E3824AE2497595B00F5DE97 /* IGApiBills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AD2497595B00F5DE97 /* IGApiBills.swift */; };
+		8E3824B024975EE300F5DE97 /* IGPSBillStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AF24975EE300F5DE97 /* IGPSBillStruct.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -1117,6 +1124,13 @@
 		8E382497248F5EAB00F5DE97 /* IGPSInternetPackagesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSInternetPackagesVM.swift; sourceTree = "<group>"; };
 		8E382499248F8A3400F5DE97 /* IGPSInternetPackagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSInternetPackagesCell.swift; sourceTree = "<group>"; };
 		8E38249B248F9F1500F5DE97 /* IGPSDataArrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSDataArrayVC.swift; sourceTree = "<group>"; };
+		8E3824A3249649CD00F5DE97 /* IGPSBillMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillMainVC.swift; sourceTree = "<group>"; };
+		8E3824A524964AB700F5DE97 /* IGPSBillMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillMainVM.swift; sourceTree = "<group>"; };
+		8E3824A724969B4500F5DE97 /* IGPSBillTypesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillTypesVC.swift; sourceTree = "<group>"; };
+		8E3824A92497412B00F5DE97 /* IGPSBillDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillDetailVC.swift; sourceTree = "<group>"; };
+		8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillDetailVM.swift; sourceTree = "<group>"; };
+		8E3824AD2497595B00F5DE97 /* IGApiBills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiBills.swift; sourceTree = "<group>"; };
+		8E3824AF24975EE300F5DE97 /* IGPSBillStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillStruct.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2240,6 +2254,7 @@
 		8E38247A248BAABB00F5DE97 /* Payment Services */ = {
 			isa = PBXGroup;
 			children = (
+				8E38249D2496491B00F5DE97 /* Bill */,
 				8E38247B248BAACB00F5DE97 /* TopUp */,
 			);
 			name = "Payment Services";
@@ -2318,10 +2333,63 @@
 		8E382496248F5E9A00F5DE97 /* TOPUP */ = {
 			isa = PBXGroup;
 			children = (
-				8E382483248BABAC00F5DE97 /* IGPSTopUpMainVM.swift */,
 				8E38248F248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift */,
 			);
 			name = TOPUP;
+			sourceTree = "<group>";
+		};
+		8E38249D2496491B00F5DE97 /* Bill */ = {
+			isa = PBXGroup;
+			children = (
+				8E38249E2496492B00F5DE97 /* View */,
+				8E38249F2496493400F5DE97 /* Helper */,
+				8E3824A02496493B00F5DE97 /* Model */,
+				8E3824A12496494200F5DE97 /* Controller */,
+				8E3824A22496494800F5DE97 /* View Model */,
+			);
+			name = Bill;
+			sourceTree = "<group>";
+		};
+		8E38249E2496492B00F5DE97 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8E38249F2496493400F5DE97 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8E3824A724969B4500F5DE97 /* IGPSBillTypesVC.swift */,
+				8E3824AD2497595B00F5DE97 /* IGApiBills.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		8E3824A02496493B00F5DE97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E3824AF24975EE300F5DE97 /* IGPSBillStruct.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8E3824A12496494200F5DE97 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E3824A3249649CD00F5DE97 /* IGPSBillMainVC.swift */,
+				8E3824A92497412B00F5DE97 /* IGPSBillDetailVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		8E3824A22496494800F5DE97 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E3824A524964AB700F5DE97 /* IGPSBillMainVM.swift */,
+				8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */,
+			);
+			name = "View Model";
 			sourceTree = "<group>";
 		};
 		8E3C6971236035FF001575BE /* PanModal */ = {
@@ -4921,6 +4989,7 @@
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
 				D67E985423A6796B003C1516 /* CanProvideAnimatorForEvent.swift in Sources */,
+				8E3824A624964AB700F5DE97 /* IGPSBillMainVM.swift in Sources */,
 				D61B5DE6237D48B10060B9D9 /* LoadingView.swift in Sources */,
 				D67E984323A67962003C1516 /* ImageZoomControllerSettings+Equatable.swift in Sources */,
 				D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */,
@@ -5022,6 +5091,7 @@
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				8E599D8A2329262500D75376 /* IGCallPageViewController.swift in Sources */,
 				8E3C697C236036A8001575BE /* PanContainerView.swift in Sources */,
+				8E3824B024975EE300F5DE97 /* IGPSBillStruct.swift in Sources */,
 				8E4177F9233CDABD00CEB3AF /* AKMaskFieldStatus.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
@@ -5108,6 +5178,7 @@
 				8EF0DE0724790F7E007AC20C /* IGCheckGiftStickerModal.swift in Sources */,
 				D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
+				8E3824AE2497595B00F5DE97 /* IGApiBills.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
 				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
 				8E3C697023603096001575BE /* MusicCell.swift in Sources */,
@@ -5348,6 +5419,7 @@
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				8E8E506023E5BAAA0094A91C /* IGCardToCardReceiptNode.swift in Sources */,
+				8E3824AA2497412B00F5DE97 /* IGPSBillDetailVC.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
 				8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
 				D67E986023A679AB003C1516 /* ImageZoomControllerSettings.swift in Sources */,
@@ -5365,6 +5437,7 @@
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
 				D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */,
 				8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */,
+				8E3824A824969B4500F5DE97 /* IGPSBillTypesVC.swift in Sources */,
 				FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */,
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,
 				D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */,
@@ -5378,6 +5451,7 @@
 				D67E983023A6792C003C1516 /* CanManageZoomBehaviors.swift in Sources */,
 				D67E986223A679B5003C1516 /* TypeAliasses.swift in Sources */,
 				FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */,
+				8E3824AC2497414400F5DE97 /* IGPSBillDetailVM.swift in Sources */,
 				FAD530651E0BDE2A00FE6C54 /* IGNavigationItem.swift in Sources */,
 				8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,
@@ -5564,6 +5638,7 @@
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,
 				8E599D7B2325331C00D75376 /* TGPControlsTicksProtocol.swift in Sources */,
+				8E3824A4249649CD00F5DE97 /* IGPSBillMainVC.swift in Sources */,
 				8E4472A82332102600900244 /* IGProfileUSerCellTypeTwo.swift in Sources */,
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,

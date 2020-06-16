@@ -6611,7 +6611,7 @@ TODO:// translate */
 "amount_out" = "المبلغ";
 "please_wait_data_loading" = "الرجاء الانتظار حتى يتم تحميل البيانات ...";
 "invalid_bill_message" = "الفاتورة غير صالحة";
-"elec_bill_operations" = "عمليات فاتورة الكهرباء";
+"elec_bill_operations" = "عمليات فاتورة";
 "elec_bill_name" = "اسم فاتورة الكهرباء";
 "elec_provider_company_code" = "رمز الشركة";
 "elec_provider_company_name" = "اسم الشركة";

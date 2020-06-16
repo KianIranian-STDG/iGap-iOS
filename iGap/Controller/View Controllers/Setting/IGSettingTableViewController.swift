@@ -185,9 +185,8 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             }
             else {
 //                showLogoutActionSheet()
-                let vc = IGPSTopUpMainVC()
+                let vc = IGPSBillMainVC()
                 vc.hidesBottomBarWhenPushed = true
-                vc.pageType = .TopUp
                 self.navigationController?.pushViewController(vc, animated: true)
 
 

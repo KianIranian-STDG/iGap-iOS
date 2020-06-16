@@ -424,6 +424,7 @@ enum IGStringsManager : String {
     case ErrorUserIsBlocked = "e_904_6"
     case ErrorAllowedNotToCommunicate = "e_906_1"
     case BillID13 = "elecBill_Entry_lengthError"
+    case SubsCriptionError = "Bill_Entry_lengthError"
     case LessThan10000 = "elecBill_error_bellowMin"
     case PinNotMatch = "kuknos_SetPassConf_error"
     case GlobalErrorForm = "please_fill_form_data_correctly"
@@ -945,6 +946,17 @@ enum IGStringsManager : String {
     case PSAddToLastPurchases = "payment_services_add_to_last_purchases"
     case PSAdeddSuccessFully = "payment_services_addedSuccessfully"
 
+    //Bill
+    case PSInquiryTitle = "payment_services_inquiry_title"
+    case PSBillTypeSegment1 = "payment_services_bill_1_segment"
+    case PSBillTypeSegment2 = "payment_services_bill_2_segment"
+    case PSPhoneNUmberEnterDesc = "payment_enter_phoneNumber_desc"
+    case PSGasBill = "payment_enter_gas_bill"
+    case PSElecBill = "payment_enter_elec_bill"
+    case PSChooseBill = "payment_enter_Choose_bill"
+    case PSSubscriptionCode = "payment_enter_customer_code"
+    case PSPayMidTerm = "payment_service_midterm_pay"
+    case PSPayLastTerm = "payment_service_lastterm_pay"
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

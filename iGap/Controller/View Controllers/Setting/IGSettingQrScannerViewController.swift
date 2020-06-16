@@ -22,6 +22,8 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     var scanner: MTBBarcodeScanner?
     var scannerPageType: BarcodeScanner = .Verify
     var delegate: codeDelegate?
+    var billDelegate: billBarcodeDelegate?
+    var billType : IGBillType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +113,9 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             setActivity(plancode: code)
         } else if scannerPageType == .KUKNOS {
             resolveKuknosWalletID( code)
-        } else {
+        } else if scannerPageType == .BillBarcode {
+            didScanBillBarcode(code)
+        }else {
             manageBillBarcode(code)
         }
     }
@@ -126,7 +130,20 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         print("================")
 
     }
+    private func didScanBillBarcode(_ code: String) {
+        print("================")
+        print(code)
+        self.delegate?.passData(code: String(code.prefix(13)))
+        self.navigationController?.popViewController(animated: true)
 
+        let billDataVC = IGPSBillDetailVC()
+        billDataVC.billNumber = String(code.prefix(13))
+        billDataVC.billType = billType
+        UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
+
+        print("================")
+
+    }
     
     private func manageBillBarcode(_ code: String) {
         print("BARCODE SCANEED",code)
