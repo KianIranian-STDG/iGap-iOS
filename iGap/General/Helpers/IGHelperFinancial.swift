@@ -122,20 +122,11 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     public func sendCardToCardRequestWithAmount(toUserId: Int64 = 0,amount:Int!,destinationCard: String?){
         IGGlobal.prgShow()
         IGMplGetCardToCardTokenWithAmount.Generator.generate(toUserId: toUserId , amount:(amount) , destinationCard: destinationCard).successPowerful({ (protoResponse, requestWrapper) in
-            let dc = destinationCard
-            print("=7=7=7=7=7=7=7=7=7=7=7=7")
-            print(IGAppManager.sharedManager.userID(),toUserId)
-            print("=7=7=7=7=7=7=7=7=7=7=7=7")
-
             IGGlobal.prgHide()
                 self.cardToCardUserId = toUserId
             
             if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
                 DispatchQueue.main.async {
-                    print("=8=8=8=8=8=8=8")
-                    print(mplGetCardToCardToken)
-                    print("=8=8=8=8=8=8=8")
-
                     InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
                                                     MerchantVCArg: UIApplication.topViewController()!,
                                                     callback: self, amount:(((amount))!) , destinationCard: destinationCard!)

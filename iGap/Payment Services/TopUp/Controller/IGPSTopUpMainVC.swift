@@ -44,6 +44,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
                 self.tfChargeAmount.text = self.chargeAmount.currencyFormat()
         }
     }
+    
     var operatorDictionary: [String:IGSelectedOperator] =
         ["0910": IGSelectedOperator.MCI,
          "0911":IGSelectedOperator.MCI,
@@ -75,8 +76,8 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
          "0922":IGSelectedOperator.Rightel
     ]
 
-    
     private var selectedOperator : IGSelectedOperator = .MTN
+    
     var pageType : PaymentServicesType = .TopUp {
         didSet {
             if pageType == .TopUp {
@@ -96,7 +97,9 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             }
         }
     }
+    
     private var titlePage : String = ""
+    
     private let lblTitle : UILabel = {
         
         let lbl = UILabel()
@@ -107,6 +110,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
 
         return lbl
     }()
+    
     private let tfPhoneNUmber : UITextField = {
         
         let tf = UITextField()
@@ -124,14 +128,14 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         tf.keyboardType = .phonePad
         return tf
     }()
+    
     private let btnContactList : UIView = {
         let btn = UIView()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
         btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btn.backgroundColor = UIColor.lightGray.lighter(by: 30)
-        
+        btn.backgroundColor = UIColor.lightGray.withAlphaComponent(0.25)
         return btn
     }()
     private let btnLastPurchases : UIView = {
@@ -140,7 +144,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
         btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btn.backgroundColor = UIColor.lightGray.lighter(by: 30)
+        btn.backgroundColor = UIColor.lightGray.withAlphaComponent(0.25)
         
         return btn
     }()
@@ -160,34 +164,35 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         let btn = UIView()
         btn.backgroundColor = .clear
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 15
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.layer.cornerRadius = 8
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 2.0
-        
         return btn
-        
     }()
+    
     private let btnMCI : UIView = {
         let btn = UIView()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.backgroundColor = .clear
-        btn.layer.cornerRadius = 15
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.layer.cornerRadius = 8
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 0.0
         
         return btn
         
     }()
+    
     private let btnRightel : UIView = {
         let btn = UIView()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.backgroundColor = .clear
-        btn.layer.cornerRadius = 15
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.layer.cornerRadius = 8
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 0.0
         return btn
         
     }()
+    
     private let attensionView : UIView = {
         let av = UIView()
         av.translatesAutoresizingMaskIntoConstraints = false
@@ -199,17 +204,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         
     }()
     
-    
-//    var btnChargeAmount : UIButton = {
-//        let btn = UIButton()
-//        btn.translatesAutoresizingMaskIntoConstraints = false
-//        btn.layer.cornerRadius = 10
-//        btn.layer.borderWidth = 1.0
-//        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
-//        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-//        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
-//        return btn
-//    }()
     var tfChargeAmount : UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -218,26 +212,68 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         tf.borderStyle = .none
         tf.layer.cornerRadius = 10
         tf.layer.borderWidth = 1.0
-        tf.textColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)
-        tf.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        tf.textColor = ThemeManager.currentTheme.iVandColor
+        tf.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
         tf.font = UIFont.igFont(ofSize: 13)
-        
-        
         return tf
     }()
+    
     var btnChargeType : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
-        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
+        btn.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
         btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
         return btn
     }()
     
-
-
+    //MCI
+    var btnSimTypeOne : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
+        btn.layer.borderWidth = 1.2
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        btn.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
+        btn.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
+        return btn
+    }()
+    
+    var btnSimTypeTwo : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
+        btn.layer.borderWidth = 1.2
+        btn.setTitleColor(UIColor.lightGray, for: .normal)
+        btn.layer.borderColor = UIColor.lightGray.cgColor
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        return btn
+    }()
+    
+    var btnSimTypeThree : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
+        btn.layer.borderWidth = 1.2
+        btn.setTitleColor(UIColor.lightGray, for: .normal)
+        btn.layer.borderColor = UIColor.lightGray.cgColor
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        return btn
+    }()
+    
+    var btnSimTypeFour : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
+        btn.layer.borderWidth = 1.2
+        btn.setTitleColor(UIColor.lightGray, for: .normal)
+        btn.layer.borderColor = UIColor.lightGray.cgColor
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vm = IGPSTopUpMainVM(viewController: self)
@@ -277,50 +313,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         return av
         
     }()
-    //MCI
-    var btnSimTypeOne : UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 10
-        btn.layer.borderWidth = 1.0
-        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
-        return btn
-    }()
-    var btnSimTypeTwo : UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 10
-        btn.layer.borderWidth = 1.0
-        btn.setTitleColor(UIColor.lightGray, for: .normal)
-        btn.layer.borderColor = UIColor.lightGray.cgColor
-        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
-        return btn
-    }()
-    var btnSimTypeThree : UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 10
-        btn.layer.borderWidth = 1.0
-        btn.setTitleColor(UIColor.lightGray, for: .normal)
-        btn.layer.borderColor = UIColor.lightGray.cgColor
-        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
-        return btn
-    }()
-    var btnSimTypeFour : UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 10
-        btn.layer.borderWidth = 1.0
-        btn.setTitleColor(UIColor.lightGray, for: .normal)
-        btn.layer.borderColor = UIColor.lightGray.cgColor
-        btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
-        return btn
-    }()
-    
-    
-    
     
     private func initView() {
         setupScrollView()
@@ -566,14 +558,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         }
     }
     private func addTOPUPView() {
-//        self.scrollView.contentView.addSubview(btnChargeAmount)
         self.scrollView.contentView.addSubview(tfChargeAmount)
-
-//        btnChargeAmount.topAnchor.constraint(equalTo: attensionView.bottomAnchor,constant: 25).isActive = true
-//        btnChargeAmount.widthAnchor.constraint(equalTo: lblTitle.widthAnchor,multiplier: 0.7).isActive = true
-//        btnChargeAmount.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        btnChargeAmount.centerXAnchor.constraint(equalTo: lblTitle.centerXAnchor).isActive = true
-//        btnChargeAmount.addTarget(self, action: #selector(didTapOnChargeAmount), for: .touchUpInside)
 
         tfChargeAmount.topAnchor.constraint(equalTo: attensionView.bottomAnchor,constant: 25).isActive = true
         tfChargeAmount.widthAnchor.constraint(equalTo: lblTitle.widthAnchor,multiplier: 0.7).isActive = true
@@ -728,18 +713,30 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         
     }
     private func manageButoonColor() {
+        updateConstantColors()
         if #available(iOS 12.0, *) {
             switch traitCollection.userInterfaceStyle {
             case .light, .unspecified:
                 btnSubmit = IGKCustomButton(title: IGStringsManager.KSubmit.rawValue.localized ,backColor: ThemeManager.currentTheme.NavigationSecondColor)
+                
             case .dark:
                 btnSubmit = IGKCustomButton(title: IGStringsManager.KSubmit.rawValue.localized ,backColor: ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 20)!)
+                
             default :
-                break            }
+                break
+            }
         } else {
             btnSubmit = IGKCustomButton(title: IGStringsManager.KSubmit.rawValue.localized ,backColor: ThemeManager.currentTheme.NavigationSecondColor)
         }
     }
+    
+    private func updateConstantColors() {
+        tfPhoneNUmber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        btnMTN.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.6).cgColor
+        btnMCI.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.6).cgColor
+        btnRightel.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.6).cgColor
+    }
+    
     private func manageActions() {
         btnSubmit.addAction {
             [weak self] in
@@ -814,8 +811,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             default :
                 vm.selectedType = "RIGHTEL_NORMAL"
             }
-
-        default: break
         }
         vm.buyRequest()
 
@@ -842,7 +837,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-//        scrollView.shouldScrollToEnd = true
         
     }
     
@@ -860,7 +854,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-//        scrollView.shouldScrollToEnd = true
         
     }
     
@@ -878,8 +871,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
 
         }
-//        scrollView.shouldScrollToEnd = true
-        
     }
     func passDataInternet(phone: [String: String], currentOperator: String, selectedPackage: IGPSLastInternetPackagesPurchases) {
         print("CHANGE CHARGE AMOUNT")
@@ -892,8 +883,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         }
         
         selectedCharge.removeAll()
-        //        btnChargeAmount.setTitle(selectedCharge.first!.key + " " + rials, for: .normal)
-        //        tfChargeAmount.text = phone.first!.value + " " + rials
         
         if currentOperator == "mci" {
             btnMCIAction()
@@ -930,7 +919,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             chargeAmount = phone.first!.value + " " + rials
         }
         
-        
     }
 
     func passData(phone: [String: String], currentOperator: String) {
@@ -944,8 +932,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         }
 
         selectedCharge.removeAll()
-//        btnChargeAmount.setTitle(selectedCharge.first!.key + " " + rials, for: .normal)
-//        tfChargeAmount.text = phone.first!.value + " " + rials
         
         if currentOperator == "mci" {
             btnMCIAction()
@@ -960,7 +946,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             chargeAmount = phone.first!.value + " " + rials
         }
 
-        
     }
     
     //MARK: - ACTIONS
@@ -987,27 +972,10 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
                     amount += 10000
                     chargeAmount = "\(amount) \(rials)"
                 }
-
-            default : break
             }
-
-            
-            
-            
-            
-//            if currentIndex < (chargePrice.count - 1) {
-//                print("DIDTAPONPLUS")
-//                currentIndex += 1
-////                self.btnChargeAmount.setTitle(chargePrice[currentIndex].inLocalizedLanguage(), for: .normal)
-//                tfChargeAmount.text = chargePrice[currentIndex].inLocalizedLanguage()
-//                selectedCharge.removeAll()
-//                selectedCharge[chargePrice[currentIndex].inLocalizedLanguage()] = currentIndex
-//            }
         }
-        //        self.btnChargeAmount.setTitle("TTTT", for: .normal)
-        
-        
     }
+    
     @objc func didTapOnMines() {
 
         if chargePrice.count > 0 {
@@ -1018,29 +986,20 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
                 amount -= 10000
                 chargeAmount = "\(amount) \(rials)"
             }
-//            if currentIndex > (0) {
-//                print("DIDTAPONMINES")
-//                selectedCharge.removeAll()
-//                currentIndex -= 1
-////                self.btnChargeAmount.setTitle(chargePrice[currentIndex].inLocalizedLanguage(), for: .normal)
-//                self.tfChargeAmount.text = chargePrice[currentIndex].inLocalizedLanguage()
-//                selectedCharge.removeAll()
-//                selectedCharge[chargePrice[currentIndex].inLocalizedLanguage()] = currentIndex
-//            }
         }
-        
-        
     }
+    
     @objc func didTapOnChargeAmount() {
         IGHelperBottomModals.shared.showChargeList(view: self, chargeList: chargePrice)
     }
+    
     @objc func didTapOnChargeType() {
         IGHelperBottomModals.shared.showChargeType(view: self, chargeTypes: chargeType,selectedOperator: selectedOperator)
     }
     
     @objc func didTapOnSimOne() {
-        btnSimTypeOne.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-        btnSimTypeOne.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
+        btnSimTypeOne.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
+        btnSimTypeOne.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
         btnSimTypeThree.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeTwo.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeFour.layer.borderColor = UIColor.lightGray.cgColor
@@ -1054,8 +1013,8 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     
     @objc func didTapOnSimTwo() {
-        btnSimTypeTwo.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-        btnSimTypeTwo.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
+        btnSimTypeTwo.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
+        btnSimTypeTwo.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
         btnSimTypeOne.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeThree.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeFour.layer.borderColor = UIColor.lightGray.cgColor
@@ -1069,8 +1028,8 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     
     @objc func didTapOnSimThree() {
-        btnSimTypeThree.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-        btnSimTypeThree.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
+        btnSimTypeThree.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
+        btnSimTypeThree.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
         btnSimTypeOne.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeTwo.layer.borderColor = UIColor.lightGray.cgColor
         btnSimTypeFour.layer.borderColor = UIColor.lightGray.cgColor
@@ -1088,8 +1047,8 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     
     @objc func didTapOnSimFour() {
-        btnSimTypeFour.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
-        btnSimTypeFour.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
+        btnSimTypeFour.layer.borderColor = ThemeManager.currentTheme.iVandColor.cgColor
+        btnSimTypeFour.setTitleColor(ThemeManager.currentTheme.iVandColor, for: .normal)
         
         btnSimTypeOne.setTitleColor(UIColor.lightGray, for: .normal)
         btnSimTypeTwo.setTitleColor(UIColor.lightGray, for: .normal)
@@ -1107,7 +1066,6 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
 
     
     private func openContact(){
-//        IGClientActionManager.shared.sendChoosingContact(for: self.room!)
         let contactPickerScene = EPContactsPicker(delegate: self, multiSelection:false, subtitleCellType: SubtitleCellValue.email)
         let navigationController = UINavigationController(rootViewController: contactPickerScene)
         self.present(navigationController, animated: true, completion: nil)
@@ -1128,27 +1086,20 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
 }
 
 extension IGPSTopUpMainVC : EPPickerDelegate {
+    func epContactPicker(_: EPContactsPicker, didCancel error: NSError) {
+    }
     
-        func epContactPicker(_: EPContactsPicker, didCancel error: NSError) {
-    //        IGClientActionManager.shared.cancelChoosingContact(for: self.room!)
-        }
-        
-        func epContactPicker(_: EPContactsPicker, didSelectContact contact : EPContact){
-            DispatchQueue.main.async {
-    //            IGClientActionManager.shared.cancelChoosingContact(for: self.room!)
-                var phones : [String] = []
-                for phone in contact.phoneNumbers {
-                    phones.append(phone.phoneNumber)
-                }
-          
-                
-                self.tfPhoneNUmber.text = (phones.first)?.replacingOccurrences(of: " ", with: "").remove98()
-
-                
+    func epContactPicker(_: EPContactsPicker, didSelectContact contact : EPContact){
+        DispatchQueue.main.async {
+            var phones : [String] = []
+            for phone in contact.phoneNumbers {
+                phones.append(phone.phoneNumber)
             }
+            self.tfPhoneNUmber.text = (phones.first)?.replacingOccurrences(of: " ", with: "").remove98()
         }
-    
+    }
 }
+
 extension IGPSTopUpMainVC : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -1170,7 +1121,6 @@ extension IGPSTopUpMainVC : UITextFieldDelegate {
                     case .MCI : btnMCIAction()
                     case .MTN: btnMTNAction()
                     case .Rightel: btnRightelAction()
-                    default : break
                     }
                     
                 }
@@ -1183,8 +1133,8 @@ extension IGPSTopUpMainVC : UITextFieldDelegate {
             return count <= 4
         }
 
-        
     }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfChargeAmount {
 
@@ -1192,29 +1142,26 @@ extension IGPSTopUpMainVC : UITextFieldDelegate {
             if chargeAmount == "" || textField.text == "" {
                         tfChargeAmount.text = selectedCharge.keys.first
             } else {
-                    let amount = textField.text!
-                    switch selectedOperator {
-                    case .MCI :
-                        let price : String! = amount
-                        if (price as! NSString).longLongValue > Int64(1000000) {
-                            textField.text = "1000000".currencyFormat()
-                        }
-                    case .MTN :
-                        let price : String! = amount
-                        if (price as! NSString).longLongValue > Int64(20000000) {
-                            textField.text = "20000000".currencyFormat()
-                        }
-                    case .Rightel :
-                        let price : String! = amount
-                        if (price as! NSString).longLongValue > Int64(20000000) {
-                            textField.text = "20000000".currencyFormat()
-                        }
-
-                    default : break
+                let amount = textField.text!
+                switch selectedOperator {
+                case .MCI :
+                    let price : String! = amount
+                    if (price! as NSString).longLongValue > Int64(1000000) {
+                        textField.text = "1000000".currencyFormat()
                     }
-                
+                case .MTN :
+                    let price : String! = amount
+                    if (price! as NSString).longLongValue > Int64(20000000) {
+                        textField.text = "20000000".currencyFormat()
+                    }
+                case .Rightel :
+                    let price : String! = amount
+                    if (price! as NSString).longLongValue > Int64(20000000) {
+                        textField.text = "20000000".currencyFormat()
+                    }
+                }
             }
         }
-        
     }
+    
 }

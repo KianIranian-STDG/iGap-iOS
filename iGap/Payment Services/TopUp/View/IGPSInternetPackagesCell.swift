@@ -15,14 +15,13 @@ class IGPSInternetPackagesCell: BaseTableViewCell {
     
     var item : IGPSInternetPackages! {
         didSet {
-            
             lblPackageName.text = item.description
-
-            lblAmount.text = "\(item.cost ?? 0)".inRialFormat() + IGStringsManager.Currency.rawValue.localized        }
+            lblAmount.text = "\(item.cost ?? 0)".inRialFormat() + IGStringsManager.Currency.rawValue.localized
+        }
     }
+    
     let holder : UIView = {
         let view = UIView()
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
         view.layer.cornerRadius = 10
@@ -30,16 +29,12 @@ class IGPSInternetPackagesCell: BaseTableViewCell {
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowOpacity = 0.3
         view.layer.shadowRadius = 4.0
-        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
-
         return view
     }()
     
-    
-    
     private let lblPackageName : UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont.igFont(ofSize: 10)
+        lbl.font = UIFont.igFont(ofSize: 12)
         lbl.textColor = ThemeManager.currentTheme.LabelColor
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .center
@@ -50,25 +45,18 @@ class IGPSInternetPackagesCell: BaseTableViewCell {
 
     private let lblAmount : UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont.igFont(ofSize: 10)
+        lbl.font = UIFont.igFont(ofSize: 12)
         lbl.textColor = ThemeManager.currentTheme.LabelColor
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .center
-        
         lbl.text = ""
-        
         return lbl
     }()
-    
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initView()
     }
-    
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -78,8 +66,8 @@ class IGPSInternetPackagesCell: BaseTableViewCell {
         self.selectionStyle = .none
     }
     
-    
     private func addHolder () {
+        backgroundColor = .clear
         addSubview(holder)
         holder.semanticContentAttribute = self.semantic
         
@@ -104,24 +92,20 @@ class IGPSInternetPackagesCell: BaseTableViewCell {
         stk.heightAnchor.constraint(equalTo: holder.heightAnchor).isActive = true
         
         stk.addArrangedSubview(lblPackageName)
-
         stk.addArrangedSubview(lblAmount)
         
-//        holder.addTapGestureRecognizer(action: { [weak self] in
-//            guard let sSelf = self else {return}
-////            UIApplication.topViewController()?.navigationController?.popViewController(animated: true, completion: {
-////                sSelf.delegate?.passData(phone: [(sSelf.item.phoneNumber)! : "\(sSelf.item.amount ?? 0)"], currentOperator: sSelf.item!.simOperator!)
-////            })
-//
-//        })
     }
-    
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        holder.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        lblPackageName.textColor = ThemeManager.currentTheme.LabelColor
+        lblAmount.textColor = ThemeManager.currentTheme.LabelColor
     }
     
 }

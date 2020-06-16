@@ -123,7 +123,6 @@ class IGPSTopUpMainVM : NSObject {
     func buyRequest() {
 
         var userOperator : String!
-        var chargeType : String!
         var title : String!
         switch selectedOp {
         case .MCI :
@@ -142,6 +141,7 @@ class IGPSTopUpMainVM : NSObject {
 
         let chargeAmount = Int64(selectedAmount.onlyDigitChars())
 
+        IGGlobal.prgShow(UIApplication.topViewController()!.view)
         IGApiTopup.shared.chargeSimCard(opType: userOperator!, telNum: selectedPhone!.inEnglishNumbersNew(), cost: chargeAmount!, type: selectedType) { (success, token) in
             
             if success {

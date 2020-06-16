@@ -91,18 +91,14 @@ class IGPSInternetPackagesVM : NSObject {
     
     func addToHistory() {
         var userOperator : String!
-        var title : String!
         switch selectedOp {
         case .MCI :
             userOperator = "MCI"
-            title = IGStringsManager.MCI.rawValue.localized
         case .MTN :
             userOperator = "MTN"
-            title = IGStringsManager.Irancell.rawValue.localized
 
         case .Rightel :
             userOperator = "RIGHTEL"
-            title = IGStringsManager.Rightel.rawValue.localized
 
         default : break
         }
@@ -201,7 +197,7 @@ extension IGPSInternetPackagesVM : UITableViewDelegate, UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGPSInternetPackagesCell", for: indexPath) as! IGPSInternetPackagesCell
         if currentSelectedCellIndexPath != nil && indexPath == currentSelectedCellIndexPath {
-            cell.holder.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 20)
+            cell.holder.backgroundColor = ThemeManager.currentTheme.iVandColor.lighter(by: 10)
         } else {
             cell.holder.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
         }
@@ -211,17 +207,14 @@ extension IGPSInternetPackagesVM : UITableViewDelegate, UITableViewDataSource {
             let items = filteredPackages.filter { (pack) -> Bool in
                 return (pack.isSpecial == true)
             }
-                cell.item = items[indexPath.row]
-            
-
+            cell.item = items[indexPath.row]
         case 1 :
             let items = filteredPackages.filter { (cat) -> Bool in
-            return cat.isSpecial == false
+                return cat.isSpecial == false
             }
-                cell.item = items[indexPath.row]
+            cell.item = items[indexPath.row]
         default : return UITableViewCell()
         }
-
         return cell
 
     }
@@ -235,8 +228,6 @@ extension IGPSInternetPackagesVM : UITableViewDelegate, UITableViewDataSource {
                     return (pack.isSpecial == true)
                 }
                     selectedPackage = items[indexPath.row]
-                
-
             case 1 :
                 let items = filteredPackages.filter { (cat) -> Bool in
                 return cat.isSpecial == false
@@ -258,8 +249,8 @@ extension IGPSInternetPackagesVM : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let v = UIView()
         v.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        var lbl = UILabel()
-        lbl.textColor = ThemeManager.currentTheme.NavigationSecondColor
+        let lbl = UILabel()
+        lbl.textColor = ThemeManager.currentTheme.LabelColor
         lbl.textAlignment = lbl.localizedDirection
         lbl.font = UIFont.igFont(ofSize: 13,weight: .bold)
         v.addSubview(lbl)
@@ -276,7 +267,6 @@ extension IGPSInternetPackagesVM : UITableViewDelegate, UITableViewDataSource {
         return v
 
     }
-
     
     
 }

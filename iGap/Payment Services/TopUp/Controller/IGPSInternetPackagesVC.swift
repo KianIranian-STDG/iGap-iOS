@@ -22,35 +22,36 @@ class IGPSInternetPackagesVC : MainViewController {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
-        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.setTitleColor(ThemeManager.currentTheme.LabelColor.lighter(by: 10), for: .normal)
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.lighter(by: 10)?.cgColor
         btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
         btn.setTitle(IGStringsManager.Time.rawValue.localized, for: .normal)
         return btn
     }()
+    
     let btnVolume : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 10
         btn.layer.borderWidth = 1.0
-        btn.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10), for: .normal)
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
+        btn.setTitleColor(ThemeManager.currentTheme.LabelColor.lighter(by: 10), for: .normal)
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.lighter(by: 10)?.cgColor
         btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
         btn.setTitle(IGStringsManager.Voloume.rawValue.localized, for: .normal)
         return btn
     }()
+    
     private let btnBuy : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 10
-        btn.layer.borderWidth = 1.0
         btn.setTitleColor(.white, for: .normal)
-        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 10)?.cgColor
         btn.titleLabel?.font = UIFont.igFont(ofSize: 13)
         btn.setTitle(IGStringsManager.Buy.rawValue.localized, for: .normal)
         btn.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         return btn
     }()
+    
     //internet packages
     var internetPackages: [IGPSInternetPackages]!
     var internetCategories: [IGPSInternetCategory]!
@@ -65,6 +66,8 @@ class IGPSInternetPackagesVC : MainViewController {
         table.dataSource = vm
         table.separatorStyle = .none
         table.register(IGPSInternetPackagesCell.self, forCellReuseIdentifier: "IGPSInternetPackagesCell")
+        table.backgroundColor = .clear
+        table.showsVerticalScrollIndicator = false
         
         initCustomtNav(title: IGStringsManager.BuyInternetPackage.rawValue.localized)
         self.view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
@@ -116,36 +119,25 @@ class IGPSInternetPackagesVC : MainViewController {
 
                 }
             }
-
-            
         }
-
     }
+    
     private func initView() {
-//        setupScrollView()
         addContents()
         manageSemantics()
         manageActions()
     }
-//    private func setupScrollView() {
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        view.addSubview(scrollView)
-//
-//        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//
-//    }
+    
     private func addContents() {
         addFilterHolder()
         addButton()
         addTable()
     }
+    
     private func manageSemantics() {
         view.semanticContentAttribute = self.semantic
     }
+    
     private func addFilterHolder() {
         stk.translatesAutoresizingMaskIntoConstraints = false
         stk.distribution = .fillEqually
@@ -165,7 +157,6 @@ class IGPSInternetPackagesVC : MainViewController {
         lbl.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20).isActive = true
         view.addSubview(stk)
         
-
         stk.addArrangedSubview(btnTime)
         stk.addArrangedSubview(btnVolume)
 
@@ -175,13 +166,10 @@ class IGPSInternetPackagesVC : MainViewController {
         stk.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20).isActive = true
         stk.topAnchor.constraint(equalTo: lbl.bottomAnchor,constant: 10).isActive = true
 
-        
-
-        
     }
+    
     private func addTable() {
         table.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(table)
         
         table.topAnchor.constraint(equalTo: stk.bottomAnchor,constant: 20).isActive = true
@@ -190,15 +178,17 @@ class IGPSInternetPackagesVC : MainViewController {
         table.bottomAnchor.constraint(equalTo: btnBuy.topAnchor,constant: -20).isActive = true
 
     }
+    
     private func addButton() {
         view.addSubview(btnBuy)
 
-        btnBuy.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -20).isActive = true
+        btnBuy.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -10).isActive = true
         btnBuy.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 20).isActive = true
         btnBuy.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -20).isActive = true
         btnBuy.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
     }
+    
     private func manageActions() {
         btnTime.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
@@ -236,7 +226,7 @@ class IGPSInternetPackagesVC : MainViewController {
     }
 
     func fetchTrafficPackage() {
-        var trafficArray  = internetCategories.filter({ $0.category?.type == "TRAFFIC" })
+        let trafficArray  = internetCategories.filter({ $0.category?.type == "TRAFFIC" })
         let gbArray = trafficArray.filter({ (elem) -> Bool in
             return elem.category?.subType == "GB"
         }).sorted { (elemOne, elemTwo) -> Bool in
@@ -251,7 +241,23 @@ class IGPSInternetPackagesVC : MainViewController {
         IGHelperBottomModals.shared.showDataModal(categories: mbArray + gbArray,isTraffic : true)
     }
     
-    func fetchDurationPackage() {
-        
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        btnTime.setTitleColor(ThemeManager.currentTheme.LabelColor.lighter(by: 10), for: .normal)
+        btnTime.layer.borderColor = ThemeManager.currentTheme.LabelColor.lighter(by: 10)?.cgColor
+        btnVolume.setTitleColor(ThemeManager.currentTheme.LabelColor.lighter(by: 10), for: .normal)
+        btnVolume.layer.borderColor = ThemeManager.currentTheme.LabelColor.lighter(by: 10)?.cgColor
+        if #available(iOS 12.0, *) {
+            switch traitCollection.userInterfaceStyle {
+            case .light, .unspecified:
+                btnBuy.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+            case .dark:
+                btnBuy.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor.lighter(by: 20)!
+            default :
+                break
+            }
+        } else {
+            btnBuy.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        }
     }
+    
 }
