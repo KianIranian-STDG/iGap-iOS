@@ -23,7 +23,7 @@ class IGPSBillMainVC : MainViewController {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.darkGray.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -35,7 +35,7 @@ class IGPSBillMainVC : MainViewController {
     private let btnMYBills : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
         btn.layer.borderWidth = 1.0
@@ -72,7 +72,11 @@ class IGPSBillMainVC : MainViewController {
         segmentedControl.selectedSegmentIndex = 1
         segmentedControl.layer.cornerRadius = 15.0
         segmentedControl.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        segmentedControl.tintColor = ThemeManager.currentTheme.NavigationSecondColor
+        if #available(iOS 13.0, *) {
+            segmentedControl.selectedSegmentTintColor = ThemeManager.currentTheme.NavigationSecondColor
+        } else {
+            segmentedControl.tintColor = ThemeManager.currentTheme.NavigationSecondColor
+        }
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font : UIFont.igFont(ofSize: 12)], for: .selected)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor,NSAttributedString.Key.font : UIFont.igFont(ofSize: 12)], for: .normal)
         return segmentedControl
@@ -114,7 +118,7 @@ class IGPSBillMainVC : MainViewController {
     var btnServcieBillTYpe : UIButton = {
           let btn = UIButton()
           btn.translatesAutoresizingMaskIntoConstraints = false
-          btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+          btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
           btn.layer.cornerRadius = 15
           btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
           btn.layer.borderWidth = 1.0
@@ -162,11 +166,12 @@ class IGPSBillMainVC : MainViewController {
         manageSemantic()
         manageActions()
         billType = .Elec
-        
+        tfBillNumber.delegate = self
     }
     private func manageSemantic() {
         self.scrollView.contentView.semanticContentAttribute = self.semantic
     }
+
     private func setupScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -313,17 +318,29 @@ class IGPSBillMainVC : MainViewController {
             }
 
         } else if billType == IGBillType.Mobile {
-            let billDataVC = IGPSBillDetailVC()
+            if tfBillNumber.text == "" || tfBillNumber.text!.count < 11{
+                tfBillNumber.shake()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
+            } else {
+
+            let billDataVC = IGPSBillDetailVC()
+            billDataVC.phoneNumber = tfBillNumber.text!
             billDataVC.billType = billType
             UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
-
+            }
         } else if billType == IGBillType.Phone {
-            let billDataVC = IGPSBillDetailVC()
+            if tfBillNumber.text == "" || tfBillNumber.text!.count <  11{
+                tfBillNumber.shake()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
+            } else {
+
+            let billDataVC = IGPSBillDetailVC()
+            billDataVC.phoneNumber = tfBillNumber.text!
             billDataVC.billType = billType
             UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
-
+            }
         }
         
 
@@ -351,4 +368,44 @@ extension IGPSBillMainVC : billBarcodeDelegate {
     func passData(code: String) {
         tfBillNumber.text = code
     }
+}
+extension IGPSBillMainVC : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        if billType == .Elec {
+                guard let textFieldText = tfBillNumber.text,
+                    let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                        return false
+                }
+                let substringToReplace = textFieldText[rangeOfTextToReplace]
+                let count = textFieldText.count - substringToReplace.count + string.count
+                return count <= 13
+        } else if billType == .Gas {
+            guard let textFieldText = tfBillNumber.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
+            return count <= 12
+
+        } else if billType == .Phone || billType == .Mobile  {
+            guard let textFieldText = tfBillNumber.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
+            if textFieldText.starts(with: "09") || textFieldText.starts(with: "09".inLocalizedLanguage()) {
+                billType = .Mobile
+            } else {
+                billType = .Phone
+            }
+            return count <= 11
+
+        }else {
+            return false
+        }
+    }
+
 }

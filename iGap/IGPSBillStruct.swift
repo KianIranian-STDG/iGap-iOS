@@ -44,17 +44,46 @@ struct IGPSGasBillQuery: Decodable {
 
 //MARK: - Phone
 struct IGPSPhoneBillQuery: Decodable {
-    let billIdentifier: String?
-    let paymentIdentifier: String?
-    let totalBillDebt: String?
-    let paymentDeadLine: String?
+    let midTerm: midTerm?
+    let lastTerm: lastTerm?
     
     enum CodingKeys: String, CodingKey {
-        case billIdentifier = "bill_identifier"
-        case paymentIdentifier = "payment_identifier"
-        case totalBillDebt = "payment_amount"
-        case paymentDeadLine = "payment_dead_line"
+        case midTerm = "mid_term_bill_info"
+        case lastTerm = "last_term_bill_info"
     }
+    struct midTerm : Decodable {
+        let billId: Int?
+        let payId: Int?
+        let amount: Int?
+        let status: Int?
+        let message: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case billId = "bill_id"
+            case payId = "pay_id"
+            case amount = "amount"
+            case status = "status"
+            case message = "message"
+        }
+
+    }
+    struct lastTerm : Decodable {
+        let billId: Int?
+        let payId: Int?
+        let amount: Int?
+        let status: Int?
+        let message: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case billId = "bill_id"
+            case payId = "pay_id"
+            case amount = "amount"
+            case status = "status"
+            case message = "message"
+        }
+
+    }
+
 }
 
 

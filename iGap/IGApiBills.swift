@@ -16,6 +16,7 @@ import SwiftyJSON
 typealias PSQueryEBillResponse = (_ response: IGPSElecBillQuery?, _ error: String?) -> Void
 typealias PSQueryGBillResponse = (_ response: IGPSGasBillQuery?, _ error: String?) -> Void
 typealias PSQueryPBillResponse = (_ response: IGPSPhoneBillQuery?, _ error: String?) -> Void
+typealias PSQueryMBillResponse = (_ response: IGPSPhoneBillQuery?, _ error: String?) -> Void
 
 class IGApiBills: IGApiBase {
     
@@ -169,13 +170,6 @@ class IGApiBills: IGApiBase {
     }
     
     
-    private func requestGasQuery() {
-        
-    }
-    
-    private func requestElecQuery() {
-        
-    }
 
     func queryPhoneBill(billType : String, telNum: String? = nil, completion: @escaping PSQueryPBillResponse) {
         var url = Endpoint.getInquery.url
@@ -234,6 +228,62 @@ class IGApiBills: IGApiBase {
 
     }
     
+    func queryMobileBill(billType : String, telNum: String, completion: @escaping PSQueryMBillResponse) {
+        var url = Endpoint.getInquery.url
+        var parameters: Parameters!
+        switch billType {
+            
+        case "MOBILE_MCI" :
+            parameters = ["bill_type" : billType, "phone_number" : telNum]
+        default : break
+            
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseQueryMobileBills {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.queryMobileBill(billType : billType, telNum: telNum, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data.data, nil)
+                return
+
+            }
+        }
+
+    }
 }
 
 
@@ -255,6 +305,9 @@ extension DataRequest {
     }
 
     func responseQueryPhoneBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSPhoneBillQuery>>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
+    func responseQueryMobileBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSPhoneBillQuery>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
 

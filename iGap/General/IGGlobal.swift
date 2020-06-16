@@ -2524,7 +2524,7 @@ extension UILabel {
         if LocaleManager.isRTL {
             return NSTextAlignment.left
         } else {
-            guard let txt = self.text else { return NSTextAlignment.left }
+            guard let txt = self.text else { return NSTextAlignment.right }
             if txt.isRTL() {
                 return NSTextAlignment.left
             } else {

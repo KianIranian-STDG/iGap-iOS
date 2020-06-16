@@ -22,6 +22,7 @@ class IGPSBillDetailVC : MainViewController {
             lblBillNumberData.text = billNumber.inLocalizedLanguage()
         }
     }
+    var phoneNumber : String!
     var canEditBill : Bool = false {
         didSet {
             btnAddToMyBills.setTitle(canEditBill ? IGStringsManager.BillEditMode.rawValue.localized : IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
@@ -35,7 +36,7 @@ class IGPSBillDetailVC : MainViewController {
     }
     var billPayAmount : String! {
         didSet {
-            lblBillPayAmountData.text = billPayAmount.currencyFormat().inLocalizedLanguage() + " " +  IGStringsManager.Currency.rawValue.localized
+            lblBillPayAmountData.text = billPayAmount
         }
     }
     var billPayDeadLine : String! {
@@ -47,7 +48,7 @@ class IGPSBillDetailVC : MainViewController {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.darkGray.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -70,7 +71,7 @@ class IGPSBillDetailVC : MainViewController {
     private let btnMYBills : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
         btn.layer.borderWidth = 1.0
@@ -104,7 +105,7 @@ class IGPSBillDetailVC : MainViewController {
     private let btnBranchInfo : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
         btn.layer.borderWidth = 1.0
@@ -116,7 +117,7 @@ class IGPSBillDetailVC : MainViewController {
     private let btnAddToMyBills : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
         btn.layer.borderWidth = 1.0
@@ -128,7 +129,7 @@ class IGPSBillDetailVC : MainViewController {
     private let btnShowBillImage : UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor.lighter(by: 10)
+        btn.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
         btn.layer.borderWidth = 1.0
@@ -262,9 +263,9 @@ class IGPSBillDetailVC : MainViewController {
                     } else if billType == .Elec {
                         vm?.queryElecBill(billType: "ELECTRICITY", telNum: userPhoneNumber, billID: billNumber)
                     } else if billType == .Phone {
-            //            vm?.queryBill(billType: "PHONE", telNum: <#T##String?#>)
+                        vm?.queryPhoneBill(billType: "PHONE", telNum: phoneNumber)
                     } else if billType == .Mobile {
-            //            vm?.queryBill(billType: "MOBILE_MCI", telNum: <#T##String?#>, billID: <#T##String?#>)
+                        vm?.queryMobileBill(billType: "MOBILE_MCI", telNum: phoneNumber)
                     }
     
     }
@@ -401,6 +402,8 @@ class IGPSBillDetailVC : MainViewController {
             showBillImageC.constant = 0
             btnBranchInfo.setTitle(nil, for: .normal)
             btnShowBillImage.setTitle(nil, for: .normal)
+            lblBillPayAmount.text = IGStringsManager.MidTerm.rawValue.localized
+            lblBillPayDeadLine.text = IGStringsManager.LastTerm.rawValue.localized
 
         case .Mobile :
             btnPay.setTitle(IGStringsManager.PSPayLastTerm.rawValue.localized, for: .normal)
@@ -410,6 +413,8 @@ class IGPSBillDetailVC : MainViewController {
             showBillImageC.constant = 0
             btnBranchInfo.setTitle(nil, for: .normal)
             btnShowBillImage.setTitle(nil, for: .normal)
+            lblBillPayAmount.text = IGStringsManager.MidTerm.rawValue.localized
+            lblBillPayDeadLine.text = IGStringsManager.LastTerm.rawValue.localized
 
         default : break
             
