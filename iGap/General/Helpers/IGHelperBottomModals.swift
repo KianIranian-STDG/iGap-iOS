@@ -263,4 +263,16 @@ class IGHelperBottomModals {
             UIApplication.topViewController()!.presentPanModal(vc)
 
     }
+    func showPhoneNumbersModal(view: UIViewController? = nil,categories : [String] ) {
+        
+            var alertView = view
+            if alertView == nil {
+             alertView = UIApplication.topViewController()
+            }
+
+            let vc = IGPSPhoneTVC()
+            vc.items = categories
+            UIApplication.topViewController()!.presentPanModal(vc)
+
+    }
 }

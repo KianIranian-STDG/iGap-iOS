@@ -100,7 +100,9 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     
     private var titlePage : String = ""
-    
+    private var btnPlus : UIButton!
+    private var btnMines : UIButton!
+
     private let lblTitle : UILabel = {
         
         let lbl = UILabel()
@@ -112,7 +114,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         return lbl
     }()
     
-    private let tfPhoneNUmber : UITextField = {
+    var tfPhoneNUmber : UITextField = {
         
         let tf = UITextField()
         tf.font = UIFont.igFont(ofSize: 15,weight: .bold)
@@ -170,7 +172,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btn.backgroundColor = .clear
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 8
-        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 2.0
         return btn
     }()
@@ -180,7 +182,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.backgroundColor = .clear
         btn.layer.cornerRadius = 8
-        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 0.0
         
         return btn
@@ -192,7 +194,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.backgroundColor = .clear
         btn.layer.cornerRadius = 8
-        btn.layer.borderColor = ThemeManager.currentTheme.LabelColor.withAlphaComponent(0.7).cgColor
+        btn.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.withAlphaComponent(0.7).cgColor
         btn.layer.borderWidth = 0.0
         return btn
         
@@ -326,6 +328,10 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     }
     private func manageSemantic() {
         self.scrollView.contentView.semanticContentAttribute = self.semantic
+//        tfChargeAmount.semanticContentAttribute = .forceRightToLeft
+//        btnMines.semanticContentAttribute = .forceRightToLeft
+//        btnPlus.semanticContentAttribute = .forceRightToLeft
+
     }
     private func setupScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -575,7 +581,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             sSelf.didTapOnChargeAmount()
         })
 
-        let btnPlus = UIButton()
+        btnPlus = UIButton()
         btnPlus.setTitle("+", for: .normal)
         btnPlus.titleLabel?.font = UIFont.igFont(ofSize: 30)
         btnPlus.setTitleColor(.white, for: .normal)
@@ -587,10 +593,10 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btnPlus.topAnchor.constraint(equalTo: attensionView.bottomAnchor,constant: 25).isActive = true
         btnPlus.widthAnchor.constraint(equalToConstant: 30).isActive = true
         btnPlus.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        btnPlus.trailingAnchor.constraint(equalTo: lblTitle.trailingAnchor,constant: 0).isActive = true
+        btnPlus.rightAnchor.constraint(equalTo: lblTitle.rightAnchor,constant: 0).isActive = true
         btnPlus.addTarget(self, action: #selector(didTapOnPlus), for: .touchUpInside)
         
-        let btnMines = UIButton()
+        btnMines = UIButton()
         btnMines.setTitle("-", for: .normal)
         btnMines.titleLabel?.font = UIFont.igFont(ofSize: 30)
         btnMines.setTitleColor(.white, for: .normal)
@@ -602,9 +608,8 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         btnMines.topAnchor.constraint(equalTo: attensionView.bottomAnchor,constant: 25).isActive = true
         btnMines.widthAnchor.constraint(equalToConstant: 30).isActive = true
         btnMines.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        btnMines.leadingAnchor.constraint(equalTo: lblTitle.leadingAnchor,constant: 0).isActive = true
+        btnMines.leftAnchor.constraint(equalTo: lblTitle.leftAnchor,constant: 0).isActive = true
         btnMines.addTarget(self, action: #selector(didTapOnMines), for: .touchUpInside)
-        
         self.scrollView.contentView.addSubview(btnChargeType)
         
         btnChargeType.topAnchor.constraint(equalTo: tfChargeAmount.bottomAnchor,constant: 10).isActive = true
@@ -1099,8 +1104,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
 }
 
 extension IGPSTopUpMainVC : EPPickerDelegate {
-    func epContactPicker(_: EPContactsPicker, didCancel error: NSError) {
-    }
+    func epContactPicker(_: EPContactsPicker, didCancel error: NSError) {}
     
     func epContactPicker(_: EPContactsPicker, didSelectContact contact : EPContact){
         DispatchQueue.main.async {
@@ -1108,7 +1112,11 @@ extension IGPSTopUpMainVC : EPPickerDelegate {
             for phone in contact.phoneNumbers {
                 phones.append(phone.phoneNumber)
             }
-            self.tfPhoneNUmber.text = (phones.first)?.replacingOccurrences(of: " ", with: "").remove98()
+            if phones.count > 1 {
+                IGHelperBottomModals.shared.showPhoneNumbersModal(view: UIApplication.topViewController(), categories: phones)
+            } else {
+                self.tfPhoneNUmber.text = (phones.first)?.replacingOccurrences(of: " ", with: "").remove98()
+            }
         }
     }
 }
