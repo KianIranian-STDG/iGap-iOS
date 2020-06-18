@@ -13,19 +13,22 @@ import MBProgressHUD
 import IGProtoBuff
 import WebKit
 
-class IGRegistrationStepTermsViewController: BaseViewController {
+class IGRegistrationStepTermsViewController: MainViewController {
     
     @IBOutlet weak var webView: WKWebView!
-    
+    var showNav : Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.TermsAndConditions.rawValue.localized)
-        navItem.rightViewContainer?.addAction {
-            self.dismiss(animated: true) {
-                
+        if showNav {
+            let navItem = self.navigationItem as! IGNavigationItem
+            navItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.TermsAndConditions.rawValue.localized)
+            navItem.rightViewContainer?.addAction {
+                self.dismiss(animated: true) {
+                    
+                }
             }
+        } else {
+            initCustomtNav(title: IGStringsManager.TermsAndConditions.rawValue.localized, font: UIFont.igFont(ofSize: 15))
         }
     }
     

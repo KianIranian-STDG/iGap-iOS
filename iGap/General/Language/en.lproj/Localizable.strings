@@ -5929,7 +5929,7 @@ TODO:// complete */
 "kuknos_buyP_title" = "Buy Peyman";
 
 /*  */
-"kuknos_buyP_message" = "Kuknos is a multi-token platform that provides issues of any assets.\nIn Kuknos platform we have an assets called Paymon (PMN) which is the native assets for Kuknos.";
+"kuknos_buyP_message" = "Kuknos is a multi-token platform that provides issues of any assets.\nIn Kuknos platform we have an assets  (TOKEN) which is the native assets for Kuknos.";
 
 /*  */
 "kuknos_buyP_amount" = "Number of Peymen (PMN)* :";
