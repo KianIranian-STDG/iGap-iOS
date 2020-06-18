@@ -126,6 +126,10 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         tf.setLeftPaddingPoints(10)
         tf.setRightPaddingPoints(10)
         tf.keyboardType = .phonePad
+        if let userInfo = IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!) {
+            let phoneformatted = NSString(string: String(userInfo.phone)).replacingCharacters(in: NSRange(location: 0, length: 2), with: "0")
+            tf.text = phoneformatted
+        }
         return tf
     }()
     
