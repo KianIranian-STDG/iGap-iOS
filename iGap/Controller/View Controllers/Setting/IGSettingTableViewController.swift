@@ -184,13 +184,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
             }
             else {
-//                showLogoutActionSheet()
-                let vc = IGPSTopUpMainVC()
-                vc.hidesBottomBarWhenPushed = true
-                vc.pageType = .TopUp
-                self.navigationController?.pushViewController(vc, animated: true)
-
-
+                showLogoutActionSheet()
             }
         }
         self.tableView.deselectRow(at: indexPath, animated: false)

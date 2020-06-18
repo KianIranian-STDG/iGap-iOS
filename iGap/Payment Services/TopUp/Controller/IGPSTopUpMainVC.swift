@@ -28,6 +28,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     let P5000: Int64 = 50000
     let P10000: Int64 = 100000
     let P20000: Int64 = 200000
+    var isPCustomAmount : Bool = false
     let rials = IGStringsManager.Currency.rawValue.localized
     var chargePrice = [String]()
     var chargeType = [String]()
@@ -837,8 +838,11 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             updateMTNPackages()
         } else {
             chargeType = [IGStringsManager.NormalCharge.rawValue.localized,IGStringsManager.AmazingCharge.rawValue.localized]
-            chargeAmount = "\(P5000) \(rials)"
-            selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
+            if !isPCustomAmount {
+                chargeAmount = "\(P5000) \(rials)"
+                selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
+
+            }
 
         }
         
@@ -854,8 +858,11 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             updateMCIPackages()
         } else {
             chargeType = [IGStringsManager.NormalCharge.rawValue.localized,IGStringsManager.PSYouthCharge.rawValue.localized,IGStringsManager.PSLadiesCharge.rawValue.localized]
-            chargeAmount = "\(P5000) \(rials)"
-            selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
+            if !isPCustomAmount {
+                chargeAmount = "\(P5000) \(rials)"
+                selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
+
+            }
 
         }
         
@@ -871,9 +878,11 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
             updateRIGHTELPackages()
         } else {
             chargeType = [IGStringsManager.NormalCharge.rawValue.localized,IGStringsManager.AmazingCharge.rawValue.localized]
-            chargeAmount = "\(P5000) \(rials)"
-            selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
-
+            if !isPCustomAmount {
+                
+                chargeAmount = "\(P5000) \(rials)"
+                selectedChargeType = [IGStringsManager.NormalCharge.rawValue.localized : 0]
+            }
         }
     }
     func passDataInternet(phone: [String: String], currentOperator: String, selectedPackage: IGPSLastInternetPackagesPurchases) {
@@ -1107,34 +1116,39 @@ extension IGPSTopUpMainVC : EPPickerDelegate {
 extension IGPSTopUpMainVC : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            guard let textFieldText = tfPhoneNUmber.text,
-                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-                    return false
-            }
-            let substringToReplace = textFieldText[rangeOfTextToReplace]
-            let count = textFieldText.count - substringToReplace.count + string.count
-            
+        if textField == tfPhoneNUmber {
+                guard let textFieldText = tfPhoneNUmber.text,
+                    let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                        return false
+                }
+                let substringToReplace = textFieldText[rangeOfTextToReplace]
+                let count = textFieldText.count - substringToReplace.count + string.count
+                
 
-        if textFieldText.starts(with: "۰") || textFieldText.starts(with: "0") || textFieldText.starts(with: "0".inLocalizedLanguage()) {
-            
-            if  textFieldText.inEnglishNumbersNew().substring(offset: 4).count > 3 {
-                if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
-                    selectedOperator = operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)]!
+            if textFieldText.starts(with: "۰") || textFieldText.starts(with: "0") || textFieldText.starts(with: "0".inLocalizedLanguage()) {
+                
+                if  textFieldText.inEnglishNumbersNew().substring(offset: 4).count > 3 {
+                    if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
+                        selectedOperator = operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)]!
 
-                    switch selectedOperator {
-                    case .MCI : btnMCIAction()
-                    case .MTN: btnMTNAction()
-                    case .Rightel: btnRightelAction()
+                        switch selectedOperator {
+                        case .MCI : btnMCIAction()
+                        case .MTN: btnMTNAction()
+                        case .Rightel: btnRightelAction()
+                        }
+                        
                     }
-                    
                 }
             }
-        }
-        
-        if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
-            return count <= 11
+            
+            if operatorDictionary[textFieldText.inEnglishNumbersNew().substring(offset: 4)] != nil {
+                return count <= 11
+            } else {
+                return count <= 4
+            }
+
         } else {
-            return count <= 4
+            return true
         }
 
     }
@@ -1142,7 +1156,7 @@ extension IGPSTopUpMainVC : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfChargeAmount {
 
-            selectedCharge = ["\(P5000) \(rials)".inLocalizedLanguage() : 2]
+//            selectedCharge = ["\(P5000) \(rials)".inLocalizedLanguage() : 2]
             if chargeAmount == "" || textField.text == "" {
                         tfChargeAmount.text = selectedCharge.keys.first
             } else {

@@ -62,6 +62,8 @@ class IGPSChargeListTVC: BaseTableViewController {
 //                (UIApplication.topViewController() as! IGPSTopUpMainVC).tfChargeAmount.text = "\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedCharge["\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()] = (indexPath.row) - 1
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).chargeAmount = "\(self.chargeList[(indexPath.row) - 1])".inLocalizedLanguage()
+                (UIApplication.topViewController() as! IGPSTopUpMainVC).isPCustomAmount = false
+
             })
         case 6 :
             self.dismiss(animated: true, completion: {
@@ -69,7 +71,7 @@ class IGPSChargeListTVC: BaseTableViewController {
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).selectedCharge.removeAll()
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).tfChargeAmount.text = nil
                 (UIApplication.topViewController() as! IGPSTopUpMainVC).scrollView.shouldScrollToEnd = true
-
+                (UIApplication.topViewController() as! IGPSTopUpMainVC).isPCustomAmount = true
             })
 
         default : break
