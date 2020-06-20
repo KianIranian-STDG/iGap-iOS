@@ -49,7 +49,7 @@ class IGRealmAuthorRoom: Object {
         if let roomInfo = IGRoom.getRoomInfo(roomId: room.igpRoomID) {
             self.roomInfo = roomInfo
         }else {
-            IGClientGetRoomRequest.sendRequest(roomId: roomId)
+            IGClientGetRoomRequest.sendRequestAvoidDuplicate(roomId: roomId, success: nil)
 //            getRoomInfo(roomId: roomId)
         }
         
@@ -69,6 +69,28 @@ class IGRealmAuthorRoom: Object {
 //            self.getRoomInfo(roomId: roomId, completion: completion)
 //        }).send()
 //    }
+    
+    public static func putOrUpdate(roomId: Int64, roomInfo: IGPRoom) {
+        
+        let room = IGRoom.putOrUpdate(roomInfo)
+        
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                
+                let predicate = NSPredicate(format: "roomId = %@", roomId)
+                var authorRoom = IGDatabaseManager.shared.realm.objects(IGRealmAuthorRoom.self).filter(predicate).first
+                
+                if authorRoom == nil {
+                    authorRoom = IGRealmAuthorRoom()
+                    authorRoom?.roomId = roomId
+                }
+                
+                authorRoom?.roomInfo = room
+                IGDatabaseManager.shared.realm.add(authorRoom!, update: .modified)
+                
+            }
+        }
+    }
     
     
     func detach() -> IGRealmAuthorRoom {

@@ -40,7 +40,8 @@ class IGRealmAuthorUser: Object {
                 IGUserInfoRequest.sendRequest(userId: author.igpUserID)
             }
         } else {
-            IGUserInfoRequest.sendRequest(userId: author.igpUserID)
+//            IGUserInfoRequest.sendRequest(userId: author.igpUserID)
+            IGUserInfoRequest.sendRequestAvoidDuplicate(userId: author.igpUserID)
         }
     }
     

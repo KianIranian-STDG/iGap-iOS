@@ -201,348 +201,10 @@ class ChatControllerNode: ASCellNode {
     init(message: IGRoomMessage, finalRoomType : IGRoom.IGType,finalRoom : IGRoom,isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool, indexPath: IndexPath) {
         super.init()
         makeView(message: message, finalRoomType: finalRoomType, finalRoom: finalRoom, isIncomming: isIncomming, bubbleImage: bubbleImage, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
-        print("=-=-=-=- Init Called")
-    }
-//    deinit {
-////        ForceFreeUPMemory()
-//        recursivelyClearContents()
-//        print("deinit is being called fr chatcontrollerNode")
-//    }
-    private func ForceFreeUPMemory() {
-        if finalRoom != nil {
-            finalRoom = nil
-        }
-        if message != nil {
-            message = nil
-        }
-        if attachment != nil {
-            attachment = nil
-        }
-        if imgNode != nil {
-            imgNode = nil
-        }
-        if gifNode != nil {
-            gifNode = nil
-        }
-        if bubbleImgNode != nil {
-            bubbleImgNode = nil
-        }
-        if shadowImgNode != nil {
-            shadowImgNode = nil
-        }
-        if txtNameNode != nil {
-            txtNameNode = nil
-        }
-        if txtStatusNode != nil {
-            txtStatusNode = nil
-        }
-        if nodeOnlyText != nil {
-            nodeOnlyText = nil
-        }
-        if nodeText != nil {
-            nodeText = nil
-        }
-        if replyForwardViewNode != nil {
-            replyForwardViewNode = nil
-        }
-        if txtTimeNode != nil {
-            txtTimeNode = nil
-        }
-        if LiveStickerView != nil {
-            LiveStickerView = nil
-        }
-        if NormalGiftStickerView != nil {
-            NormalGiftStickerView = nil
-        }
-        if btnPlay != nil {
-            btnPlay = nil
-        }
-        if txtTitleNode != nil {
-            txtTitleNode = nil
-        }
-        if txtSizeNode != nil {
-            txtSizeNode = nil
-        }
-        if txtAttachmentNode != nil {
-            txtAttachmentNode = nil
-        }
-        if txtPhoneNumbers != nil {
-            txtPhoneNumbers = nil
-        }
-        if txtPhoneIcon != nil {
-            txtPhoneIcon = nil
-        }
-        if txtContactName != nil {
-            txtContactName = nil
-        }
-        if txtEmails != nil {
-            txtEmails = nil
-        }
-        if txtEmailIcon != nil {
-            txtEmailIcon = nil
-        }
-        if imgCover != nil {
-            imgCover = nil
-        }
-        if btnViewContact != nil {
-            btnViewContact = nil
-        }
-        if txtMusicName != nil {
-            txtMusicName = nil
-        }
-        if txtMusicArtist != nil {
-            txtMusicArtist = nil
-        }
-        if btnStateNode != nil {
-            btnStateNode = nil
-        }
-        if txtLogMessage != nil {
-            txtLogMessage = nil
-        }
-        if progressNode != nil {
-            progressNode = nil
-        }
-        if bgTextNode != nil {
-            bgTextNode = nil
-        }
-        if bgProgressNode != nil {
-            bgProgressNode = nil
-        }
-        if bgNode != nil {
-            bgNode = nil
-        }
-        if txtCurrentTimeNode != nil {
-            txtCurrentTimeNode = nil
-        }
-        if txtVoiceTimeNode != nil {
-            txtVoiceTimeNode = nil
-        }
-        if sliderNode != nil {
-            sliderNode = nil
-        }
-        if txtTypeIcon != nil {
-            txtTypeIcon = nil
-        }
-        if txtTypeTitle != nil {
-            txtTypeTitle = nil
-        }
-        if txtAmount != nil {
-            txtAmount = nil
-        }
-        if testNode != nil {
-            testNode = nil
-        }
-        if txtTTLDate != nil {
-            txtTTLDate = nil
-        }
-        if txtVALUEDate != nil {
-            txtVALUEDate = nil
-        }
-        if txtTTLSourceCardNumber != nil {
-            txtTTLSourceCardNumber = nil
-        }
-        if txtVALUESourceCardNumber != nil {
-            txtVALUESourceCardNumber = nil
-        }
-        if txtTTLDestinationCardNumber != nil {
-            txtTTLDestinationCardNumber = nil
-        }
-        if txtVALUEDestinationCardNumber != nil {
-            txtVALUEDestinationCardNumber = nil
-        }
-        if txtTTLDestinationBankName != nil {
-            txtTTLDestinationBankName = nil
-        }
-        if txtVALUEDestinationBankName != nil {
-            txtVALUEDestinationBankName = nil
-        }
-        if txtTTLCardOwnerName != nil {
-            txtTTLCardOwnerName = nil
-        }
-        if txtVALUECardOwnerName != nil {
-            txtVALUECardOwnerName = nil
-        }
-        if txtTTLTraceNumber != nil {
-            txtTTLTraceNumber = nil
-        }
-        if txtVALUETraceNumber != nil {
-            txtVALUETraceNumber = nil
-        }
-        if txtTTLRefrenceNumber != nil {
-            txtTTLRefrenceNumber = nil
-        }
-        if txtVALUERefrenceNumber != nil {
-            txtVALUERefrenceNumber = nil
-        }
-        if viewSepratorCardNum != nil {
-            viewSepratorCardNum = nil
-        }
-        if viewSepratorDesCardNum != nil {
-            viewSepratorDesCardNum = nil
-        }
-        if viewSepratorDesBankName != nil {
-            viewSepratorDesBankName = nil
-        }
-        if viewSepratorOwnerName != nil {
-            viewSepratorOwnerName = nil
-        }
-        if viewSepratorTraceNum != nil {
-            viewSepratorTraceNum = nil
-        }
-        if viewSepratorTop != nil {
-            viewSepratorTop = nil
-        }
-        if viewSepratorDate != nil {
-            viewSepratorDate = nil
-        }
-        if btnShowMore != nil {
-            btnShowMore = nil
-        }
-        if txtTTLSenderName != nil {
-            txtTTLSenderName = nil
-        }
-        if txtVALUESenderName != nil {
-            txtVALUESenderName = nil
-        }
-        if txtTTLReciever != nil {
-            txtTTLReciever = nil
-        }
-        if txtVALUEReciever != nil {
-            txtVALUEReciever = nil
-        }
-        if txtTTLDesc != nil {
-            txtTTLDesc = nil
-        }
-        if txtVALUEDesc != nil {
-            txtVALUEDesc = nil
-        }
-        if viewSepratorThree != nil {
-            viewSepratorThree = nil
-        }
-        if viewSepratorFour != nil {
-            viewSepratorFour = nil
-        }
-        if viewSepratorFive != nil {
-            viewSepratorFive = nil
-        }
-        if viewSepratorSix != nil {
-            viewSepratorSix = nil
-        }
-        if viewSepratorSeven != nil {
-            viewSepratorSeven = nil
-        }
-        if viewSepratorOne != nil {
-            viewSepratorOne = nil
-        }
-        if viewSepratorTwo != nil {
-            viewSepratorTwo = nil
-        }
-        if viewSepratorEight != nil {
-            viewSepratorEight = nil
-        }
-        if viewSepratorNine != nil {
-            viewSepratorNine = nil
-        }
-        if viewSepratorTen != nil {
-            viewSepratorTen = nil
-        }
-        if txtTTLSenderPhoneNumber != nil {
-            txtTTLSenderPhoneNumber = nil
-        }
-        if txtVALUESenderPhoneNumber != nil {
-            txtVALUESenderPhoneNumber = nil
-        }
-        if txtTTLRecieverPhoneNumber != nil {
-            txtTTLRecieverPhoneNumber = nil
-        }
-        if txtVALUERecieverPhoneNumber != nil {
-            txtVALUERecieverPhoneNumber = nil
-        }
-        if txtTTLTopUpOperator != nil {
-            txtTTLTopUpOperator = nil
-        }
-        if txtVALUETopUpOperator != nil {
-            txtVALUETopUpOperator = nil
-        }
-        if txtTTLGateWay != nil {
-            txtTTLGateWay = nil
-        }
-        if txtVALUEGateWay != nil {
-            txtVALUEGateWay = nil
-        }
-        if txtTTLOrderNumber != nil {
-            txtTTLOrderNumber = nil
-        }
-        if txtVALUEOrderNumber != nil {
-            txtVALUEOrderNumber = nil
-        }
-        if avatarNode != nil {
-            avatarNode = nil
-        }
-        if indicatorViewAbs != nil {
-            indicatorViewAbs = nil
-        }
-        if lblEyeIcon != nil {
-            lblEyeIcon = nil
-        }
-        if lblEyeText != nil {
-            lblEyeText = nil
-        }
-        if lblLikeIcon != nil {
-            lblLikeIcon = nil
-        }
-        if lblLikeText != nil {
-            lblLikeText = nil
-        }
-        if lblEyeIcon != nil {
-            lblEyeIcon = nil
-        }
-        if lblDisLikeIcon != nil {
-            lblDisLikeIcon = nil
-        }
-        if lblDisLikeText != nil {
-            lblDisLikeText = nil
-        }
-        if checkNode != nil {
-            checkNode = nil
-        }
-        if attachment != nil {
-            attachment = nil
-        }
-        if replyForwardViewNode != nil {
-            replyForwardViewNode = nil
-        }
-        if txtNameNode != nil {
-            txtNameNode = nil
-        }
-        if txtTimeNode != nil {
-            txtTimeNode = nil
-        }
-        if txtStatusNode != nil {
-            txtStatusNode = nil
-        }
-        if nodeText != nil {
-            nodeText = nil
-        }
-        if nodeOnlyText != nil {
-            nodeOnlyText = nil
-        }
-        if contact != nil {
-            contact = nil
-        }
-         
-        if swipeToReplyNode != nil {
-            swipeToReplyNode = nil
-        }
-        if swipeToReplyFeedback != nil {
-            swipeToReplyFeedback = nil
-        }
     }
     
     private func makeView(message: IGRoomMessage, finalRoomType : IGRoom.IGType,finalRoom : IGRoom,isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool, indexPath: IndexPath) {
         view.transform = CGAffineTransform(scaleX: 1, y: -1)
-        
-        
         
         self.message = message
         self.finalRoom = finalRoom
@@ -552,7 +214,6 @@ class ChatControllerNode: ASCellNode {
         self.isFromSameSender = isFromSameSender
         index = indexPath
         automaticallyManagesSubnodes = true
-        
         
         var msg = message
         
@@ -1041,7 +702,6 @@ class ChatControllerNode: ASCellNode {
                     
                     avatarNode?.avatarASImageView?.backgroundColor = .white
                     avatarNode?.avatarASImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-//                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
                     updateAvatar(userId: userId) {[weak self] in
                         guard let sSelf = self else {
                             return
@@ -1065,23 +725,12 @@ class ChatControllerNode: ASCellNode {
         
     }
     
-    func updateUserInfo() {
-        setSenderName()
-        
-        if replyForwardViewNode == nil {
-            return
-        }
-        
-        if let forwardedMsg = message?.forwardedFrom {
-            replyForwardViewNode!.setReplyForward(isReply: false, extraMessage : forwardedMsg,isIncomming : isIncomming)
-            return
-        }
-        
-        if let repliedMsg = message?.repliedTo {
-            replyForwardViewNode!.setReplyForward(isReply: true, extraMessage: repliedMsg, isIncomming: isIncomming)
-        }
-        
-    }
+//    func updateUserInfo() {
+//        setSenderName()
+//
+//
+//
+//    }
     
     private func makeBubble(bubbleImage : UIImage,shouldShow: Bool = true) -> ASLayoutSpec {
         if bubbleImgNode == nil {
@@ -1556,10 +1205,58 @@ class ChatControllerNode: ASCellNode {
             } else {
                 txtNameNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
                 IGGlobal.makeAsyncText(for: txtNameNode!, with: "", textColor: ThemeManager.currentTheme.LabelGrayColor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
-                
+                fetchSenderInfo(msg: message!)
             }
         }
+        
+        
+        if replyForwardViewNode == nil {
+            return
+        }
+        
+        if let forwardedMsg = message?.forwardedFrom {
+            replyForwardViewNode!.setReplyForward(isReply: false, extraMessage : forwardedMsg,isIncomming : isIncomming)
+            fetchSenderInfo(msg: forwardedMsg)
+            return
+        }
+        
+        if let repliedMsg = message?.repliedTo {
+            fetchSenderInfo(msg: repliedMsg)
+            replyForwardViewNode!.setReplyForward(isReply: true, extraMessage: repliedMsg, isIncomming: isIncomming)
+        }
     }
+    
+    private func fetchSenderInfo(msg: IGRoomMessage) {
+        if msg.authorUser?.userId != -1 {
+            
+            if (msg.authorUser?.user) != nil{
+                setSenderName()
+            } else {
+                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: msg.authorUser!.userId) {[weak self] (_) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.setSenderName()
+                }
+            }
+            
+        } else if msg.authorRoom?.roomId != -1 {
+            
+            if (msg.authorRoom?.room) != nil{
+                setSenderName()
+            } else {
+                
+                IGClientGetRoomRequest.sendRequestAvoidDuplicate(roomId: msg.authorRoom!.roomId) {[weak self] (_) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.setSenderName()
+                }
+            }
+            
+        }
+    }
+    
     //******************************************************//
     //*****************BILL RECIEPT NODE********************//
     //******************************************************//
@@ -1712,7 +1409,6 @@ class ChatControllerNode: ASCellNode {
         //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - defaultMinesSize)
         
         btnShowMore?.style.width = ASDimensionMake(.points, 250)
 

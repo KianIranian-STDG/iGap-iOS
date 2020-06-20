@@ -92,6 +92,23 @@ class IGClientGetRoomRequest : IGRequest {
         }
     }
     
+    class func sendRequestFillAuthorRoomAvoidDuplicate(roomId: Int64, success: ((_ room: IGRoom) -> Void)? = nil){
+        if IGAppManager.sharedManager.isUserLoggiedIn() {//&& !userIdArrayList.contains(userId)
+            roomIdArrayList.append(roomId)
+            IGClientGetRoomRequest.Generator.generate(roomId: roomId).successPowerful({ (protoResponse, requestWrapper) in
+                if let roomInfoReponse = protoResponse as? IGPClientGetRoomResponse {
+                    IGClientGetRoomRequest.Handler.interpret(response: roomInfoReponse)
+                    IGRealmAuthorRoom.putOrUpdate(roomId: roomId, roomInfo: roomInfoReponse.igpRoom)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + IGUserInfoRequest.CLEAR_ARRAY_TIME) {
+                        if let indexOfUserId = roomIdArrayList.firstIndex(of: roomInfoReponse.igpRoom.igpID) {
+                            roomIdArrayList.remove(at: indexOfUserId)
+                        }
+                    }
+                }
+                }).error({ (errorCode, waitTime) in}).send()
+        }
+    }
+    
     class func sendRequest(roomId: Int64){
         IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
             if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
