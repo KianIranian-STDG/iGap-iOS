@@ -82,6 +82,9 @@
 		8E3824AC2497414400F5DE97 /* IGPSBillDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */; };
 		8E3824AE2497595B00F5DE97 /* IGApiBills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AD2497595B00F5DE97 /* IGApiBills.swift */; };
 		8E3824B024975EE300F5DE97 /* IGPSBillStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824AF24975EE300F5DE97 /* IGPSBillStruct.swift */; };
+		8E3824B22499044A00F5DE97 /* IGPSBillMyBillsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824B12499044A00F5DE97 /* IGPSBillMyBillsTVC.swift */; };
+		8E3824B4249904FC00F5DE97 /* IGPSBillMyBillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824B3249904FC00F5DE97 /* IGPSBillMyBillsCell.swift */; };
+		8E3824B8249B673D00F5DE97 /* IGPSBillMyBillsTVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3824B7249B673D00F5DE97 /* IGPSBillMyBillsTVM.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -1131,6 +1134,9 @@
 		8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillDetailVM.swift; sourceTree = "<group>"; };
 		8E3824AD2497595B00F5DE97 /* IGApiBills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiBills.swift; sourceTree = "<group>"; };
 		8E3824AF24975EE300F5DE97 /* IGPSBillStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillStruct.swift; sourceTree = "<group>"; };
+		8E3824B12499044A00F5DE97 /* IGPSBillMyBillsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillMyBillsTVC.swift; sourceTree = "<group>"; };
+		8E3824B3249904FC00F5DE97 /* IGPSBillMyBillsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillMyBillsCell.swift; sourceTree = "<group>"; };
+		8E3824B7249B673D00F5DE97 /* IGPSBillMyBillsTVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPSBillMyBillsTVM.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2353,6 +2359,7 @@
 		8E38249E2496492B00F5DE97 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8E3824B3249904FC00F5DE97 /* IGPSBillMyBillsCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2379,6 +2386,7 @@
 			children = (
 				8E3824A3249649CD00F5DE97 /* IGPSBillMainVC.swift */,
 				8E3824A92497412B00F5DE97 /* IGPSBillDetailVC.swift */,
+				8E3824B12499044A00F5DE97 /* IGPSBillMyBillsTVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2388,6 +2396,7 @@
 			children = (
 				8E3824A524964AB700F5DE97 /* IGPSBillMainVM.swift */,
 				8E3824AB2497414400F5DE97 /* IGPSBillDetailVM.swift */,
+				8E3824B7249B673D00F5DE97 /* IGPSBillMyBillsTVM.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -5186,6 +5195,7 @@
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
 				8EC42F1B245D94DE000889D3 /* IGMBLoans.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
+				8E3824B8249B673D00F5DE97 /* IGPSBillMyBillsTVM.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
 				8E3265D7247CEA3700AE2CB6 /* IGWalletTransferModal.swift in Sources */,
 				8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */,
@@ -5220,6 +5230,7 @@
 				8E96A325225C9182007D8A77 /* SMGradientView.swift in Sources */,
 				8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGMemberChoose.swift in Sources */,
+				8E3824B4249904FC00F5DE97 /* IGPSBillMyBillsCell.swift in Sources */,
 				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
 				8E3C69942360785E001575BE /* IGTagManager.swift in Sources */,
 				8E03174C2378482300D5A2B5 /* IGStructCompany.swift in Sources */,
@@ -5728,6 +5739,7 @@
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,
 				D254C1EB24504221007767F4 /* IGMBSubTile.swift in Sources */,
 				8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */,
+				8E3824B22499044A00F5DE97 /* IGPSBillMyBillsTVC.swift in Sources */,
 				D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */,
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
 				8E96A31D225C902B007D8A77 /* SMRecieptRowView.swift in Sources */,

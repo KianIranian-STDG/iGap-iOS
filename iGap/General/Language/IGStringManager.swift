@@ -17,7 +17,7 @@ enum IGStringsManager : String {
     case GlobalHour = "payment_serices_Hour"
     case GlobalMonth = "payment_serices_Month"
     case GlobalYear = "payment_serices_Year"
-
+    case GlobalRetry = "retry"
     case GlobalCanNotCopy = "can_not_copy"
     case GlobalConnecting = "connecting"
     case GlobalCommingSoon = "comming_soon"
@@ -957,6 +957,7 @@ enum IGStringsManager : String {
     case PSSubscriptionCode = "payment_enter_customer_code"
     case PSPayMidTerm = "payment_service_midterm_pay"
     case PSPayLastTerm = "payment_service_lastterm_pay"
+    
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

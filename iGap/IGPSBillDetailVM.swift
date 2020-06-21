@@ -114,24 +114,24 @@ class IGPSBillDetailVM : NSObject {
                     
                 }
                 if response?.midTerm?.billId == nil {
-                    sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)".inLocalizedLanguage()
-                    sSelf.vc?.billPayNumber = "\(response?.lastTerm?.payId ?? 0)".inLocalizedLanguage()
+                    sSelf.vc?.billNumber = response?.lastTerm?.billId!.inLocalizedLanguage()
+                    sSelf.vc?.billPayNumber = response?.lastTerm?.payId!.inLocalizedLanguage()
                 } else {
-                    sSelf.vc?.billNumber = "\(response?.midTerm?.billId ?? 0)"
-                    sSelf.vc?.billPayNumber = "\(response?.midTerm?.payId ?? 0)"
+                    sSelf.vc?.billNumber = response?.midTerm?.billId
+                    sSelf.vc?.billPayNumber = response?.midTerm?.payId
                 }
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billPayAmount = "0".inLocalizedLanguage()
 
                 } else {
-                    sSelf.vc?.billPayAmount = "\(response?.midTerm?.amount ?? 0)".currencyFormat().inLocalizedLanguage()
+                    sSelf.vc?.billPayAmount = response?.midTerm?.amount!.currencyFormat().inLocalizedLanguage()
 
                 }
                 if response?.lastTerm?.billId == nil {
                     sSelf.vc?.billPayDeadLine = "0".inLocalizedLanguage()
 
                 } else {
-                    sSelf.vc?.billPayDeadLine = "\(response?.lastTerm?.amount ?? 0)".currencyFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+                    sSelf.vc?.billPayDeadLine = (response?.lastTerm?.amount!.currencyFormat().inLocalizedLanguage())! + " " + IGStringsManager.Currency.rawValue.localized
                 }
 
 

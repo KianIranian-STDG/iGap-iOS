@@ -16,19 +16,30 @@ import SwiftyJSON
 typealias PSQueryEBillResponse = (_ response: IGPSElecBillQuery?, _ error: String?) -> Void
 typealias PSQueryGBillResponse = (_ response: IGPSGasBillQuery?, _ error: String?) -> Void
 typealias PSQueryPBillResponse = (_ response: IGPSPhoneBillQuery?, _ error: String?) -> Void
-typealias PSQueryMBillResponse = (_ response: IGPSPhoneBillQuery?, _ error: String?) -> Void
+typealias PSQueryMBillResponse = (_ response: IGPSMobileBillQuery?, _ error: String?) -> Void
+typealias PSGetAllBillsResponse = (_ response: [parentBillModel]?, _ error: String?) -> Void
+typealias PSDeleteBillResponse = (_ response: IGKBaseResponseModelNormal?, _ error: String?) -> Void
 
 class IGApiBills: IGApiBase {
     
     enum Endpoint {
         case getInquery
-        
+        case getAllBills
+        case deleteBill
+
         var url: String {
             var urlString = IGApiBills.billBaseUrl
             
             switch self {
             case .getInquery:
                 urlString += "/get-inquiry"
+                
+            case .getAllBills:
+                urlString += "/get-bills?skip=0&limit=100000"
+                
+            case .deleteBill:
+                urlString += "/delete-bill/"
+
             }
             
             return urlString
@@ -56,12 +67,6 @@ class IGApiBills: IGApiBase {
             
         case "ELECTRICITY" :
             parameters = ["bill_type" : billType, "bill_identifier" : billID!, "mobile_number" : telNum!]
-        case "GAS" :
-            parameters = ["bill_type" : billType, "subscription_code" : billID!]
-        case "PHONE" :
-            parameters = ["bill_type" : billType, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!)]
-        case "MOBILE_MCI" :
-            parameters = ["bill_type" : billType, "phone_number" : telNum!]
         default : break
             
         }
@@ -284,6 +289,133 @@ class IGApiBills: IGApiBase {
         }
 
     }
+    
+    
+    
+    func deleteBill(billType : String, billID: String, completion: @escaping PSDeleteBillResponse) {
+        let url = Endpoint.deleteBill.url + billID
+        var parameters: Parameters!
+        switch billType {
+            
+        case "MOBILE_MCI" :
+            parameters = ["bill_type" : billType]
+        default : break
+            
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.deleteBill(billType : billType, billID: billID, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data, nil)
+                return
+
+            }
+        }
+
+    }
+
+    func getAllBills(completion: @escaping PSGetAllBillsResponse){
+        let url = Endpoint.getAllBills.url
+        AF.request(url,  method: .get, headers: self.getHeader()).responseGetAllBills {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.getAllBills(completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+                
+                let apistruct = data.docs
+                
+                var arr = [parentBillModel]()
+                for st in apistruct! {
+                    
+                    var bill = parentBillModel()
+                    bill.billAreaCode = st.billAreaCode
+                    bill.billIdentifier = st.billID
+                    bill.billPhone = st.billPhone
+                    bill.billTitle = st.billTitle
+                    bill.billType = st.billType
+                    bill.id = st.id
+                    bill.mobileNumber = st.mobileNumber
+                    bill.subsCriptionCode = st.subsCriptionCode
+                    arr.append(bill)
+                }
+                
+                
+                completion(arr, nil)
+                return
+
+            }
+        }
+        
+    }
+    
+    
 }
 
 
@@ -294,21 +426,31 @@ extension DataRequest {
 //    func responseGetLastTopUps(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGPSBaseResponseArrayModel<IGPSLastTopUpPurchases>>) -> Void) -> Self {
 //        return responseDecodable(completionHandler: completionHandler)
 //    }
-    
+    @discardableResult
     func responseQueryElecBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSElecBillQuery>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
 
-
+    @discardableResult
     func responseQueryGasBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSGasBillQuery>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
-
+    @discardableResult
     func responseQueryPhoneBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSPhoneBillQuery>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
-    func responseQueryMobileBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSPhoneBillQuery>>) -> Void) -> Self {
+    @discardableResult
+    func responseQueryMobileBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModel<IGPSMobileBillQuery>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
+    @discardableResult
+    func responseGetAllBills(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGPSBaseBillResponseArrayModel<IGPSAllBillsBillQuery>>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
+    @discardableResult
+    func responseDeleteBill(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModelNormal>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
+
 
 }

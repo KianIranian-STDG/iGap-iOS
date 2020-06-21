@@ -347,6 +347,7 @@ class IGPSBillMainVC : MainViewController {
     }
     @objc private func didTapOnMyBills() {
         print("DIDTAP")
+        vm?.getAllBills()
     }
     @objc private func didTapOnBillType() {
         print("DIDTAP")
