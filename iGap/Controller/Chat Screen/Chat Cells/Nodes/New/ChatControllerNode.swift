@@ -1216,12 +1216,20 @@ class ChatControllerNode: ASCellNode {
         
         if let forwardedMsg = message?.forwardedFrom {
             replyForwardViewNode!.setReplyForward(isReply: false, extraMessage : forwardedMsg,isIncomming : isIncomming)
-            fetchSenderInfo(msg: forwardedMsg)
+            
+            if forwardedMsg.authorUser?.user == nil && forwardedMsg.authorRoom?.roomId == nil {
+                fetchSenderInfo(msg: forwardedMsg)
+            }
+            
             return
         }
         
         if let repliedMsg = message?.repliedTo {
-            fetchSenderInfo(msg: repliedMsg)
+            
+            if repliedMsg.authorUser?.user == nil && repliedMsg.authorRoom?.room == nil {
+                fetchSenderInfo(msg: repliedMsg)
+            }
+            
             replyForwardViewNode!.setReplyForward(isReply: true, extraMessage: repliedMsg, isIncomming: isIncomming)
         }
     }

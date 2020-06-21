@@ -85,7 +85,7 @@ class ASAvatarView: ASDisplayNode {
         }
     }
     
-    private let avatarThread = DispatchQueue(label: "serial.queue.avatar", qos: .userInteractive)
+    private let avatarThread = DispatchQueue(label: "serial.queue.avatar")
     
     private func getAvatar(networkAvatarNode: ASNetworkImageNode, avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail, completion: @escaping((UIImage?)->Void)) {
         avatarThread.sync(flags: .barrier) {
