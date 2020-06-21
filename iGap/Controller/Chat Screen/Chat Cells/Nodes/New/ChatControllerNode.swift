@@ -625,11 +625,12 @@ class ChatControllerNode: ASCellNode {
                 lblDisLikeText?.removeFromSupernode()
             }
             
-            var roomId = messageVote.authorRoom?.roomInfo.id
-            if roomId == nil {
-                roomId = messageVote.roomId
+            if let roomId = messageVote.authorRoom?.roomInfo.id {
+                IGHelperGetMessageState.shared.getMessageState(roomId: roomId, messageId: messageVote.id)
+            }else {
+                IGHelperGetMessageState.shared.getMessageState(roomId: messageVote.roomId, messageId: messageVote.id)
             }
-            IGHelperGetMessageState.shared.getMessageState(roomId: roomId!, messageId: messageVote.id)
+            
         } else {
             lblEyeIcon?.removeFromSupernode()
             lblEyeText?.removeFromSupernode()
