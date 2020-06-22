@@ -492,12 +492,20 @@ class IGPSBillDetailVC : MainViewController {
                 IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
 
                 break
-            case .Phone,.Mobile :
-                if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" &&  lblBillPayAmountData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-                } else {
-                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
-                }
+            case .Phone:
+                bill.billType = "PHONE"
+                bill.billTitle = nil
+                bill.billPhone = phoneNumber.inEnglishNumbersNew()
+                bill.billIdentifier = billNumber.inEnglishNumbersNew()
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
+
+            case .Mobile :
+
+                bill.billType = "MOBILE_MCI"
+                bill.billTitle = nil
+                bill.billPhone = phoneNumber.inEnglishNumbersNew()
+                bill.billIdentifier = billNumber.inEnglishNumbersNew()
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
 
             default : break
             }

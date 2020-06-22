@@ -492,12 +492,12 @@ class IGApiBills: IGApiBase {
             parameters = ["bill_type" : billType,"bill_title" : billTitle,"mobile_number" :  userPhoneNumber, "bill_identifier" : billIdentifier!.inEnglishNumbersNew()]
 
         case "GAS" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!,"mobile_number" :  userPhoneNumber]
 
         case "MOBILE_MCI" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!,"mobile_number" :  userPhoneNumber]
         case "PHONE" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!)]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!),"mobile_number" :  userPhoneNumber]
 
         default : break
         }

@@ -503,7 +503,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
-                    sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
+                        sSelf.paySequence(billID : sSelf.item.elecBill.billIdentifier!,payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
                     }
                 case .Gas :
                     if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
@@ -517,7 +517,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
-                        sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : "\(sSelf.item.phoneBill?.midTermPhone?.payId ?? 0)",amount: (sSelf.item.phoneBill?.midTermPhone?.amount)!)
+                        sSelf.paySequence(billID : "\(sSelf.item.phoneBill?.midTermPhone?.billId ?? 0)",payID : "\(sSelf.item.phoneBill?.midTermPhone?.payId ?? 0)",amount: (sSelf.item.phoneBill?.midTermPhone?.amount)!)
                     }
 
 
@@ -525,7 +525,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                     if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
-                        sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : "\(sSelf.item.mobileBill?.midTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.midTermMobile?.amount)!)!)
+                        sSelf.paySequence(billID : sSelf.item.mobileBill?.midTermMobile?.billId ?? "0",payID : "\(sSelf.item.mobileBill?.midTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.midTermMobile?.amount)!)!)
 
                     }
 

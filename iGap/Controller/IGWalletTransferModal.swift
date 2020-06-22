@@ -205,7 +205,7 @@ class IGWalletTransferModal: BaseTableViewController {
                 let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
                 let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
 
-                IGApiBills.shared.addBill(billType: bill.billType!, billIdentifier: billID, billTitle: tfAmount.text!, subCode: subCode, telNum: telNum, userPhoneNumber: userPhoneNumber) {[weak self] (response, error) in
+                IGApiBills.shared.addBill(billType: bill.billType!, billIdentifier: billID, billTitle: tfAmount.text!, subCode: subCode, telNum: telNum.inEnglishNumbersNew(), userPhoneNumber: userPhoneNumber.inEnglishNumbersNew()) {[weak self] (response, error) in
                     guard let sSelf = self else {
                         return
                     }
