@@ -489,15 +489,15 @@ class IGApiBills: IGApiBase {
         switch billType {
             
         case "ELECTRICITY" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle,"mobile_number" :  userPhoneNumber, "bill_identifier" : billIdentifier!.inEnglishNumbersNew()]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle,"mobile_number" :  userPhoneNumber.inEnglishNumbersNew(), "bill_identifier" : billIdentifier!.inEnglishNumbersNew()]
 
         case "GAS" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!,"mobile_number" :  userPhoneNumber]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!.inEnglishNumbersNew(),"mobile_number" :  userPhoneNumber.inEnglishNumbersNew()]
 
         case "MOBILE_MCI" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!,"mobile_number" :  userPhoneNumber]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!.inEnglishNumbersNew(),"mobile_number" :  userPhoneNumber.inEnglishNumbersNew()]
         case "PHONE" :
-            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!),"mobile_number" :  userPhoneNumber]
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!).inEnglishNumbersNew(), "area_code" : String((telNum?.prefix(3))!).inEnglishNumbersNew(),"mobile_number" :  userPhoneNumber.inEnglishNumbersNew()]
 
         default : break
         }

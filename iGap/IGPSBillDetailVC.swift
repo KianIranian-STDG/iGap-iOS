@@ -268,7 +268,7 @@ class IGPSBillDetailVC : MainViewController {
                     let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
                     userNumber = userPhoneNumber
                     if billType == .Gas {
-                        vm?.queryGasBill(billType: "GAS", billID: billNumber)
+                        vm?.queryGasBill(billType: "GAS", billID: subscriptionCode.inEnglishNumbersNew())
                     } else if billType == .Elec {
                         vm?.queryElecBill(billType: "ELECTRICITY", telNum: userPhoneNumber, billID: billNumber)
                     } else if billType == .Phone {

@@ -141,7 +141,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                     btnThree.isHidden = false
 
                 } else {
-                    lblBillPayIDData.text = item.mobileBill?.midTermMobile?.billId ?? (item.mobileBill?.lastTermMobile?.billId ?? "0")
+                    lblBillPayIDData.text = item.mobileBill?.midTermMobile?.billId?.inLocalizedLanguage() ?? (item.mobileBill?.lastTermMobile?.billId ?? "0")
                     lblBillPayAmountData.text = (item.mobileBill?.midTermMobile?.amount)?.inRialFormat() ?? "0".inLocalizedLanguage()
                     lblBillDeadLineData.text = (item.mobileBill?.lastTermMobile?.amount)?.inRialFormat() ?? "0".inLocalizedLanguage()
                     if "\(item.mobileBill?.midTermMobile?.amount ?? "0")" == "0" {
@@ -503,7 +503,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
-                        sSelf.paySequence(billID : sSelf.item.elecBill.billIdentifier!,payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
+                        sSelf.paySequence(billID : sSelf.item.elecBill?.billIdentifier ?? "0",payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
                     }
                 case .Gas :
                     if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
@@ -539,13 +539,13 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
         
         btnTwo.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
-            if sSelf.item.billIdentifier != nil || sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized || sSelf.item.billIdentifier != "_" {
+            if sSelf.item.billIdentifier != nil && sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized && sSelf.item.billIdentifier != "_" {
 
 
                 switch sSelf.billType {
                 case .Elec:
                         let billDataVC = IGPSBillDetailVC()
-                        billDataVC.billNumber = sSelf.item.billIdentifier
+                        billDataVC.billNumber = sSelf.item.elecBill?.billIdentifier
                         billDataVC.billType = sSelf.billType
                         UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
 
@@ -553,7 +553,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
 
                 case .Gas :
                     let billDataVC = IGPSBillDetailVC()
-                    billDataVC.billNumber = sSelf.item.billIdentifier
+                    billDataVC.billNumber = sSelf.item.gasBill?.billIdentifier
                     billDataVC.billType = sSelf.billType
                     billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
                     UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)

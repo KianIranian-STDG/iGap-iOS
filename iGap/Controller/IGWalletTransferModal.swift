@@ -205,12 +205,12 @@ class IGWalletTransferModal: BaseTableViewController {
                 let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
                 let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
 
-                IGApiBills.shared.addBill(billType: bill.billType!, billIdentifier: billID, billTitle: tfAmount.text!, subCode: subCode, telNum: telNum.inEnglishNumbersNew(), userPhoneNumber: userPhoneNumber.inEnglishNumbersNew()) {[weak self] (response, error) in
+                IGApiBills.shared.addBill(billType: bill.billType ?? "ELECTRICITY", billIdentifier: billID, billTitle: tfAmount.text ?? "", subCode: subCode, telNum: telNum, userPhoneNumber: userPhoneNumber) {[weak self] (response, error) in
                     guard let sSelf = self else {
                         return
                     }
                     if error != nil {
-                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: response?.message, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                         sSelf.dismiss(animated: true, completion: nil)
                         
                         return
@@ -227,7 +227,7 @@ class IGWalletTransferModal: BaseTableViewController {
                         return
                     }
                     if error != nil {
-                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: response?.message, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                         sSelf.dismiss(animated: true, completion: nil)
                         
                         return

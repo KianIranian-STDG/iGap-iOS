@@ -25,7 +25,8 @@ class IGPSBillBranchingInfoTVC: MainViewController {
         table.delegate = vm
         table.dataSource = vm
         vm.billType = billType
-        table.separatorStyle = .none
+        table.separatorStyle = .singleLine
+        table.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 //        vm.items = items
         vm.getBillBranchInfo(billType: bill.billType!, billIdentifier: bill.billIdentifier, subscriptionCode: bill.subsCriptionCode)
 
