@@ -957,7 +957,10 @@ enum IGStringsManager : String {
     case PSSubscriptionCode = "payment_enter_customer_code"
     case PSPayMidTerm = "payment_service_midterm_pay"
     case PSPayLastTerm = "payment_service_lastterm_pay"
-    
+    case PSBillInfo = "payment_service_billInfo"
+    case PSPayErrorAmount = "elecBill_error_billMissing"
+    case PSCity = "elecBill_error_city"
+    case PSUnitCount = "elecBill_error_unit_count"
     //KUKNOOS
     case EmptyAssets = "kuknos_trade_noItem"
     case SelectOneOfBelow = "kuknos_Entry_Message"

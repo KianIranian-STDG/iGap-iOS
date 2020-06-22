@@ -6967,3 +6967,7 @@ Page 4 introduce app */
 "Bill_Entry_lengthError" = "طول کد اشتراک را چک نمایید";
 "payment_service_midterm_pay" = "پرداخت میان دوره";
 "payment_service_lastterm_pay" = "پرداخت پایان دوره";
+
+"payment_service_billInfo" = "اطلاعات قبض";
+"elecBill_error_city" = "شهر";
+"elecBill_error_unit_count" = "تعداد واحد";

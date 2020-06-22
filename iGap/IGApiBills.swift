@@ -19,6 +19,8 @@ typealias PSQueryPBillResponse = (_ response: IGPSPhoneBillQuery?, _ error: Stri
 typealias PSQueryMBillResponse = (_ response: IGPSMobileBillQuery?, _ error: String?) -> Void
 typealias PSGetAllBillsResponse = (_ response: [parentBillModel]?, _ error: String?) -> Void
 typealias PSDeleteBillResponse = (_ response: IGKBaseResponseModelNormal?, _ error: String?) -> Void
+typealias PSElecBillBranchInfo = (_ response: ElecBillBranchInfoModel?, _ error: String?) -> Void
+typealias PSGasBillBranchInfo = (_ response: GasBillBranchInfoModel?, _ error: String?) -> Void
 
 class IGApiBills: IGApiBase {
     
@@ -26,6 +28,10 @@ class IGApiBills: IGApiBase {
         case getInquery
         case getAllBills
         case deleteBill
+        case editBill
+        case addBill
+        case branchInfo
+        case getImageOfBill
 
         var url: String {
             var urlString = IGApiBills.billBaseUrl
@@ -39,6 +45,16 @@ class IGApiBills: IGApiBase {
                 
             case .deleteBill:
                 urlString += "/delete-bill/"
+                
+            case .editBill:
+                urlString += "/edit-bill/"
+                
+            case .addBill:
+                urlString += "/add-bill"
+            case .branchInfo:
+                urlString += "/get-details"
+                case .getImageOfBill:
+                    urlString += "/get-last-bill-image"
 
             }
             
@@ -297,9 +313,8 @@ class IGApiBills: IGApiBase {
         var parameters: Parameters!
         switch billType {
             
-        case "MOBILE_MCI" :
+        default :
             parameters = ["bill_type" : billType]
-        default : break
             
         }
         
@@ -348,7 +363,191 @@ class IGApiBills: IGApiBase {
         }
 
     }
+    
+    func editBill(billType : String,ID: String, billIdentifier: String? = nil ,billTitle: String ,subCode : String? = nil, telNum : String? = nil, completion: @escaping PSDeleteBillResponse) {
+        let url = Endpoint.editBill.url + ID
+        var parameters: Parameters!
+        
+        switch billType {
+            
+        case "ELECTRICITY" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "bill_identifier" : billIdentifier!]
 
+        case "GAS" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!]
+
+        case "MOBILE_MCI" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!]
+        case "PHONE" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!)]
+
+        default : break
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.editBill(billType : billType, ID: ID, billIdentifier: billIdentifier ,billTitle: billTitle ,subCode : subCode, telNum : telNum, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data, nil)
+                return
+
+            }
+        }
+
+    }
+
+    
+    ////////////////////////////GET IMAGE OF BILL////////////////////////////////
+    func getImageOfBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
+        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
+            
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getImageOfBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
+                
+                let json = try? JSON(data: response.data ?? Data())
+                switch response.response?.statusCode {
+                case 200:
+                    
+                    switch response.result {
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                                return
+                            }
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(_):
+                        guard json != nil, let message = json!["message"].string else {
+                            completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                            return
+                        }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        completion(false, nil, message)
+                    }
+                    
+                    break
+                    
+                default :
+                    guard json != nil, let message = json!["message"].string else {
+                        completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    completion(false, nil, message)
+                }
+            }
+        }
+    }
+    func addBill(billType : String, billIdentifier: String? = nil ,billTitle: String ,subCode : String? = nil, telNum : String? = nil,userPhoneNumber: String, completion: @escaping PSDeleteBillResponse) {
+        let url = Endpoint.addBill.url
+        var parameters: Parameters!
+
+        
+        switch billType {
+            
+        case "ELECTRICITY" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle,"mobile_number" :  userPhoneNumber, "bill_identifier" : billIdentifier!.inEnglishNumbersNew()]
+
+        case "GAS" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "subscription_code" : subCode!]
+
+        case "MOBILE_MCI" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : telNum!]
+        case "PHONE" :
+            parameters = ["bill_type" : billType,"bill_title" : billTitle, "phone_number" : String((telNum?.dropFirst(3))!), "area_code" : String((telNum?.prefix(3))!)]
+
+        default : break
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.addBill(billType : billType, billIdentifier: billIdentifier ,billTitle: billTitle ,subCode : subCode, telNum : telNum, userPhoneNumber: userPhoneNumber, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data, nil)
+                return
+
+            }
+        }
+
+    }
+    
     func getAllBills(completion: @escaping PSGetAllBillsResponse){
         let url = Endpoint.getAllBills.url
         AF.request(url,  method: .get, headers: self.getHeader()).responseGetAllBills {[weak self] (response) in
@@ -415,6 +614,118 @@ class IGApiBills: IGApiBase {
         
     }
     
+    func getGasBillBranchInfo(billType : String, subscriptionCode: String, completion: @escaping PSGasBillBranchInfo) {
+        var url = Endpoint.branchInfo.url
+        var parameters: Parameters!
+        switch billType {
+            
+        case "GAS" :
+            parameters = ["bill_type" : billType, "subscription_code" : subscriptionCode]
+        default : break
+            
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseGasBranchInfo {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.getGasBillBranchInfo(billType : billType, subscriptionCode: subscriptionCode, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data.data, nil)
+                return
+
+            }
+        }
+
+    }
+    func getElecBillBranchInfo(billType : String, billIdentifier: String, completion: @escaping PSElecBillBranchInfo) {
+        var url = Endpoint.branchInfo.url
+        var parameters: Parameters!
+        switch billType {
+            
+        case "ELECTRICITY" :
+            parameters = ["bill_type" : billType, "bill_identifier" : billIdentifier]
+        default : break
+            
+        }
+        
+        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseElecBranchInfo {[weak self] (response) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                sSelf.getElecBillBranchInfo(billType : billType, billIdentifier: billIdentifier, completion: completion)
+            }) {
+                
+            } else {
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                if statusCode != 200 {
+                    do {
+                        let json = try JSON(data: response.data!)
+                        guard let msg = json["message"].string else {
+                            completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                            return
+                        }
+                        completion(nil, msg)
+                        return
+
+                    }catch {
+                        completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                        return
+                    }
+                }
+
+
+                guard let data = response.value else {
+                    completion(nil, IGStringsManager.ServerError.rawValue.localized)
+                    return
+                }
+
+                completion(data.data, nil)
+                return
+
+            }
+        }
+
+    }
     
 }
 
@@ -449,6 +760,15 @@ extension DataRequest {
     }
     @discardableResult
     func responseDeleteBill(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGKBaseResponseModelNormal>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
+    @discardableResult
+    func responseElecBranchInfo(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGPSBaseResponseModel<ElecBillBranchInfoModel>>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
+
+    @discardableResult
+    func responseGasBranchInfo(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGPSBaseResponseModel<GasBillBranchInfoModel>>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
 

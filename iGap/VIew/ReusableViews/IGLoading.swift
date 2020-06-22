@@ -138,6 +138,7 @@ class IGLoading {
             
         }
     }
+
     
     static func hideLoadingPage(completion: SimpleCallBack? = nil) {
         DispatchQueue.main.async {
@@ -146,6 +147,7 @@ class IGLoading {
                 if let com = completion {
                     com()
                 }
+                
             }
             else {
                 if let com = completion {

@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import IGProtoBuff
+import PecPayment
 
-class IGPSBillMyBillsCell: BaseTableViewCell {
+class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
     
     var indexPath : IndexPath!
     var billIUniqueID : String!
     var item : parentBillModel! {
         didSet {
-            
             lblBillName.text = item.billTitle
             switch item.billType {
             case "ELECTRICITY" : billType = .Elec
@@ -23,7 +24,6 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
             case "PHONE" : billType = .Phone
             default : break
             }
-            
         }
     }
     var billType : IGBillType!  {
@@ -167,6 +167,8 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
             //            QueryInnerData(itemData: item)
             
         }
+
+        
     }
     let holder : UIView = {
         let view = UIView()
@@ -391,6 +393,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initView()
+        holder.semanticContentAttribute = self.semantic
     }
     
     
@@ -403,6 +406,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
         addHolder()
         self.selectionStyle = .none
         manageActions()
+
     }
     
     private func manageActions() {
@@ -459,6 +463,118 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
             
             
         })
+        btnEdit.addTapGestureRecognizer(action: { [weak self] in
+            guard let sSelf = self else {return}
+            
+            switch sSelf.item.billType {
+            case "ELECTRICITY" :
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "EDIT_BILL", billType: .Elec, bill: sSelf.item,billIndex: sSelf.indexPath.row)
+                break
+            case "GAS" :
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "EDIT_BILL", billType: .Gas,bill: sSelf.item,billIndex: sSelf.indexPath.row)
+                break
+            case "MOBILE_MCI" :
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "EDIT_BILL", billType: .Mobile,bill: sSelf.item,billIndex: sSelf.indexPath.row)
+                break
+            case "PHONE" :
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "EDIT_BILL", billType: .Phone,bill: sSelf.item,billIndex: sSelf.indexPath.row)
+                
+                break
+            default : break
+            }
+            
+            
+        })
+        btnOne.addTapGestureRecognizer(action: { [weak self] in
+            guard let sSelf = self else {return}
+            
+            if sSelf.item.billIdentifier != nil || sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized || sSelf.item.billIdentifier != "_" {
+
+                switch sSelf.billType {
+                case .Elec :
+                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+
+                    sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
+                    }
+                case .Gas :
+                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+
+                    sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : (sSelf.item.gasBill?.paymentIdentifier)! ,amount: Int((sSelf.item.gasBill?.totalBillDebt)!)!)
+                    }
+                case .Phone :
+                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_"  {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+
+                        sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : "\(sSelf.item.phoneBill?.midTermPhone?.payId ?? 0)",amount: (sSelf.item.phoneBill?.midTermPhone?.amount)!)
+                    }
+
+
+                case .Mobile :
+                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+                        sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : "\(sSelf.item.mobileBill?.midTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.midTermMobile?.amount)!)!)
+
+                    }
+
+                    
+                default : break
+                }
+            }
+            
+            
+        })
+        
+        btnTwo.addTapGestureRecognizer(action: { [weak self] in
+            guard let sSelf = self else {return}
+            if sSelf.item.billIdentifier != nil || sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized || sSelf.item.billIdentifier != "_" {
+
+
+                switch sSelf.billType {
+                case .Elec:
+                        let billDataVC = IGPSBillDetailVC()
+                        billDataVC.billNumber = sSelf.item.billIdentifier
+                        billDataVC.billType = sSelf.billType
+                        UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
+
+                    
+
+                case .Gas :
+                    let billDataVC = IGPSBillDetailVC()
+                    billDataVC.billNumber = sSelf.item.billIdentifier
+                    billDataVC.billType = sSelf.billType
+                    billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
+                    UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
+                case .Phone :
+                    if sSelf.lblBillDeadLineData.text == "0".inLocalizedLanguage() {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+                        sSelf.paySequence(billID : sSelf.lblBillPayIDData.text!,payID : "\(sSelf.item.phoneBill?.lastTermPhone?.payId ?? 0)",amount: (sSelf.item.phoneBill?.lastTermPhone?.amount)!)
+
+                    }
+
+
+                case .Mobile :
+                    if sSelf.lblBillDeadLineData.text == "0".inLocalizedLanguage() {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    } else {
+                        sSelf.paySequence(billID : sSelf.lblBillPayIDData.text!,payID : "\(sSelf.item.mobileBill?.lastTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.lastTermMobile?.amount)!)!)
+
+                    }
+
+                    
+                default : break
+                }
+                
+            }
+            
+            
+        })
     }
     private func addHolder () {
         //MARK: Add Holder
@@ -468,8 +584,6 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
         holder.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 35).isActive = true
         holder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15).isActive = true
         holder.heightAnchor.constraint(equalTo: self.heightAnchor,multiplier: 0.8).isActive = true
-        
-        
         
         //MARK: Image Bill
         addSubview(holderImage)
@@ -537,7 +651,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
         holder.addSubview(lblBillPayIDData)
         lblBillPayIDData.leadingAnchor.constraint(equalTo: lblBillPayID.trailingAnchor,constant: 10).isActive = true
         lblBillPayIDData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
-        
+
         lblBillPayIDData.widthAnchor.constraint(equalTo: holder.widthAnchor,multiplier: 0.5).isActive = true
         lblBillPayIDData.topAnchor.constraint(equalTo: lblBillIDData.bottomAnchor,constant: 25).isActive = true
         
@@ -545,15 +659,15 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
         holder.addSubview(lblBillPayAmountData)
         lblBillPayAmountData.leadingAnchor.constraint(equalTo: lblBillPayAmount.trailingAnchor,constant: 10).isActive = true
         lblBillPayAmountData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
-        
+
         lblBillPayAmountData.widthAnchor.constraint(equalTo: holder.widthAnchor,multiplier: 0.5).isActive = true
         lblBillPayAmountData.topAnchor.constraint(equalTo: lblBillPayIDData.bottomAnchor,constant: 25).isActive = true
-        
+//
         //MARK: Bill Pay DeadLine Data
         holder.addSubview(lblBillDeadLineData)
         lblBillDeadLineData.leadingAnchor.constraint(equalTo: lblBillDeadLine.trailingAnchor,constant: 10).isActive = true
         lblBillDeadLineData.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -10).isActive = true
-        
+
         lblBillDeadLineData.widthAnchor.constraint(equalTo: holder.widthAnchor,multiplier: 0.5).isActive = true
         lblBillDeadLineData.topAnchor.constraint(equalTo: lblBillPayAmountData.bottomAnchor,constant: 25).isActive = true
         
@@ -576,159 +690,49 @@ class IGPSBillMyBillsCell: BaseTableViewCell {
         
     }
     
-    //SERVICES
     
+    private func initBillPaymanet(token: String){
+        let initpayment = InitPayment()
+        initpayment.registerBill(merchant: self)
+        initpayment.initBillPayment(Token: token, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
+    }
     
-    //    private func QueryInnerData(itemData : IGPSAllBillsBillQuery) {
-    //
-    //            switch itemData.billType {
-    //            case "ELECTRICITY" :
-    //                queryElecBill(billType: item.billType!, telNum: item.mobileNumber!, billID: item.billID!)
-    //                break
-    //            case "GAS" :
-    //                queryGasBill(billType: item.billType!, billID: item.subsCriptionCode!)
-    //                break
-    //            case "MOBILE_MCI" :
-    //                queryMobileBill(billType: item.billType!, telNum: item.billPhone!)
-    //                break
-    //            case "PHONE" :
-    //                queryPhoneBill(billType: item.billType!, telNum: item.billAreaCode! + item.billPhone!)
-    //                break
-    //            default : break
-    //            }
-    //
-    //    }
-    //
-    //    //MARK: -ELEC
-    //    func queryElecBill(billType: String, telNum: String? = nil, billID: String? = nil) {
-    //
-    //        IGApiBills.shared.queryElecBill(billType: billType, telNum: telNum!, billID: billID!)  {[weak self] (response, error) in
-    //            guard let sSelf = self else {
-    //                return
-    //            }
-    //            if error != nil {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillPayAmountData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillDeadLineData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.btnTwo.isHidden = true
-    //                sSelf.btnOne.isHidden = true
-    //                sSelf.btnThree.isHidden = false
-    //                return
-    //            } else {
-    //                sSelf.btnTwo.isHidden = false
-    //                sSelf.btnOne.isHidden = false
-    //                sSelf.btnThree.isHidden = true
-    //                sSelf.lblBillPayIDData.text = response?.paymentIdentifier?.inLocalizedLanguage()
-    //                sSelf.lblBillPayAmountData.text = response?.totalBillDebt?.inLocalizedLanguage()
-    //                sSelf.lblBillDeadLineData.text = response?.paymentDeadLine?.inLocalizedLanguage()
-    //            }
-    //
-    //        }
-    //
-    //    }
-    //    //MARK: -GAS
-    //    func queryGasBill(billType: String, billID: String? = nil) {
-    //
-    //        IGApiBills.shared.queryGasBill(billType: billType, billID: billID!)  {[weak self] (response, error) in
-    //            guard let sSelf = self else {
-    //                return
-    //            }
-    //            if error != nil {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillPayAmountData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillDeadLineData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.btnTwo.isHidden = true
-    //                sSelf.btnOne.isHidden = true
-    //                sSelf.btnThree.isHidden = false
-    //
-    //                return
-    //            } else {
-    //                sSelf.btnTwo.isHidden = false
-    //                sSelf.btnOne.isHidden = false
-    //                sSelf.btnThree.isHidden = true
-    //                sSelf.lblBillPayIDData.text = response?.paymentIdentifier?.inLocalizedLanguage()
-    //                sSelf.lblBillPayAmountData.text = response?.totalBillDebt?.inLocalizedLanguage()
-    //                sSelf.lblBillDeadLineData.text = response?.paymentDeadLine?.inLocalizedLanguage()
-    //
-    //            }
-    //
-    //        }
-    //
-    //    }
-    //    //MARK: -PHONE
-    //    func queryPhoneBill(billType: String, telNum: String) {
-    //
-    //        IGApiBills.shared.queryPhoneBill(billType: billType, telNum: telNum)  {[weak self] (response, error) in
-    //            guard let sSelf = self else {
-    //                return
-    //            }
-    //            if error != nil {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillPayAmountData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillDeadLineData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.btnTwo.isHidden = true
-    //                sSelf.btnOne.isHidden = true
-    //                sSelf.btnThree.isHidden = false
-    //
-    //                return
-    //            } else {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.Time.rawValue.localized
-    //                if "\(response?.midTerm?.amount ?? 0)" == "0" {
-    //                    sSelf.lblBillPayAmountData.text = "0"
-    //                } else {
-    //                    sSelf.lblBillPayAmountData.text = "\(response?.midTerm?.amount ?? 0)".currencyFormat()
-    //                }
-    //                if "\(response?.lastTerm?.amount ?? 0)" == "0" {
-    //                    sSelf.lblBillPayAmountData.text = "0"
-    //                } else {
-    //                    sSelf.lblBillDeadLineData.text = "\(response?.lastTerm?.amount ?? 0)".currencyFormat()
-    //                }
-    //                sSelf.btnTwo.isHidden = false
-    //                sSelf.btnOne.isHidden = false
-    //                sSelf.btnThree.isHidden = true
-    //
-    //            }
-    //
-    //        }
-    //
-    //    }
-    //
-    //    //MARK: -MOBILE
-    //    func queryMobileBill(billType: String, telNum: String) {
-    //        IGApiBills.shared.queryMobileBill(billType: billType, telNum: telNum)  {[weak self] (response, error) in
-    //            guard let sSelf = self else {
-    //                return
-    //            }
-    //            if error != nil {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillPayAmountData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.lblBillDeadLineData.text = IGStringsManager.ServerError.rawValue.localized
-    //                sSelf.btnTwo.isHidden = true
-    //                sSelf.btnOne.isHidden = true
-    //                sSelf.btnThree.isHidden = false
-    //
-    //                return
-    //            } else {
-    //                sSelf.lblBillPayIDData.text = IGStringsManager.Time.rawValue.localized
-    //
-    //                if response?.midTerm?.amount ?? "0" == "0" {
-    //                    sSelf.lblBillPayAmountData.text = "0"
-    //                } else {
-    //                    sSelf.lblBillPayAmountData.text = (response?.midTerm?.amount ?? "0").currencyFormat()
-    //                }
-    //                if response?.lastTerm?.amount ?? "0" == "0" {
-    //                    sSelf.lblBillPayAmountData.text = "0"
-    //                } else {
-    //                    sSelf.lblBillDeadLineData.text = (response?.lastTerm?.amount ?? "0").currencyFormat()
-    //                }
-    //                sSelf.btnTwo.isHidden = false
-    //                sSelf.btnOne.isHidden = false
-    //                sSelf.btnThree.isHidden = true
-    //
-    //            }
-    //
-    //        }
-    //
-    //    }
+    func paySequence(billID : String,payID : String,amount: Int) {
+        
+        if amount < 10000 {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.LessThan10000.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            
+        } else {
+            IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+            IGMplGetBillToken.Generator.generate(billId: Int64(billID.inEnglishNumbersNew())!, payId: Int64(payID.inEnglishNumbersNew())!).success({ (protoResponse) in
+                IGLoading.hideLoadingPage()
+                if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
+                    if mplGetBillTokenResponse.igpStatus == 0 { //success
+                        self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
+                    } else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: mplGetBillTokenResponse.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    }
+                }
+                
+            }).error ({ (errorCode, waitTime) in
+                IGLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    
+                    break
+                default:
+                    break
+                }
+            }).send()
+            
+            
+        }
+    }
+    func BillMerchantUpdate(encData: String, message: String, status: Int) {
+        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+    }
     
+    func BillMerchantError(errorType: Int) {
+    }
+
 }

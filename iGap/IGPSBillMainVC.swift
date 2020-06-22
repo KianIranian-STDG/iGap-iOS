@@ -298,7 +298,7 @@ class IGPSBillMainVC : MainViewController {
 
             } else {
                 let billDataVC = IGPSBillDetailVC()
-                billDataVC.billNumber = tfBillNumber.text!
+                billDataVC.billNumber = tfBillNumber.text!.inEnglishNumbersNew()
                 billDataVC.billType = billType
                 UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
 
@@ -311,8 +311,9 @@ class IGPSBillMainVC : MainViewController {
 
             } else {
                 let billDataVC = IGPSBillDetailVC()
-                billDataVC.billNumber = tfBillNumber.text!
+                billDataVC.billNumber = tfBillNumber.text!.inEnglishNumbersNew()
                 billDataVC.billType = billType
+                billDataVC.subscriptionCode = tfBillNumber.text!
                 UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
 
             }
@@ -325,7 +326,7 @@ class IGPSBillMainVC : MainViewController {
             } else {
 
             let billDataVC = IGPSBillDetailVC()
-            billDataVC.phoneNumber = tfBillNumber.text!
+            billDataVC.phoneNumber = tfBillNumber.text!.inEnglishNumbersNew()
             billDataVC.billType = billType
             UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
             }
@@ -337,7 +338,7 @@ class IGPSBillMainVC : MainViewController {
             } else {
 
             let billDataVC = IGPSBillDetailVC()
-            billDataVC.phoneNumber = tfBillNumber.text!
+            billDataVC.phoneNumber = tfBillNumber.text!.inEnglishNumbersNew()
             billDataVC.billType = billType
             UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
             }

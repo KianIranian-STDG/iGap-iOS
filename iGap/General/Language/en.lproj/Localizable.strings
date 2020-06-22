@@ -6950,3 +6950,8 @@ Do NOT share it with others.";
 "Bill_Entry_lengthError" = "Please Check Lenght of your subscription number";
 "payment_service_midterm_pay" = "Pay Mid-Term";
 "payment_service_lastterm_pay" = "Pay Last-Term";
+
+"payment_service_billInfo" = "Bill Information";
+"elecBill_error_city" = "City";
+"elecBill_error_unit_count" = "number of units";
+"elecBill_error_unit_count" = "number of units";

@@ -19,6 +19,7 @@ class IGPSBillMainVM : NSObject {
     
 
     func getAllBills() {
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
         IGApiBills.shared.getAllBills(){[weak self] (response, error) in
             guard let sSelf = self else {
                 return
@@ -37,6 +38,8 @@ class IGPSBillMainVM : NSObject {
             } else {
 
             }
+            IGLoading.hideLoadingPage()
+
         }
     }
     

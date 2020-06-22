@@ -275,4 +275,23 @@ class IGHelperBottomModals {
             UIApplication.topViewController()!.presentPanModal(vc)
 
     }
+
+    
+    func showEditBillName(view: UIViewController? = nil,mode: String! = "EDIT_BILL",billType : IGBillType = .Elec, bill : parentBillModel, billIndex : Int? = nil) {
+        var alertView = view
+        if alertView == nil {
+         alertView = UIApplication.topViewController()
+        }
+        let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGWalletTransferModal") as! IGWalletTransferModal
+        vc.mode = mode
+        vc.billType = billType
+        vc.bill = bill
+        if billIndex != nil {
+            vc.index = billIndex
+        }
+        UIApplication.topViewController()!.presentPanModal(vc)
+    }
+
+    
 }

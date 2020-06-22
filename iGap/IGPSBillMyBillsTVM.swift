@@ -17,6 +17,7 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
         
     }
     func queryInnerData(){
+
         for i in 0...items.count-1 {
             let item = items[i]
             
@@ -37,8 +38,35 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             }
             
         }
+
     }
     
+    
+    func getAllBills() {
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+
+        IGApiBills.shared.getAllBills(){[weak self] (response, error) in
+            guard let sSelf = self else {
+                return
+            }
+            if error != nil {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: error!, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                return
+            }
+            if response!.count > 0 {
+                  let vc = IGPSBillMyBillsTVC()
+                sSelf.items.removeAll()
+                vc.table.reloadData()
+                sSelf.items = response!
+                vc.table.reloadData()
+                sSelf.queryInnerData()
+                
+            } else {
+
+            }
+            IGLoading.hideLoadingPage()
+        }
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -64,7 +92,8 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     
     //    MARK: -ELEC
     func queryElecBill(index: Int, billType: String, telNum: String? = nil, billID: String? = nil) {
-        
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+
         IGApiBills.shared.queryElecBill(billType: billType, telNum: telNum!, billID: billID!)  {[weak self] (response, error) in
             guard let sSelf = self else {
                 return
@@ -75,9 +104,7 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             
             
                 if error != nil {
-                    sSelf.items[index].billIdentifier = "_"
                     var elecBill = parentBillModel.elecModel()
-                    elecBill.billIdentifier = "_"
                     elecBill.paymentIdentifier = "_"
                     elecBill.paymentDeadLine = "_"
                     elecBill.totalBillDebt = "_"
@@ -86,12 +113,13 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     sSelf.items[index].billIdentifier = sSelf.items[index].billIdentifier
                     var elecBill = parentBillModel.elecModel()
                     elecBill.billIdentifier = sSelf.items[index].billIdentifier
-                    elecBill.paymentIdentifier = response?.paymentDeadLine
-                    elecBill.paymentDeadLine = response?.paymentIdentifier
+                    elecBill.paymentIdentifier = response?.paymentIdentifier
+                    elecBill.paymentDeadLine = response?.paymentDeadLine
                     elecBill.totalBillDebt = response?.totalBillDebt
                     sSelf.items[index].elecBill = elecBill
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            IGLoading.hideLoadingPage()
 
             
             
@@ -100,7 +128,8 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     }
     //MARK: -GAS
     func queryGasBill(index: Int, billType: String, billID: String? = nil) {
-        
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+
         IGApiBills.shared.queryGasBill(billType: billType, billID: billID!)  {[weak self] (response, error) in
             guard let sSelf = self else {
                 return
@@ -109,8 +138,6 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             
             var gasBill = parentBillModel.gasModel()
                 if error != nil {
-                    sSelf.items[index].billIdentifier = "_"
-                    gasBill.billIdentifier = "_"
                     gasBill.paymentIdentifier = "_"
                     gasBill.paymentDeadLine = "_"
                     gasBill.totalBillDebt = "_"
@@ -125,20 +152,21 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
 //            }
-            
+            IGLoading.hideLoadingPage()
+
         }
         
     }
     //MARK: -PHONE
     func queryPhoneBill(index: Int, billType: String, telNum: String) {
-        
+        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+
         IGApiBills.shared.queryPhoneBill(billType: billType, telNum: telNum)  {[weak self] (response, error) in
             guard let sSelf = self else {
                 return
             }
             var phoneBill = parentBillModel.phoneModel()
                 if error != nil {
-                    sSelf.items[index].billIdentifier = "_"
                     phoneBill.midTermPhone?.billId = nil
                     phoneBill.lastTermPhone?.billId = nil
                     sSelf.items[index].phoneBill = phoneBill
@@ -147,14 +175,14 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     if response?.midTerm?.billId == nil {
                         var lt = parentBillModel.phoneModel.PhoneLastTermInner()
                         lt.billId = response?.lastTerm?.billId
-                        lt.payId = response?.lastTerm?.billId
+                        lt.payId = response?.lastTerm?.payId
                         lt.amount = response?.lastTerm?.amount
                         phoneBill.lastTermPhone = lt
                     } else {
                         var mt = parentBillModel.phoneModel.PhoneMidTermInner()
 
                         mt.billId = response?.midTerm?.billId
-                        mt.payId = response?.midTerm?.billId
+                        mt.payId = response?.midTerm?.payId
                         mt.amount = response?.midTerm?.amount
                         phoneBill.midTermPhone = mt
 
@@ -163,14 +191,14 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                         var mt = parentBillModel.phoneModel.PhoneMidTermInner()
 
                         mt.billId = response?.midTerm?.billId
-                        mt.payId = response?.midTerm?.billId
+                        mt.payId = response?.midTerm?.payId
                         mt.amount = response?.midTerm?.amount
                         phoneBill.midTermPhone = mt
 
                     } else {
                         var lt = parentBillModel.phoneModel.PhoneLastTermInner()
                         lt.billId = response?.lastTerm?.billId
-                        lt.payId = response?.lastTerm?.billId
+                        lt.payId = response?.lastTerm?.payId
                         lt.amount = response?.lastTerm?.amount
                         phoneBill.lastTermPhone = lt
 
@@ -178,6 +206,7 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     sSelf.items[index].phoneBill = phoneBill
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            IGLoading.hideLoadingPage()
 
             
         }
@@ -193,7 +222,6 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             
             var mobileBill = parentBillModel.mobileModel()
                 if error != nil {
-                    sSelf.items[index].billIdentifier = "_"
                     mobileBill.midTermMobile?.billId = nil
                     mobileBill.lastTermMobile?.billId = nil
                     sSelf.items[index].mobileBill = mobileBill
@@ -202,14 +230,14 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                         if response?.midTerm?.billId == nil {
                             var lt = parentBillModel.mobileModel.MobileLastTermInner()
                             lt.billId = response?.lastTerm?.billId
-                            lt.payId = response?.lastTerm?.billId
+                            lt.payId = response?.lastTerm?.payId
                             lt.amount = response?.lastTerm?.amount
                             mobileBill.lastTermMobile = lt
                         } else {
                             var mt = parentBillModel.mobileModel.MobileMidTermInner()
 
                             mt.billId = response?.midTerm?.billId
-                            mt.payId = response?.midTerm?.billId
+                            mt.payId = response?.midTerm?.payId
                             mt.amount = response?.midTerm?.amount
                             mobileBill.midTermMobile = mt
 
@@ -218,14 +246,14 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                             var mt = parentBillModel.mobileModel.MobileMidTermInner()
 
                             mt.billId = response?.midTerm?.billId
-                            mt.payId = response?.midTerm?.billId
+                            mt.payId = response?.midTerm?.payId
                             mt.amount = response?.midTerm?.amount
                             mobileBill.midTermMobile = mt
 
                         } else {
                             var lt = parentBillModel.mobileModel.MobileLastTermInner()
                             lt.billId = response?.lastTerm?.billId
-                            lt.payId = response?.lastTerm?.billId
+                            lt.payId = response?.lastTerm?.payId
                             lt.amount = response?.lastTerm?.amount
                             mobileBill.lastTermMobile = lt
 

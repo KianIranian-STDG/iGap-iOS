@@ -1,29 +1,33 @@
 //
-//  IGPSBillMyBillsTVC.swift
+//  IGPSBillBranchingInfo.swift
 //  iGap
 //
-//  Created by BenyaminMokhtarpour on 6/16/20.
+//  Created by BenyaminMokhtarpour on 6/22/20.
 //  Copyright © 2020 Kianiranian STDG -www.kianiranian.com. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class IGPSBillMyBillsTVC: MainViewController {
-    var vm : IGPSBillMyBillsTVM!
+
+class IGPSBillBranchingInfoTVC: MainViewController {
+    var vm : IGPSBillBranchingInfoTVM!
+    var billType : IGBillType!
+    var bill : parentBillModel!
     var table = UITableView()
-    var items = [parentBillModel]()
+    
+//    var items = [parentBillModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        initCustomtNav(title: IGStringsManager.MyBills.rawValue.localized)
+        initCustomtNav(title: IGStringsManager.BillBranchingInfo.rawValue.localized)
         addTableView()
-        table.register(IGPSBillMyBillsCell.self, forCellReuseIdentifier: "IGPSBillMyBillsCell")
-        vm = IGPSBillMyBillsTVM(viewController: self)
+        table.register(IGPSBillBranchInfoCell.self, forCellReuseIdentifier: "IGPSBillBranchInfoCell")
+        vm = IGPSBillBranchingInfoTVM(viewController: self)
         table.delegate = vm
         table.dataSource = vm
+        vm.billType = billType
         table.separatorStyle = .none
-        vm.items = items
-        table.reloadData()
-        vm.queryInnerData()
+//        vm.items = items
+        vm.getBillBranchInfo(billType: bill.billType!, billIdentifier: bill.billIdentifier, subscriptionCode: bill.subsCriptionCode)
 
     
 
@@ -41,3 +45,4 @@ class IGPSBillMyBillsTVC: MainViewController {
     
 
 }
+
