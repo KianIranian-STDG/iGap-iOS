@@ -24,7 +24,7 @@ class IGPSBillBranchInfoCell: BaseTableViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
-        lbl.font = UIFont.igFont(ofSize: 13,weight: .bold)
+        lbl.font = UIFont.igFont(ofSize: 13,weight: .regular)
         lbl.textColor = ThemeManager.currentTheme.LabelColor
         lbl.textAlignment = .center
         lbl.text = "info"
