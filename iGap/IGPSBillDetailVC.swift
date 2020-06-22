@@ -43,7 +43,14 @@ class IGPSBillDetailVC : MainViewController {
     }
     var billPayDeadLine : String! {
         didSet {
-            lblBillPayDeadLineData.text = billPayDeadLine.inLocalizedLanguage()
+            switch billType {
+            case .Mobile , .Phone :
+                lblBillPayDeadLineData.text = billPayDeadLine.inRialFormat() + IGStringsManager.Currency.rawValue.localized
+
+            default :
+                lblBillPayDeadLineData.text = billPayDeadLine.inLocalizedLanguage()
+
+            }
         }
     }
     private let holder : UIView = {
@@ -265,9 +272,9 @@ class IGPSBillDetailVC : MainViewController {
                     } else if billType == .Elec {
                         vm?.queryElecBill(billType: "ELECTRICITY", telNum: userPhoneNumber, billID: billNumber)
                     } else if billType == .Phone {
-                        vm?.queryPhoneBill(billType: "PHONE", telNum: phoneNumber)
+                        vm?.queryPhoneBill(billType: "PHONE", telNum: phoneNumber.inEnglishNumbersNew())
                     } else if billType == .Mobile {
-                        vm?.queryMobileBill(billType: "MOBILE_MCI", telNum: phoneNumber)
+                        vm?.queryMobileBill(billType: "MOBILE_MCI", telNum: phoneNumber.inEnglishNumbersNew())
                     }
     
     }
@@ -486,7 +493,7 @@ class IGPSBillDetailVC : MainViewController {
 
                 break
             case .Phone,.Mobile :
-                    if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" &&  lblBillPayAmountData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
                     IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                 } else {
                     vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)

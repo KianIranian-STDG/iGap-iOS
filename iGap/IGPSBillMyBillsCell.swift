@@ -32,7 +32,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
             case .Elec :
                 lblBillID.text = IGStringsManager.BillId.rawValue.localized
                 lblBillPayID.text = IGStringsManager.PayIdentifier.rawValue.localized
-                lblBillPayAmount.text = IGStringsManager.BillPrice.rawValue.localized
+                lblBillPayAmount.text = IGStringsManager.KAmountHeader.rawValue.localized
                 lblBillDeadLine.text = IGStringsManager.BillPayDate.rawValue.localized
                 ivBill.image = UIImage(named: "bill_elc_pec")
                 lblBillIDData.text = item.billIdentifier?.inLocalizedLanguage()
@@ -40,9 +40,9 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                 btnTwo.setTitle(IGStringsManager.Details.rawValue.localized, for: .normal)
                 billIUniqueID = item.id
                 
-                lblBillPayIDData.text = item.elecBill?.paymentIdentifier ?? IGStringsManager.GlobalLoading.rawValue.localized
-                lblBillPayAmountData.text = item.elecBill?.totalBillDebt  ?? IGStringsManager.GlobalLoading.rawValue.localized
-                lblBillDeadLineData.text = item.elecBill?.paymentDeadLine  ?? IGStringsManager.GlobalLoading.rawValue.localized
+                lblBillPayIDData.text = item.elecBill?.paymentIdentifier?.inLocalizedLanguage() ?? IGStringsManager.GlobalLoading.rawValue.localized
+                lblBillPayAmountData.text = ((item.elecBill?.totalBillDebt?.inRialFormat() ?? "0".inLocalizedLanguage()) + IGStringsManager.Currency.rawValue.localized)
+                lblBillDeadLineData.text = item.elecBill?.paymentDeadLine?.inLocalizedLanguage()  ?? IGStringsManager.GlobalLoading.rawValue.localized
                 if lblBillPayAmountData.text == "_" {
                     btnOne.isHidden = true
                     btnTwo.isHidden = true
@@ -57,7 +57,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
             case .Gas :
                 lblBillID.text = IGStringsManager.PSSubscriptionCode.rawValue.localized
                 lblBillPayID.text = IGStringsManager.PayIdentifier.rawValue.localized
-                lblBillPayAmount.text = IGStringsManager.BillPrice.rawValue.localized
+                lblBillPayAmount.text = IGStringsManager.KAmountHeader.rawValue.localized
                 lblBillDeadLine.text = IGStringsManager.BillPayDate.rawValue.localized
                 ivBill.image = UIImage(named: "bill_gaz_pec")
                 lblBillIDData.text = item.subsCriptionCode?.inLocalizedLanguage()
@@ -65,9 +65,9 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                 btnTwo.setTitle(IGStringsManager.Details.rawValue.localized, for: .normal)
                 billIUniqueID = item.id
                 
-                lblBillPayIDData.text = item.gasBill?.paymentIdentifier ?? IGStringsManager.GlobalLoading.rawValue.localized
-                lblBillPayAmountData.text = item.gasBill?.totalBillDebt  ?? IGStringsManager.GlobalLoading.rawValue.localized
-                lblBillDeadLineData.text = item.gasBill?.paymentDeadLine  ?? IGStringsManager.GlobalLoading.rawValue.localized
+                lblBillPayIDData.text = item.gasBill?.paymentIdentifier?.inLocalizedLanguage() ?? IGStringsManager.GlobalLoading.rawValue.localized
+                lblBillPayAmountData.text = ((item.gasBill?.totalBillDebt?.inRialFormat() ?? "0".inLocalizedLanguage()) + IGStringsManager.Currency.rawValue.localized)
+                lblBillDeadLineData.text = item.gasBill?.paymentDeadLine?.inLocalizedLanguage()  ?? IGStringsManager.GlobalLoading.rawValue.localized
                 if lblBillPayAmountData.text == "_" {
                     btnOne.isHidden = true
                     btnTwo.isHidden = true
@@ -100,17 +100,17 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                     btnThree.isHidden = false
 
                 } else {
-                    lblBillPayIDData.text = "\(item.phoneBill?.midTermPhone?.billId ?? item.phoneBill?.lastTermPhone?.billId ?? 0)"
-                    lblBillPayAmountData.text = "\(item.phoneBill?.midTermPhone?.amount ?? 0)"
+                    lblBillPayIDData.text = "\(item.phoneBill?.midTermPhone?.billId ?? item.phoneBill?.lastTermPhone?.billId ?? 0)".inLocalizedLanguage()
+                    lblBillPayAmountData.text = "\(item.phoneBill?.midTermPhone?.amount ?? 0)".inRialFormat() +  IGStringsManager.Currency.rawValue.localized
                     if "\(item.phoneBill?.midTermPhone?.amount ?? 0)" == "0" {
                         lblBillPayAmountData.text = "0".inLocalizedLanguage()
                     } else {
-                        lblBillPayAmountData.text = "\(item.phoneBill?.midTermPhone?.amount ?? 0)".currencyFormat()
+                        lblBillPayAmountData.text = "\(item.phoneBill?.midTermPhone?.amount ?? 0)".inRialFormat() +  IGStringsManager.Currency.rawValue.localized
                     }
                     if "\(item.phoneBill?.lastTermPhone?.amount ?? 0)" == "0" {
                         lblBillDeadLineData.text = "0".inLocalizedLanguage()
                     } else {
-                        lblBillDeadLineData.text = "\(item.phoneBill?.lastTermPhone?.amount ?? 0)".currencyFormat()
+                        lblBillDeadLineData.text = "\(item.phoneBill?.lastTermPhone?.amount ?? 0)".inRialFormat() +  IGStringsManager.Currency.rawValue.localized
                     }
                     btnOne.isHidden = false
                     btnTwo.isHidden = false
@@ -142,17 +142,17 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
 
                 } else {
                     lblBillPayIDData.text = item.mobileBill?.midTermMobile?.billId ?? (item.mobileBill?.lastTermMobile?.billId ?? "0")
-                    lblBillPayAmountData.text = (item.mobileBill?.midTermMobile?.amount)?.currencyFormat() ?? "0".inLocalizedLanguage()
-                    lblBillDeadLineData.text = (item.mobileBill?.lastTermMobile?.amount)?.currencyFormat() ?? "0".inLocalizedLanguage()
+                    lblBillPayAmountData.text = (item.mobileBill?.midTermMobile?.amount)?.inRialFormat() ?? "0".inLocalizedLanguage()
+                    lblBillDeadLineData.text = (item.mobileBill?.lastTermMobile?.amount)?.inRialFormat() ?? "0".inLocalizedLanguage()
                     if "\(item.mobileBill?.midTermMobile?.amount ?? "0")" == "0" {
                         lblBillPayAmountData.text = "0".inLocalizedLanguage()
                     } else {
-                        lblBillPayAmountData.text = "\(item.mobileBill?.midTermMobile?.amount ?? "0")".currencyFormat()
+                        lblBillPayAmountData.text = "\(item.mobileBill?.midTermMobile?.amount ?? "0")".inRialFormat() + IGStringsManager.Currency.rawValue.localized
                     }
                     if "\(item.mobileBill?.lastTermMobile?.amount ?? "0")" == "0" {
                         lblBillDeadLineData.text = "0".inLocalizedLanguage()
                     } else {
-                        lblBillDeadLineData.text = "\(item.mobileBill?.lastTermMobile?.amount ?? "0")".currencyFormat()
+                        lblBillDeadLineData.text = "\(item.mobileBill?.lastTermMobile?.amount ?? "0")".inRialFormat() + IGStringsManager.Currency.rawValue.localized
                     }
 
                     btnOne.isHidden = false
@@ -499,21 +499,21 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
 
                 switch sSelf.billType {
                 case .Elec :
-                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                    if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
                     sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : (sSelf.item.elecBill?.paymentIdentifier)! ,amount: Int((sSelf.item.elecBill?.totalBillDebt)!)!)
                     }
                 case .Gas :
-                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                    if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
-                    sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : (sSelf.item.gasBill?.paymentIdentifier)! ,amount: Int((sSelf.item.gasBill?.totalBillDebt)!)!)
+                        sSelf.paySequence(billID : (sSelf.item.gasBill?.billIdentifier!.inEnglishNumbersNew())!,payID : (sSelf.item.gasBill?.paymentIdentifier)!.inEnglishNumbersNew() ,amount: Int((sSelf.item.gasBill?.totalBillDebt)!)!)
                     }
                 case .Phone :
-                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_"  {
+                    if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
 
@@ -522,7 +522,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
 
 
                 case .Mobile :
-                    if sSelf.lblBillPayAmountData.text == "0".inLocalizedLanguage() || sSelf.lblBillPayAmountData.text == "_" {
+                    if sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized || sSelf.lblBillPayAmountData.text?.inEnglishNumbersNew().onlyDigitChars() == "" {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
                         sSelf.paySequence(billID : sSelf.item.billIdentifier!,payID : "\(sSelf.item.mobileBill?.midTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.midTermMobile?.amount)!)!)
@@ -558,7 +558,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                     billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
                     UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
                 case .Phone :
-                    if sSelf.lblBillDeadLineData.text == "0".inLocalizedLanguage() {
+                    if sSelf.lblBillDeadLineData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
                         sSelf.paySequence(billID : sSelf.lblBillPayIDData.text!,payID : "\(sSelf.item.phoneBill?.lastTermPhone?.payId ?? 0)",amount: (sSelf.item.phoneBill?.lastTermPhone?.amount)!)
@@ -567,10 +567,10 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
 
 
                 case .Mobile :
-                    if sSelf.lblBillDeadLineData.text == "0".inLocalizedLanguage() {
+                    if sSelf.lblBillDeadLineData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
-                        sSelf.paySequence(billID : sSelf.lblBillPayIDData.text!,payID : "\(sSelf.item.mobileBill?.lastTermMobile?.payId ?? "0")",amount: Int((sSelf.item.mobileBill?.lastTermMobile?.amount)!)!)
+                        sSelf.paySequence(billID : sSelf.lblBillPayIDData.text!,payID : "\(sSelf.item.mobileBill?.lastTermMobile?.payId ?? "0".inLocalizedLanguage())",amount: Int((sSelf.item.mobileBill?.lastTermMobile?.amount)!)!)
 
                     }
 

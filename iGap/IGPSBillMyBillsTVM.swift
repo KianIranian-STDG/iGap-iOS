@@ -144,9 +144,9 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     sSelf.items[index].gasBill = gasBill
                 } else {
                     sSelf.items[index].billIdentifier = sSelf.items[index].subsCriptionCode
-                    gasBill.billIdentifier = sSelf.items[index].subsCriptionCode
-                    gasBill.paymentIdentifier = response?.paymentDeadLine
-                    gasBill.paymentDeadLine = response?.paymentIdentifier
+                    gasBill.billIdentifier = response?.billIdentifier
+                    gasBill.paymentIdentifier = response?.paymentIdentifier
+                    gasBill.paymentDeadLine = response?.paymentDeadLine
                     gasBill.totalBillDebt = response?.totalBillDebt
                     sSelf.items[index].gasBill = gasBill
             }

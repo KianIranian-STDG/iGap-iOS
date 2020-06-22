@@ -29,7 +29,7 @@ class IGPSBillBranchInfoCell: BaseTableViewCell {
         lbl.textAlignment = .center
         lbl.text = "info"
         lbl.numberOfLines = 1
-        lbl.textAlignment = lbl.localizedDirectionOposit
+        lbl.textAlignment = .right
         return lbl
     }()
     let lblData : UILabel = {
@@ -41,7 +41,7 @@ class IGPSBillBranchInfoCell: BaseTableViewCell {
         lbl.textAlignment = .center
         lbl.text = "..."
         lbl.numberOfLines = 1
-        lbl.textAlignment = lbl.localizedDirection
+        lbl.textAlignment = .left
         return lbl
     }()
 
