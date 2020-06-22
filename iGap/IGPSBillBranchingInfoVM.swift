@@ -85,7 +85,7 @@ class IGPSBillBranchingInfoTVM : NSObject,UITableViewDelegate,UITableViewDataSou
                     return cell
                 case 9 :
                     cell.lblInfo.text = "مبلغ قبض"
-                    cell.lblData.text = itemElec.totalBillDebt ?? ""
+                    cell.lblData.text = itemElec.totalBillDebt?.inRialFormat() ?? "0" + IGStringsManager.Currency.rawValue.localized ?? ""
 
                     return cell
                 case 10 :
@@ -177,7 +177,7 @@ class IGPSBillBranchingInfoTVM : NSObject,UITableViewDelegate,UITableViewDataSou
                     return cell
                 case 13 :
                     cell.lblInfo.text = "بهای گاز مصرفی"
-                    cell.lblData.text = itemGas.gasPriceValue ?? ""
+                    cell.lblData.text = itemGas.gasPriceValue?.inRialFormat() ?? "0" + IGStringsManager.Currency.rawValue.localized ?? ""
                     return cell
                 case 14 :
                     cell.lblInfo.text = "آبونمان"

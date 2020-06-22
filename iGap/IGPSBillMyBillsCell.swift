@@ -539,25 +539,30 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
         
         btnTwo.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
-            if sSelf.item.billIdentifier != nil && sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized && sSelf.item.billIdentifier != "_" {
 
 
                 switch sSelf.billType {
                 case .Elec:
+                    if sSelf.item.billIdentifier != nil && sSelf.item.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized && sSelf.item.billIdentifier != "_" {
+
                         let billDataVC = IGPSBillDetailVC()
-                        billDataVC.billNumber = sSelf.item.elecBill?.billIdentifier
+                        billDataVC.billNumber = sSelf.item.billIdentifier ?? sSelf.item.elecBill?.billIdentifier
                         billDataVC.billType = sSelf.billType
                         UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
 
-                    
+                    }
 
                 case .Gas :
-                    let billDataVC = IGPSBillDetailVC()
-                    billDataVC.billNumber = sSelf.item.gasBill?.billIdentifier
-                    billDataVC.billType = sSelf.billType
-                    billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
-                    UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
+                    if sSelf.item.gasBill?.billIdentifier != nil && sSelf.item.gasBill?.billIdentifier != IGStringsManager.GlobalLoading.rawValue.localized && sSelf.item.gasBill?.billIdentifier != "_" {
+                        
+                        let billDataVC = IGPSBillDetailVC()
+                        billDataVC.billNumber = sSelf.item.gasBill?.billIdentifier
+                        billDataVC.billType = sSelf.billType
+                        billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
+                        UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
+                    }
                 case .Phone :
+                    
                     if sSelf.lblBillDeadLineData.text?.inEnglishNumbersNew().onlyDigitChars() == "0" ||  sSelf.lblBillDeadLineData.text == IGStringsManager.GlobalLoading.rawValue.localized {
                         IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                     } else {
@@ -578,7 +583,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                 default : break
                 }
                 
-            }
+            
             
             
         })

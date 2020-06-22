@@ -653,23 +653,17 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGFinancialServiceBill.BillInfo = nil
-                    IGFinancialServiceBill.isTrafficOffenses = false
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                    messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
-                    messagesVc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                    let vc = IGPSBillMainVC()
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+
                     return
                 }
             } else {
-                IGFinancialServiceBill.BillInfo = nil
-                IGFinancialServiceBill.isTrafficOffenses = false
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
-                messagesVc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                let vc = IGPSBillMainVC()
+                vc.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+
                 return
             }
             

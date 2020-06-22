@@ -26,6 +26,7 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 IGLoading.hideLoadingPage()
                 IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                 sSelf.vc?.billIsOK = false
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
 
                 return
             } else {
@@ -49,6 +50,7 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 IGLoading.hideLoadingPage()
                 IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                 sSelf.vc?.billIsOK = false
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
 
                 return
             } else {
@@ -75,12 +77,19 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 IGLoading.hideLoadingPage()
                 IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                 sSelf.vc?.billIsOK = false
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
 
                 return
             } else {
                 IGLoading.hideLoadingPage()
                 sSelf.vc?.billIsOK = true
+                if response?.midTerm?.billId == nil &&  response?.lastTerm?.billId == nil{
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: response?.lastTerm?.message, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    sSelf.vc?.billIsOK = false
+                    UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
 
+                    return
+                }
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)"
                     sSelf.vc?.billPayNumber = "\(response?.lastTerm?.payId ?? 0)"
@@ -119,14 +128,19 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 IGLoading.hideLoadingPage()
                 IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
                 sSelf.vc?.billIsOK = false
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
 
                 return
             } else {
                 IGLoading.hideLoadingPage()
                 sSelf.vc?.billIsOK = true
 
-                if response?.midTerm?.amount != nil {
+                if response?.midTerm?.billId == nil &&  response?.lastTerm?.billId == nil{
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: response?.lastTerm?.message, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                    sSelf.vc?.billIsOK = false
+                    UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     
+                    return
                 }
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billNumber = response?.lastTerm?.billId!

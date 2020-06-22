@@ -184,10 +184,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
             }
             else {
-//                showLogoutActionSheet()
-                let vc = IGPSBillMainVC()
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                showLogoutActionSheet()
 
 
             }
