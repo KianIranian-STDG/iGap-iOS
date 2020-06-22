@@ -183,6 +183,13 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
         
         return view
     }()
+    let holderSeprator : UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.lightGray
+        return view
+    }()
     let holderImage : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -671,6 +678,12 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
         lblBillDeadLineData.widthAnchor.constraint(equalTo: holder.widthAnchor,multiplier: 0.5).isActive = true
         lblBillDeadLineData.topAnchor.constraint(equalTo: lblBillPayAmountData.bottomAnchor,constant: 25).isActive = true
         
+        holder.addSubview(holderSeprator)
+        holderSeprator.leadingAnchor.constraint(equalTo: holder.leadingAnchor,constant: 30).isActive = true
+        holderSeprator.trailingAnchor.constraint(equalTo: holder.trailingAnchor,constant: -30).isActive = true
+        holderSeprator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        holderSeprator.topAnchor.constraint(equalTo: lblBillPayIDData.bottomAnchor,constant: 12.5).isActive = true
+
         
         let stkB = UIStackView()
         stkB.axis = .horizontal
@@ -684,7 +697,7 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
         holder.addSubview(stkB)
         stkB.centerXAnchor.constraint(equalTo: holder.centerXAnchor).isActive = true
         stkB.centerYAnchor.constraint(equalTo: holder.bottomAnchor).isActive = true
-        stkB.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        stkB.heightAnchor.constraint(equalToConstant: 40).isActive = true
         stkB.widthAnchor.constraint(equalTo: holder.widthAnchor,multiplier: 0.8).isActive = true
         
         

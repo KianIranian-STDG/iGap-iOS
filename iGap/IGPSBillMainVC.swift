@@ -292,7 +292,7 @@ class IGPSBillMainVC : MainViewController {
     @objc private func didTapOnQuery() {
         print("DIDTAP")
         if billType == IGBillType.Elec {
-            if tfBillNumber.text == "" || tfBillNumber.text!.count >= 13{
+            if tfBillNumber.text == "" || tfBillNumber.text!.count > 13{
                 tfBillNumber.shake()
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.BillID13.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
@@ -407,6 +407,40 @@ extension IGPSBillMainVC : UITextFieldDelegate {
 
         }else {
             return false
+        }
+    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 12.0, *) {
+            switch traitCollection.userInterfaceStyle {
+            case .light, .unspecified:
+                btnMYBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnMYBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+                tfBillNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+
+                btnServcieBillTYpe.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnServcieBillTYpe.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+            case .dark :
+                btnMYBills.setTitleColor(.white, for: .normal)
+                btnMYBills.layer.borderColor = UIColor.white.cgColor
+
+                tfBillNumber.layer.borderColor = UIColor.white.cgColor
+
+                btnServcieBillTYpe.setTitleColor(.white, for: .normal)
+                btnServcieBillTYpe.layer.borderColor = UIColor.white.cgColor
+
+            }
+        } else {
+            // Fallback on earlier versions
+            btnMYBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+            btnMYBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+            tfBillNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+
+            btnServcieBillTYpe.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+            btnServcieBillTYpe.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+
         }
     }
 

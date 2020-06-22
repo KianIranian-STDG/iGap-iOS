@@ -16,6 +16,7 @@ class IGPSBillDetailVC : MainViewController {
     private var holderHeightC : NSLayoutConstraint!
     private var showBillImageC : NSLayoutConstraint!
     private var branchIndoC : NSLayoutConstraint!
+    var billIsOK : Bool = false
     var hasQureed : Bool = false
     var billNumber : String! {
         didSet {
@@ -424,6 +425,7 @@ class IGPSBillDetailVC : MainViewController {
 
     }
     private func manageActions() {
+        
         btnShowBillImage.addTarget(self, action: #selector(didTapOnShowImage), for: .touchUpInside)
         btnAddToMyBills.addTarget(self, action: #selector(didTapOnAddToMyBills), for: .touchUpInside)
         btnPay.addTarget(self, action: #selector(didTapOnPay), for: .touchUpInside)
@@ -450,92 +452,142 @@ class IGPSBillDetailVC : MainViewController {
         
     }
     @objc private func didTapOnShowImage() {
-        print("DIDTAP")
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
-        let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        if billIsOK {
+            print("DIDTAP")
+            let realm = try! Realm()
+            let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+            let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
-        let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
-        IGLoading.showLoadingPage(viewcontroller: self)
-        vm?.getImageOfBill(userPhoneNumber: userPhoneNumber,billNumber : billNumber.inEnglishNumbersNew(),payDate : lblBillPayNumberData.text!.inEnglishNumbersNew())
+            let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
+            IGLoading.showLoadingPage(viewcontroller: self)
+            vm?.getImageOfBill(userPhoneNumber: userPhoneNumber,billNumber : billNumber.inEnglishNumbersNew(),payDate : lblBillPayNumberData.text!.inEnglishNumbersNew())
 
+        }
         
     }
     @objc func didTapOnAddToMyBills() {
-        var bill = parentBillModel()
+        if billIsOK {
+            var bill = parentBillModel()
 
-        switch billType {
-        case .Elec:
-            bill.billType = "ELECTRICITY"
-            bill.billTitle = nil
-            bill.billIdentifier = lblBillNumberData.text?.inEnglishNumbersNew()
+            switch billType {
+            case .Elec:
+                bill.billType = "ELECTRICITY"
+                bill.billTitle = nil
+                bill.billIdentifier = lblBillNumberData.text?.inEnglishNumbersNew()
 
-            IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
-        case.Gas :
-            bill.billType = "GAS"
-            bill.billTitle = nil
-            bill.subsCriptionCode = subscriptionCode.inEnglishNumbersNew()
-            bill.billIdentifier = billNumber.inEnglishNumbersNew()
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
+            case.Gas :
+                bill.billType = "GAS"
+                bill.billTitle = nil
+                bill.subsCriptionCode = subscriptionCode.inEnglishNumbersNew()
+                bill.billIdentifier = billNumber.inEnglishNumbersNew()
 
-            IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
+                IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
 
-            break
-        case .Phone,.Mobile :
-                if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-            } else {
-                vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
+                break
+            case .Phone,.Mobile :
+                    if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                } else {
+                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
+                }
+
+            default : break
             }
 
-        default : break
         }
     }
     @objc private func didTapOnPay() {
-        print("DIDTAP")
-        switch billType {
-        case .Elec,.Gas :
-            if billPayAmount.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-            } else {
-                vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(billPayAmount.inEnglishNumbersNew())!)
-            }
-            case .Phone,.Mobile :
-                if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-            } else {
-                vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
+        if billIsOK {
+            print("DIDTAP")
+            switch billType {
+            case .Elec,.Gas :
+                if billPayAmount.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                } else {
+                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(billPayAmount.inEnglishNumbersNew())!)
+                }
+                case .Phone,.Mobile :
+                    if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                } else {
+                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
+                }
+
+            default : break
             }
 
-        default : break
         }
     }
     @objc func didTapOnBranchInfo() {
-//        let branchingInfo = IGElecBillBranchingInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
-//        branchingInfo.hidesBottomBarWhenPushed = true
-//        branchingInfo.billNUmber = (billNumber.inEnglishNumbersNew())
-//        self.navigationController!.pushViewController(branchingInfo, animated:true)
-        let bvc = IGPSBillBranchingInfoTVC()
-        bvc.billType = billType
-        var newbill = parentBillModel()
-        switch billType {
-        case .Elec :
-            newbill.billIdentifier = billNumber.inEnglishNumbersNew()
-            newbill.subsCriptionCode = nil
-            newbill.billType = "ELECTRICITY"
 
-        case .Gas:
-            newbill.billIdentifier = nil
-            newbill.subsCriptionCode = subscriptionCode.inEnglishNumbersNew()
-            newbill.billType = "GAS"
+        if billIsOK {
+            let bvc = IGPSBillBranchingInfoTVC()
+            bvc.billType = billType
+            var newbill = parentBillModel()
+            switch billType {
+            case .Elec :
+                newbill.billIdentifier = billNumber.inEnglishNumbersNew()
+                newbill.subsCriptionCode = nil
+                newbill.billType = "ELECTRICITY"
 
-        default : break
+            case .Gas:
+                newbill.billIdentifier = nil
+                newbill.subsCriptionCode = subscriptionCode.inEnglishNumbersNew()
+                newbill.billType = "GAS"
+
+            default : break
+            }
+            bvc.bill = newbill
+            UIApplication.topViewController()?.navigationController?.pushViewController(bvc, animated: true)
+
+            
         }
-        bvc.bill = newbill
-        UIApplication.topViewController()?.navigationController?.pushViewController(bvc, animated: true)
     }
 
     @objc private func tapAction() {
         view.endEditing(true)
     }
 
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 12.0, *) {
+            switch traitCollection.userInterfaceStyle {
+            case .light, .unspecified:
+                btnBranchInfo.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnBranchInfo.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+                btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+                btnShowBillImage.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnShowBillImage.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+                imgBillType.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+            case .dark :
+                btnBranchInfo.setTitleColor(.white, for: .normal)
+                btnBranchInfo.layer.borderColor = UIColor.white.cgColor
+
+                btnAddToMyBills.setTitleColor(.white, for: .normal)
+                btnAddToMyBills.layer.borderColor = UIColor.white.cgColor
+
+                btnShowBillImage.setTitleColor(.white, for: .normal)
+                btnShowBillImage.layer.borderColor = UIColor.white.cgColor
+                imgBillType.layer.borderColor = UIColor.white.cgColor
+
+            }
+        } else {
+            // Fallback on earlier versions
+            btnBranchInfo.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+            btnBranchInfo.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+            btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+            btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+            btnShowBillImage.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+            btnShowBillImage.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+
+        }
+    }
 }

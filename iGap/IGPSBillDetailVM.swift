@@ -24,13 +24,16 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
             }
             if error != nil {
                 IGLoading.hideLoadingPage()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: error!, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                sSelf.vc?.billIsOK = false
+
                 return
             } else {
                 IGLoading.hideLoadingPage()
                 sSelf.vc?.billPayNumber = response?.paymentIdentifier
                 sSelf.vc?.billPayDeadLine = response?.paymentDeadLine
                 sSelf.vc?.billPayAmount = response?.totalBillDebt
+                sSelf.vc?.billIsOK = true
             }
             
         }
@@ -44,7 +47,9 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
             }
             if error != nil {
                 IGLoading.hideLoadingPage()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: error!, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                sSelf.vc?.billIsOK = false
+
                 return
             } else {
                 IGLoading.hideLoadingPage()
@@ -52,6 +57,8 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 sSelf.vc?.billPayNumber = response?.paymentIdentifier
                 sSelf.vc?.billPayDeadLine = response?.paymentDeadLine
                 sSelf.vc?.billPayAmount = response?.totalBillDebt
+                sSelf.vc?.billIsOK = true
+
             }
             
         }
@@ -66,11 +73,14 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
             }
             if error != nil {
                 IGLoading.hideLoadingPage()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: error!, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                sSelf.vc?.billIsOK = false
+
                 return
             } else {
                 IGLoading.hideLoadingPage()
-                
+                sSelf.vc?.billIsOK = true
+
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)".inLocalizedLanguage()
                     sSelf.vc?.billPayNumber = "\(response?.lastTerm?.payId ?? 0)".inLocalizedLanguage()
@@ -107,10 +117,14 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
             }
             if error != nil {
                 IGLoading.hideLoadingPage()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: error!, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                sSelf.vc?.billIsOK = false
+
                 return
             } else {
                 IGLoading.hideLoadingPage()
+                sSelf.vc?.billIsOK = true
+
                 if response?.midTerm?.amount != nil {
                     
                 }
