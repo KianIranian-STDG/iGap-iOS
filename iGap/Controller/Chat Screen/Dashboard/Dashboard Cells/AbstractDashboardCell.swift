@@ -600,15 +600,16 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
 
                 } else {
-                    let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                    let vc = IGPSBillMainVC()
                     vc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
                     return
                 }
             } else {
-                let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                let vc = IGPSBillMainVC()
                 vc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+
                 return
             }
         case .financialMenu:
@@ -653,17 +654,23 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    let vc = IGPSBillMainVC()
-                    vc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-
+                    IGFinancialServiceBill.BillInfo = nil
+                    IGFinancialServiceBill.isTrafficOffenses = false
+                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                    messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                    messagesVc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
             } else {
-                let vc = IGPSBillMainVC()
-                vc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-
+                IGFinancialServiceBill.BillInfo = nil
+                IGFinancialServiceBill.isTrafficOffenses = false
+                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                messagesVc.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
             
