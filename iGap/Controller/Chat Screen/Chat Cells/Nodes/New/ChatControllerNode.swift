@@ -4314,7 +4314,7 @@ class ChatControllerNode: ASCellNode {
     private func manageAttachment(file: IGFile? = nil,msg: IGRoomMessage){
         
         if msg.type == .sticker {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async(flags: .barrier) {
                 IGAttachmentManager.sharedManager.getStickerFileInfo(token: msg.attachment?.token ?? "") {[weak self] (file) in
                     guard let sSelf = self else {
                         return
