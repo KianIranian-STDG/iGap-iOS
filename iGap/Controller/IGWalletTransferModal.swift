@@ -296,10 +296,18 @@ class IGWalletTransferModal: BaseTableViewController {
             tfDescription.text = bill.subsCriptionCode?.inLocalizedLanguage()
         case .Mobile :
             lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
-            tfDescription.text = bill.billPhone
+            if (bill.billPhone?.inEnglishNumbersNew().starts(with: "0"))! {
+                tfDescription.text = bill.billPhone
+            } else {
+                tfDescription.text = "0".inLocalizedLanguage() + bill.billPhone!.inLocalizedLanguage()
+            }
         case .Phone :
             lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
-            tfDescription.text = ("0".inLocalizedLanguage() + (bill.billAreaCode?.inLocalizedLanguage())! + (bill.billPhone?.inLocalizedLanguage())!)
+            if (bill.billPhone?.inEnglishNumbersNew().starts(with: "0"))! {
+                tfDescription.text = bill.billPhone
+            } else {
+                tfDescription.text = "0".inLocalizedLanguage() + bill.billPhone!.inLocalizedLanguage()
+            }
 
 
         default : break
