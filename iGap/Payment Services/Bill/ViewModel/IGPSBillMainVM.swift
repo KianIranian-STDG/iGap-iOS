@@ -36,6 +36,7 @@ class IGPSBillMainVM : NSObject {
                 UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
 
             } else {
+                IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.MBEmptyList.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
 
             }
             IGLoading.hideLoadingPage()

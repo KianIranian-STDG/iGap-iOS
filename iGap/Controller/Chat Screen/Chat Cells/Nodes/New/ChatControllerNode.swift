@@ -5459,10 +5459,14 @@ extension ChatControllerNode: ASTextNodeDelegate {
         if !IGGlobal.shouldMultiSelect {
             switch type.0 {
             case "url":
-                delegate?.didTapOnURl(url: URL(string: str)!)
+                if let url = URL(string: str) {
+                    delegate?.didTapOnURl(url: url)
+                }
                 break
             case "deepLink":
-                delegate?.didTapOnDeepLink(url: URL(string: str)!)
+                if let url = URL(string: str) {
+                    delegate?.didTapOnDeepLink(url: url)
+                }
                 break
             case "email":
                 delegate?.didTapOnEmail(email: str)
