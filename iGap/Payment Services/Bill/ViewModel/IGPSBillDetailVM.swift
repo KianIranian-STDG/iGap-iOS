@@ -91,12 +91,19 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                     return
                 }
                 if response?.midTerm?.billId == nil {
-                    sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)"
-                    sSelf.vc?.billPayNumber = "\(response?.lastTerm?.payId ?? 0)"
-                } else {
-                    sSelf.vc?.billNumber = "\(response?.midTerm?.billId ?? 0)"
-                    sSelf.vc?.billPayNumber = "\(response?.midTerm?.payId ?? 0)"
-                }
+                      sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)"
+                      sSelf.vc?.billPayNumberLastTerm = "\(response?.lastTerm?.payId ?? 0)"
+                  } else {
+                      sSelf.vc?.billNumber = "\(response?.midTerm?.billId ?? 0)"
+                      sSelf.vc?.billPayNumber = "\(response?.midTerm?.payId ?? 0)"
+                  }
+                if response?.lastTerm?.billId == nil {
+                      sSelf.vc?.billNumber = "\(response?.midTerm?.billId ?? 0)"
+                      sSelf.vc?.billPayNumber = "\(response?.midTerm?.payId ?? 0)"
+                  } else {
+                      sSelf.vc?.billNumber = "\(response?.lastTerm?.billId ?? 0)"
+                      sSelf.vc?.billPayNumberLastTerm = "\(response?.lastTerm?.payId ?? 0)"
+                  }
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billPayAmount = "0".inLocalizedLanguage()
 
@@ -144,11 +151,20 @@ class IGPSBillDetailVM : NSObject, BillMerchantResultObserver ,UIDocumentInterac
                 }
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billNumber = response?.lastTerm?.billId!
-                    sSelf.vc?.billPayNumber = response?.lastTerm?.payId!
+                    sSelf.vc?.billPayNumberLastTerm = response?.lastTerm?.payId!
                 } else {
                     sSelf.vc?.billNumber = response?.midTerm?.billId
                     sSelf.vc?.billPayNumber = response?.midTerm?.payId
                 }
+
+                if response?.lastTerm?.billId == nil {
+                    sSelf.vc?.billNumber = response?.midTerm?.billId!
+                    sSelf.vc?.billPayNumber = response?.midTerm?.payId!
+                } else {
+                    sSelf.vc?.billNumber = response?.lastTerm?.billId
+                    sSelf.vc?.billPayNumberLastTerm = response?.lastTerm?.payId
+                }
+
                 if response?.midTerm?.billId == nil {
                     sSelf.vc?.billPayAmount = "0".inLocalizedLanguage()
 

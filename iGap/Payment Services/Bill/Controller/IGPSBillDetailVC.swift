@@ -36,6 +36,7 @@ class IGPSBillDetailVC : MainViewController {
             lblBillPayNumberData.text = billPayNumber.inLocalizedLanguage()
         }
     }
+    var billPayNumberLastTerm : String!
     var billPayAmount : String! {
         didSet {
             lblBillPayAmountData.text = billPayAmount.inRialFormat() + IGStringsManager.Currency.rawValue.localized
@@ -472,6 +473,30 @@ class IGPSBillDetailVC : MainViewController {
         }
         
     }
+    
+    @objc private func didTapOnPay() {
+        if billIsOK {
+            print("DIDTAP")
+            switch billType {
+            case .Elec,.Gas :
+                if billPayAmount.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                } else {
+                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(billPayAmount.inEnglishNumbersNew())!)
+                }
+                case .Phone,.Mobile :
+                    if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
+                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                } else {
+                        vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumberLastTerm.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
+                }
+
+            default : break
+            }
+
+        }
+    }
+    
     @objc func didTapOnAddToMyBills() {
         if billIsOK {
             var bill = parentBillModel()
@@ -506,28 +531,6 @@ class IGPSBillDetailVC : MainViewController {
                 bill.billPhone = phoneNumber.inEnglishNumbersNew()
                 bill.billIdentifier = billNumber.inEnglishNumbersNew()
                 IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
-
-            default : break
-            }
-
-        }
-    }
-    @objc private func didTapOnPay() {
-        if billIsOK {
-            print("DIDTAP")
-            switch billType {
-            case .Elec,.Gas :
-                if billPayAmount.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-                } else {
-                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(billPayAmount.inEnglishNumbersNew())!)
-                }
-                case .Phone,.Mobile :
-                    if lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars() == "0" {
-                    IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: IGStringsManager.PSPayErrorAmount.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
-                } else {
-                    vm?.paySequence(billID: billNumber.inEnglishNumbersNew(), payID: billPayNumber.inEnglishNumbersNew(), amount: Int(lblBillPayDeadLineData.text!.inEnglishNumbersNew().onlyDigitChars())!)
-                }
 
             default : break
             }
