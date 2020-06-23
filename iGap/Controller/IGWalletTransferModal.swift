@@ -306,7 +306,7 @@ class IGWalletTransferModal: BaseTableViewController {
             if bill.billAreaCode == nil {
                 tfDescription.text = bill.billPhone
             } else {
-                tfDescription.text = "0".inLocalizedLanguage() + bill.billAreaCode! + bill.billPhone!.inLocalizedLanguage()
+                tfDescription.text = "0".inLocalizedLanguage() + bill.billAreaCode!.inLocalizedLanguage() + bill.billPhone!.inLocalizedLanguage()
 
             }
 
