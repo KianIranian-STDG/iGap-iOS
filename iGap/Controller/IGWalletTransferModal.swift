@@ -303,12 +303,12 @@ class IGWalletTransferModal: BaseTableViewController {
             }
         case .Phone :
             lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
-            if (bill.billPhone?.inEnglishNumbersNew().starts(with: "0"))! {
+            if bill.billAreaCode == nil {
                 tfDescription.text = bill.billPhone
             } else {
-                tfDescription.text = "0".inLocalizedLanguage() + bill.billPhone!.inLocalizedLanguage()
-            }
+                tfDescription.text = "0".inLocalizedLanguage() + bill.billAreaCode! + bill.billPhone!.inLocalizedLanguage()
 
+            }
 
         default : break
         }
