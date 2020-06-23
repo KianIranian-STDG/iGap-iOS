@@ -1241,7 +1241,7 @@
 		8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKReceiveVC.swift; sourceTree = "<group>"; };
 		8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKSendTokenVC.swift; sourceTree = "<group>"; };
 		8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVC.swift; sourceTree = "<group>"; };
-		8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKHistoryModel.swift; path = iGap/Koknus/Controller/IGKHistoryModel.swift; sourceTree = SOURCE_ROOT; };
+		8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKHistoryModel.swift; path = iGap/Koknus/Model/IGKHistoryModel.swift; sourceTree = SOURCE_ROOT; };
 		8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourButtonsTVController.swift; sourceTree = "<group>"; };
 		8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKShowAccountInfo.swift; sourceTree = "<group>"; };
 		8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillMainPageTableViewController.swift; sourceTree = "<group>"; };
@@ -2930,14 +2930,6 @@
 			path = MobileBank;
 			sourceTree = "<group>";
 		};
-		D2449F09247116DD0046D48A /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		D2522ED823D47993002B2D6C /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -3142,6 +3134,7 @@
 		D281C029246FEB0D00D0F5A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
 				D20E21EA246BCA5800341F21 /* IGKStruct.swift */,
 				D2449F2C24713ABE0046D48A /* IGKUser.swift */,
 			);
@@ -4435,7 +4428,6 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
-				D2449F09247116DD0046D48A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
