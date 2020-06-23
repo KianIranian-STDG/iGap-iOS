@@ -600,15 +600,16 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
 
                 } else {
-                    let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                    let vc = IGPSBillMainVC()
                     vc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
                     return
                 }
             } else {
-                let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                let vc = IGPSBillMainVC()
                 vc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+
                 return
             }
         case .financialMenu:

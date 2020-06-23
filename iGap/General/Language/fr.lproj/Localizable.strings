@@ -6236,7 +6236,7 @@
 "amount_out" = "Amount Out";
 "please_wait_data_loading" = "Please wait while Data is Loading ...";
 "invalid_bill_message" = "The bill is invalid";
-"elec_bill_operations" = "Electricity Bill Operations";
+"elec_bill_operations" = "Bill Operations";
 "elec_bill_name" = "Electricity Bill Name";
 "elec_provider_company_code" = "Company Code";
 "elec_provider_company_name" = "Company Name";

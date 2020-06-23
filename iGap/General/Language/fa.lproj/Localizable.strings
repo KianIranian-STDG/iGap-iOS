@@ -6592,7 +6592,7 @@ Page 4 introduce app */
 "amount_out" = "مبلغ برداشت";
 "please_wait_data_loading" = "تا زمان دریافت داده ها شکیبا باشید ...";
 "invalid_bill_message" = "قبض نا معتبر می باشد";
-"elec_bill_operations" = "خدمات قبض برق";
+"elec_bill_operations" = "خدمات قبض";
 "elec_bill_name" = "نام قبض";
 "elec_provider_company_code" = "کد شرکت توزیع";
 "elec_provider_company_name" = "نام شرکت توزیع";
@@ -6955,3 +6955,19 @@ Page 4 introduce app */
 "payment_serices_Year" = " سال";
 "payment_services_add_to_last_purchases" = "آیا مایل به ذخیره خرید در تاریخچه میباشید؟";
 "payment_services_addedSuccessfully" = "با موفقیت افزوده شد";
+//Bill
+"payment_services_inquiry_title" = "استعلام و پرداخت سریع قبض";
+"payment_services_bill_1_segment" = "قبوض خدماتی";
+"payment_services_bill_2_segment" = "قبوض موبایل و تلفن";
+"payment_enter_phoneNumber_desc" = "لطفا شماره همراه یا ثابت خود را وارد نمایید :\n شماره ثابت : ********۰۲۱\nشماره همراه : *********۰۹";
+"payment_enter_gas_bill" = "قبض گاز";
+"payment_enter_elec_bill" = "قبض برق";
+"payment_enter_Choose_bill" = "نوع قبض را انتخاب نمایید";
+"payment_enter_customer_code" = "کد اشتراک";
+"Bill_Entry_lengthError" = "طول کد اشتراک را چک نمایید";
+"payment_service_midterm_pay" = "پرداخت میان دوره";
+"payment_service_lastterm_pay" = "پرداخت پایان دوره";
+
+"payment_service_billInfo" = "اطلاعات قبض";
+"elecBill_error_city" = "شهر";
+"elecBill_error_unit_count" = "تعداد واحد";

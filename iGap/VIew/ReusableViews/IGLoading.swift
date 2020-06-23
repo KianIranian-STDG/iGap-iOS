@@ -92,6 +92,8 @@ class IGLoading {
             alertView.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
     }
+    
+
     static func showLoadingPage(viewcontroller: UIViewController,text: String? = IGStringsManager.GlobalLoading.rawValue.localized) {
         
         self.hideLoadingPage {
@@ -136,6 +138,7 @@ class IGLoading {
             
         }
     }
+
     
     static func hideLoadingPage(completion: SimpleCallBack? = nil) {
         DispatchQueue.main.async {
@@ -144,6 +147,7 @@ class IGLoading {
                 if let com = completion {
                     com()
                 }
+                
             }
             else {
                 if let com = completion {

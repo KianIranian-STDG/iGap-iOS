@@ -11,6 +11,7 @@ import SwiftEventBus
 import IGProtoBuff
 import KeychainSwift
 import maincore
+import RealmSwift
 
 class IGWalletTransferModal: BaseTableViewController {
 
@@ -18,7 +19,9 @@ class IGWalletTransferModal: BaseTableViewController {
 
     var mode : String = "WALLET_TRANSFER"
     var roomID : Int64 = 0
-
+    var billType : IGBillType!
+    var bill : parentBillModel!
+    var index : Int!
     var isShortFormEnabled = true
     var isKeyboardPresented = false
 
@@ -43,13 +46,20 @@ class IGWalletTransferModal: BaseTableViewController {
         switch mode {
         case "WALLET_TRANSFER" :
             initView()
+            tfAmount.keyboardType = .numberPad
+
             break
+        case "EDIT_BILL" , "ADD_BILL" :
+            initBillView()
+            tfAmount.keyboardType = .default
+            tfDescription.keyboardType = .numberPad
+
+            
         default :
             break
         }
         initTheme()
         btnSend.addTarget(self, action: #selector(didTapOnSend), for: .touchUpInside)
-        tfAmount.keyboardType = .numberPad
     }
     
     var hasValue = false
@@ -136,35 +146,102 @@ class IGWalletTransferModal: BaseTableViewController {
         }
     }
     @objc func didTapOnSend() {
-        if tfAmount.text == "" ||  tfAmount.text == nil {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+        if mode == "WALLET_TRANSFER" {
+            if tfAmount.text == "" ||  tfAmount.text == nil {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
+            }
+            else {
+                self.dismiss(animated: true, completion: {
+                    let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
+                    IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+                    IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((self.tfAmount.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ [weak self] (protoResponse) in
+                        IGLoading.hideLoadingPage()
+                        if let response = protoResponse as? IGPWalletPaymentInitResponse {
+                            SMUserManager.publicKey = response.igpPublicKey
+                            SMUserManager.payToken = response.igpToken
+                            self?.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
+                        }
+                    }).error ({ [weak self] (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            IGLoading.hideLoadingPage()
+                            self?.didTapOnSend()
+                        default:
+                            IGLoading.hideLoadingPage()
+
+                            break
+                        }
+                    }).send()
+                })
+
+            }
+        } else {
+            
+            var billID : String!
+            var subCode : String!
+            var telNum : String!
+            switch billType {
+            case .Elec :
+                billID = tfDescription.text!.inEnglishNumbersNew()
+                subCode = nil
+                telNum = nil
+                
+            case .Gas :
+                billID = nil
+                subCode = tfDescription.text!.inEnglishNumbersNew()
+                telNum = nil
+                
+            case .Phone, .Mobile :
+                billID = nil
+                subCode = nil
+                telNum = tfDescription.text!.inEnglishNumbersNew()
+            default: break
+                
+            }
+            if mode == "ADD_BILL" {
+                let realm = try! Realm()
+                let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+                let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+                let userPhoneNumber =  IGGlobal.validaatePhoneNUmber(phone: userInDb?.phone)
+
+                IGApiBills.shared.addBill(billType: bill.billType ?? "ELECTRICITY", billIdentifier: billID, billTitle: tfAmount.text ?? "", subCode: subCode, telNum: telNum, userPhoneNumber: userPhoneNumber) {[weak self] (response, error) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    if error != nil {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                        sSelf.dismiss(animated: true, completion: nil)
+                        
+                        return
+                    } else {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: response?.message, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                        sSelf.dismiss(animated: true, completion: nil)
+
+                    }
+                    
+                }
+            } else {
+                IGApiBills.shared.editBill(billType: bill.billType!, ID: bill.id!, billIdentifier: billID, billTitle: tfAmount.text!, subCode: subCode, telNum: telNum) {[weak self] (response, error) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    if error != nil {
+                        IGHelperToast.shared.showCustomToast(showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.NavigationFirstColor, cancelBackColor: .clear, message: error, cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {})
+                        sSelf.dismiss(animated: true, completion: nil)
+                        
+                        return
+                    } else {
+                        sSelf.dismiss(animated: true, completion: {
+                            (UIApplication.topViewController() as! IGPSBillMyBillsTVC).vm.getAllBills()
+                        })
+                    }
+                    
+                }
+            }
 
         }
-        else {
-            self.dismiss(animated: true, completion: {
-                let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
-                IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
-                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((self.tfAmount.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ [weak self] (protoResponse) in
-                    IGLoading.hideLoadingPage()
-                    if let response = protoResponse as? IGPWalletPaymentInitResponse {
-                        SMUserManager.publicKey = response.igpPublicKey
-                        SMUserManager.payToken = response.igpToken
-                        self?.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
-                    }
-                }).error ({ [weak self] (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout:
-                        IGLoading.hideLoadingPage()
-                        self?.didTapOnSend()
-                    default:
-                        IGLoading.hideLoadingPage()
-
-                        break
-                    }
-                }).send()
-            })
-
-        }
+        
     }
     
     private func initTheme() {
@@ -207,7 +284,36 @@ class IGWalletTransferModal: BaseTableViewController {
     
 
     
-    
+    private func initBillView() {
+        
+        lblHeader.text = IGStringsManager.PSBillInfo.rawValue.localized
+        switch billType {
+        case .Elec :
+            lblDescription.text = IGStringsManager.BillId.rawValue.localized
+            tfDescription.text = bill.billIdentifier?.inLocalizedLanguage()
+        case .Gas:
+            lblDescription.text = IGStringsManager.PSSubscriptionCode.rawValue.localized
+            tfDescription.text = bill.subsCriptionCode?.inLocalizedLanguage()
+        case .Mobile :
+            lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
+            tfDescription.text = bill.billPhone
+        case .Phone :
+            lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
+            tfDescription.text = ("0".inLocalizedLanguage() + (bill.billAreaCode?.inLocalizedLanguage())! + (bill.billPhone?.inLocalizedLanguage())!)
+
+
+        default : break
+        }
+        lblAmount.text = IGStringsManager.BillName.rawValue.localized
+        tfAmount.text = bill.billTitle
+        if mode == "ADD_BILL" {
+            btnSend.setTitle(IGStringsManager.Add.rawValue.localized, for: .normal)
+        } else {
+            btnSend.setTitle(IGStringsManager.Edit.rawValue.localized, for: .normal)
+        }
+        btnSend.layer.cornerRadius = 10
+
+    }
     private func initView() {
         lblHeader.text = IGStringsManager.MBEnterAmount.rawValue.localized
         lblAmount.text = IGStringsManager.AmountInRial.rawValue.localized
