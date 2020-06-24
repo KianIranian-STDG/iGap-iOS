@@ -30,6 +30,7 @@ class IGPSBillDetailVC : MainViewController {
             btnAddToMyBills.setTitle(canEditBill ? IGStringsManager.BillEditMode.rawValue.localized : IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
         }
     }
+    var billTitle : String!
     var subscriptionCode : String!
     var billPayNumber : String! {
         didSet {
@@ -504,13 +505,13 @@ class IGPSBillDetailVC : MainViewController {
             switch billType {
             case .Elec:
                 bill.billType = "ELECTRICITY"
-                bill.billTitle = nil
+                bill.billTitle = billTitle
                 bill.billIdentifier = lblBillNumberData.text?.inEnglishNumbersNew()
 
                 IGHelperBottomModals.shared.showEditBillName(view: UIApplication.topViewController(), mode: "ADD_BILL", billType: billType, bill: bill)
             case.Gas :
                 bill.billType = "GAS"
-                bill.billTitle = nil
+                bill.billTitle = billTitle
                 bill.subsCriptionCode = subscriptionCode.inEnglishNumbersNew()
                 bill.billIdentifier = billNumber.inEnglishNumbersNew()
 

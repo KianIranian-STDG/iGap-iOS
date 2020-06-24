@@ -548,6 +548,8 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                         let billDataVC = IGPSBillDetailVC()
                         billDataVC.billNumber = sSelf.item.billIdentifier ?? sSelf.item.elecBill?.billIdentifier
                         billDataVC.billType = sSelf.billType
+                        billDataVC.canEditBill = true
+                        billDataVC.billTitle = sSelf.item.billTitle
                         UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
 
                     }
@@ -559,6 +561,8 @@ class IGPSBillMyBillsCell: BaseTableViewCell ,BillMerchantResultObserver {
                         billDataVC.billNumber = sSelf.item.gasBill?.billIdentifier
                         billDataVC.billType = sSelf.billType
                         billDataVC.subscriptionCode = sSelf.item.subsCriptionCode
+                        billDataVC.canEditBill = true
+                        billDataVC.billTitle = sSelf.item.billTitle
                         UIApplication.topViewController()?.navigationController!.pushViewController(billDataVC, animated:true)
                     }
                 case .Phone :

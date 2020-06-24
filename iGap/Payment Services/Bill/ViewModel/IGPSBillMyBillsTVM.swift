@@ -92,7 +92,6 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
     
     //    MARK: -ELEC
     func queryElecBill(index: Int, billType: String, telNum: String? = nil, billID: String? = nil) {
-        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
 
         IGApiBills.shared.queryElecBill(billType: billType, telNum: telNum!, billID: billID!)  {[weak self] (response, error) in
             guard let sSelf = self else {
@@ -119,17 +118,11 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     sSelf.items[index].elecBill = elecBill
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            IGLoading.hideLoadingPage()
-
-            
-            
         }
         
     }
     //MARK: -GAS
     func queryGasBill(index: Int, billType: String, billID: String? = nil) {
-        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
-
         IGApiBills.shared.queryGasBill(billType: billType, billID: billID!)  {[weak self] (response, error) in
             guard let sSelf = self else {
                 return
@@ -152,15 +145,12 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
 //            }
-            IGLoading.hideLoadingPage()
 
         }
         
     }
     //MARK: -PHONE
     func queryPhoneBill(index: Int, billType: String, telNum: String) {
-        IGLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
-
         IGApiBills.shared.queryPhoneBill(billType: billType, telNum: telNum)  {[weak self] (response, error) in
             guard let sSelf = self else {
                 return
@@ -206,7 +196,6 @@ class IGPSBillMyBillsTVM : NSObject,UITableViewDelegate,UITableViewDataSource {
                     sSelf.items[index].phoneBill = phoneBill
             }
                 sSelf.vc?.table.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            IGLoading.hideLoadingPage()
 
             
         }
