@@ -6893,8 +6893,8 @@ Do NOT share it with others.";
 "k_send" = "Send";
 
 "k_parsian_terms_conditions" = "Parsian Terms and Conditions";
-"k_parsian_desc" = "To Proceed and using Parsian Kuknos wallet, the following changesust be applied in complince with the Kuknos Terms of Services";
-"k_parsian_tcheck_text_one" = "I vote to Kuknos Inc,which has this address: ";
+"k_parsian_desc" = "To Proceed and using Parsian Kuknos wallet, the following changesust be applied in complince with the Kuknos Terms of Services \n GAG75QOJLNDST4G7TDGHX6RVJAZJ2IOMRS4BJK4EVKYQYCKILXB5JVJ6";
+"k_parsian_tcheck_text_one" = "I vote to Kuknos Inc,which has this address: \n https://pdpco.ir";
 "k_parsian_tcheck_text_two" = "I set https://pdpco.ir as the home domain of my wallet";
 "k_agree_to_terms" = "I Agree To The Terms";
 "k_invalid_wallet_id" = "Invalid wallet id";
