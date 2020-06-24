@@ -312,7 +312,7 @@ class IGApiInternetPackage: IGApiBase {
         default : url = Endpoint.MCISetFavourites.url
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.saveToHistory(opType: opType, telNum: telNum, chargeType: chargeType, packageType: packageType, completion: completion)
@@ -343,7 +343,7 @@ class IGApiInternetPackage: IGApiBase {
            urlinner = Endpoint.MCIpurchase.url
        }
 
-        AF.request(urlinner, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        AF.request(urlinner, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.purchase(opType: opType, telNum: telNum, type: type, completion: completion)

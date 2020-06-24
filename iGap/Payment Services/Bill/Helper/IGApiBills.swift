@@ -87,7 +87,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseQueryElecBills {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseQueryElecBills {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -144,7 +144,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseQueryGasBills {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseQueryGasBills {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -203,7 +203,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseQueryPhoneBills {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseQueryPhoneBills {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -260,7 +260,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseQueryMobileBills {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseQueryMobileBills {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -318,7 +318,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -384,7 +384,7 @@ class IGApiBills: IGApiBase {
         default : break
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -434,7 +434,7 @@ class IGApiBills: IGApiBase {
     ////////////////////////////GET IMAGE OF BILL////////////////////////////////
     func getImageOfBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
+        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseData { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.getImageOfBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
@@ -502,7 +502,7 @@ class IGApiBills: IGApiBase {
         default : break
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseDeleteBill {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }
@@ -625,7 +625,7 @@ class IGApiBills: IGApiBase {
             
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseGasBranchInfo {[weak self] (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseGasBranchInfo {[weak self] (response) in
             guard let sSelf = self else {
                 return
             }

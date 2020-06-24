@@ -68,11 +68,11 @@ class IGPSBillBranchingInfoTVM : NSObject,UITableViewDelegate,UITableViewDataSou
                     return cell
                 case 5 :
                     cell.lblInfo.text = "تلفن مشترک"
-                    cell.lblData.text = itemElec.telNum ?? ""
+                    cell.lblData.text = itemElec.telNumber ?? ""
                     return cell
                 case 6 :
                     cell.lblInfo.text = "شماره همراه"
-                    cell.lblData.text = itemElec.mobileNum ?? ""
+                    cell.lblData.text = itemElec.mobileNumber ?? ""
 
                     return cell
                 case 7 :
@@ -98,7 +98,7 @@ class IGPSBillBranchingInfoTVM : NSObject,UITableViewDelegate,UITableViewDataSou
                     return cell
                 case 12 :
                     cell.lblInfo.text = "آدرس"
-                    cell.lblData.text = itemElec.address ?? ""
+                    cell.lblData.text = itemElec.serviceAdd ?? ""
                     return cell
                 case 13 :
                     cell.lblInfo.text = "آمپر"
@@ -106,11 +106,11 @@ class IGPSBillBranchingInfoTVM : NSObject,UITableViewDelegate,UITableViewDataSou
                     return cell
                 case 14 :
                     cell.lblInfo.text = "کد اشتراک"
-                    cell.lblData.text = "\(itemElec.subscriptionCode ?? 0)"
+                    cell.lblData.text = "\(itemElec.subscriptionID ?? 0)"
                     return cell
                 case 15 :
                     cell.lblInfo.text = "تعرفه"
-                    cell.lblData.text = itemElec.tarrifType ?? ""
+                    cell.lblData.text = itemElec.tariffType ?? ""
                     return cell
                 case 16 :
                     cell.lblInfo.text = "فاز"

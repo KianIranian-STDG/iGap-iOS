@@ -249,45 +249,24 @@ struct parentBillModel {
 }
 struct ElecBillBranchInfoModel : Decodable {
     let totalRegisterDebt: Int?
-    let paymentIdentifier: String?
-    let totalBillDebt: String?
-    let otherAccountDebt: String?
-    let paymentDeadLine: String?
+    let paymentIdentifier, totalBillDebt, otherAccountDebt, paymentDeadLine: String?
     let lastReadDate: String?
-    let lastGrossAmt: Int?
-    let lastSaleYear: Int?
-    let lastSalePrd: Int?
-    let adjustmentFactor: Int?
-    let digitNumber: Int?
-    let meterModelFk: Int?
-    let cityFk: Int?
-    let agentPhone: Int?
+    let lastGrossAmt, lastSaleYear, lastSalePrd, adjustmentFactor: Int?
+    let digitNumber, meterModelFk, cityFk, agentPhone: Int?
     let msgCode: Int?
-    let isPaid: Bool?
-    let billIdentifier: String?
-    let companyName: String?
+    let ispaid: Bool?
+    let billIdentifier, companyName: String?
     let companyCode: Int?
-    let phase: String?
-    let voltageType: String?
-    let amper: String?
-    let contractDemand: Int?
-    let tarrifType: String?
-    let customerType: String?
-    let nationalCode: String?
-    let customerName: String?
-    let customerFamily: String?
-    let telNum: String?
-    let mobileNum: String?
-    let address: String?
-    let locationStatus: String?
-    let serialNum: String?
+    let phase, voltageType, amper: String?
+    let contractDemand: Double?
+    let tariffType, customerType, nationalCode, customerName: String?
+    let customerFamily, telNumber, mobileNumber, serviceAdd: String?
+    let locationStatus, serialNumber: String?
     let licenseExpireDate: String?
-    let subscriptionCode: Int?
-    let fileSerialNumber: Int?
-    let servicePostCode: String?
-    let lastupdatetime: String?
+    let subscriptionID, fileSerialNumber, xDegree, yDegree: Int?
+    let servicePostCode, lastupdatetime: String?
     let billurl: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case totalRegisterDebt = "total_register_debt"
         case paymentIdentifier = "payment_identifier"
@@ -304,30 +283,31 @@ struct ElecBillBranchInfoModel : Decodable {
         case cityFk = "city_fk"
         case agentPhone = "agent_phone"
         case msgCode = "msg_code"
-        case isPaid = "ispaid"
+        case ispaid
         case billIdentifier = "bill_identifier"
         case companyName = "company_name"
         case companyCode = "company_code"
-        case phase = "phase"
+        case phase
         case voltageType = "voltage_type"
-        case amper = "amper"
+        case amper
         case contractDemand = "contract_demand"
-        case tarrifType = "tariff_type"
+        case tariffType = "tariff_type"
         case customerType = "customer_type"
         case nationalCode = "national_code"
         case customerName = "customer_name"
         case customerFamily = "customer_family"
-        case telNum = "tel_number"
-        case mobileNum = "mobile_number"
-        case address = "service_add"
+        case telNumber = "tel_number"
+        case mobileNumber = "mobile_number"
+        case serviceAdd = "service_add"
         case locationStatus = "location_status"
-        case serialNum = "serial_number"
+        case serialNumber = "serial_number"
         case licenseExpireDate = "license_expire_date"
-        case subscriptionCode = "subscription_id"
-        case servicePostCode = "service_post_code"
+        case subscriptionID = "subscription_id"
         case fileSerialNumber = "file_serial_number"
-        case lastupdatetime = "lastupdatetime"
-        case billurl = "billurl"
+        case xDegree = "x_degree"
+        case yDegree = "y_degree"
+        case servicePostCode = "service_post_code"
+        case lastupdatetime, billurl
     }
 
 }

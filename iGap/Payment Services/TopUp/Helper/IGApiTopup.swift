@@ -67,7 +67,7 @@ class IGApiTopup: IGApiBase {
         default : url = Endpoint.MCISetFavourites.url
         }
         
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.saveToHistory(opType: opType, telNum: telNum, cost: cost, type: type, completion: completion)
@@ -146,7 +146,7 @@ class IGApiTopup: IGApiBase {
         case "RIGHTEL" : url = Endpoint.rightelTopUp.url
         default : url = Endpoint.purchase.url
         }
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.purchase(opType: opType, telNum: telNum, cost: cost, type: type, completion: completion)
@@ -185,7 +185,7 @@ class IGApiTopup: IGApiBase {
         case "RIGHTEL" : url = Endpoint.rightelTopUp.url
         default : url = Endpoint.purchase.url
         }
-        AF.request(url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
                 self.purchase(opType: opType, telNum: telNum, cost: cost, type: type, completion: completion)
