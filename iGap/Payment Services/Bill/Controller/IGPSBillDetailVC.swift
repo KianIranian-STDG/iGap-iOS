@@ -255,7 +255,35 @@ class IGPSBillDetailVC : MainViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
         initServices()
     }
-   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                btnBranchInfo.setTitleColor(.white, for: .normal)
+                btnBranchInfo.layer.borderColor = UIColor.white.cgColor
+
+                btnAddToMyBills.setTitleColor(.white, for: .normal)
+                btnAddToMyBills.layer.borderColor = UIColor.white.cgColor
+
+                btnShowBillImage.setTitleColor(.white, for: .normal)
+                btnShowBillImage.layer.borderColor = UIColor.white.cgColor
+                imgBillType.layer.borderColor = UIColor.white.cgColor
+            } else {
+                btnBranchInfo.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnBranchInfo.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+                btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+
+                btnShowBillImage.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnShowBillImage.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+                imgBillType.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+
+    }
     private func initView() {
         setupScrollView()
         addContent()

@@ -159,7 +159,30 @@ class IGPSBillMainVC : MainViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
         sgBillType.addTarget(self, action: #selector(didSegmentChange(_:)), for: .valueChanged)
     }
-   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                btnMYBills.setTitleColor(.white, for: .normal)
+                btnMYBills.layer.borderColor = UIColor.white.cgColor
+
+                tfBillNumber.layer.borderColor = UIColor.white.cgColor
+
+                btnServcieBillTYpe.setTitleColor(.white, for: .normal)
+                btnServcieBillTYpe.layer.borderColor = UIColor.white.cgColor
+            } else {
+                btnMYBills.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnMYBills.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+                
+                tfBillNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+                
+                btnServcieBillTYpe.setTitleColor(ThemeManager.currentTheme.NavigationSecondColor, for: .normal)
+                btnServcieBillTYpe.layer.borderColor = ThemeManager.currentTheme.NavigationSecondColor.cgColor
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
     private func initView() {
         setupScrollView()
         addContent()
