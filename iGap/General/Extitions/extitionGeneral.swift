@@ -168,6 +168,39 @@ extension String {
         return numberFormatter.string(from: final) ?? self.inEnglishNumbers()
     }
     
+    func convertDecimalToEnglish()->String{
+           
+       var outStr = self
+       
+       //convert English numbers to Persian
+        outStr = outStr.replacingOccurrences(of: "۰", with: "0")
+        outStr = outStr.replacingOccurrences(of: "۱", with: "1")
+        outStr = outStr.replacingOccurrences(of: "۲", with: "2")
+        outStr = outStr.replacingOccurrences(of: "۳", with: "3")
+        outStr = outStr.replacingOccurrences(of: "۴", with: "4")
+        outStr = outStr.replacingOccurrences(of: "۵", with: "5")
+        outStr = outStr.replacingOccurrences(of: "۶", with: "6")
+        outStr = outStr.replacingOccurrences(of: "۷", with: "7")
+        outStr = outStr.replacingOccurrences(of: "۸", with: "8")
+        outStr = outStr.replacingOccurrences(of: "۹", with: "9")
+        
+       //        outStr = outStr.replacingOccurrences(of: "*", with: "•")
+       
+       
+       //convert Arabic numbers to Persian
+       outStr = outStr.replacingOccurrences(of: "٠", with: "0")
+       outStr = outStr.replacingOccurrences(of: "١", with: "1")
+       outStr = outStr.replacingOccurrences(of: "٢", with: "2")
+       outStr = outStr.replacingOccurrences(of: "٣", with: "3")
+       outStr = outStr.replacingOccurrences(of: "٤", with: "4")
+       outStr = outStr.replacingOccurrences(of: "٥", with: "5")
+       outStr = outStr.replacingOccurrences(of: "٦", with: "6")
+       outStr = outStr.replacingOccurrences(of: "٧", with: "7")
+       outStr = outStr.replacingOccurrences(of: "٨", with: "8")
+       outStr = outStr.replacingOccurrences(of: "٩", with: "9")
+       
+       return outStr
+    }
     
     private func inPersianNumbers()->String{
         
