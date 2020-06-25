@@ -6839,7 +6839,7 @@ Page 4 introduce app */
 // Koknus
 "persian_language" = "فارسی";
 "english_language" = "انگلیسی";
-
+"k_trust_desc_modal" = "برای اضافه شدن این توکن به کیف پول خود باید با تمامی قوانین سپیدنامه این توکن موافقت نمایید.";
 "k_select_options_title" = "لطفا یکی از گزینه های زیر را انتخاب نمایید";
 "k_new_token" = "کیف توکن جدید";
 "k_login_with_recovery" = "ورود با کلمات بازیابی";

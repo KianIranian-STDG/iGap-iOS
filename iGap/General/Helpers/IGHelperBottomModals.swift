@@ -304,6 +304,18 @@ class IGHelperBottomModals {
         UIApplication.topViewController()!.presentPanModal(vc)
         
     }
+    func showKuknosTrustModal(view: UIViewController? = nil ) {
+        
+        var alertView = view
+        if alertView == nil {
+            alertView = UIApplication.topViewController()
+        }
+        
+        let vc = IGKTrustModal()
+//        vc.urlTrust = urlTrust
+        UIApplication.topViewController()!.presentPanModal(vc)
+        
+    }
 
     
 }
