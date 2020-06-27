@@ -1062,7 +1062,8 @@ enum IGStringsManager : String {
     case KyourUsername = "k_ur_username"
     case KTotalPrice = "total_price"
     case KHash = "k_hash"
-    
+    case KTrust = "k_trust_desc_modal"
+
     case IncreaseScore = "increase_score"
 }
 

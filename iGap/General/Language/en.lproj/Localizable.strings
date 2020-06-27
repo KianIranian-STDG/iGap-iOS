@@ -6905,6 +6905,7 @@ Do NOT share it with others.";
 "kuknoos_asset_count" = "Asset Count";
 "kuknoos_asset_price" = "Asset Price";
 "k_hash" = "Kuknos Hash: ";
+"k_trust_desc_modal" = "You must incline to all of the terms of this token in order to add it to your wallet";
 
 "persian_language" = "Fa";
 "english_language" = "En";

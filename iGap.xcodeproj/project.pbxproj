@@ -113,6 +113,7 @@
 		8E3FC94C2370560A003C9C6C /* IGApiElectricityBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */; };
 		8E3FC94E23705A5A003C9C6C /* IGStructInqueryBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */; };
 		8E3FC95023705FF5003C9C6C /* IGStructErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */; };
+		8E40BD2B24A4B0EA00C313A9 /* IGKTrustModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40BD2A24A4B0EA00C313A9 /* IGKTrustModal.swift */; };
 		8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */; };
 		8E4177F4233CDABD00CEB3AF /* AKMaskFieldEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */; };
 		8E4177F5233CDABD00CEB3AF /* AKMaskField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */; };
@@ -1158,6 +1159,7 @@
 		8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiElectricityBill.swift; sourceTree = "<group>"; };
 		8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructInqueryBill.swift; sourceTree = "<group>"; };
 		8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructErrorHandler.swift; sourceTree = "<group>"; };
+		8E40BD2A24A4B0EA00C313A9 /* IGKTrustModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTrustModal.swift; sourceTree = "<group>"; };
 		8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlock.swift; sourceTree = "<group>"; };
 		8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldEvent.swift; sourceTree = "<group>"; };
 		8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskField.swift; sourceTree = "<group>"; };
@@ -3216,6 +3218,7 @@
 				8EF0DDCB2473C769007AC20C /* RetrieveKey */,
 				8EF0DDCE2473E0F8007AC20C /* Trading */,
 				8E3265DA247D355400AE2CB6 /* AddAssets */,
+				8E40BD2A24A4B0EA00C313A9 /* IGKTrustModal.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5004,6 +5007,7 @@
 				8EA8549E239D59A000C9442F /* IGThemeManager.swift in Sources */,
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
 				8E3265DC247D35DC00AE2CB6 /* CellClassCurrentAssets.swift in Sources */,
+				8E40BD2B24A4B0EA00C313A9 /* IGKTrustModal.swift in Sources */,
 				D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				8E8BE1A3246FEE8F00A32BC4 /* IGKHistoryVC.swift in Sources */,
