@@ -625,7 +625,7 @@ class ChatControllerNode: ASCellNode {
                 lblDisLikeText?.removeFromSupernode()
             }
             
-            if let roomId = messageVote.authorRoom?.roomInfo.id {
+            if let roomId = messageVote?.authorRoom?.roomInfo?.id {
                 IGHelperGetMessageState.shared.getMessageState(roomId: roomId, messageId: messageVote.id)
             }else {
                 IGHelperGetMessageState.shared.getMessageState(roomId: messageVote.roomId, messageId: messageVote.id)
