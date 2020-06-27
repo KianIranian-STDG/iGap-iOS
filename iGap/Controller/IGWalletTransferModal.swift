@@ -297,9 +297,11 @@ class IGWalletTransferModal: BaseTableViewController {
         case .Mobile :
             lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
             if (bill.billPhone?.inEnglishNumbersNew().starts(with: "0"))! {
-                tfDescription.text = bill.billPhone
+                tfDescription.text = bill.billPhone?.inLocalizedLanguage()
             } else {
-                tfDescription.text = "0".inLocalizedLanguage() + bill.billPhone!.inLocalizedLanguage()
+                if let phonenum = bill.billPhone {
+                    tfDescription.text = "0".inLocalizedLanguage() + phonenum.inLocalizedLanguage()
+                }
             }
         case .Phone :
             lblDescription.text = IGStringsManager.PhoneNumber.rawValue.localized
