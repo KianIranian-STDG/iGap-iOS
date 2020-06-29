@@ -184,8 +184,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
             }
             else {
-//                showLogoutActionSheet()
-                IGHelperBottomModals.shared.showKuknosTrustModal(view: self)
+                showLogoutActionSheet()
             }
         }
         self.tableView.deselectRow(at: indexPath, animated: false)
