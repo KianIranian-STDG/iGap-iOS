@@ -20,7 +20,7 @@ class SwiftWebVC: BaseViewController {
     var buttonColor: UIColor? = nil
     var titleColor: UIColor? = nil
     var closing: Bool! = false
-    
+    var isModally : Bool = false
     lazy var backBarButtonItem: UIBarButtonItem =  {
         var tempBackBarButtonItem = UIBarButtonItem(image: SwiftWebVC.bundledImage(named: "SwiftWebVCBack"),
                                                     style: UIBarButtonItem.Style.plain,
@@ -126,8 +126,10 @@ class SwiftWebVC: BaseViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.backBarButtonItem?.title = ""
+        if !isModally {
+            navigationItem.backBarButtonItem?.title = ""
+
+        }
         
 //        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
 //        backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 25)], for: UIControl.State.normal)
@@ -135,6 +137,8 @@ class SwiftWebVC: BaseViewController {
     }
     
     override public func viewWillAppear(_ animated: Bool) {
+        if !isModally {
+
         assert(self.navigationController != nil, "SVWebViewController needs to be contained in a UINavigationController. If you are presenting SVWebViewController modally, use SVModalWebViewController instead.")
         
 //        updateToolbarItems()
@@ -171,6 +175,7 @@ class SwiftWebVC: BaseViewController {
         }
         else if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
             self.navigationController?.setToolbarHidden(true, animated: true)
+        }
         }
     }
     
@@ -321,12 +326,13 @@ extension SwiftWebVC: WKNavigationDelegate {
         self.delegate?.didFinishLoading(success: true)
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
-        webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
-            self.navBarTitle.text = response as! String?
-            self.navBarTitle.sizeToFit()
-//            self.updateToolbarItems()
-        })
-        
+        if !isModally {
+            webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
+                self.navBarTitle.text = response as! String?
+                self.navBarTitle.sizeToFit()
+    //            self.updateToolbarItems()
+            })
+        }
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

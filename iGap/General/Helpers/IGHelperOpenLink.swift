@@ -13,7 +13,7 @@ class IGHelperOpenLink {
 
     static let ignoreLinks = ["facebook.com","twitter.com","instagram.com","pinterest.com","tumblr.com","telegram.org","flickr.com","500px.com","behance.net","t.me"]
     
-    static func openLink(urlString: String, forceOpenInApp: Bool = false){
+    static func openLink(urlString: String, forceOpenInApp: Bool = false,modally: Bool = false){
         
         if !IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) && !forceOpenInApp {
             UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
@@ -27,7 +27,15 @@ class IGHelperOpenLink {
             }
             let webVCController = SwiftWebVC(urlString: urlString)
             webVCController.hidesBottomBarWhenPushed = true
-            UIApplication.topViewController()?.navigationController?.pushViewController(webVCController, animated: true)
+
+            if modally {
+                webVCController.isModally = true
+                UIApplication.topViewController()?.present(webVCController, animated: true, completion: nil)
+                
+            } else {
+                UIApplication.topViewController()?.navigationController?.pushViewController(webVCController, animated: true)
+
+            }
         }
     }
 }
