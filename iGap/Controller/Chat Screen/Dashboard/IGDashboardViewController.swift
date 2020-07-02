@@ -21,8 +21,42 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
-    var discoveries: [IGPDiscovery] = []
-    private var pollList: [IGPPoll] = []
+    
+    let discoveryListSerialQueue = DispatchQueue(label: "msg.igap.queue.discovery")
+    private var _discoveries = [IGPDiscovery]()
+    var discoveries: [IGPDiscovery] {
+        get {
+            discoveryListSerialQueue.sync {
+                return _discoveries
+            }
+        }
+        set {
+            discoveryListSerialQueue.async(flags: .barrier) {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf._discoveries = newValue
+            }
+        }
+    }
+    
+    let pollListSerialQueue = DispatchQueue(label: "msg.igap.queue.poll")
+    private var _pollList = [IGPPoll]()
+    private var pollList: [IGPPoll] {
+        get {
+            pollListSerialQueue.sync {
+                return _pollList
+            }
+        }
+        set {
+            pollListSerialQueue.async(flags: .barrier) {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf._pollList = newValue
+            }
+        }
+    }
     private var pollListInfoInner: [IGPPollField] = []
     private var refresher: UIRefreshControl!
     private let locationManager = CLLocationManager()
