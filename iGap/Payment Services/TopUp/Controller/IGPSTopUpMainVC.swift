@@ -132,6 +132,7 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
         if let userInfo = IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!) {
             let phoneformatted = NSString(string: String(userInfo.phone)).replacingCharacters(in: NSRange(location: 0, length: 2), with: "0")
             tf.text = phoneformatted
+            
         }
         return tf
     }()
@@ -313,6 +314,29 @@ class IGPSTopUpMainVC : MainViewController,chargeDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         SwiftEventBus.unregister(self)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if tfPhoneNUmber.text != "" || tfPhoneNUmber.text != nil {
+
+            if tfPhoneNUmber.text!.starts(with: "۰") || tfPhoneNUmber.text!.starts(with: "0") || tfPhoneNUmber.text!.starts(with: "0".inLocalizedLanguage()) {
+                
+                if  tfPhoneNUmber.text!.inEnglishNumbersNew().substring(offset: 4).count > 3 {
+                    if operatorDictionary[tfPhoneNUmber.text!.inEnglishNumbersNew().substring(offset: 4)] != nil {
+                        selectedOperator = operatorDictionary[tfPhoneNUmber.text!.inEnglishNumbersNew().substring(offset: 4)]!
+
+                        switch selectedOperator {
+                        case .MCI : btnMCIAction()
+                        case .MTN: btnMTNAction()
+                        case .Rightel: btnRightelAction()
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
     }
     private let packagesHolder : UIView = {
         let av = UIView()
