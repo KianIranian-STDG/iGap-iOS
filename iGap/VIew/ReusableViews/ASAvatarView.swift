@@ -70,15 +70,22 @@ class ASAvatarView: ASDisplayNode {
         self.initialLettersView!.backgroundColor = UIColor.hexStringToUIColor(hex: user.color)
         avatarASImageView?.alpha = 0
         if user.avatar != nil {
-            getAvatar(networkAvatarNode: avatarASImageView!, avatar: user.avatar!.file!) {[weak self] (image) in
-                guard let sSelf = self else {
-                    return
+            if let tFile = user.avatar!.file {
+                getAvatar(networkAvatarNode: avatarASImageView!, avatar: tFile) {[weak self] (image) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    if let img = image {
+                        sSelf.avatarASImageView?.alpha = 1
+                        sSelf.avatarASImageView?.image = img
+                    }
                 }
-                if let img = image {
-                    sSelf.avatarASImageView?.alpha = 1
-                    sSelf.avatarASImageView?.image = img
-                }
+            } else {
+                avatarASImageView?.alpha = 1
+                avatarASImageView?.image = UIImage(named: "ig_default_contact")
+
             }
+
             
         }else {
             avatarASImageView?.alpha = 0
@@ -107,21 +114,31 @@ class ASAvatarView: ASDisplayNode {
         }
         
         if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size) {
-            if let data = try? Data(contentsOf: avatar.localUrl!) {
-                if let image = UIImage(data: data) {
-                    completion(image)
+            if let lURL = avatar.localUrl {
+                if let data = try? Data(contentsOf: lURL) {
+                    if let image = UIImage(data: data) {
+                        completion(image)
+                    }
                 }
+            } else {
+                completion(UIImage(named: "ig_default_contact"))
+
             }
         } else {
             if file != nil {
 
                 let path = file.localUrl
                 if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                    if let data = try? Data(contentsOf: path!) {
-                        if let image = UIImage(data: data) {
-                            completion(image)
+                    if let pPath = file.localUrl {
+                        if let data = try? Data(contentsOf: pPath) {
+                            if let image = UIImage(data: data) {
+                                completion(image)
+                            }
                         }
+                    } else {
+                        completion(UIImage(named: "ig_default_contact"))
                     }
+      
                     
                 } else {
                     file = file.detach()
@@ -136,16 +153,20 @@ class ASAvatarView: ASDisplayNode {
                             }
                             sSelf.avatarThread.sync {
                                 if let imageMain = ASNetworkimagesMap[attachment.token!] {
-                                    let path = attachment.localUrl
-                                    DispatchQueue.global(qos:.userInteractive).async {
-                                        if let data = try? Data(contentsOf: path!) {
-                                            if let image = UIImage(data: data) {
-                                                DispatchQueue.main.async {
-                                                    imageMain.image = image
-                                                    completion(image)
+                                    if let pPath = attachment.localUrl {
+                                        DispatchQueue.global(qos:.userInteractive).async {
+                                            
+                                            if let data = try? Data(contentsOf: pPath) {
+                                                if let image = UIImage(data: data) {
+                                                    DispatchQueue.main.async {
+                                                        imageMain.image = image
+                                                        completion(image)
+                                                    }
                                                 }
                                             }
                                         }
+                                    } else {
+                                        completion(UIImage(named: "ig_default_contact"))
                                     }
                                 }
                             }
