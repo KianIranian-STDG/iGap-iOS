@@ -191,8 +191,10 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             else {
 //                showLogoutActionSheet()
                 
-                
-                req = AF.streamRequest("http://192.168.8.15:4001/v2.0/download/fa723fa4-9446-48e8-993c-c59011fc7aeb",method: .get,headers: tmpH)
+                let imageData = NSMutableData() //or var messageData : NSMutableData = NSMutableData()
+
+//                req = AF.streamRequest("http://192.168.8.15:4001/v1.0/download/fa723fa4-9446-48e8-993c-c59011fc7aeb",method: .get,headers: self.getHeader())
+                req = AF.streamRequest("http://192.168.10.31:3007/v1.0/download/vfvf",method: .get,headers: self.getHeader())
 
                 req.responseStream { stream in
                     switch stream.event {
@@ -201,7 +203,9 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                         case let .success(data):
                             print("+_+_+_+_+_+_+_+_+_+_+_+")
                             print((data))
-                            try? IGFilesManager().save(fileNamed: "tmpImageWolf", data: data)
+//                            imageData.append(data)
+//                            try? IGFilesManager().save(fileNamed: "tmpImageWolf", data: data)
+                            (IGSecurityManager.sharedManager.TEMPdecrypt(encryptedData: data))
                             print("+_+_+_+_+_+_+_+_+_+_+_+")
                         case let .failure(error) :
                             print("+_+_+_+_+_+_+_+_+_+_+_+")
@@ -213,14 +217,14 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                         print("-0-0-0-0-0-0-0-0")
                         print(completion.response)
                         print("-0-0-0-0-0-0-0-0")
-                        let tmpData = try? IGFilesManager().read(fileNamed: "tmpImageWolf")
+                        print((IGSecurityManager.sharedManager.TEMPdecrypt(encryptedData: imageData as Data)))
 
                         let alert = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
 
                         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
 
-                        let imgTitle = UIImage(data: tmpData!)
-                        let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+                        let imgTitle = UIImage(data: (IGSecurityManager.sharedManager.TEMPdecrypt(encryptedData: imageData as Data)))
+                        let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 200, height: 200))
                         imgViewTitle.image = imgTitle
 
                         alert.view.addSubview(imgViewTitle)
@@ -260,8 +264,8 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         if IGApiBase.httpHeaders == nil {
             guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
             let authorization = "Bearer " + token
-            let contentType = "application/json"
-            IGApiBase.httpHeaders = ["Authorization": authorization, "Content-Type": contentType]
+//            let contentType = "application/json"
+            IGApiBase.httpHeaders = ["Authorization": authorization]
         }
         return IGApiBase.httpHeaders
     }
