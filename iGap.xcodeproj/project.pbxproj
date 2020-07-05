@@ -114,6 +114,7 @@
 		8E3FC94E23705A5A003C9C6C /* IGStructInqueryBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */; };
 		8E3FC95023705FF5003C9C6C /* IGStructErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */; };
 		8E40BD2B24A4B0EA00C313A9 /* IGKTrustModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40BD2A24A4B0EA00C313A9 /* IGKTrustModal.swift */; };
+		8E40BEF624B17C7300C313A9 /* IGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40BEF524B17C7300C313A9 /* IGFileManager.swift */; };
 		8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */; };
 		8E4177F4233CDABD00CEB3AF /* AKMaskFieldEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */; };
 		8E4177F5233CDABD00CEB3AF /* AKMaskField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */; };
@@ -1160,6 +1161,7 @@
 		8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructInqueryBill.swift; sourceTree = "<group>"; };
 		8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructErrorHandler.swift; sourceTree = "<group>"; };
 		8E40BD2A24A4B0EA00C313A9 /* IGKTrustModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTrustModal.swift; sourceTree = "<group>"; };
+		8E40BEF524B17C7300C313A9 /* IGFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileManager.swift; sourceTree = "<group>"; };
 		8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlock.swift; sourceTree = "<group>"; };
 		8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldEvent.swift; sourceTree = "<group>"; };
 		8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskField.swift; sourceTree = "<group>"; };
@@ -4152,6 +4154,7 @@
 				FA3C8E031E6D785800D94FBB /* IGClientActionManager.swift */,
 				FA58ADEF22815BE5002A650E /* IGMessageLoader.swift */,
 				D2434DC9244EEC070057BA65 /* IGMobileBankSecurityManager.swift */,
+				8E40BEF524B17C7300C313A9 /* IGFileManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -5700,6 +5703,7 @@
 				D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				8EC42F1D245DB307000889D3 /* IGMBLoansInnerVC.swift in Sources */,
+				8E40BEF624B17C7300C313A9 /* IGFileManager.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
 				8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */,

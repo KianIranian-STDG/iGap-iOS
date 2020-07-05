@@ -16,6 +16,7 @@ import Gifu
 import MapKit
 import SwiftEventBus
 import AsyncDisplayKit
+import Alamofire
 
 public var currentSize : Int!
 public var currentIndexOfImage : Int!
@@ -23,7 +24,11 @@ public var sizesArray = [Int?]()
 public var isAvatar = true
 
 class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDelegate {
-    
+    var tmpH : HTTPHeaders = [
+        "userid": "176264689987306100"
+    ]
+    var req : DataStreamRequest!
+
     @IBOutlet weak var switchInAppBrowser: UISwitch!
     
     @IBOutlet  var iconArray: [UILabel]!
@@ -184,12 +189,83 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
             }
             else {
-                showLogoutActionSheet()
+//                showLogoutActionSheet()
+                
+                
+                req = AF.streamRequest("http://192.168.8.15:4001/v2.0/download/fa723fa4-9446-48e8-993c-c59011fc7aeb",method: .get,headers: tmpH)
+
+                req.responseStream { stream in
+                    switch stream.event {
+                    case let .stream(result):
+                        switch result {
+                        case let .success(data):
+                            print("+_+_+_+_+_+_+_+_+_+_+_+")
+                            print((data))
+                            try? IGFilesManager().save(fileNamed: "tmpImageWolf", data: data)
+                            print("+_+_+_+_+_+_+_+_+_+_+_+")
+                        case let .failure(error) :
+                            print("+_+_+_+_+_+_+_+_+_+_+_+")
+                            print(error)
+                            print("+_+_+_+_+_+_+_+_+_+_+_+")
+
+                        }
+                    case let .complete(completion):
+                        print("-0-0-0-0-0-0-0-0")
+                        print(completion.response)
+                        print("-0-0-0-0-0-0-0-0")
+                        let tmpData = try? IGFilesManager().read(fileNamed: "tmpImageWolf")
+
+                        let alert = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
+
+                        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+                        let imgTitle = UIImage(data: tmpData!)
+                        let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+                        imgViewTitle.image = imgTitle
+
+                        alert.view.addSubview(imgViewTitle)
+                        alert.addAction(action)
+
+                        self.present(alert, animated: true, completion: nil)
+//
+//
+                    }
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             }
         }
         self.tableView.deselectRow(at: indexPath, animated: false)
     }
-    
+    public func getHeader() -> HTTPHeaders {
+        if IGApiBase.httpHeaders == nil {
+            guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
+            let authorization = "Bearer " + token
+            let contentType = "application/json"
+            IGApiBase.httpHeaders = ["Authorization": authorization, "Content-Type": contentType]
+        }
+        return IGApiBase.httpHeaders
+    }
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return CGFloat.leastNormalMagnitude
