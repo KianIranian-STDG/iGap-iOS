@@ -477,6 +477,7 @@
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D20021CE2472A6C500A679C7 /* IGKPinLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */; };
 		D20E21EB246BCA5800341F21 /* IGKStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20E21EA246BCA5800341F21 /* IGKStruct.swift */; };
+		D217443E24B481A000A271BC /* aaaaa.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217443D24B481A000A271BC /* aaaaa.swift */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D98BC246BF976006BEB38 /* IGPrint.swift */; };
 		D220EF3524A9BF5C0020CA28 /* rick.mkv in Resources */ = {isa = PBXBuildFile; fileRef = D220EF3424A9BF5C0020CA28 /* rick.mkv */; };
@@ -515,6 +516,7 @@
 		D25D0F3023F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */; };
 		D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */; };
 		D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */; };
+		D26CE1B024B46AFB00BE9563 /* Uploadsss.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26CE1AF24B46AFB00BE9563 /* Uploadsss.swift */; };
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D28EBFDB24967ED800744A59 /* IGRealmAuthorRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28EBFDA24967ED800744A59 /* IGRealmAuthorRoom.swift */; };
@@ -1549,6 +1551,7 @@
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKPinLoginVC.swift; sourceTree = "<group>"; };
 		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Model/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
+		D217443D24B481A000A271BC /* aaaaa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aaaaa.swift; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D21D98BC246BF976006BEB38 /* IGPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPrint.swift; sourceTree = "<group>"; };
 		D220EF3424A9BF5C0020CA28 /* rick.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = rick.mkv; sourceTree = "<group>"; };
@@ -1588,6 +1591,7 @@
 		D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		D25E13B5249F2C8800867E6E /* MZDownloadManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MZDownloadManager.framework; path = Carthage/Build/iOS/MZDownloadManager.framework; sourceTree = "<group>"; };
 		D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactDetailController.swift; sourceTree = "<group>"; };
+		D26CE1AF24B46AFB00BE9563 /* Uploadsss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploadsss.swift; sourceTree = "<group>"; };
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D28EBFDA24967ED800744A59 /* IGRealmAuthorRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmAuthorRoom.swift; sourceTree = "<group>"; };
@@ -2895,6 +2899,8 @@
 			isa = PBXGroup;
 			children = (
 				D22B372624A8C4B100F6568B /* UploadStream.swift */,
+				D26CE1AF24B46AFB00BE9563 /* Uploadsss.swift */,
+				D217443D24B481A000A271BC /* aaaaa.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -5295,6 +5301,7 @@
 				8EFBE425246169DE00755464 /* ChequeCell.swift in Sources */,
 				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
+				D26CE1B024B46AFB00BE9563 /* Uploadsss.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				8E3C697B236036A8001575BE /* DimmedView.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
@@ -5495,6 +5502,7 @@
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
 				D2C3EF8F2473DDFC006CD084 /* IKGProfileVM.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
+				D217443E24B481A000A271BC /* aaaaa.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
 				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
