@@ -121,6 +121,19 @@ class IGSecurityManager: NSObject {
             return  nil
         }
     }
+    func getIVAndKey(encryptedData :Data) -> [String: Data] {
+        var keyIV = [String: Data]()
+        let convertedData = NSData(data: encryptedData)
+        let iv =  convertedData.subdata(with: NSMakeRange(0, symmetricIVSize))
+        let keyData = symmetricKey.data(using: .utf8)!
+        let encryptedPayload = convertedData.subdata(with: NSMakeRange(symmetricIVSize, convertedData.length-symmetricIVSize))
+
+        keyIV["key"] = keyData
+        keyIV["iv"] = iv
+        keyIV["firstchunk"] = encryptedPayload
+
+        return keyIV
+    }
     func TEMPdecrypt(encryptedData :Data) -> Data! {
         var decryptedData = Data()
         do {
@@ -168,13 +181,14 @@ class IGSecurityManager: NSObject {
         let deciphered = try aes.decrypt(Array(encryptedPayload))
         return Data(deciphered)
     }
+    
     private func TEMPdecryptUsingAES(encryptedData :Data) throws -> Data {
         let convertedData = NSData(data: encryptedData)
         let iv =  Data("5183666c72eec9e4".utf8)
         let keyData = Data("bf3c199c2470cb477d907b1e0917c17b".utf8)
         let aes = try AES(key: [UInt8](keyData), blockMode: setEncryptionBlockMode(iv: [UInt8](iv)), padding: encryptoinPaddingType)
         
-        let deciphered = try aes.decrypt(Array(convertedData))
+        let deciphered = try aes.decrypt(Array(encryptedData))
         return Data(deciphered)
     }
 }

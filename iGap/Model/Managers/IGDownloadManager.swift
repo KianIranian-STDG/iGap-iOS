@@ -13,6 +13,8 @@ import SwiftProtobuf
 import IGProtoBuff
 import Digger
 import Files
+import CryptoSwift
+import Alamofire
 
 typealias DownloadCompleteHandler = ((_ attachment:IGFile)->())?
 typealias DownloadFailedHander    = (()->())?
@@ -29,7 +31,8 @@ class IGDownloadManager {
     private var writeFile: DispatchQueue
     
     private var thumbnailTasks = [IGDownloadTask]()
-    
+    var req : DataStreamRequest!
+
     var taskQueueTokenArray : [String] = []
     var dictionaryDownloadTaskMain : [String:IGDownloadTask] = [:]
     var dictionaryDownloadTaskQueue : [String:IGDownloadTask] = [:]
@@ -41,6 +44,76 @@ class IGDownloadManager {
         downloadQueue  = DispatchQueue(label: "im.igap.ios.queue.download.attachments")
         thumbnailQueue = DispatchQueue(label: "im.igap.ios.queue.download.thumbnail")
         writeFile = DispatchQueue(label: "im.igap.ios.queue.download.write")
+    }
+//    func downloadStream(url: String ,token: String , fileSize : String? = nil,fileType : FileType = .file) -> [URL: Data] {
+//
+//        var firstChunk : Bool = false
+//        var decipher : (Cryptor & Updatable)?
+//        var nameOfFile = "LYNDAPROTO \(Date().timeIntervalSinceReferenceDate)"
+//        switch fileType {
+//        case .video :       nameOfFile = nameOfFile.appending(".mp4")
+//        default : break
+//
+//        }
+//        req = AF.streamRequest(url + token,method: .get,headers: self.getHeader())
+//        req.responseStream { stream in
+//            switch stream.event {
+//            case let .stream(result):
+//                switch result {
+//                case let .success(data):
+//                    print("+_+_+_+_+_+_+_+_+_+_+_+")
+//                    print((data))
+//                    
+//                    if !firstChunk {
+//                        firstChunk = true
+//                        let keyIV = IGSecurityManager.sharedManager.getIVAndKey(encryptedData: data)
+//                        decipher = try? AES(key: String(decoding: (keyIV["key"]!), as: UTF8.self), iv: (String(decoding: (keyIV["iv"]!), as: UTF8.self)), padding: .pkcs7).makeDecryptor()
+//                        let dcvar = try? decipher?.update(withBytes: [UInt8](keyIV["firstchunk"]!))
+//                        let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+//                        
+//                        try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+//                        
+//                        
+//                    } else {
+//                        
+//                        let dcvar = try? decipher?.update(withBytes: [UInt8](data))
+//                        let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+//                        try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+//                    }
+//                    
+//                    print("+_+_+_+_+_+_+_+_+_+_+_+")
+//                case let .failure(error) :
+//                    print("+_+_+_+_+_+_+_+_+_+_+_+")
+//                    print(error)
+//                    print("+_+_+_+_+_+_+_+_+_+_+_+")
+//                    
+//                }
+//            case let .complete(completion):
+//                print("-0-0-0-0-0-0-0-0")
+//                let dcvar = try? decipher?.finish()
+//                
+//                let dataa = NSData(bytes: try? decipher?.finish(), length: dcvar!.count)
+//                try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+//                
+//                print("-0-0-0-0-0-0-0-0")
+//                let filed = try? IGFilesManager().read(fileNamed: nameOfFile)
+//                print(filed!)
+//
+//                //
+//                //
+//            }
+//
+//        }
+//    }
+
+    public func getHeader() -> HTTPHeaders {
+        if IGApiBase.httpHeaders == nil {
+            guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
+            let authorization = "Bearer " + token
+            //            let contentType = "application/json"
+            IGApiBase.httpHeaders = ["Authorization": authorization]
+        }
+        return IGApiBase.httpHeaders
     }
     
     func isDownloading(token: String) -> Bool {

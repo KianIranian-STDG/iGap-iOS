@@ -638,6 +638,24 @@ class IGGlobal {
     public class func getCurrentMillis()->Int64{
         return  Int64(NSDate().timeIntervalSince1970 * 1000)
     }
+    internal static  func resize(url: NSURL, maxPixelSize: Int) -> CGImage? {
+        let imgSource = CGImageSourceCreateWithURL(url, nil)
+        guard let imageSource = imgSource else {
+            return nil
+        }
+        
+        var scaledImage: CGImage?
+        let options: [NSString: Any] = [
+            // The maximum width and height in pixels of a thumbnail.
+            kCGImageSourceThumbnailMaxPixelSize: maxPixelSize,
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            // Should include kCGImageSourceCreateThumbnailWithTransform: true in the options dictionary. Otherwise, the image result will appear rotated when an image is taken from camera in the portrait orientation.
+            kCGImageSourceCreateThumbnailWithTransform: true
+        ]
+        scaledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+        
+        return scaledImage
+    }
     internal static func dataFromFile(_ filename: String) -> Data? {
         @objc class TestClass: NSObject { }
         
