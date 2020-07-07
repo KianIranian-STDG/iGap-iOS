@@ -69,7 +69,7 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
 //            return
 //        }
         
-        if let path = Bundle.main.path(forResource: "x", ofType:"png") {
+        if let path = Bundle.main.path(forResource: "st", ofType:"jpg") {
             rickPath = path
         }else {
             return
@@ -138,16 +138,10 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
         request.httpMethod = "POST"
         let uploadTask = session.uploadTask(withStreamedRequest: request)
         
-        
-        
         uploadTask.resume()
         
-        
         ivString = IGSecurityManager.sharedManager.generateIVString()
-        
-        let data = Data(ivString.utf8)
-        let hexString = data.map{ String(format:"%02x", $0) }.joined()
-        print("=-=-=-=-=-IV1: ", hexString)
+        print("=-=-=-=-=-=- IV: ", ivString)
         
         encryptor = try! IGSecurityManager.sharedManager.generateEncryptor(iv: ivString)
         
@@ -232,7 +226,42 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
                     return
                 }
                 
-                self.boundStreams?.output.write(dt.bytes, maxLength: dt.count)
+                try! encryptor?.update(withBytes: dt.bytes, output: {[weak self] (bytes) in
+                    
+                    guard let sSelf = self else {
+                        return
+                    }
+                    
+                    var finalByte = bytes
+                    if isFirstChunk {
+                        finalByte = (ivString.data(using: .utf8)!.bytes) + bytes
+                        isFirstChunk = false
+                    }
+                    sSelf.boundStreams?.output.write(finalByte, maxLength: finalByte.count)
+                })
+                
+                
+                
+                if currentOffset + 4096 >= fileSize {
+                    try! encryptor?.finish(withBytes: dt.bytes, output: {[weak self] (bytes) in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        
+                        sSelf.boundStreams?.output.write(bytes, maxLength: bytes.count)
+                        
+                    })
+                    
+//                    try! encryptor?.finish(output: <#T##(Array<UInt8>) -> Void#>)
+                    
+                }
+                
+                
+                
+                
+                
+                
+//                self.boundStreams?.output.write(dt.bytes, maxLength: dt.count)
                 
             }
             
