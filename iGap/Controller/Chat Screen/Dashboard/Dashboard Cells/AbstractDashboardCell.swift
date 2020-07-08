@@ -245,6 +245,8 @@ class AbstractDashboardCell: UICollectionViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
+        img1Abs?.sd_cancelCurrentImageLoad()
+        img1Abs = nil
         if self.btnCheckMark != nil {
             btnCheckMark.removeFromSuperview()
             self.btnCheckMark = nil
