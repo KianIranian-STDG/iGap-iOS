@@ -480,7 +480,6 @@
 		D217443E24B481A000A271BC /* aaaaa.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217443D24B481A000A271BC /* aaaaa.swift */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D98BC246BF976006BEB38 /* IGPrint.swift */; };
-		D220EF3524A9BF5C0020CA28 /* rick.mkv in Resources */ = {isa = PBXBuildFile; fileRef = D220EF3424A9BF5C0020CA28 /* rick.mkv */; };
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
 		D2262DF8246AC9DF008C119A /* IGKIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */; };
@@ -499,8 +498,6 @@
 		D2434DD0244EF3990057BA65 /* IGMBApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */; };
 		D2449F0B24711B8A0046D48A /* IGKKeychainHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2449F0A24711B8A0046D48A /* IGKKeychainHandler.swift */; };
 		D2449F2D24713ABE0046D48A /* IGKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2449F2C24713ABE0046D48A /* IGKUser.swift */; };
-		D245725C24B325600033EC50 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = D245725B24B325600033EC50 /* x.png */; };
-		D245725E24B32AE20033EC50 /* iranian.json in Resources */ = {isa = PBXBuildFile; fileRef = D245725D24B32AE20033EC50 /* iranian.json */; };
 		D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */; };
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
 		D254C1D82450073E007767F4 /* IGMBMainContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */; };
@@ -525,13 +522,9 @@
 		D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
-		D2A68B4624B1C0B200606E73 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D2A68B4524B1C0B200606E73 /* 1.jpg */; };
-		D2A68B4824B1D69900606E73 /* env.txt in Resources */ = {isa = PBXBuildFile; fileRef = D2A68B4724B1D69900606E73 /* env.txt */; };
-		D2A68B4E24B2049300606E73 /* st.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D2A68B4D24B2049300606E73 /* st.jpg */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
 		D2B58EA2247E23D000423519 /* IGKTradingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B58EA1247E23D000423519 /* IGKTradingVM.swift */; };
-		D2B82A0D24B0CDB5003DE84B /* rec.mov in Resources */ = {isa = PBXBuildFile; fileRef = D2B82A0C24B0CDB5003DE84B /* rec.mov */; };
 		D2B8D7242469112D001062EB /* IGKNewTokenS1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */; };
 		D2B8D72624696F0B001062EB /* IGKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72524696F0B001062EB /* IGKApi.swift */; };
 		D2B8D72824696F45001062EB /* IGKBaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8D72724696F45001062EB /* IGKBaseApi.swift */; };
@@ -1554,7 +1547,6 @@
 		D217443D24B481A000A271BC /* aaaaa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aaaaa.swift; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D21D98BC246BF976006BEB38 /* IGPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPrint.swift; sourceTree = "<group>"; };
-		D220EF3424A9BF5C0020CA28 /* rick.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = rick.mkv; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
 		D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKIntroVC.swift; sourceTree = "<group>"; };
@@ -1573,8 +1565,6 @@
 		D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBApiBase.swift; sourceTree = "<group>"; };
 		D2449F0A24711B8A0046D48A /* IGKKeychainHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKKeychainHandler.swift; sourceTree = "<group>"; };
 		D2449F2C24713ABE0046D48A /* IGKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKUser.swift; sourceTree = "<group>"; };
-		D245725B24B325600033EC50 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
-		D245725D24B32AE20033EC50 /* iranian.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iranian.json; sourceTree = "<group>"; };
 		D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocationNode.swift; sourceTree = "<group>"; };
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
 		D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBMainContainerVC.swift; sourceTree = "<group>"; };
@@ -1600,13 +1590,9 @@
 		D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
-		D2A68B4524B1C0B200606E73 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
-		D2A68B4724B1D69900606E73 /* env.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = env.txt; sourceTree = "<group>"; };
-		D2A68B4D24B2049300606E73 /* st.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = st.jpg; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
 		D2B58EA1247E23D000423519 /* IGKTradingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradingVM.swift; sourceTree = "<group>"; };
-		D2B82A0C24B0CDB5003DE84B /* rec.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = rec.mov; sourceTree = "<group>"; };
 		D2B8D7232469112D001062EB /* IGKNewTokenS1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS1VC.swift; sourceTree = "<group>"; };
 		D2B8D72524696F0B001062EB /* IGKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKApi.swift; sourceTree = "<group>"; };
 		D2B8D72724696F45001062EB /* IGKBaseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBaseApi.swift; sourceTree = "<group>"; };
@@ -4478,13 +4464,6 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
-				D245725D24B32AE20033EC50 /* iranian.json */,
-				D245725B24B325600033EC50 /* x.png */,
-				D2A68B4D24B2049300606E73 /* st.jpg */,
-				D2A68B4724B1D69900606E73 /* env.txt */,
-				D2A68B4524B1C0B200606E73 /* 1.jpg */,
-				D2B82A0C24B0CDB5003DE84B /* rec.mov */,
-				D220EF3424A9BF5C0020CA28 /* rick.mkv */,
 				D253116C24A1B5E800549910 /* Payment Services */,
 				D2FE640F24680EB1000D861E /* Koknus */,
 				8EC217B82259DCFA00105B5A /* Entity */,
@@ -4767,7 +4746,6 @@
 				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
 				D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */,
 				D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */,
-				D2A68B4E24B2049300606E73 /* st.jpg in Resources */,
 				D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */,
 				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
@@ -4804,7 +4782,6 @@
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
 				8ED8054423B772FB0097A4A6 /* IGLiveStickerCell.xib in Resources */,
 				8EC94E0923964462003B3510 /* IGOneNewsTVCell.xib in Resources */,
-				D245725E24B32AE20033EC50 /* iranian.json in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
@@ -4837,7 +4814,6 @@
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
 				FA417E51212179C900B5FBCD /* LocationCell.xib in Resources */,
 				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
-				D245725C24B325600033EC50 /* x.png in Resources */,
 				8EC94DFF239636FC003B3510 /* IGDoubleButtonTVCell.xib in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
 				8E8ABDC52394F89600DE00DB /* IGNewsSliderTVCell.xib in Resources */,
@@ -4848,7 +4824,6 @@
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				D6C95D732459A7B9007AC009 /* AppIconSeven.png in Resources */,
 				8ECCA1F022B8B9AB00D3A734 /* IGMultiForwardModal.xib in Resources */,
-				D2B82A0D24B0CDB5003DE84B /* rec.mov in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
@@ -4863,13 +4838,11 @@
 				8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
-				D2A68B4824B1D69900606E73 /* env.txt in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
 				D6C95D6F2459A7B9007AC009 /* AppIconSix.png in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
-				D2A68B4624B1C0B200606E73 /* 1.jpg in Resources */,
 				D6C95D712459A7B9007AC009 /* AppIconOne.png in Resources */,
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
 				D6C95D722459A7B9007AC009 /* AppIconFour.png in Resources */,
@@ -4878,7 +4851,6 @@
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
 				8EEB1FF622C1F68B00EFD2ED /* GetGiftPopup.xib in Resources */,
 				FA5656BE204AB18F00DB46F0 /* igap_signaling.mp3 in Resources */,
-				D220EF3524A9BF5C0020CA28 /* rick.mkv in Resources */,
 				8EA854B3239E675200C9442F /* IGDayColors.xcassets in Resources */,
 				FA786D58206A575300608A2D /* profile.storyboard in Resources */,
 				FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */,
