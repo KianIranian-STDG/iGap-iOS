@@ -96,6 +96,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             if dashboard[0].igpActiontype == IGPDiscoveryField.IGPButtonActionType.ivand {
                 makeCreditCellView()
                 img1Abs?.image = nil
+                img1Abs = nil
                 view1Abs?.backgroundColor = .clear
 
             } else {
