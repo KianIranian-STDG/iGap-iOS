@@ -69,11 +69,12 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
 //            return
 //        }
         
-        if let path = Bundle.main.path(forResource: "st", ofType:"jpg") {
+        if let path = Bundle.main.path(forResource: "222", ofType:"png") {
             rickPath = path
         }else {
             return
         }
+        
         
         do {
                     //return [FileAttributeKey : Any]
@@ -88,7 +89,8 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
         }
         
         
-        let url = URL(string: "http://192.168.8.15:3010/v1.0/Dec2/\(token)")!
+//        let url = URL(string: "http://192.168.10.31:3007/v1.0/upload/\(token)")!
+        let url = URL(string: "http://192.168.10.31:3007/v1/upload2?enc=0")!
         var request = URLRequest(url: url,
                                  cachePolicy: .reloadIgnoringLocalCacheData,
                                  timeoutInterval: 10)
@@ -132,8 +134,8 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
 //        request.setValue("Keep-Alive", forHTTPHeaderField: "timeout=50, max=10000000")
 //        request.addValue(String(fileSize), forHTTPHeaderField: "Content-Length") // <-- here!
 //        request.httpBodyStream = InputStream(data: encryptData(data: data))
-//        request.httpBodyStream = InputStream(fileAtPath: rickPath)
-        request.httpBodyStream = boundStreams?.input
+        request.httpBodyStream = InputStream(fileAtPath: rickPath)
+//        request.httpBodyStream = boundStreams?.input
 //        print("=-=-=-=-=-", boundStreams.input)
         request.httpMethod = "POST"
         let uploadTask = session.uploadTask(withStreamedRequest: request)
@@ -222,28 +224,8 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
                 if dt.count <= 0 {
     //                canWrite = false
                     print("=-=-=-=-=-=- Output Close")
-                    boundStreams?.output.close()
-                    return
-                }
-                
-                try! encryptor?.update(withBytes: dt.bytes, output: {[weak self] (bytes) in
                     
-                    guard let sSelf = self else {
-                        return
-                    }
-                    
-                    var finalByte = bytes
-                    if isFirstChunk {
-                        finalByte = (ivString.data(using: .utf8)!.bytes) + bytes
-                        isFirstChunk = false
-                    }
-                    sSelf.boundStreams?.output.write(finalByte, maxLength: finalByte.count)
-                })
-                
-                
-                
-                if currentOffset + 4096 >= fileSize {
-                    try! encryptor?.finish(withBytes: dt.bytes, output: {[weak self] (bytes) in
+                    try! encryptor?.finish(output: {[weak self] (bytes) in
                         guard let sSelf = self else {
                             return
                         }
@@ -252,14 +234,54 @@ class UploadStream: NSObject, URLSessionTaskDelegate, StreamDelegate {
                         
                     })
                     
-//                    try! encryptor?.finish(output: <#T##(Array<UInt8>) -> Void#>)
                     
+                    
+                    boundStreams?.output.close()
+                    return
                 }
                 
+//                print("+++++=-=-=-=-", String(data: dt, encoding: .utf8))
+//                print("++++ \(String(data: dt, encoding: .utf8))", separator: "/n")
                 
-                
-                
-                
+                try! encryptor?.update(withBytes: dt.bytes, output: {[weak self] (bytes) in
+
+                    guard let sSelf = self else {
+                        return
+                    }
+
+                    var finalByte = bytes
+                    if isFirstChunk {
+                        finalByte = (ivString.data(using: .utf8)!.bytes) + bytes
+                        isFirstChunk = false
+                    }
+                    sSelf.boundStreams?.output.write(finalByte, maxLength: finalByte.count)
+                    
+                })
+
+
+
+                if currentOffset + 4096 >= fileSize {
+//                    try! encryptor?.finish(withBytes: dt.bytes, output: {[weak self] (bytes) in
+//                        guard let sSelf = self else {
+//                            return
+//                        }
+//
+//                        sSelf.boundStreams?.output.write(bytes, maxLength: bytes.count)
+//
+//                    })
+                    
+                    
+                    
+//                    try! encryptor?.finish(output: {[weak self] (bytes) in
+//                        guard let sSelf = self else {
+//                            return
+//                        }
+//
+//                        sSelf.boundStreams?.output.write(bytes, maxLength: bytes.count)
+//
+//                    })
+                    
+                }
                 
 //                self.boundStreams?.output.write(dt.bytes, maxLength: dt.count)
                 
@@ -318,11 +340,11 @@ class someApi {
     
     func getToken(completion: @escaping getToken) {
         
-        let url = URL(string: "http://192.168.8.15:4000/v1.0/init")!
+        let url = URL(string: "http://192.168.10.31:3007/v1.0/init")!
         
-        let params: Parameters = ["size": 5341748,
-                                  "name": "rec.mov",
-                                  "extension": "mov",
+        let params: Parameters = ["size": 453723,
+                                  "name": "222.png",
+                                  "extension": "png",
                                   "room_id": "12"]
         
         print("=-=-=-=- Token Called =-=-=-=-")
@@ -345,4 +367,3 @@ class someApi {
     }
     
 }
-

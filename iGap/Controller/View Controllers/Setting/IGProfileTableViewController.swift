@@ -717,9 +717,11 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         
-        
         let ff = UploadStream()
-        ff.createUploadTask(token: "token")
+        ff.pickImage(vc: self)
+        
+//        let ff = UploadStream()
+//        ff.createUploadTask(token: "token")
         
 //        someApi.shared.getToken {[weak self] (token) in
 //            guard let sSelf = self else {
