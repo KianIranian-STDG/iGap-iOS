@@ -50,6 +50,9 @@ class AbstractDashboardCell: UICollectionViewCell {
 //                img1Abs?.image = nil
 //                img1Abs = nil
 //                view1Abs?.backgroundColor = .clear
+                let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapImage1(_:)))
+                mainViewAbs?.addGestureRecognizer(tap1)
+                mainViewAbs?.isUserInteractionEnabled = true
 
             }
         }
