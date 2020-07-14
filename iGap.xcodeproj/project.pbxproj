@@ -167,6 +167,7 @@
 		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
 		8E88918C24604E9C00BB449A /* IGLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88918B24604E9C00BB449A /* IGLoading.swift */; };
+		8E8A9F3824BD887F00EF6328 /* DashboardCell0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A9F3724BD887F00EF6328 /* DashboardCell0.swift */; };
 		8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */; };
 		8E8ABDC12394F2EA00DE00DB /* IGStructNewsMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */; };
 		8E8ABDC42394F89600DE00DB /* IGNewsSliderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8ABDC22394F89600DE00DB /* IGNewsSliderTVCell.swift */; };
@@ -1216,6 +1217,7 @@
 		8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTransparentTabBar.swift; sourceTree = "<group>"; };
 		8E871886233CEE18004A5E56 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		8E88918B24604E9C00BB449A /* IGLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLoading.swift; sourceTree = "<group>"; };
+		8E8A9F3724BD887F00EF6328 /* DashboardCell0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell0.swift; sourceTree = "<group>"; };
 		8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsTableViewController.swift; sourceTree = "<group>"; };
 		8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructNewsMainPage.swift; sourceTree = "<group>"; };
 		8E8ABDC22394F89600DE00DB /* IGNewsSliderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsSliderTVCell.swift; sourceTree = "<group>"; };
@@ -4094,6 +4096,7 @@
 				FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */,
 				FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */,
 				8EBF550822D9B85400834E6A /* DahsboardCell8.swift */,
+				8E8A9F3724BD887F00EF6328 /* DashboardCell0.swift */,
 				8EBF550622D9B84900834E6A /* DashboardCell8.xib */,
 			);
 			path = "Dashboard Cells";
@@ -5768,6 +5771,7 @@
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
 				8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */,
 				D67E985223A6796B003C1516 /* CanBetriggered.swift in Sources */,
+				8E8A9F3824BD887F00EF6328 /* DashboardCell0.swift in Sources */,
 				FAA4E859231247B00091199B /* IGHelperForward.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,

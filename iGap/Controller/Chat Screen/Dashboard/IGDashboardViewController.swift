@@ -218,6 +218,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     private func registerCellsNib() {
         self.collectionView!.register(DashboardCellUnknown.nib(), forCellWithReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier())
+        self.collectionView!.register(DashboardCell0.self, forCellWithReuseIdentifier: "DashboardCell0.cellReuseIdentifier()")
         self.collectionView!.register(DashboardCell1.nib(), forCellWithReuseIdentifier: DashboardCell1.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell2.nib(), forCellWithReuseIdentifier: DashboardCell2.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell3.nib(), forCellWithReuseIdentifier: DashboardCell3.cellReuseIdentifier())
@@ -527,41 +528,52 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         else {
             
             let item = discoveries[indexPath.section]
-            if item.igpModel == .model1 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
-                cell.semanticContentAttribute = semantic
-                let discoveryFields = item.igpDiscoveryfields
-                cell.initView(dashboard: discoveryFields)
+            if item.igpModel.rawValue == 0 {
+                if item.igpDiscoveryfields[0].igpActiontype == .ivand {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DashboardCell0.cellReuseIdentifier()", for: indexPath) as! DashboardCell0
+                    cell.semanticContentAttribute = semantic
+                    let discoveryFields = item.igpDiscoveryfields
+                    cell.initView(dashboard: discoveryFields)
+                    
+                    return cell
+
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
+                    cell.semanticContentAttribute = semantic
+                    let discoveryFields = item.igpDiscoveryfields
+                    cell.initView(dashboard: discoveryFields)
+                    return cell
+
+                }
                 
-                return cell
-            } else if item.igpModel == .model2 {
+            } else if item.igpModel.rawValue == 1 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
                 
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 
                 return cell
-            } else if item.igpModel == .model3 {
+            } else if item.igpModel.rawValue == 2 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 return cell
-            } else if item.igpModel == .model4 {
+            } else if item.igpModel.rawValue == 3 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 return cell
-            } else if item.igpModel == .model5 {
+            } else if item.igpModel.rawValue == 4 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 return cell
-            } else if item.igpModel == .model6 {
+            } else if item.igpModel.rawValue == 5 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
                 return cell
-            } else if item.igpModel == .model7 {
+            } else if item.igpModel.rawValue == 6 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
