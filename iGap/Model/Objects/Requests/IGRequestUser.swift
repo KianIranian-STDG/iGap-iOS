@@ -1484,11 +1484,16 @@ class IGUserIVandSetActivityRequest: IGRequest {
             if let response = protoResponse as? IGPUserIVandSetActivityResponse {
                 switch response.igpState {
                 case true :
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
+
+                    })
                     break
                 default :
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    })
 
                     
                 }

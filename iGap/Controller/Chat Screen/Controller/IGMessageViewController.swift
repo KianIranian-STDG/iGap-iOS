@@ -141,6 +141,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var txtFloatingDate: UILabel!
     
     // MARK: - Variables
+    private var didTapOnMention : Bool = false
     private var myNavigationItem: IGNavigationItem!
     var multiShareModalOriginalHeight : CGFloat!
     var alreadyInSendMode : Bool = false
@@ -939,6 +940,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.createTopMusicPlayer()
         }
+        self.tableViewNode.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1198,10 +1200,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         /******************** Chat Message Actions ********************/
         SwiftEventBus.onMainThread(self, name: "\(IGGlobal.eventBusChatKey)\(self.room!.id)") { [weak self] (result) in
-            
+            guard let sSlef = self else { return }
+            print("ROOMID IS :",sSlef.room?.id)
+
             if let onMessageRecieveInChatPage = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType), onMessageRecieveInChatPage.action == ChatMessageAction.receive {
                 // if message is for another room shouldn't be add to current room
-                if self?.currentRoomId != onMessageRecieveInChatPage.roomId {return}
+                if self?.currentRoomId != onMessageRecieveInChatPage.roomId {
+                    if let navController = UIApplication.topViewController()?.navigationController, navController.viewControllers.count >= 2 {
+                        if let msgVC = navController.viewControllers[navController.viewControllers.count - 1] as? IGMessageViewController {
+                            print("LAST VC IS CHAT VC",msgVC.room?.id)
+                            
+                        } else {
+                            return
+                        }
+                    } else {
+                        return
+                    }
+                    
+                }
                 
                 /**
                  * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
@@ -7886,6 +7902,10 @@ extension IGMessageViewController {
         DispatchQueue.main.async {
             if let cellPosition = IGMessageViewController.messageIdsStatic[(self.currentRoomId)!]?.firstIndex(of: fakeMessageId) {
                 if self.messages!.count <= cellPosition  {
+                    if (self.messages!.count) > 1 {
+                        self.removeMessageArrayByPosition(cellPosition: (self.messages!.count) - 1)
+                    }
+
                     return
                 }
                 self.removeMessageArrayByPosition(cellPosition: cellPosition)

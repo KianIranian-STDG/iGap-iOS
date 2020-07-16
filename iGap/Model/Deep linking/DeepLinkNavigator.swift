@@ -206,7 +206,14 @@ class DeeplinkNavigator {
         chatPage.room = igRoom
         chatPage.deepLinkMessageId = messageId
         chatPage.hidesBottomBarWhenPushed = true
-        UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+        if let stack = UIApplication.topViewController()!.navigationController?.viewControllers {
+          for vc in stack where vc.isKind(of: IGMessageViewController.self) {
+            debugPrint("VC Already exists")
+            return
+          }
+            UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+
+        }
     }
     
     private func displayAlert(title: String) {
