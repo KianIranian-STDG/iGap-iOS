@@ -7968,16 +7968,22 @@ extension IGMessageViewController {
     }
     
     private func appendAtSpecificPosition(_ message: IGRoomMessage, cellPosition: Int){
-        if self.messages!.count <= cellPosition  {
+        if messages != nil  {
+            if self.messages!.count <= cellPosition {
+                return
+            }
+
+            self.messages!.insert(message.detach(), at: cellPosition)
+            IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
+            
+            self.tableViewNode?.performBatchUpdates({
+                self.tableViewNode?.insertRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
+            }, completion: nil)
+
+        } else {
             return
         }
         
-        self.messages!.insert(message.detach(), at: cellPosition)
-        IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
-        
-        self.tableViewNode?.performBatchUpdates({
-            self.tableViewNode?.insertRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
-        }, completion: nil)
     }
     
     private func removeMessageArray(messageId: Int64){

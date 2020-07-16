@@ -184,9 +184,11 @@ open class ActiveLabel: UILabel {
 
     // MARK: - init functions
     override public init(frame: CGRect) {
-        super.init(frame: frame)
-        _customizing = false
-        setupLabel()
+        
+            super.init(frame: frame)
+            _customizing = false
+            setupLabel()
+
     }
 
     required public init?(coder aDecoder: NSCoder) {
