@@ -1201,15 +1201,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         /******************** Chat Message Actions ********************/
         SwiftEventBus.onMainThread(self, name: "\(IGGlobal.eventBusChatKey)\(self.room!.id)") { [weak self] (result) in
             guard let sSlef = self else { return }
-            print("ROOMID IS :",sSlef.room?.id)
-
+            print("ROOMID IS :",sSlef.room?.id,sSlef.currentRoomId)
             if let onMessageRecieveInChatPage = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType), onMessageRecieveInChatPage.action == ChatMessageAction.receive {
                 // if message is for another room shouldn't be add to current room
                 if self?.currentRoomId != onMessageRecieveInChatPage.roomId {
                     if let navController = UIApplication.topViewController()?.navigationController, navController.viewControllers.count >= 2 {
                         if let msgVC = navController.viewControllers[navController.viewControllers.count - 1] as? IGMessageViewController {
-                            print("LAST VC IS CHAT VC",msgVC.room?.id)
-                            
+                            print("LAST VC IS CHAT VC",msgVC.room?.id,msgVC.currentRoomId)
+                            msgVC.tableViewNode.reloadData()
                         } else {
                             return
                         }
