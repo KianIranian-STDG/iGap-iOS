@@ -3581,6 +3581,8 @@ class ChatControllerNode: ASCellNode {
         textBox.justifyContent = .spaceAround
         textBox.children = [txtMusicName!,txtMusicArtist!]
         textBox.spacing = 0
+        textBox.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 200)
+        textBox.style.minWidth  = ASDimensionMake (.points, 100)
         if msg.attachment != nil {
             if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.attachment!.status != .ready {
                 if indicatorViewAbs == nil {
