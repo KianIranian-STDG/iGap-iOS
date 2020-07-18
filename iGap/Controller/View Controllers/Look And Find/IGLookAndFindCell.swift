@@ -40,11 +40,17 @@ class IGLookAndFindCell: UITableViewCell {
     
     func setSearchResult(result: IGLookAndFindStruct){
         if result.type == .channel || result.type == .group {
-            setRoom(room: result.room)
+            if result.room != nil {
+                setRoom(room: result.room)
+            }
         } else if result.type == .user { // users & bots
-            setUser(user: result.user)
+            if result.user != nil {
+                setUser(user: result.user)
+            }
         } else if result.type == .message || result.type == .hashtag {
-            setMessage(message: result.message)
+            if result.message != nil {
+                setMessage(message: result.message)
+            }
         }
     }
     
@@ -125,7 +131,19 @@ class IGLookAndFindCell: UITableViewCell {
         if let user = finalMessage.authorUser?.user {
             setUser(user: user, message: finalMessage.message)
         } else if let room = message.authorRoom {
-            setRoom(room: room.roomInfo, message: finalMessage.message)
+
+            if room.roomInfo != nil  {
+                setRoom(room: room.roomInfo, message: finalMessage.message)
+
+            } else {
+                IGClientGetRoomRequest.sendRequestAvoidDuplicate(roomId: room.roomId) {[weak self] (_) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.setRoom(room: room.roomInfo, message: finalMessage.message)
+
+                }
+            }
         }
         //setRoom(room: IGRoom.getRoomInfo(roomId: message.roomId), message: message.message)
     }
