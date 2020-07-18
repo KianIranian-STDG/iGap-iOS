@@ -198,8 +198,8 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             }
             else {
                 //                showLogoutActionSheet()
-                let fileSize : Int = 18462554
-                download(token : "5a8b3703-0e60-4461-81b2-6d831d500959", endRange: fileSize)
+//                let fileSize : Int = 18462554
+//                download(token : "5a8b3703-0e60-4461-81b2-6d831d500959", endRange: fileSize)
                 
             }
         }

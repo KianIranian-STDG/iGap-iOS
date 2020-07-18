@@ -26,7 +26,7 @@ class IGFilesManager {
                                                                        includingPropertiesForKeys: nil,
                                                                        options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
             for fileURL in fileURLs {
-                if fileURL.absoluteString.contains("5a8b3703-0e60-4461-81b2-6d831d500959") {
+                if fileURL.absoluteString.contains(token) {
                     try FileManager.default.removeItem(at: fileURL)
                 }
             }
