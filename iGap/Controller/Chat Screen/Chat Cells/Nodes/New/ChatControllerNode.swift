@@ -3504,17 +3504,16 @@ class ChatControllerNode: ASCellNode {
         let metadataList = playerItem.asset.commonMetadata
         var hasSingerName : Bool = false
         var hasSongName : Bool = false
-        
-        for item in metadataList {
-            if item.commonKey!.rawValue == "title" {
-                let songName = item.stringValue!
+        if playerItem.asset.commonMetadata.first != nil {
+            if playerItem.asset.commonMetadata.first?.commonKey!.rawValue == "title" {
+                let songName = (playerItem.asset.commonMetadata.first?.stringValue!)!
                 hasSongName = true
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
                 
             }
-            if item.commonKey!.rawValue == "artist" {
-                let singerName = item.stringValue!
+            if playerItem.asset.commonMetadata.first?.commonKey!.rawValue == "artist" {
+                let singerName = (playerItem.asset.commonMetadata.first?.stringValue!)!
                 hasSingerName = true
 
                 let tmpcolor = IGGlobal.makeCustomColor(OtherThemesColor: ThemeManager.currentTheme.timeColor,BlackThemeColor: .white)
@@ -3523,7 +3522,11 @@ class ChatControllerNode: ASCellNode {
                 
             }
             
+        } else {
+            hasSingerName = false
+            hasSongName = false
         }
+
         
         if !hasSingerName {
             let singerName = IGStringsManager.UnknownArtist.rawValue.localized
@@ -3539,7 +3542,12 @@ class ChatControllerNode: ASCellNode {
                 let songName = sn
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
-            } else {
+            } else if let snn = file.name {
+                let songName = snn
+                IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+                
+            }else {
                 let songName = IGStringsManager.UnknownAudio.rawValue.localized
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
@@ -5328,14 +5336,26 @@ class ChatControllerNode: ASCellNode {
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
         
-        if message!.type == .audio || message!.type == .audioAndText {
+        var msg : IGRoomMessage!
+        
+        if message!.repliedTo != nil {
+            msg = message
+            
+        } else if let forwardedFrom = message!.forwardedFrom {
+            msg = forwardedFrom
+        } else {
+            msg = message
+        }
+
+        if msg.type == .audio || msg.type == .audioAndText {
             IGGlobal.isVoice = false // determine the file is not voice and is music
             IGGlobal.clickedAudioCellIndexPath = index
-            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!,room: finalRoom)
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: msg,room: finalRoom)
         }else {
+            
             IGGlobal.isVoice = true
             IGGlobal.clickedAudioCellIndexPath = index
-            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode!.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: message!,room: finalRoom)
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode?.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: msg,room: finalRoom)
         }
         
         
