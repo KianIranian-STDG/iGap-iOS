@@ -4002,8 +4002,8 @@ class ChatControllerNode: ASCellNode {
 
         }
         if msg.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.attachment!.isInUploadLevels() {
-
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.status == .failed || msg.status == .sending || msg.status == .unknown {
+                
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
                         let view = IGProgress()
@@ -4024,6 +4024,8 @@ class ChatControllerNode: ASCellNode {
                     IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: .white, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
                     btnPlay?.isHidden = true
                 }
+
+                
             } else {
                 indicatorViewAbs?.removeFromSupernode()
                 indicatorViewAbs = nil
@@ -4402,10 +4404,16 @@ class ChatControllerNode: ASCellNode {
                     
                     imgNode!.setThumbnail(for: attachment)
                     
-                    if attachment.status != .ready {
+                    if attachment.status != .ready  {
                         if indicatorViewAbs != nil {
                             (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
+                    }
+                    if msg.status == .failed || msg.status == .unknown {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+
                     }
                     break
                 }
@@ -4466,11 +4474,17 @@ class ChatControllerNode: ASCellNode {
             if fileExist && !attachment.isInUploadLevels() {
                 if msg!.type == .video || msg!.type == .videoAndText {
                     //                    makePlayButton()
-                    btnPlay?.isHidden = false
-//                    indicatorViewAbs?.isHidden = true
-                    indicatorViewAbs?.isUserInteractionEnabled = false
-                    indicatorViewAbs?.view.isUserInteractionEnabled = false
-                    indicatorViewAbs?.removeFromSupernode()
+                    if msg!.status == IGRoomMessageStatus.sent || msg!.status == IGRoomMessageStatus.delivered {
+                        btnPlay?.isHidden = false
+                        indicatorViewAbs?.isUserInteractionEnabled = false
+                        indicatorViewAbs?.view.isUserInteractionEnabled = false
+                        indicatorViewAbs?.removeFromSupernode()
+
+                    } else {
+                        indicatorViewAbs?.isUserInteractionEnabled = true
+                        indicatorViewAbs?.view.isUserInteractionEnabled = true
+
+                    }
                 }
                 if msg?.status == IGRoomMessageStatus.failed {
                     (indicatorViewAbs?.view as? IGProgress)?.setState(.uploadFailed)
@@ -5768,7 +5782,7 @@ extension ChatControllerNode: IGProgressDelegate {
                 if attachment.status == .uploading {
                     SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(finalRoom!.id)", sender: (action: ChatMessageAction.delete, roomId: finalRoom!.id, messageId: message!.id))
                     IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
-                } else if attachment.status == .uploadFailed {
+                } else if attachment.status == .uploadFailed || message?.status == IGRoomMessageStatus.failed  {
                     IGMessageSender.defaultSender.resend(message: message!, to: finalRoom!)
                     
                 } else {
