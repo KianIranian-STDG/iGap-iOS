@@ -123,6 +123,8 @@ class IGProgress: UIView {
             return
         }
         
+            print("++++++++++++ ", percent)
+            
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             animation.duration = 1.0
             animation.delegate = sSelf

@@ -11,14 +11,24 @@
 import UIKit
 import IGProtoBuff
 import SwiftProtobuf
+import RxSwift
 
 typealias UploadStartCallback    = (()->())?
 typealias UploadProgressCallback = ((Progress)->())?
 typealias UploadCompleteCallback = ((IGUploadTask)->())?
 typealias UploadFailedCallback   = (()->())?
 
+enum UploadDownloadStatus {
+    case waiting
+    case uploading
+    case finished
+    case failed
+}
 
-class IGUploadManager {
+class IGUploadManager: StreamManagerDelegate {
+    
+    var disposeBag = DisposeBag()
+    
     static let sharedManager = IGUploadManager()
     fileprivate var uploadQueue: DispatchQueue
     private var pendingUploads = [IGUploadTask]()
@@ -112,8 +122,9 @@ class IGUploadManager {
     private func startNextTaskIfPossible() {
         if let task = pendingUploads.first {
             if task.status == .waiting {
-                task.file.loadData()
-                getUploadOptions(for: task)
+//                task.file.loadData()
+//                getUploadOptions(for: task)
+                initializeStreamUpload(for: task)
             }
         }
     }
@@ -124,6 +135,13 @@ class IGUploadManager {
         
         guard let fileData = task.file.data else {
             return
+        }
+        
+        if task.file.uploadDownloadMethod != UploadDownloadMethod.Socket.rawValue {
+            if task.file.uploadDownloadMethod == UploadDownloadMethod.Rest.rawValue && task.file.token != nil{
+                task.file.token = nil
+            }
+            IGFile.setUploadDownloadMethod(cacheId: task.file.cacheID!, uploadDownloadMethod: .Socket)
         }
         
         DispatchQueue.main.async {
@@ -153,6 +171,84 @@ class IGUploadManager {
                 }
             }
         }).send()
+    }
+    
+    //Step 1-Stream: Initialize Upload
+    private func initializeStreamUpload(for task: IGUploadTask, forceRestart: Bool = false) {
+        
+        if task.file.uploadDownloadMethod != UploadDownloadMethod.Socket.rawValue {
+            if task.file.uploadDownloadMethod == UploadDownloadMethod.NotSet.rawValue {
+                IGFile.setUploadDownloadMethod(cacheId: task.file.cacheID!, uploadDownloadMethod: .Rest)
+            }
+            if task.file.token == nil {
+                requestNewUploadToken(for: task)
+            } else {
+                resumeUpload(for: task)
+            }
+        } else {
+            requestNewUploadToken(for: task)
+        }
+        
+    }
+    
+    //Step 2-Stream: Request Upload Token
+    private func requestNewUploadToken(for task: IGUploadTask) {
+        
+        let fileExtension = ((task.file.name ?? "") as NSString).pathExtension.lowercased()
+        IGApiStream.shared.initUpload(name: task.file.name ?? "", fileExtension: fileExtension, size: UInt64(task.file.size)) {[weak self] (response, error) in
+            
+            guard let sSelf = self else {
+                return
+            }
+            
+            if error != nil || response?.token == nil || task.file.cacheID == nil {
+                IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
+                task.status = .failed
+                sSelf.removeFromQueueAndStartNext(task: task)
+                DispatchQueue.main.async {
+                    if let failureClosure = task.failureCallBack {
+                        failureClosure()
+                    }
+                }
+                return
+            }
+            
+            IGFile.updateFileToken(cacheId: task.file.cacheID!, token: (response?.token)!)
+            sSelf.createUploadTask(for: task, token: (response?.token)!)
+            
+        }
+        
+    }
+    
+    //Step 2-Stream-Resume: Resume Upload With Existing Token
+    private func resumeUpload(for task: IGUploadTask) {
+        
+        IGApiStream.shared.uploadResume(token: task.file.token!) {[weak self] (uploadedSize, fileNotFound, error) in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if error != nil {
+                IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
+                task.status = .failed
+                sSelf.removeFromQueueAndStartNext(task: task)
+                DispatchQueue.main.async {
+                    if let failureClosure = task.failureCallBack {
+                        failureClosure()
+                    }
+                }
+                return
+            }
+            
+            if fileNotFound {
+                sSelf.initializeStreamUpload(for: task, forceRestart: true)
+                return
+            }
+            
+            sSelf.createUploadTask(for: task, token: task.file.token!, offset: uploadedSize!)
+            
+        }
+        
     }
     
     //Step 2: Initilize Upload
@@ -194,6 +290,38 @@ class IGUploadManager {
                 }
             }
         }).send()
+    }
+    
+    //Step 3-Stream: Create Upload Task
+    private func createUploadTask(for task: IGUploadTask, token: String, offset: UInt64 = 0) {
+        
+        let manager = StreamManager(uploadTask: task)
+        manager.delegate = self
+        guard let fileUrl = task.file.localUrl else {
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
+            task.status = .failed
+            self.removeFromQueueAndStartNext(task: task)
+            DispatchQueue.main.async {
+                if let failureClosure = task.failureCallBack {
+                    failureClosure()
+                }
+            }
+            return
+        }
+        manager.createUploadTask(token: token, path: fileUrl, offset: offset)
+        var oldProgressValue : Double = 0
+        manager.progress.asObservable().subscribe(onNext: { (progress) in
+            
+            if progress - oldProgressValue < 0.05 && progress < 0.9 {
+                return
+            }
+            oldProgressValue = progress
+            
+            IGAttachmentManager.sharedManager.setProgress(progress, for: task.file)
+            IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
+            
+        }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
+        
     }
     
     //Step 3: Upload a chunk of file (repeat this step until finish)
@@ -283,29 +411,55 @@ class IGUploadManager {
             }
         }).send()
     }
+    
+    func uploadStatusDidChange(task: IGUploadTask, status: UploadDownloadStatus) {
+        switch status {
+        case .failed:
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
+            task.status = .failed
+            self.removeFromQueueAndStartNext(task: task)
+            DispatchQueue.main.async {
+                if let failureClosure = task.failureCallBack {
+                    failureClosure()
+                }
+            }
+            return
+        
+        case .finished:
+//            if let fakeCacheId = task.file.cacheID, let token = task.token {
+//                IGFile.updateFileToken(cacheId: fakeCacheId, token: token)
+//            }
+            task.status = .finished
+            self.removeFromQueueAndStartNext(task: task)
+            DispatchQueue.main.async {
+                if let completeClosure = task.successCallBack {
+                    completeClosure(task)
+                }
+            }
+            return
+        default:
+            break
+        }
+    }
+    
 }
 
 
 class IGUploadTask: NSObject{
-    enum Status {
-        case waiting
-        case uploading
-        case finished
-        case failed
-    }
     
-    var status = Status.waiting
+    var status = UploadDownloadStatus.waiting
     var file:IGFile
     var token: String?
     var progress: Double = 0
     var initialBytesLimit : Int32?
     var finalBytesLimit : Int32?
+    var fileExtension = String()
     
     var startCallBack   : UploadStartCallback
     var progressCallBack: UploadProgressCallback
     var successCallBack : UploadCompleteCallback
     var failureCallBack : UploadFailedCallback
-    fileprivate init(file:IGFile, start: UploadStartCallback, progress:UploadProgressCallback, completion:UploadCompleteCallback, failure:UploadFailedCallback) {
+    fileprivate init(file:IGFile,  start: UploadStartCallback, progress:UploadProgressCallback, completion:UploadCompleteCallback, failure:UploadFailedCallback) {
         self.file = file.detach()
         self.startCallBack    = start
         self.progressCallBack = progress
@@ -321,4 +475,3 @@ func == (lhs: IGUploadTask, rhs: IGUploadTask) -> Bool {
     }
     return false
 }
-
