@@ -37,7 +37,8 @@ class ChatControllerNode: ASCellNode {
     private var LiveStickerView : ASDisplayNode?
     private var NormalGiftStickerView : ASDisplayNode?
     private var btnPlay : ASButtonNode?
-    
+    var attachedImage : UIImage?
+
     //filenode
     private var txtTitleNode : ASTextNode?
     private var txtSizeNode : ASTextNode?
@@ -4110,7 +4111,7 @@ class ChatControllerNode: ASCellNode {
                 isIncomming ?
                 UIEdgeInsets(top: 2, left: 8, bottom: 5, right: 3)
                 :
-                UIEdgeInsets(top: 0, left: 3, bottom: 5, right: 8),
+                UIEdgeInsets(top: 2, left: 3, bottom: 5, right: 8),
                                                    child: botNode)
             
             return finalInsetSpec
@@ -4399,7 +4400,11 @@ class ChatControllerNode: ASCellNode {
 //                        imgNode!.setImageColor(color: UIColor.purple)
 
                     } else {
-//                        imgNode!.image = UIImage(named: "igap_default_video")
+                        imgNode!.image = attachedImage ?? nil
+                        if let imgCover = attachment.smallThumbnail  {
+                            imgNode?.setThumbnail(for: imgCover)
+                        }
+                        attachedImage = nil
                     }
                     
                     imgNode!.setThumbnail(for: attachment)

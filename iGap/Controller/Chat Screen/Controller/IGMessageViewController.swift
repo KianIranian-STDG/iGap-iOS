@@ -8222,6 +8222,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             let cellNode = ChatControllerNode(message: msg!.detach(), finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             cellNode.selectionStyle = .none
             cellNode.delegate = self
+            cellNode.attachedImage = sSelf.imgAttachmentImage.image
             return cellNode
         }
             
