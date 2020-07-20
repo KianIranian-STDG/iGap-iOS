@@ -62,7 +62,7 @@ class StreamManager: NSObject, URLSessionTaskDelegate, StreamDelegate {
     
     func createUploadTask(token: String, path: URL, offset: UInt64 = 0) {
         
-        let url = URL(string: "http://192.168.10.31:3007/v1.0/upload/\(token)")!
+        let url = URL(string: "https://api.igap.net/file-test/v1.0/upload/\(token)")!
         var request = URLRequest(url: url,
                                  cachePolicy: .reloadIgnoringLocalCacheData,
                                  timeoutInterval: 10)

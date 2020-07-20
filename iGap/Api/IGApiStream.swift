@@ -14,9 +14,9 @@ typealias UploadInitResponse = (_ initUpload: InitUploadStream?, _ error: String
 typealias UploadResumeResponse = (_ byteReceived: UInt64?, _ fileNotFound: Bool, _ error: String?) -> Void
 
 
-//fileprivate let SBaseUrl = "https://api.igap.net/file-test/v1.0"
+fileprivate let SBaseUrl = "https://api.igap.net/file-test/v1.0"
 
-fileprivate let SBaseUrl = "http://192.168.10.31:3007/v1.0/"
+//fileprivate let SBaseUrl = "http://192.168.10.31:3007/v1.0/"
 
 
 class IGApiStream: IGApiBase {
@@ -40,12 +40,12 @@ class IGApiStream: IGApiBase {
     }
     
     // MARK: - Check Username
-    func initUpload(name: String, fileExtension: String, size: UInt64, completion: @escaping UploadInitResponse) {
+    func initUpload(name: String, size: UInt64, completion: @escaping UploadInitResponse) {
         
         let params: Parameters = [
             "size": size,
             "name": name,
-            "extension": fileExtension,
+            "extension": "",
             "room_id": "-1"
         ]
         
@@ -55,7 +55,7 @@ class IGApiStream: IGApiBase {
             }
             
             if sSelf.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                sSelf.initUpload(name: name, fileExtension: fileExtension, size: size, completion: completion)
+                sSelf.initUpload(name: name, size: size, completion: completion)
             }) {
                 
             } else {

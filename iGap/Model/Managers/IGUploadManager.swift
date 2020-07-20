@@ -194,8 +194,7 @@ class IGUploadManager: StreamManagerDelegate {
     //Step 2-Stream: Request Upload Token
     private func requestNewUploadToken(for task: IGUploadTask) {
         
-        let fileExtension = ((task.file.name ?? "") as NSString).pathExtension.lowercased()
-        IGApiStream.shared.initUpload(name: task.file.name ?? "", fileExtension: fileExtension, size: UInt64(task.file.size)) {[weak self] (response, error) in
+        IGApiStream.shared.initUpload(name: task.file.name ?? "", size: UInt64(task.file.size)) {[weak self] (response, error) in
             
             guard let sSelf = self else {
                 return
@@ -214,6 +213,7 @@ class IGUploadManager: StreamManagerDelegate {
             }
             
             IGFile.updateFileToken(cacheId: task.file.cacheID!, token: (response?.token)!)
+            task.file.token = response?.token!
             sSelf.createUploadTask(for: task, token: (response?.token)!)
             
         }
@@ -266,7 +266,6 @@ class IGUploadManager: StreamManagerDelegate {
             switch protoMessage {
             case let fileUploadInitReponse as IGPFileUploadInitResponse:
                 let response = IGFileUploadInitRequest.Handler.interpret(response: fileUploadInitReponse)
-                task.token = response.token
                 task.file.token = response.token
                 task.progress = response.progress
                 IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
@@ -328,7 +327,7 @@ class IGUploadManager: StreamManagerDelegate {
     private func uploadAChunk(task: IGUploadTask, offset: Int64, limit: Int32) {
         let fileData = NSData(data: task.file.data!)
         let bytes = fileData.subdata(with: NSMakeRange(Int(offset), Int(limit)))
-        IGFileUploadRequest.Generator.generate(token: task.token!, offset: offset, data: bytes, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
+        IGFileUploadRequest.Generator.generate(token: task.file.token ?? "", offset: offset, data: bytes, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadReponse as IGPFileUploadResponse:
                 let response = IGFileUploadRequest.Handler.interpret(response: fileUploadReponse)
@@ -359,7 +358,7 @@ class IGUploadManager: StreamManagerDelegate {
     
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
-        IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
+        IGFileUploadStatusRequest.Generator.generate(token: task.file.token ?? "", identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
             
             if self.canceledUpload {
                 self.canceledUpload = false
@@ -384,7 +383,7 @@ class IGUploadManager: StreamManagerDelegate {
                     })
                     break
                 case .processed:
-                    if let fakeCacheId = task.file.cacheID, let token = task.token {
+                    if let fakeCacheId = task.file.cacheID, let token = task.file.token {
                         IGFile.updateFileToken(cacheId: fakeCacheId, token: token)
                     }
                     
@@ -449,7 +448,6 @@ class IGUploadTask: NSObject{
     
     var status = UploadDownloadStatus.waiting
     var file:IGFile
-    var token: String?
     var progress: Double = 0
     var initialBytesLimit : Int32?
     var finalBytesLimit : Int32?
