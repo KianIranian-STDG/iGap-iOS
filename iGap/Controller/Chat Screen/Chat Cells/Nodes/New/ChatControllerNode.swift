@@ -4479,7 +4479,7 @@ class ChatControllerNode: ASCellNode {
             if fileExist && !attachment.isInUploadLevels() {
                 if msg!.type == .video || msg!.type == .videoAndText {
                     //                    makePlayButton()
-                    if msg!.status == IGRoomMessageStatus.sent || msg!.status == IGRoomMessageStatus.delivered {
+                    if msg!.status == IGRoomMessageStatus.sent || msg!.status == IGRoomMessageStatus.delivered ||  msg!.status == IGRoomMessageStatus.seen {
                         btnPlay?.isHidden = false
                         indicatorViewAbs?.isUserInteractionEnabled = false
                         indicatorViewAbs?.view.isUserInteractionEnabled = false
@@ -4530,6 +4530,19 @@ class ChatControllerNode: ASCellNode {
                         attachment.status = .ready
                         if sSelf.imgNode != nil {
                             sSelf.imgNode!.setThumbnail(for: attachment)
+                        }
+                        if msg!.type == .video || msg!.type == .videoAndText {
+                            if  sSelf.btnPlay == nil {
+                                sSelf.btnPlay = ASButtonNode()
+                                sSelf.btnPlay?.style.width = ASDimensionMake(.points, 50)
+                                sSelf.btnPlay?.style.height = ASDimensionMake(.points, 50)
+                                sSelf.btnPlay?.cornerRadius = 25
+                                sSelf.btnPlay?.backgroundColor = UIColor(white: 0, alpha: 0.6)
+                                IGGlobal.makeAsyncButton(for: sSelf.btnPlay!, with: "", textColor: .white, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
+                            }
+                            sSelf.btnPlay?.isHidden = false
+
+
                         }
                         
                         
