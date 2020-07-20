@@ -223,7 +223,9 @@ class IGUploadManager: StreamManagerDelegate {
     //Step 2-Stream-Resume: Resume Upload With Existing Token
     private func resumeUpload(for task: IGUploadTask) {
         
-        IGApiStream.shared.uploadResume(token: task.file.token!) {[weak self] (uploadedSize, fileNotFound, error) in
+        var retryCount = 0
+        
+        IGApiStream.shared.uploadResume(token: task.file.token!) {[weak self] (uploadedSize, fileStatus, error) in
             guard let sSelf = self else {
                 return
             }
@@ -240,9 +242,24 @@ class IGUploadManager: StreamManagerDelegate {
                 return
             }
             
-            if fileNotFound {
-                sSelf.initializeStreamUpload(for: task, forceRestart: true)
-                return
+            if let status = fileStatus {
+                if status == .NotFound {
+                    sSelf.initializeStreamUpload(for: task, forceRestart: true)
+                    return
+                }else {
+                    
+                    if retryCount > 4 {
+                        sSelf.initializeStreamUpload(for: task, forceRestart: true)
+                        return
+                    }
+                    
+                    sSelf.uploadQueue.asyncAfter(deadline: .now() + 5) {
+                        retryCount += 1
+                        sSelf.resumeUpload(for: task)
+                        return
+                    }
+                    
+                }
             }
             
             sSelf.createUploadTask(for: task, token: task.file.token!, offset: uploadedSize!)

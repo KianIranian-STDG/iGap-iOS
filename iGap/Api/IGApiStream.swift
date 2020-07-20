@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 typealias UploadInitResponse = (_ initUpload: InitUploadStream?, _ error: String?) -> Void
-typealias UploadResumeResponse = (_ byteReceived: UInt64?, _ fileNotFound: Bool, _ error: String?) -> Void
+typealias UploadResumeResponse = (_ byteReceived: UInt64?, _ fileStatus: IGApiStream.FileStatus?, _ error: String?) -> Void
 
 
 fileprivate let SBaseUrl = "https://api.igap.net/file-test/v1.0"
@@ -20,6 +20,11 @@ fileprivate let SBaseUrl = "https://api.igap.net/file-test/v1.0"
 
 
 class IGApiStream: IGApiBase {
+    
+    enum FileStatus {
+        case NotFound
+        case Processing
+    }
     
     private override init() {
         super.init()
@@ -45,7 +50,7 @@ class IGApiStream: IGApiBase {
         let params: Parameters = [
             "size": size,
             "name": name,
-            "extension": "",
+            "extension": "jpg",
             "room_id": "-1"
         ]
         
@@ -109,12 +114,18 @@ class IGApiStream: IGApiBase {
             } else {
                 
                 guard let statusCode = response.response?.statusCode else {
-                    completion(nil, false, IGStringsManager.ServerError.rawValue.localized)
+                    completion(nil, .NotFound, IGStringsManager.ServerError.rawValue.localized)
                     return
                 }
                 
                 if statusCode == 404 {
-                    completion(nil, true, nil)
+                    completion(nil, .NotFound, nil)
+                    return
+                }
+                
+                if statusCode == 408 {
+                    // File is processing. Retry with 5sec interval
+                    completion(nil, .Processing, nil)
                     return
                 }
 
@@ -122,25 +133,25 @@ class IGApiStream: IGApiBase {
                     do {
                         let json = try JSON(data: response.data!)
                         guard let msg = json["message"].string else {
-                            completion(nil, false, IGStringsManager.ServerError.rawValue.localized)
+                            completion(nil, nil, IGStringsManager.ServerError.rawValue.localized)
                             return
                         }
-                        completion(nil, false, msg)
+                        completion(nil, nil, msg)
                         return
 
                     }catch {
-                        completion(nil, false, IGStringsManager.ServerError.rawValue.localized)
+                        completion(nil, nil, IGStringsManager.ServerError.rawValue.localized)
                         return
                     }
                 }
 
 
                 guard let data = response.value else {
-                    completion(nil, false, IGStringsManager.ServerError.rawValue.localized)
+                    completion(nil, nil, IGStringsManager.ServerError.rawValue.localized)
                     return
                 }
                 
-                completion(data.uploadedSize!, false, nil)
+                completion(data.uploadedSize!, nil, nil)
                 return
 
             }
