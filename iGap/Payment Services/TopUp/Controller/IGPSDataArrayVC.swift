@@ -111,7 +111,7 @@ class IGPSDataArrayVC: BaseTableViewController {
                 }
 
                 let x : CGFloat = (sSelf.items[(indexPath.row) - 2].category?.value)!
-                if ((sSelf.items[(indexPath.row)].category?.type)!) == "TRAFFIC" {
+                if ((sSelf.items[(indexPath.row) - 2].category?.type)!) == "TRAFFIC" {
                     var g : String = IGStringsManager.GB.rawValue.localized
                     if ((sSelf.items[(indexPath.row) - 2].category?.subType)!) == "GB" {
                         g = IGStringsManager.GB.rawValue.localized
