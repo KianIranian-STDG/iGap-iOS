@@ -983,7 +983,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if typingBubble.isDescendant(of: view) {
             removeTypingBubble()
         } else {
-            typingBubble.isHidden = true
+//            typingBubble.isHidden = true
             typingBubble.backgroundColor = .clear
             view.addSubview(typingBubble)
             view.bringSubviewToFront(typingBubble)
@@ -996,9 +996,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             imgShadowBubble.image = someoneImage
             imgShadowBubble.translatesAutoresizingMaskIntoConstraints = false
             typingBubble.addSubview(imgShadowBubble)
-            imgShadowBubble.leftAnchor.constraint(equalTo: typingBubble.leftAnchor,constant: -1).isActive = true
+            imgShadowBubble.leftAnchor.constraint(equalTo: typingBubble.leftAnchor,constant: 1).isActive = true
             imgShadowBubble.rightAnchor.constraint(equalTo: typingBubble.rightAnchor,constant: 1).isActive = true
-            imgShadowBubble.topAnchor.constraint(equalTo: typingBubble.topAnchor,constant: -1).isActive = true
+            imgShadowBubble.topAnchor.constraint(equalTo: typingBubble.topAnchor,constant: 1).isActive = true
             imgShadowBubble.bottomAnchor.constraint(equalTo: typingBubble.bottomAnchor,constant: 1).isActive = true
             
             imgShadowBubble.tintColor = .darkGray
@@ -1019,8 +1019,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let loading = IGDotActivityIndicator(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
             loading.stopAnimating()
             loading.startAnimating()
-            loading.fillColor = .black
-            loading.tintColor = .black
+            loading.fillColor = .darkGray
+            loading.tintColor = .darkGray
+            loading.alpha = 0.8
             loading.translatesAutoresizingMaskIntoConstraints = false
             typingBubble.addSubview(loading)
             loading.centerXAnchor.constraint(equalTo: typingBubble.centerXAnchor,constant: 0).isActive = true
@@ -1034,11 +1035,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
             
             
-            UIView.transition(with: typingBubble, duration: 0.2,
-                options: .transitionCrossDissolve,
-                animations: {
-                    self.typingBubble.isHidden = false
-            })
+//            UIView.transition(with: typingBubble, duration: 0.2,
+//                options: .transitionCrossDissolve,
+//                animations: {
+//                    self.typingBubble.isHidden = false
+//            })
+            self.typingBubble.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.typingBubble.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }, completion: nil)
+
 
 
         }
@@ -1050,8 +1057,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             UIView.transition(with: typingBubble, duration: 0.2,
                 options: .transitionCrossDissolve,
                 animations: {
-                    self.typingBubble.isHidden = true
+                    for sv in self.typingBubble.subviews {
+                        
+                        sv.removeFromSuperview()
+                    }
                     self.typingBubble.removeFromSuperview()
+
 
             })
 
