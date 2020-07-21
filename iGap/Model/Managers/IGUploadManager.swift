@@ -122,9 +122,9 @@ class IGUploadManager: StreamManagerDelegate {
     private func startNextTaskIfPossible() {
         if let task = pendingUploads.first {
             if task.status == .waiting {
-//                task.file.loadData()
-//                getUploadOptions(for: task)
-                initializeStreamUpload(for: task)
+                task.file.loadData()
+                getUploadOptions(for: task)
+//                initializeStreamUpload(for: task)
             }
         }
     }
