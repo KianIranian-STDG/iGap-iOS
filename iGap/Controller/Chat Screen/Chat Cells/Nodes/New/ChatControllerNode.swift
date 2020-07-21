@@ -4432,6 +4432,12 @@ class ChatControllerNode: ASCellNode {
                             (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
                     }
+                    if msg.status == .failed || msg.status == .unknown {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+
+                    }
                     break
                 }
             case  .file, .fileAndText :
@@ -4444,6 +4450,12 @@ class ChatControllerNode: ASCellNode {
                             (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
                     }
+                    if msg.status == .failed || msg.status == .unknown {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+
+                    }
                     break
                 }
                 
@@ -4454,6 +4466,12 @@ class ChatControllerNode: ASCellNode {
                         if indicatorViewAbs != nil {
                             (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
+                    }
+                    if msg.status == .failed || msg.status == .unknown {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+
                     }
                     break
                 }

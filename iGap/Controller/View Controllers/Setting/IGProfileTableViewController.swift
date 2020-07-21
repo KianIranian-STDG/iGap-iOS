@@ -717,25 +717,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         
-        
-//        let ff = UploadStream()
-//        ff.createUploadTask(token: "token")
-        
-//        someApi.shared.getToken {[weak self] (token) in
-//            guard let sSelf = self else {
-//                return
-//            }
-//
-//            let ff = UploadStream()
-//            ff.createUploadTask(token: token)
-//
-//        }
+        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        settingVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(settingVC, animated:true)
 
-//        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
-//        settingVC.hidesBottomBarWhenPushed = true
-//        self.navigationController!.pushViewController(settingVC, animated:true)
-
-        
     }
     
     //Hint: - Go To Cloud Action Handler
