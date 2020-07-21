@@ -13,6 +13,8 @@ import SwiftProtobuf
 import IGProtoBuff
 import Digger
 import Files
+import CryptoSwift
+import Alamofire
 
 typealias DownloadCompleteHandler = ((_ attachment:IGFile)->())?
 typealias DownloadFailedHander    = (()->())?
@@ -29,18 +31,40 @@ class IGDownloadManager {
     private var writeFile: DispatchQueue
     
     private var thumbnailTasks = [IGDownloadTask]()
-    
     var taskQueueTokenArray : [String] = []
     var dictionaryDownloadTaskMain : [String:IGDownloadTask] = [:]
     var dictionaryDownloadTaskQueue : [String:IGDownloadTask] = [:]
     var dictionaryPauseTask : [String:IGDownloadTask] = [:]
     let DOWNLOAD_LIMIT = 2
-    
+    var streamReq : DataStreamRequest!
+
     
     init() {
         downloadQueue  = DispatchQueue(label: "im.igap.ios.queue.download.attachments")
         thumbnailQueue = DispatchQueue(label: "im.igap.ios.queue.download.thumbnail")
         writeFile = DispatchQueue(label: "im.igap.ios.queue.download.write")
+    }
+    
+
+    public func getStreamHeader(startRange: Int64? = 0 ,endRange: Int64) -> HTTPHeaders {
+        //            if IGApiBase.httpHeaders == nil {
+        guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
+        let authorization = "Bearer " + token
+        //            let contentType = "application/json"
+        let range =  "bytes=\(startRange ?? 0)-\(endRange)"
+        
+        IGApiBase.httpHeaders = ["Authorization": authorization,"Range": range]
+        //            }
+        return IGApiBase.httpHeaders
+    }
+    public func getHeader() -> HTTPHeaders {
+        if IGApiBase.httpHeaders == nil {
+            guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
+            let authorization = "Bearer " + token
+            //            let contentType = "application/json"
+            IGApiBase.httpHeaders = ["Authorization": authorization]
+        }
+        return IGApiBase.httpHeaders
     }
     
     func isDownloading(token: String) -> Bool {
@@ -179,17 +203,30 @@ class IGDownloadManager {
             
             
             if firstTaskInQueue.state == .pending {
-                if firstTaskInQueue.file.publicUrl != nil && !(firstTaskInQueue.file.publicUrl?.isEmpty)! {
+                if IGAppManager.sharedManager.DownloadMethod() == .Stream { //use stream method to download
+                    
+                    var shouldResume : Bool = false
+                    if (try? IGFilesManager().findFile(forFileNamed: firstTaskInQueue.file.name! + firstTaskInQueue.file.token!)) != nil {
+                        shouldResume = true
+                    } //check if file is downloaded once(this if is usefull in conditions where the app was closed after the download was paused
+                    
                     if dictionaryPauseTask[firstTaskInQueue.file.token!] != nil {
-                        dictionaryPauseTask.removeValue(forKey: firstTaskInQueue.file.token!)
-                        DiggerManager.shared.startTask(for: firstTaskInQueue.file.publicUrl!)
-                    } else {
-                        downloadCDN(task: firstTaskInQueue)
+                        shouldResume = true
                     }
-                } else {
-                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.localPath))
+                    downloadStream(task: firstTaskInQueue,shouldResum: shouldResume)
+                } else { //use old methods for download
+                    if firstTaskInQueue.file.publicUrl != nil && !(firstTaskInQueue.file.publicUrl?.isEmpty)! {
+                           if dictionaryPauseTask[firstTaskInQueue.file.token!] != nil {
+                               dictionaryPauseTask.removeValue(forKey: firstTaskInQueue.file.token!)
+                               DiggerManager.shared.startTask(for: firstTaskInQueue.file.publicUrl!)
+                           } else {
+                               downloadCDN(task: firstTaskInQueue)
+                           }
+                       } else {
+                           downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.localPath))
+                       }
+                       
                 }
-                
             } else if firstTaskInQueue.state == .finished {
                 startNextDownloadTaskIfPossible()
             }
@@ -256,6 +293,91 @@ class IGDownloadManager {
         downloadPicTask.resume()
     }
     
+    private func downloadStream(task downloadTask:IGDownloadTask,shouldResum : Bool = false) {
+        var url = downloadTask.file.publicUrl
+        var fileEndRange = downloadTask.file.size
+        if  url != nil && !(url?.isEmpty)! {
+            
+            var firstChunk : Bool = false
+            var decipher : (Cryptor & Updatable)?
+            let nameOfFile = "\(downloadTask.file.name ?? "")\(downloadTask.file.token ?? "")"
+            var startRangeOfFile : Int64 = 0
+            if shouldResum {
+                let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
+                let tmpDataSize = ((currentSize?.keys.first!.count))
+                startRangeOfFile = Int64(tmpDataSize ?? 0)
+            } else {
+                IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
+            }
+            streamReq = AF.streamRequest(url!,method: .get,headers: self.getStreamHeader(startRange: startRangeOfFile ,endRange: fileEndRange))
+            streamReq.responseStream { stream in
+                switch stream.event {
+                case let .stream(result):
+                    switch result {
+                    case let .success(data):
+                        print("+_+_+_+_+_+_+_+_+_+_+_+")
+                        print((data))
+                        
+                        if !firstChunk {
+                            firstChunk = true
+                            let keyIV = IGSecurityManager.sharedManager.getIVAndKey(encryptedData: data)
+                            decipher = try? AES(key: String(decoding: (keyIV["key"]!), as: UTF8.self), iv: (String(decoding: (keyIV["iv"]!), as: UTF8.self)), padding: .pkcs7).makeDecryptor()
+                            
+                            let dcvar = try? decipher?.update(withBytes: [UInt8](keyIV["firstchunk"]!))
+                            let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+                            
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+                            
+                            
+                        } else {
+                            
+                            let dcvar = try? decipher?.update(withBytes: [UInt8](data))
+                            let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+                        }
+                        IGAttachmentManager.sharedManager.setStatus(.downloading, for: downloadTask.file)
+
+                        
+                        print("+_+_+_+_+_+_+_+_+_+_+_+")
+                    case let .failure(error) :
+                        print("+_+_+_+_+_+_+_+_+_+_+_+")
+                        print(error)
+                        print("+_+_+_+_+_+_+_+_+_+_+_+")
+                        
+                    }
+                case let .complete(completion):
+                    if completion.response != nil {
+                        print("-0-0-0-0-0-0-0-0")
+                        let dcvar = try? decipher?.finish()
+                        
+                        let dataa = NSData(bytes: try? decipher?.finish(), length: dcvar!.count)
+                        
+                        
+                        print("-0-0-0-0-0-0-0-0")
+                        do {
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+                            IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+                            
+                            if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
+                                self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                            }
+                            
+                            downloadTask.state = .finished
+                            if let success = downloadTask.completionHandler {
+                                success(downloadTask.file)
+                            }
+                            
+                            self.startNextDownloadTaskIfPossible()
+                            
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        
+    }
     private func downloadCDN(task downloadTask:IGDownloadTask, publicURL: String? = nil) {
         var url = downloadTask.file.publicUrl
         if publicURL != nil {
@@ -469,15 +591,23 @@ class IGDownloadManager {
         var task : IGDownloadTask! = dictionaryDownloadTaskMain[attachment.token!]
         if task != nil {
             
-            if attachment.publicUrl != nil && !(attachment.publicUrl?.isEmpty)! { // CDN Pause Need
+            if IGAppManager.sharedManager.DownloadMethod() == .Stream { //use stream method to download
+                if streamReq != nil {
+                    streamReq.suspend()
+                    dictionaryPauseTask[attachment.token!] = task // go to pause dictionary
+                }
+            } else {
+                if attachment.publicUrl != nil && !(attachment.publicUrl?.isEmpty)! { // CDN Pause Need
+                    
+                    DiggerManager.shared.stopTask(for: task.file.publicUrl!)
+                    dictionaryPauseTask[attachment.token!] = task // go to pause dictionary
+                    
+                } else { // Proto Pause Need
+                    IGRequestManager.sharedManager.cancelRequest(identity: attachment.token!)
+                }
                 
-                DiggerManager.shared.stopTask(for: task.file.publicUrl!)
-                dictionaryPauseTask[attachment.token!] = task // go to pause dictionary
-                
-            } else { // Proto Pause Need
-                IGRequestManager.sharedManager.cancelRequest(identity: attachment.token!)
             }
-            
+
             dictionaryDownloadTaskMain.removeValue(forKey: attachment.token!) // remove from main download queue
             
             startNextDownloadTaskIfPossible()

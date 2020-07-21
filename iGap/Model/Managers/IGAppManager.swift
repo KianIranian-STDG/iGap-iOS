@@ -31,6 +31,10 @@ class IGAppManager: NSObject {
         case connected
         case iGap // login state
     }
+    enum DownloadMethod {
+        case Stream
+        case OldMethod
+    }
     
     var realm = try! Realm()
     var connectionStatus: BehaviorRelay<ConnectionStatus>
@@ -54,6 +58,7 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
     private var _SymmetricKey: Data!
+    private var _DownloadMethod: DownloadMethod!
 
     public let LOAD_ROOM_LIMIT = 50
     public let APP_ID = 3
@@ -409,6 +414,17 @@ class IGAppManager: NSObject {
     }
     public func setSymmetricKey(key: Data) {
         _SymmetricKey = key
+    }
+    public func DownloadMethod() -> DownloadMethod {
+        return _DownloadMethod
+    }
+    
+    public func setDownloadMethod(isStream: Bool) {
+        if isStream {
+            _DownloadMethod = .Stream
+        } else {
+            _DownloadMethod = .OldMethod
+        }
     }
     public func setAccessToken(accessToken: String, completion: (() -> Void)? = nil) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {

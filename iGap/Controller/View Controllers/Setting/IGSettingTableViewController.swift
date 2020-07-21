@@ -16,6 +16,8 @@ import Gifu
 import MapKit
 import SwiftEventBus
 import AsyncDisplayKit
+import Alamofire
+import CryptoSwift
 
 public var currentSize : Int!
 public var currentIndexOfImage : Int!
@@ -23,9 +25,9 @@ public var sizesArray = [Int?]()
 public var isAvatar = true
 
 class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDelegate {
-    
     @IBOutlet weak var switchInAppBrowser: UISwitch!
-    
+    @IBOutlet weak var imgTest: UIImageView!
+
     @IBOutlet  var iconArray: [UILabel]!
     @IBOutlet weak var lblNotificationSounds: UILabel!
     @IBOutlet weak var lblPrivacyPolicy: UILabel!
@@ -140,7 +142,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         case 0:
             return 4
         case 1:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -176,7 +178,6 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             else if rowIndex == 3 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToChatSettings", sender: self)
-                
             }
         } else  {
             if indexPath.row == 0 {
@@ -189,7 +190,10 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         }
         self.tableView.deselectRow(at: indexPath, animated: false)
     }
+
     
+
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return CGFloat.leastNormalMagnitude
@@ -283,4 +287,21 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
     return input.rawValue
+}
+extension Data {
+    func hexEncodedString() -> String {
+        return map { String(format: "%02hhx", $0) }.joined()
+    }
+}
+extension StringProtocol {
+    var hexaData: Data { .init(hexa) }
+    var hexaBytes: [UInt8] { .init(hexa) }
+    private var hexa: UnfoldSequence<UInt8, Index> {
+        sequence(state: startIndex) { startIndex in
+            guard startIndex < self.endIndex else { return nil }
+            let endIndex = self.index(startIndex, offsetBy: 2, limitedBy: self.endIndex) ?? self.endIndex
+            defer { startIndex = endIndex }
+            return UInt8(self[startIndex..<endIndex], radix: 16)
+        }
+    }
 }
