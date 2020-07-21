@@ -478,11 +478,13 @@
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D20021CE2472A6C500A679C7 /* IGKPinLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */; };
 		D20E21EB246BCA5800341F21 /* IGKStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20E21EA246BCA5800341F21 /* IGKStruct.swift */; };
+		D217443E24B481A000A271BC /* StreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217443D24B481A000A271BC /* StreamManager.swift */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D98BC246BF976006BEB38 /* IGPrint.swift */; };
 		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
 		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
 		D2262DF8246AC9DF008C119A /* IGKIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */; };
+		D22B372224A8A2A100F6568B /* IGStructStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22B372124A8A2A100F6568B /* IGStructStream.swift */; };
 		D23488F6245D353900AF116C /* IGDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488F5245D353900AF116C /* IGDateTime.swift */; };
 		D23488FB245D586800AF116C /* IGMBCardAdditionalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */; };
 		D23B65B5247E94A0003A0AE5 /* SendTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23B65B4247E94A0003A0AE5 /* SendTokenVM.swift */; };
@@ -517,6 +519,7 @@
 		D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
+		D2A75B4324BEEE7C0011E5AB /* IGApiStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
 		D2B58EA2247E23D000423519 /* IGKTradingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B58EA1247E23D000423519 /* IGKTradingVM.swift */; };
@@ -1540,11 +1543,13 @@
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKPinLoginVC.swift; sourceTree = "<group>"; };
 		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Model/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
+		D217443D24B481A000A271BC /* StreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamManager.swift; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D21D98BC246BF976006BEB38 /* IGPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPrint.swift; sourceTree = "<group>"; };
 		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
 		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
 		D2262DF7246AC9DE008C119A /* IGKIntroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKIntroVC.swift; sourceTree = "<group>"; };
+		D22B372124A8A2A100F6568B /* IGStructStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructStream.swift; sourceTree = "<group>"; };
 		D23488F5245D353900AF116C /* IGDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDateTime.swift; sourceTree = "<group>"; };
 		D23488FA245D586800AF116C /* IGMBCardAdditionalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBCardAdditionalInfo.swift; sourceTree = "<group>"; };
 		D23B65B4247E94A0003A0AE5 /* SendTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTokenVM.swift; sourceTree = "<group>"; };
@@ -1580,6 +1585,7 @@
 		D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
+		D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiStream.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
 		D2B58EA1247E23D000423519 /* IGKTradingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKTradingVM.swift; sourceTree = "<group>"; };
@@ -2871,6 +2877,14 @@
 			path = New;
 			sourceTree = "<group>";
 		};
+		D22B372524A8C4A100F6568B /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				D217443D24B481A000A271BC /* StreamManager.swift */,
+			);
+			path = Stream;
+			sourceTree = "<group>";
+		};
 		D23488F8245D576600AF116C /* MobileBank */ = {
 			isa = PBXGroup;
 			children = (
@@ -3613,7 +3627,7 @@
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				8EF0DDF624766D04007AC20C /* IGDropDown.swift */,
+				D22B372524A8C4A100F6568B /* Stream */,
 				D680860423B8DE2300E456EA /* MemoryTest */,
 				FA4CFD0521A046BA005FCBF2 /* Helpers */,
 				FAD8A02C21EE08D4006996E1 /* Structs */,
@@ -3633,6 +3647,7 @@
 				D670E5142445EC67002901AF /* ClearMessageLocal.swift */,
 				D6AF91E7245D893600586EC4 /* EncryptedMessageLocal.swift */,
 				D21D98BC246BF976006BEB38 /* IGPrint.swift */,
+				8EF0DDF624766D04007AC20C /* IGDropDown.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -3999,6 +4014,7 @@
 				8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */,
 				8E0A79902394FD86001A7EB6 /* IGApiNews.swift */,
 				D2434DCE244EF37A0057BA65 /* MobileBank */,
+				D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -4366,6 +4382,7 @@
 				D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */,
 				8E0405C52371B9AC00516DEB /* ElectricityBills */,
 				8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */,
+				D22B372124A8A2A100F6568B /* IGStructStream.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -5132,6 +5149,7 @@
 				8EBF552E22DCBAFD00834E6A /* SliderTypeTwoCell.swift in Sources */,
 				FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
+				D2A75B4324BEEE7C0011E5AB /* IGApiStream.swift in Sources */,
 				8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
@@ -5448,6 +5466,7 @@
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
 				D2C3EF8F2473DDFC006CD084 /* IKGProfileVM.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
+				D217443E24B481A000A271BC /* StreamManager.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
 				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
@@ -5519,6 +5538,7 @@
 				8EA854A0239D59E300C9442F /* IGThemeProtocol.swift in Sources */,
 				8E8BE197246BC92600A32BC4 /* TextHelper.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
+				D22B372224A8A2A100F6568B /* IGStructStream.swift in Sources */,
 				8E3C698C23603701001575BE /* PanModalPresentationDelegate.swift in Sources */,
 				D67E984723A67962003C1516 /* UIView+layoutHelpers.swift in Sources */,
 				D67E981D23A67918003C1516 /* ImageZoomControllerIsPresentingScrollViewOverlayState.swift in Sources */,

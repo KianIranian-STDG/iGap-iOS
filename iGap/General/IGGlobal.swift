@@ -91,6 +91,12 @@ enum IGBillType : Int {
     case Mobile = 3
 }
 
+enum UploadDownloadMethod: Int {
+    case NotSet = -1
+    case Socket = 1
+    case Rest = 2
+}
+
 class IGGlobal {
     
     /***** Base of Directories *****/

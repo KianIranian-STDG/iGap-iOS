@@ -96,7 +96,7 @@ class IGSecurityManager: NSObject {
         return encryptoinBlockMode
     }
     
-    func encryptAndAddIV(payload :Data) -> Data {
+    func encryptAndAddIV(payload :Data, addIv: Bool = true) -> Data {
         var encryptedData :Data
         var IVBytes :Data
         var encryptedPayload : Data
@@ -106,10 +106,39 @@ class IGSecurityManager: NSObject {
         } catch  {
             return Data()
         }
-        encryptedData = IVBytes
-        encryptedData.append(encryptedPayload)
         
-        return encryptedData
+        if addIv {
+            encryptedData = IVBytes
+            encryptedData.append(encryptedPayload)
+            
+            return encryptedData
+        } else {
+            return encryptedPayload
+        }
+    }
+    
+    func encryptAndAddIV(payload :Data, iv:Data, addIv: Bool = true) -> Data {
+        var encryptedData :Data
+        var IVBytes :Data
+        var encryptedPayload : Data
+        do {
+            IVBytes = iv
+            print("=-=-=-=-=-=-=-")
+            print(IVBytes.bytes)
+            print("=-=-=-=-=-=--=-")
+            encryptedPayload = try encrypt(rawData: payload, iv: IVBytes)
+        } catch  {
+            return Data()
+        }
+        
+        if addIv {
+            encryptedData = IVBytes
+            encryptedData.append(encryptedPayload)
+            
+            return encryptedData
+        } else {
+            return encryptedPayload
+        }
     }
     
     func decrypt(encryptedData :Data) -> Data! {
@@ -143,8 +172,17 @@ class IGSecurityManager: NSObject {
         return Data(ciphered)
     }
     
-    private func generateIV() -> Data {
+    func generateEncryptor(iv: String) throws -> Cryptor & Updatable {
+        return try AES(key: symmetricKey, iv: iv).makeEncryptor()
+    }
+    
+    func generateIV() -> Data {
         let IVData = IGGlobal.randomString(length: symmetricIVSize).data(using: .utf8)!
+        return IVData
+    }
+    
+    func generateIVString() -> String {
+        let IVData = IGGlobal.randomString(length: 16)
         return IVData
     }
     
