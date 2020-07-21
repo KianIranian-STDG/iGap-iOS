@@ -15,7 +15,7 @@ class IGDotActivityIndicator : UIView {
     private var dotLayers = [CAShapeLayer]()
     private var dotsScale = 1.4
     
-    let fillColor = UIColor.white
+    var fillColor = UIColor.white
 
     @IBInspectable var dotsCount :Int = 3 {
         didSet {

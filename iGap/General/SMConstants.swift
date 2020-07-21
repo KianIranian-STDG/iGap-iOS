@@ -51,6 +51,7 @@ struct EventBusManager {
     static let updateBillsName = "updateBillsName"
     static let sendForwardReq = "sendForwardReq"
     static let disableMultiSelect = "disableMultiSelect"
+    static let updateTypingBubble = "updateTypingBubble"
     static let stickerToolbarClick = "stickerToolbarClick"
     static let stickerCurrentGroupId = "stickerCurrentGroupId"
     static let stickerAdd = "stickerAdd"
