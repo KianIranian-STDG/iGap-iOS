@@ -775,7 +775,7 @@ class IGNavigationItem: UINavigationItem {
     func setNavigationBarForProfileRoom(_ room:IGRoom.IGType, id:Int64? = nil, groupRole:IGPGroupRoom.IGPRole? = nil, channelRole:IGPChannelRoom.IGPRole? = nil, roomValue:IGRoom? = nil) {
         addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole,roomValue:roomValue)
     }
-    
+
     func updateNavigationBarForRoom(_ room: IGRoom) {
         if IGGlobal.shouldMultiSelect {
             
@@ -805,10 +805,19 @@ class IGNavigationItem: UINavigationItem {
             }
             
             self.centerViewSubLabel!.text = room.currentActionString()
+            if (room.chatRoom?.peer) != nil {
+                SwiftEventBus.postToMainThread(EventBusManager.updateTypingBubble, sender: true)
+
+                
+            }
+
         } else {
             
             typingIndicatorView?.removeFromSuperview()
             typingIndicatorView = nil
+            
+            var fakeMessageId: Int64!
+
             self.centerViewSubLabel!.snp.makeConstraints { (make) in
                 make.top.equalTo(self.centerViewMainLabel!.snp.bottom).offset(-3)
                 make.leading.equalTo(self.centerViewContainer!.snp.leading).offset(5)
@@ -816,6 +825,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
             if let peer = room.chatRoom?.peer {
+                SwiftEventBus.postToMainThread(EventBusManager.updateTypingBubble, sender: false)
                 if room.currenctActionsByUsers.first?.value.1 != .typing {
                     setLastSeenLabelForUser(peer, room: room)
                 }
