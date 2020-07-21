@@ -960,6 +960,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 if event.element == self?.room {
                     DispatchQueue.main.async {
                         self?.myNavigationItem?.updateNavigationBarForRoom(event.element!)
+                        if self?.room!.type == .chat {
+                            let message = IGRoomMessage(body: "")
+                            message.type = .isTyping
+
+                            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self?.room?.chatRoom?.id)", sender: (action: ChatMessageAction.addProgress, roomId: self?.room?.chatRoom?.id, message: message, direction: .bottom))
+                        }
+
                     }
                 }
             }).disposed(by: disposeBag)
