@@ -2916,6 +2916,7 @@ Page 4 introduce app */
 
 /*  */
 "c_TB" = "ترابایت";
+"c_INFINITE" = "نامحدود";
 
 /*  */
 "audio" = "فایل صوتی";

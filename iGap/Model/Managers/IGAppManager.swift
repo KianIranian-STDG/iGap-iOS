@@ -428,7 +428,7 @@ class IGAppManager: NSObject {
         _SymmetricKey = key
     }
     public func DownloadMethod() -> DownloadMethod {
-        return _DownloadMethod
+        return _DownloadMethod ?? .OldMethod
     }
     
     public func setDownloadMethod(isStream: Bool) {

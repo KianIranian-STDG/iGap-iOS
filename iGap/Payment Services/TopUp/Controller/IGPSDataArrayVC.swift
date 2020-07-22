@@ -58,13 +58,21 @@ class IGPSDataArrayVC: BaseTableViewController {
                     g = IGStringsManager.MB.rawValue.localized
                 } else if ((items[(indexPath.row) - 2].category?.subType)!) == "TB" {
                     g = IGStringsManager.TB.rawValue.localized
-                } else {
+                    
+                } else if ((items[(indexPath.row) - 2].category?.subType)!) == "INFINITE" {
+                    g = IGStringsManager.Infinite.rawValue.localized
+                }else {
                     g = ""
                 }
-                if (x.description).last == "0" {
-                    cell.textLabel!.text = String(Int(Float(x.description) ?? 0)).inLocalizedLanguage() + " " + (g)
+                if (x.description) == "-1.0" {
+                    cell.textLabel!.text = (g)
+
                 } else {
-                    cell.textLabel!.text = (((x.description))).inLocalizedLanguage() + " " + (g)
+                    if (x.description).last == "0" {
+                        cell.textLabel!.text = String((Float(x.description) ?? 0)).inLocalizedNumberLanguage() + " " + (g)
+                    } else {
+                        cell.textLabel!.text = (((x.description))).inLocalizedNumberLanguage() + " " + (g)
+                    }
                 }
             } else {
                 var m : String = IGStringsManager.Month.rawValue.localized
@@ -77,7 +85,7 @@ class IGPSDataArrayVC: BaseTableViewController {
                 } else if ((items[(indexPath.row) - 2].category?.subType)!) == "HOUR" {
                     m = IGStringsManager.GlobalHour.rawValue.localized
                 }
-                cell.textLabel!.text = String(Int(Float(x.description) ?? 0)).inLocalizedLanguage() + (m)
+                cell.textLabel!.text = String(Int(Float(x.description) ?? 0)).inLocalizedNumberLanguage() + (m)
 
             }
             return cell
@@ -91,7 +99,7 @@ class IGPSDataArrayVC: BaseTableViewController {
                 guard let sSelf = self else {
                     return
                 }
-                if ((sSelf.items[(indexPath.row)].category?.type)!) == "TRAFFIC" {
+                if sSelf.isTraffic {
                     let ttl = IGStringsManager.Voloume.rawValue.localized + ": " + IGStringsManager.All.rawValue.localized
                     (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnVolume.setTitle(ttl, for: .normal)
                     (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.selectedVolume = nil
@@ -111,7 +119,7 @@ class IGPSDataArrayVC: BaseTableViewController {
                 }
 
                 let x : CGFloat = (sSelf.items[(indexPath.row) - 2].category?.value)!
-                if ((sSelf.items[(indexPath.row) - 2].category?.type)!) == "TRAFFIC" {
+                if sSelf.isTraffic {
                     var g : String = IGStringsManager.GB.rawValue.localized
                     if ((sSelf.items[(indexPath.row) - 2].category?.subType)!) == "GB" {
                         g = IGStringsManager.GB.rawValue.localized
@@ -119,18 +127,29 @@ class IGPSDataArrayVC: BaseTableViewController {
                         g = IGStringsManager.MB.rawValue.localized
                     } else if ((sSelf.items[(indexPath.row) - 2].category?.subType)!) == "TB" {
                         g = IGStringsManager.TB.rawValue.localized
-                    } else {
+                    
+                    } else if ((sSelf.items[(indexPath.row) - 2].category?.subType)!) == "INFINITE" {
+                        g = IGStringsManager.Infinite.rawValue.localized
+                    }else {
                         g = ""
                     }
-                    if (x.description).last == "0" {
-                        let ttl = IGStringsManager.Voloume.rawValue.localized + ": " + String(Int(Float(x.description) ?? 0)).inLocalizedLanguage() + " " + (g)
+                    if (x.description) == "-1.0" {
+                        let ttl = IGStringsManager.Voloume.rawValue.localized + ": " + " " + (g)
                         (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnVolume.setTitle(ttl, for: .normal)
                         (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.selectedVolume = ((sSelf.items[(indexPath.row) - 2]))
 
                     } else {
-                        let ttl = IGStringsManager.Voloume.rawValue.localized + ": " +  String(Int(Float(x.description) ?? 0)).inLocalizedLanguage() + " " + (g)
-                        (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnVolume.setTitle(ttl, for: .normal)
-                        (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.selectedVolume = ((sSelf.items[(indexPath.row) - 2]))
+                        if (x.description).last == "0" {
+                            let ttl = IGStringsManager.Voloume.rawValue.localized + ": " + String(Int(Float(x.description) ?? 0)).inLocalizedNumberLanguage() + " " + (g)
+                            (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnVolume.setTitle(ttl, for: .normal)
+                            (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.selectedVolume = ((sSelf.items[(indexPath.row) - 2]))
+
+                        } else {
+                            let ttl = IGStringsManager.Voloume.rawValue.localized + ": " +  String(Int(Float(x.description) ?? 0)).inLocalizedNumberLanguage() + " " + (g)
+                            (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnVolume.setTitle(ttl, for: .normal)
+                            (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.selectedVolume = ((sSelf.items[(indexPath.row) - 2]))
+
+                        }
 
                     }
                 } else {
@@ -144,7 +163,7 @@ class IGPSDataArrayVC: BaseTableViewController {
                     } else if ((sSelf.items[(indexPath.row) - 2].category?.subType)!) == "HOUR" {
                         m = IGStringsManager.GlobalHour.rawValue.localized
                     }
-                    let ttl = IGStringsManager.Time.rawValue.localized + ": " + String(Int(Float(x.description) ?? 0)).inLocalizedLanguage() + (m)
+                    let ttl = IGStringsManager.Time.rawValue.localized + ": " + String(Int(Float(x.description) ?? 0)).inLocalizedNumberLanguage() + (m)
                     (UIApplication.topViewController() as! IGPSInternetPackagesVC).btnTime.setTitle(ttl, for: .normal)
                     (UIApplication.topViewController() as! IGPSInternetPackagesVC).vm.seletedDuration = ((sSelf.items[(indexPath.row) - 2]))
                 }
@@ -169,11 +188,11 @@ extension IGPSDataArrayVC: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(min(300,(CGFloat((80) * items.count))))
+        return .contentHeight(min(200,(CGFloat((80) * (items.count + 2)))))
     }
     var longFormHeight: PanModalHeight {
 
-        return .contentHeight(max(400,(CGFloat((80) * items.count))))
+        return .contentHeight(max(400,(CGFloat((80) * (items.count + 2)))))
 
     }
     var anchorModalToLongForm: Bool {

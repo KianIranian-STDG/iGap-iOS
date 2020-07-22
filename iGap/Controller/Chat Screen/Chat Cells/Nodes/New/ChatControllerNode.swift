@@ -61,6 +61,8 @@ class ChatControllerNode: ASCellNode {
     //lognode
     private var txtLogMessage : ASTextNode?
     private var progressNode : ASDisplayNode?
+    private var typingIndicatorNode: ASDisplayNode?
+
     private var bgTextNode : ASDisplayNode?
     private var bgProgressNode : ASDisplayNode?
     private var bgNode : ASDisplayNode?
@@ -249,7 +251,7 @@ class ChatControllerNode: ASCellNode {
             checkNode!.style.height = ASDimensionMake(.points, 0)
         }
         
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet || msg.type == .location {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet || msg.type == .location || msg.type == .isTyping {
             let contentItemsBox : ASLayoutSpec
             if message.forwardedFrom != nil {
                 self.message = message
@@ -389,7 +391,7 @@ class ChatControllerNode: ASCellNode {
                 makeAccessoryButton(id: 0)
             }
             
-        } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress {
+        } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress || msg.type == .isTyping {
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
@@ -458,7 +460,7 @@ class ChatControllerNode: ASCellNode {
     public func makeAccessoryButton(id: Int64) {
         //        print("CREATED ACCESSORY BUTTON")
         
-        if message?.type == .log || message?.type == .time || message?.type == .unread || message?.type == .progress || message?.type == .wallet {
+        if message?.type == .log || message?.type == .time || message?.type == .unread || message?.type == .progress || message?.type == .isTyping || message?.type == .wallet {
             return
         }
         
@@ -745,6 +747,12 @@ class ChatControllerNode: ASCellNode {
             bubbleImgNode!.image = bubbleImage
             shadowImgNode!.image = bubbleImage
         }
+        if message!.type == .isTyping {
+            self.isIncomming = true
+            bubbleImgNode?.isHidden = true
+            shadowImgNode?.isHidden = true
+        }
+
         
         //        addSubnode(shadowImgNode!)//addshadow
         //        addSubnode(bubbleImgNode!)
@@ -895,7 +903,7 @@ class ChatControllerNode: ASCellNode {
             
             
             
-        case .log,.time,.unread,.progress :
+        case .log,.time,.unread,.progress,.isTyping :
             contentSpec.horizontalAlignment = .middle
             
             var logTypeTemp : logMessageType!
@@ -910,6 +918,8 @@ class ChatControllerNode: ASCellNode {
                 logTypeTemp = .unread
             case .progress :
                 logTypeTemp = .progress
+            case .isTyping :
+                logTypeTemp = .isTyping
                 
             default:
                 break
@@ -2461,6 +2471,7 @@ class ChatControllerNode: ASCellNode {
         case progress            = 4 //progress for loading new chats
         case emptyBox            = 5 //progress for loading new chats
         case unknown            = 6 //unknown message
+        case isTyping            = 7 //isTyping Bubble message
     }
     private func makeLogView(logType: logMessageType = .log) {
         
@@ -2498,7 +2509,26 @@ class ChatControllerNode: ASCellNode {
 //            }
             progressNode!.alpha = 0.8
             
-        } else if logType == .emptyBox {} else {
+        }
+        else if  logType == .isTyping {
+
+
+            if typingIndicatorNode == nil {
+                typingIndicatorNode = ASDisplayNode { () -> UIView in
+                    let loading = IGDotActivityIndicator(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+                    loading.stopAnimating()
+                    loading.startAnimating()
+                    loading.isHidden = true
+                    return loading
+
+                }
+            }
+            typingIndicatorNode?.style.height = ASDimensionMake(.points, 20)
+            typingIndicatorNode?.style.width = ASDimensionMake(.points, 60)
+            typingIndicatorNode?.view.center = CGPoint(x: 15, y: 15)
+
+        }
+        else if logType == .emptyBox {} else {
             if bgNode == nil {
                 bgNode = ASDisplayNode()
             }
@@ -2746,7 +2776,49 @@ class ChatControllerNode: ASCellNode {
             
             return insetSpec
             
-        } else if logType == .emptyBox {
+        } else if logType == .isTyping {
+            if typingIndicatorNode == nil {
+                typingIndicatorNode = ASDisplayNode()
+            }
+            
+            let v = ASDisplayNode()
+            
+            v.style.height = ASDimensionMake(.points, 50)
+            v.style.width = ASDimensionMake(.points, 50)
+            v.backgroundColor = .clear
+            v.cornerRadius = 25
+            let fakeStackBottomItemOne = ASDisplayNode()
+            let fakeStackBottomItemTwo = ASDisplayNode()
+            
+            fakeStackBottomItemOne.style.height = ASDimension(unit: .points, value: 10)
+            fakeStackBottomItemTwo.style.height = ASDimension(unit: .points, value: 10)
+            
+            let playTxtCenterSpec : ASCenterLayoutSpec
+            
+            
+            playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: typingIndicatorNode!)
+            
+            // Setting Container Stack
+            let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .spaceBetween, alignItems: .start, children: [fakeStackBottomItemOne, playTxtCenterSpec, fakeStackBottomItemTwo])
+            itemsStackSpec.style.height = ASDimension(unit: .points, value: 50)
+            
+            let overlaySpec = ASOverlayLayoutSpec(child: v, overlay: itemsStackSpec)
+            
+            
+            
+            //            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode!)
+            
+            //            let bgBox = ASBackgroundLayoutSpec(child: centerBoxText, background: view)
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: overlaySpec)
+            
+            
+            return insetSpec
+            
+        }else if logType == .emptyBox {
             let verticalBox = ASStackLayoutSpec()
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,

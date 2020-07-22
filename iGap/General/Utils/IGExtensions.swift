@@ -134,6 +134,13 @@ extension String {
             return self.inEnglishNumbersNew()
         }
     }
+    func inLocalizedNumberLanguage()->String{
+        if LocaleManager.isRTL {
+            return self.inPersianNumbersNewTwo()
+        } else {
+            return self.inEnglishNumbersNewTwo()
+        }
+    }
     
     func slice(from: String, to: String) -> String? {
         

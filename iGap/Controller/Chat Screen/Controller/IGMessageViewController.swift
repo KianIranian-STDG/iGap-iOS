@@ -66,7 +66,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //MARK: -NODE
 //    private let chatNode = ChatControllerNode()
     private(set) var chatsArray: [Chat] = []
-
+    private var shouldShowTypingBubble : Bool = false
     @IBOutlet weak var tableviewMessagesView : UIView!
     @IBOutlet weak var stackAttachment: UIStackView!
     @IBOutlet weak var attachmentBtnWidthConstraint: NSLayoutConstraint!
@@ -139,7 +139,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
-    
+    let typingBubble : UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.red
+        return view
+    }()
     // MARK: - Variables
     private var didTapOnMention : Bool = false
     private var myNavigationItem: IGNavigationItem!
@@ -960,6 +966,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 if event.element == self?.room {
                     DispatchQueue.main.async {
                         self?.myNavigationItem?.updateNavigationBarForRoom(event.element!)
+
                     }
                 }
             }).disposed(by: disposeBag)
@@ -972,7 +979,95 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGHelperGetMessageState.shared.clearMessageViews()
 
     }
-    
+    private func addTypingBubble() {
+        if typingBubble.isDescendant(of: view) {
+            removeTypingBubble()
+        } else {
+//            typingBubble.isHidden = true
+            typingBubble.backgroundColor = .clear
+            view.addSubview(typingBubble)
+            view.bringSubviewToFront(typingBubble)
+            typingBubble.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 10).isActive = true
+            typingBubble.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            typingBubble.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            typingBubble.bottomAnchor.constraint(equalTo: mainHolder.topAnchor,constant: -20).isActive = true
+
+            let imgShadowBubble = UIImageView()
+            imgShadowBubble.image = someoneImage
+            imgShadowBubble.translatesAutoresizingMaskIntoConstraints = false
+            typingBubble.addSubview(imgShadowBubble)
+            imgShadowBubble.leftAnchor.constraint(equalTo: typingBubble.leftAnchor,constant: 1).isActive = true
+            imgShadowBubble.rightAnchor.constraint(equalTo: typingBubble.rightAnchor,constant: 1).isActive = true
+            imgShadowBubble.topAnchor.constraint(equalTo: typingBubble.topAnchor,constant: 1).isActive = true
+            imgShadowBubble.bottomAnchor.constraint(equalTo: typingBubble.bottomAnchor,constant: 1).isActive = true
+            
+            imgShadowBubble.tintColor = .darkGray
+            imgShadowBubble.alpha = 0.3
+
+            let imgBubble = UIImageView()
+            imgBubble.image = someoneImage
+            imgBubble.translatesAutoresizingMaskIntoConstraints = false
+            typingBubble.addSubview(imgBubble)
+            imgBubble.leftAnchor.constraint(equalTo: typingBubble.leftAnchor,constant: 0).isActive = true
+            imgBubble.rightAnchor.constraint(equalTo: typingBubble.rightAnchor,constant: 0).isActive = true
+            imgBubble.topAnchor.constraint(equalTo: typingBubble.topAnchor,constant: 0).isActive = true
+            imgBubble.bottomAnchor.constraint(equalTo: typingBubble.bottomAnchor,constant: 0).isActive = true
+            
+            imgBubble.tintColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+
+            
+            let loading = IGDotActivityIndicator(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+            loading.stopAnimating()
+            loading.startAnimating()
+            loading.fillColor = .darkGray
+            loading.tintColor = .darkGray
+            loading.alpha = 0.8
+            loading.translatesAutoresizingMaskIntoConstraints = false
+            typingBubble.addSubview(loading)
+            loading.centerXAnchor.constraint(equalTo: typingBubble.centerXAnchor,constant: 0).isActive = true
+            loading.centerYAnchor.constraint(equalTo: typingBubble.centerYAnchor,constant: 0).isActive = true
+            loading.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            loading.widthAnchor.constraint(equalToConstant: 60).isActive = true
+
+
+
+
+
+            
+            
+//            UIView.transition(with: typingBubble, duration: 0.2,
+//                options: .transitionCrossDissolve,
+//                animations: {
+//                    self.typingBubble.isHidden = false
+//            })
+            self.typingBubble.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.typingBubble.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }, completion: nil)
+
+
+
+        }
+
+        
+    }
+    private func removeTypingBubble() {
+        if typingBubble.isDescendant(of: view) {
+            UIView.transition(with: typingBubble, duration: 0.2,
+                options: .transitionCrossDissolve,
+                animations: {
+                    for sv in self.typingBubble.subviews {
+                        
+                        sv.removeFromSuperview()
+                    }
+                    self.typingBubble.removeFromSuperview()
+
+
+            })
+
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
@@ -1105,10 +1200,45 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func stopButtonPlayForRow() {
         self.tableViewNode.reloadData()
     }
-    
+    private var bottomProgressId: Int64 = 0 // bottom real messageId minus one. save this value then for hide bottom progress find position of message and then remove
+
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
             self?.initTheme()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateTypingBubble) { [weak self] result in
+            guard let sSelf = self else {
+                return
+            }
+
+            
+            let state = result?.object as! Bool
+            if state {
+                if sSelf.shouldShowTypingBubble {
+                    sSelf.removeTypingBubble()
+
+                } else {
+                    print("ROOM ID FOR BUBBLE TYPING",self?.room?.id)
+                    let bubblemsg = IGRoomMessage(body: "")
+                    bubblemsg.type = .isTyping
+
+                    sSelf.bottomProgressId = (sSelf.room?.lastMessage!.id)! - 1
+                    bubblemsg.id = sSelf.bottomProgressId
+
+                    
+
+                    self?.appendMessageArray([bubblemsg], IGPClientGetRoomHistory.IGPDirection.down)
+                    self?.addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection.down)
+
+
+                    self?.addTypingBubble()
+
+                }
+            } else {
+                self?.removeProgress(fakeMessageId: self!.bottomProgressId, direction: IGPClientGetRoomHistory.IGPDirection.down)
+
+                sSelf.removeTypingBubble()
+            }
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.sendCardToCardMessage) { [weak self] result in
             let rMessage : IGRoomMessage = result?.object as! IGRoomMessage
@@ -5629,8 +5759,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //100 is an arbitrary number. can be anything
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
+            self.shouldShowTypingBubble = true
+            self.removeTypingBubble()
+            
         } else {
             self.scrollToBottomContainerView.isHidden = true
+            self.shouldShowTypingBubble = false
+
         }
     }
     

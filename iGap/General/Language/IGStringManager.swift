@@ -734,6 +734,7 @@ enum IGStringsManager : String {
     case MB = "c_MB"
     case GB = "c_GB"
     case TB = "c_TB"
+    case Infinite = "c_INFINITE"
     case NewVersionAvailable = "new_version_avilable"
     case DepricatedVersion = "deprecated"
     case Bio = "st_bio"
