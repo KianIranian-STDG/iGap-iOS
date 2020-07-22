@@ -92,10 +92,10 @@ class ASAvatarView: ASDisplayNode {
         }
     }
     
-    private let avatarThread = DispatchQueue(label: "serial.queue.avatar")
+    
     
     private func getAvatar(networkAvatarNode: ASNetworkImageNode, avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail, completion: @escaping((UIImage?)->Void)) {
-        avatarThread.sync(flags: .barrier) {
+        IGGlobal.avatarThread.sync(flags: .barrier) {
                 let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: networkAvatarNode) as? [String]
                 keys?.forEach { (key) in
                     ASNetworkimagesMap.removeValue(forKey: key)
@@ -142,16 +142,13 @@ class ASAvatarView: ASDisplayNode {
                     
                 } else {
                     file = file.detach()
-                    avatarThread.async(flags: .barrier) {
+                    IGGlobal.avatarThread.async(flags: .barrier) {
                         ASNetworkimagesMap[file.token!] = networkAvatarNode
                     }
                     DispatchQueue.main.async {
                         
-                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: {[weak self] (attachment) -> Void in
-                            guard let sSelf = self else {
-                                return
-                            }
-                            sSelf.avatarThread.sync {
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: {(attachment) -> Void in
+                            IGGlobal.avatarThread.sync {
                                 if let imageMain = ASNetworkimagesMap[attachment.token!] {
                                     if let pPath = attachment.localUrl {
                                         DispatchQueue.global(qos:.userInteractive).async {

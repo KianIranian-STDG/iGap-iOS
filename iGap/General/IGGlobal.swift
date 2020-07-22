@@ -170,6 +170,8 @@ class IGGlobal {
     static var stickerAnimationDic: [String:AnimationView] = [:]
     static var isTopUpResult : Bool = false
 
+    static let avatarThread = DispatchQueue(label: "serial.queue.avatar")
+    
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height) +
@@ -1810,9 +1812,11 @@ extension ASNetworkImageNode {
                 throw NSError(domain: "asa", code: 1234, userInfo: nil)
             }
         } catch {
-            ASNetworkimagesMap[attachment.token!] = self
+            IGGlobal.avatarThread.async(flags: .barrier) {
+                ASNetworkimagesMap[attachment.token!] = self
+            }
             IGDownloadManager.sharedManager.downloadSticker(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
-                DispatchQueue.main.async {
+                IGGlobal.avatarThread.async(flags: .barrier) {
                     if let image = ASNetworkimagesMap[attachment.token!] {
                         ASNetworkimagesMap.removeValue(forKey: attachment.token!)
                         image.setSticker(for: attachment)
@@ -1827,10 +1831,13 @@ extension ASNetworkImageNode {
         
         // remove imageview from download list on t on cell reuse
 //        DispatchQueue.main.async {
+        IGGlobal.avatarThread.async(flags: .barrier) {
             let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: self) as! [String]
             keys.forEach { (key) in
                 ASNetworkimagesMap.removeValue(forKey: key)
             }
+        }
+            
 //        }
         
         var file : IGFile!
