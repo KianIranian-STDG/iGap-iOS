@@ -152,6 +152,17 @@ extension String {
         guard let final = numberFormatter.number(from: self) else { return self.inPersianNumbers() }
         return numberFormatter.string(from: final) ?? self.inPersianNumbers()
     }
+    func inPersianNumbersNewTwo() -> String {
+        if self.first == "0" || self.first == "۰" || self.first == "٠" || self.starts(with: "0") || self.starts(with: "۰") || self.starts(with: "٠") {
+            return self.inPersianNumbers()
+        }
+
+        numberFormatter.locale = Locale(identifier: "fa")
+        numberFormatter.numberStyle = .decimal
+
+        guard let final = numberFormatter.number(from: self) else { return self.inPersianNumbers() }
+        return numberFormatter.string(from: final) ?? self.inPersianNumbers()
+    }
     
     func inEnglishNumbersNew() -> String {
         if self.first == "0" || self.first == "۰" || self.first == "٠" || self.starts(with: "0") || self.starts(with: "۰") || self.starts(with: "٠") {
@@ -159,6 +170,16 @@ extension String {
         }
 
         numberFormatter.locale = Locale(identifier: "EN")
+        guard let final = numberFormatter.number(from: self) else { return self.inEnglishNumbers() }
+        return numberFormatter.string(from: final) ?? self.inEnglishNumbers()
+    }
+    func inEnglishNumbersNewTwo() -> String {
+        if self.first == "0" || self.first == "۰" || self.first == "٠" || self.starts(with: "0") || self.starts(with: "۰") || self.starts(with: "٠") {
+            return self.inEnglishNumbers()
+        }
+
+        numberFormatter.locale = Locale(identifier: "EN")
+        numberFormatter.numberStyle = .decimal
         guard let final = numberFormatter.number(from: self) else { return self.inEnglishNumbers() }
         return numberFormatter.string(from: final) ?? self.inEnglishNumbers()
     }

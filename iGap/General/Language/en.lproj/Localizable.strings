@@ -3026,6 +3026,7 @@ TODO:// complete */
 
 /*  */
 "c_TB" = "TB";
+"c_INFINITE" = "Infinite";
 
 /*  */
 "audio" = "Audio";

@@ -192,25 +192,7 @@ class IGPSInternetPackagesVC : MainViewController {
     private func manageActions() {
         btnTime.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
-
-            let timeArray  = sSelf.internetCategories.filter({ $0.category?.type == "DURATION" })
-            let dayArray = timeArray.filter({ (elem) -> Bool in
-                return elem.category?.subType == "DAY"
-            }).sorted { (elemOne, elemTwo) -> Bool in
-                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
-            }
-            let monthArray = timeArray.filter({ (elem) -> Bool in
-                return elem.category?.subType == "MONTH"
-            }).sorted { (elemOne, elemTwo) -> Bool in
-                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
-            }
-            let yearArray = timeArray.filter({ (elem) -> Bool in
-                return elem.category?.subType == "YEAR"
-            }).sorted { (elemOne, elemTwo) -> Bool in
-                return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
-            }
-
-            IGHelperBottomModals.shared.showDataModal(categories: dayArray + monthArray + yearArray ,isTraffic : false)
+            sSelf.fetchDurationPackage()
         })
         btnVolume.addTapGestureRecognizer(action: { [weak self] in
             guard let sSelf = self else {return}
@@ -224,21 +206,160 @@ class IGPSInternetPackagesVC : MainViewController {
         })
 
     }
+    
+    func fetchDurationPackage() {
+        
+        let timeArray  = internetCategories.filter({ $0.category?.type == "DURATION" })
 
+        var hourArray = timeArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "HOUR"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        var dayArray = timeArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "DAY"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        var weakArray = timeArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "WEAK"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        var monthArray = timeArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "MONTH"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        var yearArray = timeArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "YEAR"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+        }
+        for elem in yearArray {
+            let filteredYearArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.duration == elem.id
+            })
+            if !filteredYearArray {
+                yearArray = yearArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+        for elem in monthArray {
+            let filteredMonthArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.duration == elem.id
+            })
+            if !filteredMonthArray {
+                monthArray = monthArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+        for elem in weakArray {
+            let filteredWeakArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.duration == elem.id
+            })
+            if !filteredWeakArray {
+                weakArray = weakArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+
+        for elem in dayArray {
+            let filteredDayArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.duration == elem.id
+            })
+            if !filteredDayArray {
+                dayArray = dayArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+
+        for elem in hourArray {
+            let filteredHourArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.duration == elem.id
+            })
+            if !filteredHourArray {
+                hourArray = hourArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+
+        
+        
+        var finalDurationArray = hourArray + dayArray + weakArray + monthArray + yearArray
+        if vm.selectedVolume != nil {
+            let tmpFinalDurationArray = finalDurationArray
+            finalDurationArray.removeAll()
+            for elem in vm.filteredPackages {
+                let filteredFinalDurationArray = tmpFinalDurationArray.contains(where: { (pkg) -> Bool in
+                    if pkg.id == elem.duration {
+                        finalDurationArray.append(pkg)
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            }
+        }
+
+        IGHelperBottomModals.shared.showDataModal(categories: finalDurationArray ,isTraffic : false)
+    }
     func fetchTrafficPackage() {
         let trafficArray  = internetCategories.filter({ $0.category?.type == "TRAFFIC" })
-        let gbArray = trafficArray.filter({ (elem) -> Bool in
+        var gbArray = trafficArray.filter({ (elem) -> Bool in
             return elem.category?.subType == "GB"
         }).sorted { (elemOne, elemTwo) -> Bool in
-            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+            return (Float((elemOne.category?.value)!)) < (Float((elemTwo.category?.value)!))
         }
-        let mbArray = trafficArray.filter({ (elem) -> Bool in
+        var mbArray = trafficArray.filter({ (elem) -> Bool in
             return elem.category?.subType == "MB"
         }).sorted { (elemOne, elemTwo) -> Bool in
-            return fabsf(Float((elemOne.category?.value)!)) < fabsf(Float((elemTwo.category?.value)!))
+            return (Float((elemOne.category?.value)!)) < (Float((elemTwo.category?.value)!))
         }
-        
-        IGHelperBottomModals.shared.showDataModal(categories: mbArray + gbArray,isTraffic : true)
+
+        var infinitArray = trafficArray.filter({ (elem) -> Bool in
+            return elem.category?.subType == "INFINITE"
+        }).sorted { (elemOne, elemTwo) -> Bool in
+            return (Float((elemOne.category?.value)!)) < (Float((elemTwo.category?.value)!))
+        }
+        for elem in gbArray {
+            let filtredGBArray = internetPackages.contains(where: { (pkg) -> Bool in
+                return pkg.traffic == elem.id
+            })
+            if !filtredGBArray {
+                gbArray = gbArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+            }
+        }
+
+        for elem in mbArray {
+             let filteredMBArray = internetPackages.contains(where: { (pkg) -> Bool in
+                 return pkg.traffic == elem.id
+             })
+             if !filteredMBArray {
+                 mbArray = mbArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+             }
+         }
+        for elem in infinitArray {
+             let filteredInfinitArray = internetPackages.contains(where: { (pkg) -> Bool in
+                 return pkg.traffic == elem.id
+             })
+             if !filteredInfinitArray {
+                 infinitArray = infinitArray.filter() { $0.id  as AnyObject !== elem.id as AnyObject }
+             }
+         }
+
+        var finalTrafficArray = mbArray + gbArray + infinitArray
+        if vm.seletedDuration != nil {
+            let tmpFilteredTrafficArray = finalTrafficArray
+            finalTrafficArray.removeAll()
+            for elem in vm.filteredPackages {
+                let filteredFinalTrafficArray = tmpFilteredTrafficArray.contains(where: { (pkg) -> Bool in
+                    if pkg.id == elem.traffic {
+                        finalTrafficArray.append(pkg)
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            }
+        }
+        IGHelperBottomModals.shared.showDataModal(categories: finalTrafficArray,isTraffic : true)
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
