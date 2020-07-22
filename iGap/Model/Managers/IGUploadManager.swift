@@ -123,8 +123,12 @@ class IGUploadManager: StreamManagerDelegate {
         if let task = pendingUploads.first {
             if task.status == .waiting {
                 task.file.loadData()
-                getUploadOptions(for: task)
-//                initializeStreamUpload(for: task)
+                
+                if IGAppManager.sharedManager.UploadDownloadMethod == .Socket {
+                    getUploadOptions(for: task)
+                }else {
+                    initializeStreamUpload(for: task)
+                }
             }
         }
     }

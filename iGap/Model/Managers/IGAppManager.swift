@@ -31,11 +31,6 @@ class IGAppManager: NSObject {
         case connected
         case iGap // login state
     }
-    enum DownloadMethod {
-        case Stream
-        case OldMethod
-    }
-    
     var realm = try! Realm()
     var connectionStatus: BehaviorRelay<ConnectionStatus>
     static var connectionStatusStatic: IGAppManager.ConnectionStatus?
@@ -58,7 +53,6 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
     private var _SymmetricKey: Data!
-    private var _DownloadMethod: DownloadMethod!
     
     var webSocketUrl = "wss://secure.igap.net/hybrid/"
     var debugMode = false
@@ -426,17 +420,6 @@ class IGAppManager: NSObject {
     }
     public func setSymmetricKey(key: Data) {
         _SymmetricKey = key
-    }
-    public func DownloadMethod() -> DownloadMethod {
-        return _DownloadMethod ?? .OldMethod
-    }
-    
-    public func setDownloadMethod(isStream: Bool) {
-        if isStream {
-            _DownloadMethod = .Stream
-        } else {
-            _DownloadMethod = .OldMethod
-        }
     }
     public func setAccessToken(accessToken: String, completion: (() -> Void)? = nil) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {

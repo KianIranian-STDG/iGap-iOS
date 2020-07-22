@@ -203,7 +203,8 @@ class IGDownloadManager {
             
             
             if firstTaskInQueue.state == .pending {
-                if IGAppManager.sharedManager.DownloadMethod() == .Stream { //use stream method to download
+                
+                if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
                     
                     var shouldResume : Bool = false
                     if (try? IGFilesManager().findFile(forFileNamed: firstTaskInQueue.file.name! + firstTaskInQueue.file.token!)) != nil {
@@ -591,7 +592,7 @@ class IGDownloadManager {
         var task : IGDownloadTask! = dictionaryDownloadTaskMain[attachment.token!]
         if task != nil {
             
-            if IGAppManager.sharedManager.DownloadMethod() == .Stream { //use stream method to download
+            if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
                 if streamReq != nil {
                     streamReq.suspend()
                     dictionaryPauseTask[attachment.token!] = task // go to pause dictionary
