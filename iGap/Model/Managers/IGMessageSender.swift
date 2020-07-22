@@ -171,7 +171,7 @@ class IGMessageSender {
         
         switch nextMessageTask.room.type {
         case .chat:
-            IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token ?? "").successPowerful({ (protoResponse, requestWrapper) in
+            IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token).successPowerful({ (protoResponse, requestWrapper) in
                 if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGStructMessageIdentity {
                     IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
                     if chatSendMessageResponse.igpResponse.igpID.isEmpty {
@@ -184,8 +184,7 @@ class IGMessageSender {
             break
             
         case .group:
-            print("=-=-=-=-=- 3333: ", nextMessageTask.uploadTask?.file.token ?? "")
-            IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token ?? "").successPowerful({ (protoResponse, requestWrapper) in
+            IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token).successPowerful({ (protoResponse, requestWrapper) in
                 if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGStructMessageIdentity {
                     IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
                     if groupSendMessageResponse.igpResponse.igpID.isEmpty {
@@ -198,7 +197,7 @@ class IGMessageSender {
             break
             
         case .channel:
-            IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token ?? "").successPowerful({ (protoResponse, requestWrapper) in
+            IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.file.token).successPowerful({ (protoResponse, requestWrapper) in
                 if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGStructMessageIdentity {
                     IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
                     if channelSendMessageResponse.igpResponse.igpID.isEmpty {
