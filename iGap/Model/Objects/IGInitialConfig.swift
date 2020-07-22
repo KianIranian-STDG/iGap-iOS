@@ -6,7 +6,7 @@
 //  Copyright © 2020 Kianiranian STDG -www.kianiranian.com. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Alamofire
 import SwiftyJSON
 
@@ -31,11 +31,10 @@ class IGInitialConfig {
             if let socketUrl = conf.webSocketUrl {
                 if socketUrl != IGAppManager.sharedManager.webSocketUrl {
                     IGAppManager.sharedManager.webSocketUrl = socketUrl
-                    IGWebSocketManager.sharedManager.forceConnect()
+                    IGWebSocketManager.sharedManager.forceConnect(forceReconnect: true)
                 }else {
                     IGAppManager.sharedManager.webSocketUrl = socketUrl
                 }
-                
             }
             
             if let debugM = conf.debugMode {

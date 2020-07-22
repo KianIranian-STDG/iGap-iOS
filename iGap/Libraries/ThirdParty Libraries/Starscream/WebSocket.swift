@@ -839,8 +839,14 @@ open class WebSocket : NSObject, StreamDelegate, WebSocketClient, WSStreamDelega
             if canDispatch {
                 callbackQueue.async { [weak self] in
                     guard let self = self else { return }
-                    self.onConnect?()
-                    self.delegate?.websocketDidConnect(socket: self)
+                    if let connect = self.onConnect {
+                        connect()
+                    }
+                    
+                    if let delegate = self.delegate {
+                        delegate.websocketDidConnect(socket: self)
+                    }
+                    
                     self.advancedDelegate?.websocketDidConnect(socket: self)
                     NotificationCenter.default.post(name: NSNotification.Name(WebsocketDidConnectNotification), object: self)
                 }

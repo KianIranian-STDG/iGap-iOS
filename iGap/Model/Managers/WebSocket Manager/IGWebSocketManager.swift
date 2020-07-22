@@ -19,12 +19,8 @@ class IGWebSocketManager: NSObject {
     static let sharedManager = IGWebSocketManager()
     
     private var reachability: Reachability!
-//    private let socket = WebSocket(url: URL(string: "wss://secure.igap.net/hybrid/")!)
-    private var socket: WebSocket {
-        get {
-            return WebSocket(url: URL(string: IGAppManager.sharedManager.webSocketUrl)!)
-        }
-    }
+    private var socket = WebSocket(url: URL(string: IGAppManager.sharedManager.webSocketUrl)!)
+    
     fileprivate var isConnectionSecured : Bool = false
     fileprivate var websocketSendQueue = DispatchQueue(label: "im.igap.ios.queue.ws.send")
     fileprivate var websocketReceiveQueue = DispatchQueue(label: "im.igap.ios.queue.ws.receive")
@@ -65,8 +61,7 @@ class IGWebSocketManager: NSObject {
                 print(error)
             }
         }
-        
-       
+    
     }
     
     public func closeConnection() {
@@ -78,8 +73,8 @@ class IGWebSocketManager: NSObject {
         WebSocket.shouldMask = false
         IGAppManager.sharedManager.setNetworkConnectionStatus(.connected)
     }
-    public func forceConnect() {
-        self.connectIfPossible()
+    public func forceConnect(forceReconnect: Bool = false) {
+        self.connectIfPossible(forceReconnect: forceReconnect)
     }
 
 
@@ -93,13 +88,23 @@ class IGWebSocketManager: NSObject {
     }
     
     //MARK: Private methods
-    private func connectIfPossible() {
+    private func connectIfPossible(forceReconnect: Bool = false) {
+        
+        if forceReconnect {
+            socket = WebSocket(url: URL(string: IGAppManager.sharedManager.webSocketUrl)!)
+            socket.delegate = self
+            socket.pongDelegate = self
+        }
+        
         do {
             if reachability == nil {
                 reachability = try Reachability()
             }
             
-            reachability.whenReachable = { reachability in
+            reachability.whenReachable = {[weak self] reachability in
+                guard let sSelf = self else {
+                    return
+                }
                 // this is called on a background thread
                 IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
                 IGAppManager.sharedManager.isUserLoggedIn.accept(false)
@@ -108,15 +113,18 @@ class IGWebSocketManager: NSObject {
                 } else {
                     print("Reachable via Cellular")
                 }
-                self.connectAndAddTimeoutHandler()
+                sSelf.connectAndAddTimeoutHandler()
             }
-            reachability.whenUnreachable = { reachability in
+            reachability.whenUnreachable = {[weak self] reachability in
+                guard let sSelf = self else {
+                    return
+                }
                 // this is called on a background thread
                 print ("Network Unreachable")
                 IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
                 IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
                 IGAppManager.sharedManager.isUserLoggedIn.accept(false)
-                self.socket.disconnect(forceTimeout:0)
+                sSelf.socket.disconnect(forceTimeout:0)
                 guard let delegate = RTCClient.getInstance(justReturn: true)?.callStateDelegate else {
                     return
                 }
@@ -124,6 +132,25 @@ class IGWebSocketManager: NSObject {
             }
             
             try reachability.startNotifier()
+            
+            
+            if reachability.connection != .unavailable && forceReconnect{
+                IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
+                IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
+                IGAppManager.sharedManager.isUserLoggedIn.accept(false)
+                socket.disconnect(forceTimeout:0)
+                
+                IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
+                IGAppManager.sharedManager.isUserLoggedIn.accept(false)
+                if reachability.connection == .wifi {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
+                connectAndAddTimeoutHandler()
+                
+                
+            }
         } catch {
             print("Unable to start notifier")
         }
