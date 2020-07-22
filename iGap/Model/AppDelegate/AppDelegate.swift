@@ -63,6 +63,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         _ = IGWebSocketManager.sharedManager
         _ = IGFactory.shared
         _ = IGCallEventListener.sharedManager // detect cellular call state
+        IGInitialConfig.sharedConfig.getInitialConfig {}
         
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         

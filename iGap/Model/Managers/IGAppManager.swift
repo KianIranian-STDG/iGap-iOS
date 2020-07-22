@@ -59,6 +59,18 @@ class IGAppManager: NSObject {
     private var _AccessToken: String!
     private var _SymmetricKey: Data!
     private var _DownloadMethod: DownloadMethod!
+    
+    var webSocketUrl = "wss://secure.igap.net/hybrid/"
+    var debugMode = false
+    var debugger: IGDebugger = .Firebase
+    var timeOut = 10
+    var maxFileSize: Int64 = 100000000
+    var captionMaxLength = 1024
+    var messageMaxLength = 4096
+    var groupMemberLimit = 10000
+    var channelMemberLimit = 10000
+    var UploadDownloadMethod: RequestMethod = .Rest
+    var blockMethod: RequestMethod = .Socket
 
     public let LOAD_ROOM_LIMIT = 50
     public let APP_ID = 3

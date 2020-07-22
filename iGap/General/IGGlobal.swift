@@ -91,10 +91,14 @@ enum IGBillType : Int {
     case Mobile = 3
 }
 
-enum UploadDownloadMethod: Int {
-    case NotSet = -1
-    case Socket = 1
-    case Rest = 2
+enum RequestMethod: String {
+    case NotSet = "notSet"
+    case Socket = "socket"
+    case Rest = "api"
+}
+
+enum IGDebugger: String {
+    case Firebase = "firebase"
 }
 
 class IGGlobal {

@@ -539,6 +539,7 @@
 		D2E2E713248E739F00FA2F3A /* IGGIftPayInfoModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E2E712248E739F00FA2F3A /* IGGIftPayInfoModal.swift */; };
 		D2EC3C58247D2E2D00072B87 /* IGKBuyTokenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */; };
 		D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
+		D2F4BA0824C6EACF00B3F668 /* IGInitialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4BA0724C6EACF00B3F668 /* IGInitialConfig.swift */; };
 		D2FE6417246814F3000D861E /* IGKCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6416246814F3000D861E /* IGKCustomButton.swift */; };
 		D2FE6BBB244EF99500CE8231 /* IGMBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */; };
 		D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */; };
@@ -1605,6 +1606,7 @@
 		D2E2E712248E739F00FA2F3A /* IGGIftPayInfoModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGIftPayInfoModal.swift; sourceTree = "<group>"; };
 		D2EC3C57247D2E2D00072B87 /* IGKBuyTokenVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKBuyTokenVM.swift; sourceTree = "<group>"; };
 		D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
+		D2F4BA0724C6EACF00B3F668 /* IGInitialConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGInitialConfig.swift; sourceTree = "<group>"; };
 		D2FE6416246814F3000D861E /* IGKCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKCustomButton.swift; sourceTree = "<group>"; };
 		D2FE6BBA244EF99500CE8231 /* IGMBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMBUser.swift; sourceTree = "<group>"; };
 		D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmAuthorUser.swift; sourceTree = "<group>"; };
@@ -3971,6 +3973,7 @@
 				D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */,
 				D23488F5245D353900AF116C /* IGDateTime.swift */,
 				D28EBFDA24967ED800744A59 /* IGRealmAuthorRoom.swift */,
+				D2F4BA0724C6EACF00B3F668 /* IGInitialConfig.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -5577,6 +5580,7 @@
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
 				8EEE895622A3CF360072383C /* DropUpMenu.swift in Sources */,
+				D2F4BA0824C6EACF00B3F668 /* IGInitialConfig.swift in Sources */,
 				FA0953631E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewCell.swift in Sources */,
 				FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */,
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,

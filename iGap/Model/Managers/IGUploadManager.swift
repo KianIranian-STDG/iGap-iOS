@@ -137,8 +137,8 @@ class IGUploadManager: StreamManagerDelegate {
             return
         }
         
-        if task.file.uploadDownloadMethod != UploadDownloadMethod.Socket.rawValue {
-            if task.file.uploadDownloadMethod == UploadDownloadMethod.Rest.rawValue && task.file.token != nil{
+        if task.file.uploadDownloadMethod != RequestMethod.Socket.rawValue {
+            if task.file.uploadDownloadMethod == RequestMethod.Rest.rawValue && task.file.token != nil{
                 task.file.token = nil
             }
             IGFile.setUploadDownloadMethod(cacheId: task.file.cacheID!, uploadDownloadMethod: .Socket)
@@ -176,8 +176,8 @@ class IGUploadManager: StreamManagerDelegate {
     //Step 1-Stream: Initialize Upload
     private func initializeStreamUpload(for task: IGUploadTask, forceRestart: Bool = false) {
         
-        if task.file.uploadDownloadMethod != UploadDownloadMethod.Socket.rawValue {
-            if task.file.uploadDownloadMethod == UploadDownloadMethod.NotSet.rawValue {
+        if task.file.uploadDownloadMethod != RequestMethod.Socket.rawValue {
+            if task.file.uploadDownloadMethod == RequestMethod.NotSet.rawValue {
                 IGFile.setUploadDownloadMethod(cacheId: task.file.cacheID!, uploadDownloadMethod: .Rest)
             }
             if task.file.token == nil {

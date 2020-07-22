@@ -30,7 +30,7 @@ public class IGFile: Object {
     @objc dynamic var duration:           Double                    = 0.0
     @objc dynamic var typeRaw:            FileType.RawValue         = FileType.file.rawValue
     @objc dynamic var baseFilePathTypeRaw:BaseFilePathType.RawValue = BaseFilePathType.document.rawValue // use this variable at detect base file directory for fetch 'localPath'
-    @objc dynamic var uploadDownloadMethod: UploadDownloadMethod.RawValue                = UploadDownloadMethod.NotSet.rawValue
+    @objc dynamic var uploadDownloadMethod: RequestMethod.RawValue                = RequestMethod.NotSet.rawValue
     
     var data:                  Data?
     var status:                Status                              = .unknown
@@ -219,7 +219,7 @@ public class IGFile: Object {
         }
     }
     
-    static func setUploadDownloadMethod(cacheId: String, uploadDownloadMethod: UploadDownloadMethod) {
+    static func setUploadDownloadMethod(cacheId: String, uploadDownloadMethod: RequestMethod) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "cacheID = %@", cacheId)
             if let file = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
