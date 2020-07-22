@@ -296,6 +296,12 @@ class IGPSInternetPackagesVC : MainViewController {
                 })
             }
         }
+        let tmp = finalDurationArray.filterDuplicates { $0.id == $1.id }
+        finalDurationArray.removeAll()
+        finalDurationArray = tmp.sorted { (elemOne, elemTwo) -> Bool in
+            return (Float((elemOne.category?.value)!)) < (Float((elemTwo.category?.value)!))
+        }
+
 
         IGHelperBottomModals.shared.showDataModal(categories: finalDurationArray ,isTraffic : false)
     }
@@ -358,6 +364,11 @@ class IGPSInternetPackagesVC : MainViewController {
                 })
             }
         }
+        let tmp = finalTrafficArray.filterDuplicates { $0.id == $1.id }
+        finalTrafficArray.removeAll()
+        finalTrafficArray = tmp.sorted { (elemOne, elemTwo) -> Bool in
+            return (Float((elemOne.category?.value)!)) < (Float((elemTwo.category?.value)!))
+        }
         IGHelperBottomModals.shared.showDataModal(categories: finalTrafficArray,isTraffic : true)
 
     }
@@ -381,4 +392,21 @@ class IGPSInternetPackagesVC : MainViewController {
         }
     }
     
+}
+extension Array {
+
+    func filterDuplicates(includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
+        var results = [Element]()
+
+        forEach { (element) in
+            let existingElements = results.filter {
+                return includeElement(element, $0)
+            }
+            if existingElements.count == 0 {
+                results.append(element)
+            }
+        }
+
+        return results
+    }
 }
