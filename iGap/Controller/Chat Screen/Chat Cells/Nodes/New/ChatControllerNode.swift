@@ -4074,7 +4074,24 @@ class ChatControllerNode: ASCellNode {
 
         }
         if msg.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) || msg.status == .failed || msg.status == .sending || msg.status == .unknown {
+            var isExist : Bool = false
+            if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
+                if (try? IGFilesManager().findFile(forFileNamed: msg.attachment!.name! + msg.attachment!.token!)) == nil {
+                    isExist = false
+                } else {
+                    isExist = true
+
+                }
+            } else {
+                if  !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) {
+                    isExist = false
+                } else {
+                    isExist = true
+                    
+                }
+            }
+            
+            if !(isExist) || msg.status == .failed || msg.status == .sending || msg.status == .unknown {
                 
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
