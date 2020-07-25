@@ -112,6 +112,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         animateNameView(state: false)
 
         viewTransparent.backgroundColor = .clear
@@ -132,8 +134,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
    
         phoneNumber = String(describing: userRegisteredInfo.phone)
         if isReturnCall {
-            super.viewDidLoad()
-
 //                    IGCall.callUUID = UUID()
 //                    if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
 //
@@ -234,8 +234,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
 
 
                     }
-                    super.viewDidLoad()
-
                     if #available(iOS 10.0, *) {
                         CallManager.sharedInstance.delegate = self
                     }
@@ -297,6 +295,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
         btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
         btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        
+        if self.callType == .videoCalling {
+            btnChat.isEnabled = false
+            
+        }
 
     }
     

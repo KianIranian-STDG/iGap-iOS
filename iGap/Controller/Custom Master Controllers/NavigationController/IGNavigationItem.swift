@@ -18,6 +18,7 @@ var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
     
+    var isOnce : Bool = false
     var rightViewContainer:  IGTappableView?
     var centerViewContainer: IGTappableView?
     var leftViewContainer:   IGTappableView?
@@ -27,6 +28,7 @@ class IGNavigationItem: UINavigationItem {
     var callViewContainer:   IGTappableView?
     var returnToCall:        IGTappableView?
     var navigationController: IGNavigationController?
+    var hasshownbubble : Bool! = false
     private var centerViewMainLabel: UILabel?
     private var centerViewSubLabel:  UILabel?
     private var typingIndicatorView: IGDotActivityIndicator?
@@ -42,12 +44,14 @@ class IGNavigationItem: UINavigationItem {
     //MARK: - Initilizers
     override init(title: String) {
         super.init(title: title)
+        print("init navigationItem1")
         
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+        print("init navigationItem2")
+
     }
     
     //MARK: - Connecting
@@ -806,8 +810,11 @@ class IGNavigationItem: UINavigationItem {
             
             self.centerViewSubLabel!.text = room.currentActionString()
             if (room.chatRoom?.peer) != nil {
-                SwiftEventBus.postToMainThread(EventBusManager.updateTypingBubble, sender: true)
 
+                if UIApplication.topViewController() is IGMessageViewController {
+                    print("IS IN CHAT PAGE REGISTER")
+                    (UIApplication.topViewController() as! IGMessageViewController).manageTypingBubble(State: true)
+                }
                 
             }
 
@@ -825,7 +832,12 @@ class IGNavigationItem: UINavigationItem {
             }
             
             if let peer = room.chatRoom?.peer {
-                SwiftEventBus.postToMainThread(EventBusManager.updateTypingBubble, sender: false)
+
+                if UIApplication.topViewController() is IGMessageViewController {
+                    print("IS IN CHAT PAGE UNREGISTER")
+                    (UIApplication.topViewController() as! IGMessageViewController).manageTypingBubble(State: false)
+                }
+
                 if room.currenctActionsByUsers.first?.value.1 != .typing {
                     setLastSeenLabelForUser(peer, room: room)
                 }
@@ -1166,6 +1178,9 @@ class IGNavigationItem: UINavigationItem {
         
     }
     
+    deinit {
+        print("Deinit navigationItem")
+    }
     
     private func isCloud(room: IGRoom) -> Bool {
         if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {

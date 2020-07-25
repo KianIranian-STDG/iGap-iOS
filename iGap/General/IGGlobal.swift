@@ -104,6 +104,8 @@ enum IGDebugger: String {
 class IGGlobal {
     
     /***** Base of Directories *****/
+    static var showTypingBubble : Bool = false
+
     static let APP_DIR = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/iGap"
     static let CACHE_DIR = APP_DIR//NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + "/iGap" /*don't use cache directory for avoid from remove files automatically by OS*/
 

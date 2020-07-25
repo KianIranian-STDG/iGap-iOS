@@ -659,7 +659,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         var canBecomeFirstResponder: Bool { return true }
 //        if let navigationController = self.navigationController as? IGNavigationController {
          let navigationController = self.navigationController as? IGNavigationController
+        if myNavigationItem == nil {
             myNavigationItem = self.navigationItem as? IGNavigationItem
+        }
             myNavigationItem.navigationController = navigationController
             myNavigationItem.setNavigationBarForRoom(room!)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -813,7 +815,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
         tableViewNode.view.addGestureRecognizer(mainViewTap)
-        
+        if let roomVariable = IGRoomManager.shared.varible(for: room!) {
+            roomVariable.asObservable().subscribe({ [weak self] (event) in
+                if event.element == self?.room {
+                    DispatchQueue.main.async {
+                        self?.myNavigationItem?.updateNavigationBarForRoom(event.element!)
+
+                    }
+                }
+            }).disposed(by: disposeBag)
+        }
         
     }
     
@@ -915,7 +926,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         super.viewWillAppear(animated)
 
         self.view.endEditing(true)
-        
+//        IGGlobal.showTypingBubble = false
+        if myNavigationItem == nil {
+            myNavigationItem = self.navigationItem as? IGNavigationItem
+        }
+
         initNotificationsNewChatView()
         self.addNotificationObserverForTapOnStatusBar()
         
@@ -961,17 +976,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
-        if let roomVariable = IGRoomManager.shared.varible(for: room!) {
-            roomVariable.asObservable().subscribe({ [weak self] (event) in
-                if event.element == self?.room {
-                    DispatchQueue.main.async {
-                        self?.myNavigationItem?.updateNavigationBarForRoom(event.element!)
 
-                    }
-                }
-            }).disposed(by: disposeBag)
-        }
-        
         AVAudioSession.sharedInstance().requestRecordPermission { (granted) in }
         
         setMessagesRead()
@@ -1070,6 +1075,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+//        IGGlobal.showTypingBubble = false
+        if myNavigationItem != nil {
+            myNavigationItem = nil
+        }
+        
+
     }
     
     private func deallocate(){
@@ -1157,6 +1168,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         NotificationCenter.default.removeObserver(self)
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1202,43 +1214,35 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     private var bottomProgressId: Int64 = 0 // bottom real messageId minus one. save this value then for hide bottom progress find position of message and then remove
 
+    func manageTypingBubble(State: Bool!) {
+        if State {
+            if shouldShowTypingBubble {
+                removeTypingBubble()
+
+            } else {
+                print("ROOM ID FOR BUBBLE TYPING",room?.id)
+//                IGGlobal.showTypingBubble = true
+                let bubblemsg = IGRoomMessage(body: "")
+                bubblemsg.type = .isTyping
+
+                bottomProgressId = (room?.lastMessage!.id)! - 1
+                bubblemsg.id = bottomProgressId
+
+                appendMessageArray([bubblemsg], IGPClientGetRoomHistory.IGPDirection.down)
+                addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection.down)
+
+                addTypingBubble()
+
+            }
+        } else {
+            removeProgress(fakeMessageId: bottomProgressId, direction: IGPClientGetRoomHistory.IGPDirection.down)
+
+            removeTypingBubble()
+        }
+    }
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
             self?.initTheme()
-        }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.updateTypingBubble) { [weak self] result in
-            guard let sSelf = self else {
-                return
-            }
-
-            
-            let state = result?.object as! Bool
-            if state {
-                if sSelf.shouldShowTypingBubble {
-                    sSelf.removeTypingBubble()
-
-                } else {
-                    print("ROOM ID FOR BUBBLE TYPING",self?.room?.id)
-                    let bubblemsg = IGRoomMessage(body: "")
-                    bubblemsg.type = .isTyping
-
-                    sSelf.bottomProgressId = (sSelf.room?.lastMessage!.id)! - 1
-                    bubblemsg.id = sSelf.bottomProgressId
-
-                    
-
-                    self?.appendMessageArray([bubblemsg], IGPClientGetRoomHistory.IGPDirection.down)
-                    self?.addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection.down)
-
-
-                    self?.addTypingBubble()
-
-                }
-            } else {
-                self?.removeProgress(fakeMessageId: self!.bottomProgressId, direction: IGPClientGetRoomHistory.IGPDirection.down)
-
-                sSelf.removeTypingBubble()
-            }
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.sendCardToCardMessage) { [weak self] result in
             let rMessage : IGRoomMessage = result?.object as! IGRoomMessage
@@ -5786,6 +5790,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func setFloatingDate(){
         if messages == nil {return}
+        print("IS SETTING FLOATING DATE")
         let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
             if latestIndexPath != lastIndexPath {
