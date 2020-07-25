@@ -302,7 +302,7 @@ class IGDownloadManager {
             
             var firstChunk : Bool = false
             var decipher : (Cryptor & Updatable)?
-            let nameOfFile = "\(downloadTask.file.name ?? "")\(downloadTask.file.token ?? "")"
+            let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name ?? "")"
             var startRangeOfFile : Int64 = 0
             if shouldResum {
                 let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
