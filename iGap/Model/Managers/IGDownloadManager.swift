@@ -15,6 +15,8 @@ import Digger
 import Files
 import CryptoSwift
 import Alamofire
+import AVKit
+import AVFoundation
 
 typealias DownloadCompleteHandler = ((_ attachment:IGFile)->())?
 typealias DownloadFailedHander    = (()->())?
@@ -207,10 +209,17 @@ class IGDownloadManager {
                 if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
                     
                     var shouldResume : Bool = false
-                    if (try? IGFilesManager().findFile(forFileNamed: firstTaskInQueue.file.name! + firstTaskInQueue.file.token!)) != nil {
+                    let nameOfFile : String = "\(firstTaskInQueue.file.token ?? "")\("." + (firstTaskInQueue.file.name?.getExtension() ?? ""))"
+                    if (try? IGFilesManager().findFile(forFileNamed: nameOfFile)) != nil {
                         shouldResume = true
                     } //check if file is downloaded once(this if is usefull in conditions where the app was closed after the download was paused
                     
+//                    if (IGGlobal.isFileExist(path: firstTaskInQueue.file.localPath, fileSize: firstTaskInQueue.file.size)) {
+//                        shouldResume = false
+//                    } else {
+//                        shouldResume = true
+//
+//                    }
                     if dictionaryPauseTask[firstTaskInQueue.file.token!] != nil {
                         shouldResume = true
                     }
@@ -295,19 +304,22 @@ class IGDownloadManager {
     }
     
     private func downloadStream(task downloadTask:IGDownloadTask,shouldResum : Bool = false) {
-        let token = downloadTask.file.token
-        var fileEndRange = downloadTask.file.size
-        var url = "https://api.igap.net/file-test/v1.0/download/\(token)"
-        if  token != nil {
+        if let token = downloadTask.file.token {
             
+        
+        let fileEndRange = downloadTask.file.size
+        var url = "https://api.igap.net/file-test/v1.0/download/\(token)"
             var firstChunk : Bool = false
             var decipher : (Cryptor & Updatable)?
-            let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name ?? "")"
+            let nameOfFile = "\(downloadTask.file.token ?? "")\("." + (downloadTask.file.name?.getExtension()?.lowercased() ?? ""))"
             var startRangeOfFile : Int64 = 0
             if shouldResum {
-                let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
-                let tmpDataSize = ((currentSize?.keys.first!.count))
-                startRangeOfFile = Int64(tmpDataSize ?? 0)
+
+//                let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
+//                let tmpDataSize = ((currentSize?.keys.first!.count))
+//                startRangeOfFile = Int64(tmpDataSize ?? 0)
+                IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
+
             } else {
                 IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
             }
@@ -328,14 +340,14 @@ class IGDownloadManager {
                             let dcvar = try? decipher?.update(withBytes: [UInt8](keyIV["firstchunk"]!))
                             let dataa = NSData(bytes: dcvar, length: dcvar!.count)
                             
-                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data, type: downloadTask.file.convertToFilePathType())
                             
                             
                         } else {
                             
                             let dcvar = try? decipher?.update(withBytes: [UInt8](data))
                             let dataa = NSData(bytes: dcvar, length: dcvar!.count)
-                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data, type: downloadTask.file.convertToFilePathType())
                         }
                         IGAttachmentManager.sharedManager.setStatus(.downloading, for: downloadTask.file)
 
@@ -357,9 +369,39 @@ class IGDownloadManager {
                         
                         print("-0-0-0-0-0-0-0-0")
                         do {
-                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
-                            IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+                            try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data, type: downloadTask.file.convertToFilePathType())
+//                            let fileManager = FileManager.default
+//                            fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: dataa as Data, attributes: nil)
+
                             
+                            let alert = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
+
+                            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+                            let imgTitle = UIImage(data: dataa as Data)
+                            let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 300, height: 300))
+                            imgViewTitle.image = imgTitle
+
+                            alert.view.addSubview(imgViewTitle)
+                            alert.addAction(action)
+
+                            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+
+//                            if let filee = try? IGFilesManager().findFile(forFileNamed: nameOfFile) {
+//
+//                                if let url = filee.values.first {
+//                                    let player = AVPlayer(url: url)
+//                                    let avController = AVPlayerViewController()
+//                                    avController.player = player
+//                                    player.play()
+//                                    UIApplication.topViewController()!.present(avController, animated: true, completion: nil)
+//                                }
+//                            }
+
+                            
+                            
+                            IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+//                            IGFilesManager().findAndRemove(token: downloadTask.file.token!)
                             if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
                                 self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
                             }
@@ -376,8 +418,8 @@ class IGDownloadManager {
                     }
                 }
             }
-        }
         
+        }
         
     }
     private func downloadCDN(task downloadTask:IGDownloadTask, publicURL: String? = nil) {

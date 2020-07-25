@@ -34,7 +34,67 @@ class IGFilesManager {
         print(FileManager.default.urls(for: .documentDirectory))
 
     }
-    func save(fileNamed: String, data: Data) throws {
+    
+    func makeLocalPath(_ type: FilePathType,nameOfFile: String) -> String {
+        
+        var filePath = ""
+        let filename = nameOfFile
+        
+        switch type {
+        case .thumb:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.THUMB_DIR + "/" + filename + "jpg"
+            break
+        case .image:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.IMAGE_DIR + "/" + filename
+            break
+        case .video:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.VIDEO_DIR + "/" + filename
+            break
+        case .gif:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.GIF_DIR + "/" + filename
+            break
+        case .audio:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.AUDIO_DIR + "/" + filename
+            break
+        case .voice:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.VOICE_DIR + "/" + filename // use 'm4a' extension to be able to play voice
+            break
+        case .file:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.FILE_DIR + "/" + filename
+            break
+        case .avatar:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.AVATAR_DIR + "/" + filename
+            break
+        case .sticker:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.STICKER_DIR + "/" + filename
+            break
+        case .background:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.BACKGROUND_DIR + "/" + filename
+            break
+        case .temp:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.temp.rawValue
+            filePath = IGGlobal.TEMP_DIR + "/" + filename
+            break
+        default:
+            IGFile().baseFilePathTypeRaw = BaseFilePathType.temp.rawValue
+            filePath = IGGlobal.TEMP_DIR + "/" + filename
+            break
+        }
+        
+        return filePath
+    }
+    func save(fileNamed: String, data: Data,type: FilePathType ) throws {
+//        let newname = makeLocalPath(type,nameOfFile: fileNamed)
         guard let url = makeURL(forFileNamed: fileNamed) else {
             throw Error.invalidDirectory
         }

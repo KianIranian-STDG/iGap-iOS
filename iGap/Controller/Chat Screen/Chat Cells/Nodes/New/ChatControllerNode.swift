@@ -4075,21 +4075,20 @@ class ChatControllerNode: ASCellNode {
         }
         if msg.attachment != nil {
             var isExist : Bool = false
-            if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
-                if (try? IGFilesManager().findFile(forFileNamed: msg.attachment!.name! + msg.attachment!.token!)) == nil {
-                    isExist = false
+
+                if let tk = msg.attachment!.token {
+                    if  !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) {
+                        isExist = false
+                    } else {
+                        isExist = true
+                        
+                    }
+
                 } else {
-                    isExist = true
+                    isExist = false
 
                 }
-            } else {
-                if  !(IGGlobal.isFileExist(path: msg.attachment!.localPath, fileSize: (msg.attachment?.size)!)) {
-                    isExist = false
-                } else {
-                    isExist = true
-                    
-                }
-            }
+            
             
             if !(isExist) || msg.status == .failed || msg.status == .sending || msg.status == .unknown {
                 
