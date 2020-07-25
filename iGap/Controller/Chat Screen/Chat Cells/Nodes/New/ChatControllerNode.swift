@@ -37,7 +37,6 @@ class ChatControllerNode: ASCellNode {
     private var LiveStickerView : ASDisplayNode?
     private var NormalGiftStickerView : ASDisplayNode?
     private var btnPlay : ASButtonNode?
-    var attachedImage : UIImage?
 
     //filenode
     private var txtTitleNode : ASTextNode?
@@ -4472,11 +4471,16 @@ class ChatControllerNode: ASCellNode {
 //                        imgNode!.setImageColor(color: UIColor.purple)
 
                     } else {
-                        imgNode!.image = attachedImage ?? nil
+                        imgNode!.image = IGGlobal.pickedImageThumbnail ?? nil
+                        
                         if let imgCover = attachment.smallThumbnail  {
                             imgNode?.setThumbnail(for: imgCover)
+                            IGGlobal.pickedImageThumbnail = nil
+                        } else {
+                            imgNode!.image = IGGlobal.pickedImageThumbnail ?? nil
+                            IGGlobal.pickedImageThumbnail = nil
+
                         }
-                        attachedImage = nil
                     }
                     
                     imgNode!.setThumbnail(for: attachment)
@@ -4570,6 +4574,7 @@ class ChatControllerNode: ASCellNode {
                 if msg!.type == .video || msg!.type == .videoAndText {
                     //                    makePlayButton()
                     if msg!.status == IGRoomMessageStatus.sent || msg!.status == IGRoomMessageStatus.delivered ||  msg!.status == IGRoomMessageStatus.seen {
+                        IGGlobal.pickedImageThumbnail = nil
                         btnPlay?.isHidden = false
                         indicatorViewAbs?.isUserInteractionEnabled = false
                         indicatorViewAbs?.view.isUserInteractionEnabled = false

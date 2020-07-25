@@ -3624,7 +3624,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        
         if IGGlobal.isFromSearchPage {
             IGGlobal.hasTexted = true
         }
@@ -4872,7 +4871,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func manageVideo(videoInfo: YPMediaVideo, single: Bool = true, sendAsFile: Bool = false){
-        
+        IGGlobal.pickedImageThumbnail = nil
         if sendAsFile {
             if let data = try? Data(contentsOf: videoInfo.url) {
                 self.manageFile(fileData: data, filename: videoInfo.url.lastPathComponent, single: single)
@@ -4887,12 +4886,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                              height: Double(videoInfo.asset!.pixelHeight),
                                              duration: videoInfo.asset!.duration)
         
+        
         /***** TODO - Write File Background *****/
         if let path = attachment.localPath {
             try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: path)
             
             if single {
                 self.imgAttachmentImage.image = videoInfo.thumbnail
+                IGGlobal.pickedImageThumbnail  = self.imgAttachmentImage.image
                 self.imgAttachmentImage.layer.cornerRadius = 6.0
                 self.imgAttachmentImage.layer.masksToBounds = true
                 self.didSelectAttachment(attachment)
@@ -4904,7 +4905,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func manageImage(imageInfo: YPMediaPhoto, single: Bool = true, sendAsFile: Bool = false){
-        
+        IGGlobal.pickedImageThumbnail = nil
         var image = imageInfo.modifiedImage
         if image == nil {
             image = imageInfo.originalImage
@@ -4941,6 +4942,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if single {
             self.imgAttachmentImage.image = scaledImage
+            IGGlobal.pickedImageThumbnail  = self.imgAttachmentImage.image
             self.imgAttachmentImage.layer.cornerRadius = 6.0
             self.imgAttachmentImage.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
@@ -8371,7 +8373,6 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             let cellNode = ChatControllerNode(message: msg!.detach(), finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             cellNode.selectionStyle = .none
             cellNode.delegate = self
-            cellNode.attachedImage = sSelf.imgAttachmentImage.image
             return cellNode
         }
             
