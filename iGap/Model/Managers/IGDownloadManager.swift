@@ -295,9 +295,10 @@ class IGDownloadManager {
     }
     
     private func downloadStream(task downloadTask:IGDownloadTask,shouldResum : Bool = false) {
-        var url = downloadTask.file.publicUrl
+        let token = downloadTask.file.token
         var fileEndRange = downloadTask.file.size
-        if  url != nil && !(url?.isEmpty)! {
+        var url = "https://api.igap.net/file-test/v1.0/download/\(token)"
+        if  token != nil {
             
             var firstChunk : Bool = false
             var decipher : (Cryptor & Updatable)?
@@ -310,7 +311,7 @@ class IGDownloadManager {
             } else {
                 IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
             }
-            streamReq = AF.streamRequest(url!,method: .get,headers: self.getStreamHeader(startRange: startRangeOfFile ,endRange: fileEndRange))
+            streamReq = AF.streamRequest(url,method: .get,headers: self.getStreamHeader(startRange: startRangeOfFile ,endRange: fileEndRange))
             streamReq.responseStream { stream in
                 switch stream.event {
                 case let .stream(result):
