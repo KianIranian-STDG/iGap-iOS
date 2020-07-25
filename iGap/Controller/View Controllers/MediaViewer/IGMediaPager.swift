@@ -279,7 +279,8 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     // MARK:- User Actions
     
     @IBAction func btnBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: false)
+//        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func btnShare(_ sender: UIButton) {
@@ -420,7 +421,9 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
         return true
     }
-    
+    deinit {
+        print("Deinited igmediapager")
+    }
 }
 extension IGMediaPager : IGMessageGeneralCollectionViewCellDelegate {
     func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, index: IndexPath) {
@@ -526,5 +529,36 @@ extension IGMediaPager : IGMessageGeneralCollectionViewCellDelegate {
         return
     }
     
-    
+
+}
+
+extension IGMediaPager: PanModalPresentable {
+
+    var panScrollable: UIScrollView? {
+        return nil
+    }
+
+    var topOffset: CGFloat {
+        return 0.0
+    }
+
+    var springDamping: CGFloat {
+        return 1.0
+    }
+
+    var transitionDuration: Double {
+        return 0.4
+    }
+
+    var transitionAnimationOptions: UIView.AnimationOptions {
+        return [.allowUserInteraction, .beginFromCurrentState]
+    }
+
+    var shouldRoundTopCorners: Bool {
+        return false
+    }
+
+    var showDragIndicator: Bool {
+        return false
+    }
 }

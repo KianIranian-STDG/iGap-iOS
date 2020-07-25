@@ -7540,7 +7540,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             mediaViewer.ownerId = self.room?.id
             mediaViewer.messageId = cellMessage.id
             mediaViewer.mediaPagerType = .imageAndVideo
-            self.navigationController!.pushViewController(mediaViewer, animated: false)
+            UIApplication.topViewController()!.presentPanModal(mediaViewer)
+
             return
             
         case .video, .videoAndText:
