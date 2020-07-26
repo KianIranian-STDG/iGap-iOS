@@ -345,14 +345,15 @@ class IGDownloadManager {
                                 
                                 let dcvar = try? decipher?.update(withBytes: [UInt8](keyIV["firstchunk"]!))
                                 let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+                                print("SIZE OF CHUNK",dataa.count)
 
-                                
                                 try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
                                 
                                 
                             } else {
                                 let dcvar = try? decipher?.update(withBytes: [UInt8](data))
                                 let dataa = NSData(bytes: dcvar, length: dcvar!.count)
+                                print("FinalChunk",dataa.count,dataa,dataa.bytes)
 
                                 
                                 try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
@@ -375,29 +376,59 @@ class IGDownloadManager {
                         }
                     case let .complete(completion):
                         if completion.response != nil {
+                            
+                            
                             let dcvar = try? decipher?.finish()
                             let dataa = NSData(bytes: try? decipher?.finish(), length: dcvar!.count)
+                            print("FinalFinalChunk",dataa.count,dataa,dataa.bytes)
 
                             do {
                                 try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
 
-                                IGFilesManager().fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: try? IGFilesManager().findFile(forFileNamed: nameOfFile)?.keys.first, attributes: nil)
-                                IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
+                                if let fData =  (((try? IGFilesManager().findFile(forFileNamed: nameOfFile)?.keys.first))) {
+                                    let diff = (downloadTask.file.size) - downloadTask.file.size
+                                    
+                                    IGFilesManager().fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: fData.dropLast(Int(diff)), attributes: nil)
 
-                                IGAttachmentManager.sharedManager.setProgress(1, for: downloadTask.file)
-                                IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+                                    IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
 
-                                
-                                if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
-                                    self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                                    IGAttachmentManager.sharedManager.setProgress(1, for: downloadTask.file)
+                                    IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+
+                                    
+                                    if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
+                                        self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                                    }
+                                    
+                                    downloadTask.state = .finished
+                                    if let success = downloadTask.completionHandler {
+                                        success(downloadTask.file)
+                                    }
+                                    
+                                    self.startNextDownloadTaskIfPossible()
+
                                 }
                                 
-                                downloadTask.state = .finished
-                                if let success = downloadTask.completionHandler {
-                                    success(downloadTask.file)
-                                }
                                 
-                                self.startNextDownloadTaskIfPossible()
+//                                if let fData = try? IGFilesManager().findFile(forFileNamed: nameOfFile)?.keys.first {
+//
+//                                    let alert = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
+//                                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                                    let imgTitle = UIImage(data: fData)
+//                                    let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 300, height: 300))
+//                                    imgViewTitle.image = imgTitle
+//                                    imgViewTitle.contentMode = .scaleAspectFit
+//                                    alert.view.addSubview(imgViewTitle)
+//                                    alert.addAction(action)
+//
+//                                    UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+//
+//                                }
+
+                                
+                                
+                                
+                                
                                 
                             }
                             

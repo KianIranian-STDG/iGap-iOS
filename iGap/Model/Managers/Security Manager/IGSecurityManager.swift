@@ -156,12 +156,13 @@ class IGSecurityManager: NSObject {
         let iv =  convertedData.subdata(with: NSMakeRange(0, symmetricIVSize))
         let keyData = symmetricKey.data(using: .utf8)!
         
-//        let encryptedPayload = convertedData.subdata(with: NSMakeRange(symmetricIVSize, convertedData.length-symmetricIVSize))
-        let encryptedPayload = Data(convertedData.dropFirst(16))
+        let encryptedPayload = convertedData.subdata(with: NSMakeRange(symmetricIVSize, convertedData.length-symmetricIVSize))
+//        let encryptedPayload = Data(convertedData.dropFirst(16))
 
         keyIV["key"] = keyData
         keyIV["iv"] = iv
-        keyIV["firstchunk"] = encryptedPayload as Data
+//        keyIV["firstchunk"] = encryptedPayload as Data
+        keyIV["firstchunk"] = encryptedPayload
 
         return keyIV
     }
