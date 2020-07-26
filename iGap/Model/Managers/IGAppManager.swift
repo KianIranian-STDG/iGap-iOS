@@ -54,8 +54,7 @@ class IGAppManager: NSObject {
     private var _AccessToken: String!
     private var _SymmetricKey: Data!
     
-//    var webSocketUrl = "wss://secure.igap.net/hybrid/"
-    var webSocketUrl = "ws://192.168.10.31:8740/"
+    var webSocketUrl = "wss://secure.igap.net/hybrid/"
     var debugMode = false
     var debugger: IGDebugger = .Firebase
     var timeOut = 10

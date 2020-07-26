@@ -28,14 +28,14 @@ class IGInitialConfig {
                 return
             }
             
-//            if let socketUrl = conf.webSocketUrl {
-//                if socketUrl != IGAppManager.sharedManager.webSocketUrl {
-//                    IGAppManager.sharedManager.webSocketUrl = socketUrl
-//                    IGWebSocketManager.sharedManager.forceConnect(forceReconnect: true)
-//                }else {
-//                    IGAppManager.sharedManager.webSocketUrl = socketUrl
-//                }
-//            }
+            if let socketUrl = conf.webSocketUrl {
+                if socketUrl != IGAppManager.sharedManager.webSocketUrl {
+                    IGAppManager.sharedManager.webSocketUrl = socketUrl
+                    IGWebSocketManager.sharedManager.forceConnect(forceReconnect: true)
+                }else {
+                    IGAppManager.sharedManager.webSocketUrl = socketUrl
+                }
+            }
             
             if let debugM = conf.debugMode {
                 IGAppManager.sharedManager.debugMode = debugM
@@ -70,8 +70,7 @@ class IGInitialConfig {
             }
             
             if let upDlMethod = RequestMethod(rawValue: conf.microServices?.file ?? "") {
-//                IGAppManager.sharedManager.UploadDownloadMethod = upDlMethod
-                IGAppManager.sharedManager.UploadDownloadMethod = .Rest
+                IGAppManager.sharedManager.UploadDownloadMethod = upDlMethod
             }
             
             if let blkMode = RequestMethod(rawValue: conf.microServices?.file ?? "") {
