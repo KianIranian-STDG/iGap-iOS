@@ -314,11 +314,12 @@ class IGDownloadManager {
             let fileEndRange = downloadTask.file.size
             let url = "https://api.igap.net/file-test/v1.0/download/\(token)"
                 
-                var firstChunk : Bool = false
-                var decipher : (Cryptor & Updatable)?
-              let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name ?? "")"
+            var firstChunk : Bool = false
+            var decipher : (Cryptor & Updatable)?
+            let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name ?? "")"
 //                let nameOfFile = String("\((downloadTask.file.localSavePath) ?? "")".dropFirst())
-                var startRangeOfFile : Int64 = 0
+            var startRangeOfFile : Int64 = 0
+            
                 if shouldResum {
                     let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
                     let tmpDataSize = ((currentSize?.keys.first!.count))
@@ -357,7 +358,16 @@ class IGDownloadManager {
                                 try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
                             }
                             IGAttachmentManager.sharedManager.setStatus(.downloading, for: downloadTask.file)
-
+                            
+                            do {
+                                let currentFile = try IGFilesManager().findFile(forFileNamed: nameOfFile)
+                                let alreadyDownloadBytes = currentFile?.keys.first?.count
+                                
+                                IGAttachmentManager.sharedManager.setProgress(Double(alreadyDownloadBytes ?? 0) / Double(fileEndRange), for: downloadTask.file)
+                                
+                            } catch {
+                                return
+                            }
                             
                         case let .failure(error) :
                             print(error)
@@ -374,7 +384,7 @@ class IGDownloadManager {
                                 IGFilesManager().fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: try? IGFilesManager().findFile(forFileNamed: nameOfFile)?.keys.first, attributes: nil)
                                 IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
 
-                                
+                                IGAttachmentManager.sharedManager.setProgress(1, for: downloadTask.file)
                                 IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
 
                                 

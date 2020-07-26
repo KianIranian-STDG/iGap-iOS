@@ -4856,18 +4856,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         let myURL = url as URL
         
-//        let st = UploadStream()
-//        st.createUploadTask(token: "token", path: myURL)
-        
-//        someApi.shared.getToken { (token) in
-//            let st = UploadStream()
-//            st.createUploadTask(token: token, path: myURL)
-//        }
-        
-//        if let data = try? Data(contentsOf: myURL) {
-//            let filename = myURL.lastPathComponent
-//            manageFile(fileData: data, filename: filename)
-//        }
+        if let data = try? Data(contentsOf: myURL) {
+            let filename = myURL.lastPathComponent
+            manageFile(fileData: data, filename: filename)
+        }
     }
     
     func manageVideo(videoInfo: YPMediaVideo, single: Bool = true, sendAsFile: Bool = false){

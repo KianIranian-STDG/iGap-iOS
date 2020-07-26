@@ -266,7 +266,7 @@ class IGUploadManager: StreamManagerDelegate {
                 }
             }
             
-            sSelf.createUploadTask(for: task, token: task.file.token!, offset: uploadedSize!)
+            sSelf.createUploadTask(for: task, token: task.file.token!, offset: uploadedSize ?? 0)
             
         }
         
