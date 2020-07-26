@@ -490,7 +490,7 @@ class IGGlobal {
     }
     internal static func isFileExist(path: String?, fileSize: Int64 = -1) -> Bool {
         if path != nil && FileManager.default.fileExists(atPath: path!) {
-            if fileSize == -1 || fileSize == Int64(FileManager.default.contents(atPath: path!)?.count ?? 0) {
+            if fileSize == -1 || fileSize <= Int64(FileManager.default.contents(atPath: path!)?.count ?? 0) {
                 return true
             }
         }

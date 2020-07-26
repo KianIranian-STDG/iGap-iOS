@@ -73,7 +73,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             if Int(self.startIndex) > Int(self.mediaList!.count - 1) {
                 
             } else {
-                self.pagerView.scrollToItem(at: self.startIndex, animated: false)
+                DispatchQueue.main.async { self.pagerView.scrollToItem(at: self.startIndex, animated: false) }
             }
         }
         
@@ -284,7 +284,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     @IBAction func btnBack(_ sender: UIButton) {
 //        self.navigationController?.popViewController(animated: false)
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnShare(_ sender: UIButton) {

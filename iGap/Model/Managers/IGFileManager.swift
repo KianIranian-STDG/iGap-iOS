@@ -93,7 +93,7 @@ class IGFilesManager {
         
         return filePath
     }
-    func save(fileNamed: String, data: Data,type: FilePathType ) throws {
+    func save(fileNamed: String, data: Data ) throws {
 //        let newname = makeLocalPath(type,nameOfFile: fileNamed)
         guard let url = makeURL(forFileNamed: fileNamed) else {
             throw Error.invalidDirectory

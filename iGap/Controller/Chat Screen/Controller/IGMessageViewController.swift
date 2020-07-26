@@ -5097,7 +5097,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func back() { // this back  when work that webview is working
         if webView == nil || webView.isHidden {
-            myNavigationItem.backViewContainer?.isUserInteractionEnabled = false
+            if myNavigationItem != nil {
+                myNavigationItem.backViewContainer?.isUserInteractionEnabled = false
+            }
             
             _ = self.navigationController?.popViewController(animated: true)
         } else if webView.canGoBack {
@@ -8051,18 +8053,22 @@ extension IGMessageViewController {
     
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
         DispatchQueue.main.async {
-            if let cellPosition = IGMessageViewController.messageIdsStatic[(self.currentRoomId)!]?.firstIndex(of: fakeMessageId) {
-                if self.messages!.count <= cellPosition  {
-                    if (self.messages!.count) > 1 {
-                        self.removeMessageArrayByPosition(cellPosition: (self.messages!.count) - 1)
-                    }
+            if self.currentRoomId != nil {
 
-                    return
+                if let cellPosition = IGMessageViewController.messageIdsStatic[(self.currentRoomId)!]?.firstIndex(of: fakeMessageId) {
+                    if self.messages!.count <= cellPosition  {
+                        if (self.messages!.count) > 1 {
+                            self.removeMessageArrayByPosition(cellPosition: (self.messages!.count) - 1)
+                        }
+
+                        return
+                    }
+                    self.removeMessageArrayByPosition(cellPosition: cellPosition)
+                    self.tableViewNode?.performBatchUpdates({
+                        self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
+                    }, completion: nil)
                 }
-                self.removeMessageArrayByPosition(cellPosition: cellPosition)
-                self.tableViewNode?.performBatchUpdates({
-                    self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
-                }, completion: nil)
+                
             }
         }
     }
