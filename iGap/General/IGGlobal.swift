@@ -2679,6 +2679,17 @@ extension String {
         return ext
     }
     
+    public func getExtentionFromMime() -> String? {
+        var extention : String = ""
+        if let index = (self.range(of: "/")?.upperBound)
+        {
+          //prints "extention"
+          let afterEqualsTo = String(self.suffix(from: index))
+            extention = afterEqualsTo
+        }
+        return "." + extention
+
+    }
     var Imagelocalized: String {
         return NSLocalizedString(self, tableName: "ImageLocalizable", comment: "")
     }

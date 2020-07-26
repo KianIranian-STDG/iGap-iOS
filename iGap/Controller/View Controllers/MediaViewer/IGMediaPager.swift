@@ -73,7 +73,13 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             if Int(self.startIndex) > Int(self.mediaList!.count - 1) {
                 
             } else {
-                DispatchQueue.main.async { self.pagerView.scrollToItem(at: self.startIndex, animated: false) }
+                DispatchQueue.main.async {
+                    self.pagerView.layoutIfNeeded()
+                    self.pagerView.reloadData()
+
+                    self.pagerView.scrollToItem(at: self.startIndex, animated: false)
+                    
+                }
             }
         }
         

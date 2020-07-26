@@ -209,7 +209,7 @@ class IGDownloadManager {
                 if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
                     
                     var shouldResume : Bool = false
-                    let nameOfFile : String = "\(firstTaskInQueue.file.token ?? "")\("." + (firstTaskInQueue.file.name?.getExtension() ?? ""))"
+                    let nameOfFile : String = "\(firstTaskInQueue.file.token ?? "")\("." + (firstTaskInQueue.file.mime?.getExtentionFromMime() ?? ""))"
                     if (try? IGFilesManager().findFile(forFileNamed: nameOfFile)) != nil {
                         shouldResume = true
                     } //check if file is downloaded once(this if is usefull in conditions where the app was closed after the download was paused
@@ -316,18 +316,18 @@ class IGDownloadManager {
                 
                 var firstChunk : Bool = false
                 var decipher : (Cryptor & Updatable)?
-              let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name ?? "")"
+                let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.mime?.getExtentionFromMime() ?? "")"
 //                let nameOfFile = String("\((downloadTask.file.localSavePath) ?? "")".dropFirst())
                 var startRangeOfFile : Int64 = 0
                 if shouldResum {
-                    let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
-                    let tmpDataSize = ((currentSize?.keys.first!.count))
-                    startRangeOfFile = Int64(tmpDataSize ?? 0)
-//                    IGFilesManager().findAndRemove(token: downloadTask.file.localSavePath ?? "")
-//                    IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
+//                    let currentSize = try? IGFilesManager().findFile(forFileNamed: nameOfFile)
+//                    let tmpDataSize = ((currentSize?.keys.first!.count))
+//                    startRangeOfFile = Int64(tmpDataSize ?? 0)
+////                    IGFilesManager().findAndRemove(token: downloadTask.file.localSavePath ?? "")
+                    IGFilesManager().findAndRemove(token: nameOfFile ?? "")
 
                 } else {
-                    IGFilesManager().findAndRemove(token: downloadTask.file.token ?? "")
+                    IGFilesManager().findAndRemove(token: nameOfFile ?? "")
                 }
                 streamReq = AF.streamRequest(url,method: .get,headers: self.getStreamHeader(startRange: startRangeOfFile ,endRange: fileEndRange))
                 streamReq.responseStream { stream in
