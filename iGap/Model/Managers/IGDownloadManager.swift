@@ -201,7 +201,7 @@ class IGDownloadManager {
                 if IGAppManager.sharedManager.UploadDownloadMethod == .Rest {
                     
                     var shouldResume : Bool = false
-                    let nameOfFile : String = "\(firstTaskInQueue.file.token ?? "")\("." + (firstTaskInQueue.file.mime?.getExtentionFromMime() ?? ""))"
+                    let nameOfFile : String = "\(firstTaskInQueue.file.token ?? "")\("." + (firstTaskInQueue.file.name?.getExtension() ?? ""))"
                     if (try? IGFilesManager().findFile(forFileNamed: nameOfFile)) != nil {
                         shouldResume = true
                     } //check if file is downloaded once(this if is usefull in conditions where the app was closed after the download was paused
@@ -295,7 +295,7 @@ class IGDownloadManager {
                 
             var firstChunk : Bool = false
             var decipher : (Cryptor & Updatable)?
-            let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.mime?.getExtentionFromMime() ?? "")"
+            let nameOfFile = "\(downloadTask.file.token ?? "")\(downloadTask.file.name?.getExtension() ?? "")"
             let startRangeOfFile : Int64 = 0
             
             if shouldResum {
