@@ -273,12 +273,23 @@ public class IGFile: Object {
     func makeLocalPath(_ type: FilePathType) -> String {
         
         var filePath = ""
-        let filename = (self.cacheID ?? IGGlobal.randomString(length: 10)) + ("." + (self.name?.getExtension() ?? ""))
+        var exten : String = ""
+        if let nameExt = (self.name?.getExtension()) {
+            if nameExt != "" {
+                exten = ("." + nameExt)
+
+            } else {
+                exten = (self.mime?.getExtentionFromMime() ?? "")
+            }
+        } else {
+            exten = (self.mime?.getExtentionFromMime() ?? "")
+        }
+        let filename = (self.cacheID ?? IGGlobal.randomString(length: 10)) + (exten)
         
         switch type {
         case .thumb:
             self.baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
-            filePath = IGGlobal.THUMB_DIR + "/" + filename + "jpg"
+            filePath = IGGlobal.THUMB_DIR + "/" + filename + "jpeg"
             break
         case .image:
             self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue

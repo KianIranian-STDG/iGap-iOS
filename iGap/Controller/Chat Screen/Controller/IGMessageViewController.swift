@@ -1222,16 +1222,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else {
                 print("ROOM ID FOR BUBBLE TYPING",room?.id)
 //                IGGlobal.showTypingBubble = true
-                let bubblemsg = IGRoomMessage(body: "")
-                bubblemsg.type = .isTyping
+                if room?.lastMessage != nil {
+                    let bubblemsg = IGRoomMessage(body: "")
+                    bubblemsg.type = .isTyping
 
-                bottomProgressId = (room?.lastMessage!.id)! - 1
-                bubblemsg.id = bottomProgressId
+                    bottomProgressId = (room?.lastMessage!.id)! - 1
+                    bubblemsg.id = bottomProgressId
 
-                appendMessageArray([bubblemsg], IGPClientGetRoomHistory.IGPDirection.down)
-                addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection.down)
+                    appendMessageArray([bubblemsg], IGPClientGetRoomHistory.IGPDirection.down)
+                    addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection.down)
 
-                addTypingBubble()
+                    addTypingBubble()
+
+                }
+
 
             }
         } else {
@@ -4855,6 +4859,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         let myURL = url as URL
+        
         
         if let data = try? Data(contentsOf: myURL) {
             let filename = myURL.lastPathComponent
