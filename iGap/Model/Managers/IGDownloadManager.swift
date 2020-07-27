@@ -386,7 +386,7 @@ class IGDownloadManager {
                                 try? IGFilesManager().save(fileNamed: nameOfFile, data: dataa as Data)
 
                                 if let fData =  (((try? IGFilesManager().findFile(forFileNamed: nameOfFile)?.keys.first))) {
-                                    let diff = (downloadTask.file.size) - downloadTask.file.size
+                                    let diff = Int64(fData.count) - downloadTask.file.size
                                     
                                     IGFilesManager().fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: fData.dropLast(Int(diff)), attributes: nil)
 
