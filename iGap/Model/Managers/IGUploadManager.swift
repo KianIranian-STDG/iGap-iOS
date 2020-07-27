@@ -449,6 +449,7 @@ class IGUploadManager: StreamManagerDelegate {
 //            if let fakeCacheId = task.file.cacheID, let token = task.token {
 //                IGFile.updateFileToken(cacheId: fakeCacheId, token: token)
 //            }
+            IGAttachmentManager.sharedManager.setProgress(1, for: task.file)
             task.status = .finished
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {
