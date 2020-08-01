@@ -67,6 +67,21 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         pagerView.transformer = FSPagerViewTransformer(type: .depth)
         pagerView.fadeOut(0)
         pagerView.register(IGMediaPagerCell.nib(), forCellWithReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier())
+
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(doSingleTap))
+        singleTap.numberOfTapsRequired = 1
+
+        pagerView.addGestureRecognizer(singleTap)
+
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+
+        pagerView.addGestureRecognizer(doubleTap)
+
+        singleTap.require(toFail: doubleTap)
+
+
+        
         self.view.addSubview(pagerView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {[weak self] in
@@ -121,7 +136,15 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         manageLink(txtMessage: txtMessage)
         
     }
-    
+    @objc func doSingleTap() {
+        print("PAGERVIEW TAPPED")
+        manageShowLayouts()
+
+    }
+    @objc func doDoubleTap() {
+        print("PAGERVIEW TAPPED Double")
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -376,7 +399,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        manageShowLayouts()
+//        manageShowLayouts()
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {

@@ -5763,14 +5763,37 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //100 is an arbitrary number. can be anything
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
-            self.shouldShowTypingBubble = true
-            self.removeTypingBubble()
             
         } else {
             self.scrollToBottomContainerView.isHidden = true
-            self.shouldShowTypingBubble = false
 
         }
+        if scrollView.contentOffset.y > 50 {
+            print("scrolling UP")
+
+            self.shouldShowTypingBubble = true
+//            self.removeTypingBubble()
+            if typingBubble.isDescendant(of: view) {
+                if !(typingBubble.isHidden) {
+                    typingBubble.isHidden = true
+                }
+            }
+            
+
+        } else {
+            print("scrolling Down")
+            self.shouldShowTypingBubble = false
+//            self.addTypingBubble()
+            if typingBubble.isDescendant(of: view) {
+                
+                if (typingBubble.isHidden) {
+                    typingBubble.isHidden = false
+                }
+            }
+
+
+        }
+
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
