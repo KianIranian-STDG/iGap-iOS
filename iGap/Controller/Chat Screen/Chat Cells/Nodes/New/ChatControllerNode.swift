@@ -3563,10 +3563,11 @@ class ChatControllerNode: ASCellNode {
         checkPlayerState()
         getMetadata(file: msg.attachment)
         makeBottomBubbleItems(contentStack: contentSpec)
-        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let botnode = ifMessageHasAdditional(contentSpec: contentSpec, message: msg)
+
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: botnode)
         
-        return finalInsetSpec
-        
+        return finalInsetSpec        
     }
     
     func getMetadata(file : IGFile!) {
