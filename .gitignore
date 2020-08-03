@@ -72,3 +72,5 @@ fastlane/test_output
 .idea/
 
 Carthage
+
+ThirdParty

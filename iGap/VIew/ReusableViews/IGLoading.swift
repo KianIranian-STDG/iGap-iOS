@@ -8,7 +8,6 @@
 
 
 import UIKit
-import Presentr
 
 class IGLoading {
     

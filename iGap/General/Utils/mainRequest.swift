@@ -12,7 +12,6 @@
 import Foundation
 
 import Alamofire
-import Gloss
 
 class Request {
 }

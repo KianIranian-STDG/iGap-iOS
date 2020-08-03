@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Presentr
 
 class SMLoading {
     

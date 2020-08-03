@@ -21,7 +21,6 @@ import Contacts
 import AddressBook
 import messages
 import webservice
-import KeychainSwift
 import SDWebImage
 import MarkdownKit
 import SwiftEventBus

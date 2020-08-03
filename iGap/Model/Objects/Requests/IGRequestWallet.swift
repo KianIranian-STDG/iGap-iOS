@@ -11,10 +11,8 @@
 import Foundation
 import IGProtoBuff
 import SwiftProtobuf
-import KeychainSwift
 import messages
 import webservice
-import KeychainSwift
 func callCards() {
     
     SMCard.getAllCardsFromServer({ cards in

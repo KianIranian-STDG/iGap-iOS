@@ -9,7 +9,6 @@
 import Foundation
 import SwiftEventBus
 import IGProtoBuff
-import KeychainSwift
 import maincore
 import RealmSwift
 

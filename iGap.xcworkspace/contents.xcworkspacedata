@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "ThirdParty">
+      <FileRef
+         location = "group:ThirdParty/SwiftyRSA/SwiftyRSA.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/pop/pop.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/SnapKit/SnapKit.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/MGSwipeTableCell/MGSwipeTableCell.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/Reachability.swift/Reachability.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/CryptoSwift/CryptoSwift.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/NVActivityIndicatorView/NVActivityIndicatorView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/Cosmos/Cosmos.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/SwiftyJSON/SwiftyJSON.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/Alamofire/Alamofire.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/SDWebImage/SDWebImage.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/Digger/Digger.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/MarkdownKit/MarkdownKit.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/SwiftEventBus/SwiftEventBus.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/FSPagerView/FSPagerView/FSPagerView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/lottie-ios/Lottie.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/Stellar/stellarsdk/stellarsdk.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/TTTAttributedLabel/Carthage/TTTAttributedLabel.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:ThirdParty/MBProgressHUD/MBProgressHUD.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:iGap.xcodeproj">
+   </FileRef>
+</Workspace>

@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import KeychainSwift
 import webservice
 
 class SMUserManager: NSObject {

@@ -26,7 +26,6 @@ import MobileCoreServices
 import MarkdownKit
 import SwiftyJSON
 import Alamofire
-import KeychainSwift
 import webservice
 import SwiftyRSA
 import AVFoundation

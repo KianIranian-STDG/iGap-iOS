@@ -1,40 +1,40 @@
-github "eminemArun/SwiftyRSA" "feature/Swift5.0" //IMPORTANT HINT: use TakeScoop for next update
+//github "eminemArun/SwiftyRSA" "feature/Swift5.0" //IMPORTANT HINT: use TakeScoop for next update //****DONE****//
 github "realm/realm-cocoa"
 github "ReactiveX/RxSwift" "master"
-github "jdg/MBProgressHUD" ~> 1.1.0
-github "satishVekariya/GrowingTextView-1" "swift5" // IMPORTANT HINT: use KennethTsang for next update
-github "facebook/pop"
-github "SnapKit/SnapKit" "5.0.1"
+//github "jdg/MBProgressHUD" ~> 1.1.0 //****DONE****//
+//github "satishVekariya/GrowingTextView-1" "swift5" // IMPORTANT HINT: use KennethTsang for next update //****DONE****//
+//github "facebook/pop" //****DONE****//
+//github "SnapKit/SnapKit" "5.0.1" //****DONE****//
 github "RxSwiftCommunity/RxRealm"
-github "MortimerGoro/MGSwipeTableCell"
-github "ashleymills/Reachability.swift"
-github "KianIranian-STDG/AKMaskField"
-github "krzyzanowskim/CryptoSwift" "1.0.0"
-github "ninjaprox/NVActivityIndicatorView"
+//github "MortimerGoro/MGSwipeTableCell" //****DONE****//
+///github "ashleymills/Reachability.swift" //****DONE****//
+//github "KianIranian-STDG/AKMaskField" //****NOT USED****//
+//github "krzyzanowskim/CryptoSwift" "1.0.0" //****DONE****//
+//github "ninjaprox/NVActivityIndicatorView" //****DONE****//
 github "Anakros/WebRTC"
-github "evgenyneu/Cosmos" "19.0.3"
-github "cornerAnt/Digger"
-github "inspace-io/INSPhotoGallery" "master"
-github "SwiftyJSON/SwiftyJSON" "bad5f2f94a71216a32c030a3586bdcfc1f7e660b"
-github "Alamofire/Alamofire" "5.0.0-rc.2"
+//github "evgenyneu/Cosmos" "19.0.3" //****DONE****//
+//github "cornerAnt/Digger" //****DONE****//
+//github "inspace-io/INSPhotoGallery" "master" //****NOT USED****//
+//github "SwiftyJSON/SwiftyJSON" "bad5f2f94a71216a32c030a3586bdcfc1f7e660b" //****DONE****//
+//github "Alamofire/Alamofire" "5.0.0-rc.2"  //****DONE****//
 github "SDWebImage/libwebp-Xcode"
-github "SDWebImage/SDWebImage"
+//github "SDWebImage/SDWebImage". //****DONE****//
 github "SDWebImage/SDWebImageWebPCoder"
-github "ivanbruel/MarkdownKit" "bdd03bb07179b23a741fb83f9b1bbe325604a690"
-github "hkellaway/Gloss"
-github "andreamazz/AMPopTip" "4.0.1"
+//github "ivanbruel/MarkdownKit" "bdd03bb07179b23a741fb83f9b1bbe325604a690" //****DONE****//
+//github "hkellaway/Gloss" //****NOT USED****//
+//github "andreamazz/AMPopTip" "4.0.1" //****NOT USED****//
 github "AFNetworking/AFNetworking" ~> 3.0
-github "yannickl/QRCodeReader.swift" "10.0.0"
-github "gmarm/BetterSegmentedControl" "0.9"
-github "marketplacer/keychain-swift" ~> 8.0
-github "IcaliaLabs/Presentr" ~> 1.9
-github "evgenyneu/keychain-swift" ~> 15.0
-github "kaishin/Gifu"
+//github "yannickl/QRCodeReader.swift" "10.0.0" //****DONE****//
+//github "gmarm/BetterSegmentedControl" "0.9" //****NOT USED****//
+//github "marketplacer/keychain-swift" ~> 8.0 //****NOT USED****//
+//github "IcaliaLabs/Presentr" ~> 1.9 //****DONE****//
+//github "evgenyneu/keychain-swift" ~> 15.0 //****DONE****//
+//github "kaishin/Gifu" //****NOT USED****//
 github "KianIranian-STDG/swift-protobuf" "1.6.0_iGap"
 github "KianIranian-STDG/IGProtoBuffLibrary" "proto133"
-github "cesarferreira/SwiftEventBus" == 5.0.0
-github "WenchaoD/FSPagerView"
-github "airbnb/lottie-ios" "master"
+//github "cesarferreira/SwiftEventBus" == 5.0.0 //****DONE****//
+//github "WenchaoD/FSPagerView" //****DONE****//
+//github "airbnb/lottie-ios" "master" //****DONE****//
 github "texturegroup/texture"
 github "KianIranian-STDG/MediaPicker" "master"
 
