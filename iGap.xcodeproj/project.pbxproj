@@ -3030,32 +3030,6 @@
 			path = Transactions;
 			sourceTree = "<group>";
 		};
-		D2434DC4244EBABE0057BA65 /* MobileBank */ = {
-			isa = PBXGroup;
-			children = (
-				D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */,
-				D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */,
-				8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */,
-				8EFBE422246169AE00755464 /* IGMBChequesVC.swift */,
-				8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */,
-				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
-				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
-				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
-				8EC42F16245D8879000889D3 /* IGMBLoansVC.swift */,
-				8EC42F1C245DB307000889D3 /* IGMBLoansInnerVC.swift */,
-			);
-			path = MobileBank;
-			sourceTree = "<group>";
-		};
-		D2434DCE244EF37A0057BA65 /* MobileBank */ = {
-			isa = PBXGroup;
-			children = (
-				D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */,
-				D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */,
-			);
-			path = MobileBank;
-			sourceTree = "<group>";
-		};
 		D247704E24D7E2350028ACF6 /* KeychainSwift */ = {
 			isa = PBXGroup;
 			children = (
@@ -3291,15 +3265,6 @@
 			path = TOPUP;
 			sourceTree = "<group>";
 		};
-		D254C1D9245009C4007767F4 /* MobileBank */ = {
-			isa = PBXGroup;
-			children = (
-				D254C1F024504BD3007767F4 /* Cell */,
-				D254C1DA245009DF007767F4 /* MyParsianNavView.swift */,
-			);
-			path = MobileBank;
-			sourceTree = "<group>";
-		};
 		D254C1F024504BD3007767F4 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3328,6 +3293,61 @@
 				D2449F2C24713ABE0046D48A /* IGKUser.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D2A62D2824DA74A400DDD707 /* IGServices */ = {
+			isa = PBXGroup;
+			children = (
+				D2A62D2924DA795500DDD707 /* MobileBank */,
+				D2FE640F24680EB1000D861E /* Koknus */,
+				D253116C24A1B5E800549910 /* Payment Services */,
+			);
+			path = IGServices;
+			sourceTree = "<group>";
+		};
+		D2A62D2924DA795500DDD707 /* MobileBank */ = {
+			isa = PBXGroup;
+			children = (
+				D2A62D2C24DA79A800DDD707 /* Controller */,
+				D2A62D2B24DA798500DDD707 /* View */,
+				D2A62D2A24DA796700DDD707 /* Api */,
+			);
+			path = MobileBank;
+			sourceTree = "<group>";
+		};
+		D2A62D2A24DA796700DDD707 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				D2434DC7244EE4940057BA65 /* IGApiMobileBank.swift */,
+				D2434DCF244EF3990057BA65 /* IGMBApiBase.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		D2A62D2B24DA798500DDD707 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D254C1F024504BD3007767F4 /* Cell */,
+				D254C1DA245009DF007767F4 /* MyParsianNavView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D2A62D2C24DA79A800DDD707 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D2434DC5244EBB420057BA65 /* IGMBLoginVC.swift */,
+				D254C1D72450073E007767F4 /* IGMBMainContainerVC.swift */,
+				8EC42EF224570C72000889D3 /* IGMBTransactionsVC.swift */,
+				8EFBE422246169AE00755464 /* IGMBChequesVC.swift */,
+				8EFBE42824618AB000755464 /* IGMBChequeInnerVC.swift */,
+				D254C1E22450335C007767F4 /* IGMBCardsParentView.swift */,
+				D254C1E02450334A007767F4 /* IGMBAccountsParentView.swift */,
+				D254C1E42450336C007767F4 /* IGMBServicesParentView.swift */,
+				8EC42F16245D8879000889D3 /* IGMBLoansVC.swift */,
+				8EC42F1C245DB307000889D3 /* IGMBLoansInnerVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		D2B40D3B2472A2D300E359F8 /* New Token */ = {
@@ -3642,7 +3662,6 @@
 		FA087B2C1DC4A27200E139FA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D2434DC4244EBABE0057BA65 /* MobileBank */,
 				D6B0725A23794B0100BF4DDD /* MediaViewer */,
 				8E1CD974232D063D008D8758 /* PhoneBook */,
 				8EC2179A2258BE0600105B5A /* wallet */,
@@ -4193,7 +4212,6 @@
 				FA3C24B32332142D00848261 /* IGApiCharity.swift */,
 				8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */,
 				8E0A79902394FD86001A7EB6 /* IGApiNews.swift */,
-				D2434DCE244EF37A0057BA65 /* MobileBank */,
 				D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */,
 			);
 			path = Api;
@@ -4643,8 +4661,7 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
-				D253116C24A1B5E800549910 /* Payment Services */,
-				D2FE640F24680EB1000D861E /* Koknus */,
+				D2A62D2824DA74A400DDD707 /* IGServices */,
 				8EC217B82259DCFA00105B5A /* Entity */,
 				FA8FCBAD219C02C80028457F /* Api */,
 				FAD5807E1DDC402600A242DE /* Libraries */,
@@ -4661,7 +4678,6 @@
 		FAF795FF1DAA392F0030509B /* VIew */ = {
 			isa = PBXGroup;
 			children = (
-				D254C1D9245009C4007767F4 /* MobileBank */,
 				FAF796001DAA392F0030509B /* Assets.xcassets */,
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FA075DE0232A3EEF002E7AC7 /* Dashboard StoryBoards */,
