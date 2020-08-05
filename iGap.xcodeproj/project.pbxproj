@@ -183,7 +183,6 @@
 		8E8BE19F246FA86A00A32BC4 /* IGKReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */; };
 		8E8BE1A1246FBEE200A32BC4 /* IGKSendTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */; };
 		8E8BE1A3246FEE8F00A32BC4 /* IGKHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */; };
-		8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */; };
 		8E8BE1A72470025D00A32BC4 /* IGFourButtonsTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */; };
 		8E8BE1A9247009B500A32BC4 /* IGKShowAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */; };
 		8E8CA3A8236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */; };
@@ -471,7 +470,6 @@
 		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D20021CE2472A6C500A679C7 /* IGKPinLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */; };
-		D20E21EB246BCA5800341F21 /* IGKStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20E21EA246BCA5800341F21 /* IGKStruct.swift */; };
 		D217443E24B481A000A271BC /* StreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217443D24B481A000A271BC /* StreamManager.swift */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
 		D21A5B6124D6C18400754061 /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D21A5B4324D6AEB800754061 /* Cosmos.framework */; };
@@ -586,6 +584,8 @@
 		D292ED842483C3AC00327503 /* IGKRequestHomeDomainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */; };
 		D2A3EF1C246A5C9000744A76 /* IGKStellar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */; };
 		D2A3EF1E246AAAB400744A76 /* IGKNewTokenS2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */; };
+		D2A62D2F24DA7D0700DDD707 /* IGKStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A62D2D24DA7D0700DDD707 /* IGKStruct.swift */; };
+		D2A62D3024DA7D0700DDD707 /* IGKHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A62D2E24DA7D0700DDD707 /* IGKHistoryModel.swift */; };
 		D2A75B4324BEEE7C0011E5AB /* IGApiStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
@@ -1321,7 +1321,6 @@
 		8E8BE19E246FA86A00A32BC4 /* IGKReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKReceiveVC.swift; sourceTree = "<group>"; };
 		8E8BE1A0246FBEE200A32BC4 /* IGKSendTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKSendTokenVC.swift; sourceTree = "<group>"; };
 		8E8BE1A2246FEE8F00A32BC4 /* IGKHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKHistoryVC.swift; sourceTree = "<group>"; };
-		8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKHistoryModel.swift; path = iGap/Koknus/Model/IGKHistoryModel.swift; sourceTree = SOURCE_ROOT; };
 		8E8BE1A62470025D00A32BC4 /* IGFourButtonsTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFourButtonsTVController.swift; sourceTree = "<group>"; };
 		8E8BE1A8247009B500A32BC4 /* IGKShowAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKShowAccountInfo.swift; sourceTree = "<group>"; };
 		8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillMainPageTableViewController.swift; sourceTree = "<group>"; };
@@ -1620,7 +1619,6 @@
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D20021CD2472A6C500A679C7 /* IGKPinLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKPinLoginVC.swift; sourceTree = "<group>"; };
-		D20E21EA246BCA5800341F21 /* IGKStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IGKStruct.swift; path = iGap/Koknus/Model/IGKStruct.swift; sourceTree = SOURCE_ROOT; };
 		D217443D24B481A000A271BC /* StreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamManager.swift; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
 		D21A5B2124D69B0B00754061 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1717,6 +1715,8 @@
 		D292ED832483C3AC00327503 /* IGKRequestHomeDomainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKRequestHomeDomainVM.swift; sourceTree = "<group>"; };
 		D2A3EF1B246A5C9000744A76 /* IGKStellar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKStellar.swift; sourceTree = "<group>"; };
 		D2A3EF1D246AAAB400744A76 /* IGKNewTokenS2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGKNewTokenS2VC.swift; sourceTree = "<group>"; };
+		D2A62D2D24DA7D0700DDD707 /* IGKStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKStruct.swift; sourceTree = "<group>"; };
+		D2A62D2E24DA7D0700DDD707 /* IGKHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGKHistoryModel.swift; sourceTree = "<group>"; };
 		D2A75B4224BEEE7C0011E5AB /* IGApiStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiStream.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
@@ -3288,8 +3288,8 @@
 		D281C029246FEB0D00D0F5A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8E8BE1A4246FEF3400A32BC4 /* IGKHistoryModel.swift */,
-				D20E21EA246BCA5800341F21 /* IGKStruct.swift */,
+				D2A62D2E24DA7D0700DDD707 /* IGKHistoryModel.swift */,
+				D2A62D2D24DA7D0700DDD707 /* IGKStruct.swift */,
 				D2449F2C24713ABE0046D48A /* IGKUser.swift */,
 			);
 			path = Model;
@@ -5338,7 +5338,6 @@
 				8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
-				8E8BE1A5246FEF3400A32BC4 /* IGKHistoryModel.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				D21D98BD246BF976006BEB38 /* IGPrint.swift in Sources */,
 				D247708324D7E2980028ACF6 /* KeyboardTranslation.swift in Sources */,
@@ -5401,6 +5400,7 @@
 				8E3824AE2497595B00F5DE97 /* IGApiBills.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
 				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
+				D2A62D2F24DA7D0700DDD707 /* IGKStruct.swift in Sources */,
 				8E3C697023603096001575BE /* MusicCell.swift in Sources */,
 				8E382490248DEF1500F5DE97 /* IGPSLastPurchasesVM.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
@@ -5984,7 +5984,6 @@
 				D247707F24D7E2980028ACF6 /* AlertViewController.swift in Sources */,
 				D247708524D7E2980028ACF6 /* CrossDissolveAnimation.swift in Sources */,
 				8EC42EFA24585D4C000889D3 /* RowOneCell.swift in Sources */,
-				D20E21EB246BCA5800341F21 /* IGKStruct.swift in Sources */,
 				FAFDB3B4204EBC770022D183 /* IGCallListTableViewCell.swift in Sources */,
 				FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */,
 				8EA8551F23A23A2F00C9442F /* IGGoldColorSet.swift in Sources */,
@@ -6002,6 +6001,7 @@
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
 				8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */,
 				D67E985223A6796B003C1516 /* CanBetriggered.swift in Sources */,
+				D2A62D3024DA7D0700DDD707 /* IGKHistoryModel.swift in Sources */,
 				8E8A9F3824BD887F00EF6328 /* DashboardCell0.swift in Sources */,
 				FAA4E859231247B00091199B /* IGHelperForward.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
