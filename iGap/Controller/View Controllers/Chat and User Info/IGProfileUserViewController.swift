@@ -250,7 +250,9 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             mediaPager.ownerId = self.user?.id
             mediaPager.mediaPagerType = .avatar
             mediaPager.avatarType = .user
-            self.navigationController!.pushViewController(mediaPager, animated: false)
+//            self.navigationController!.pushViewController(mediaPager, animated: false)
+            UIApplication.topViewController()!.presentPanModal(mediaPager)
+
         }
     }
     //MARK: - Creat Chat With User

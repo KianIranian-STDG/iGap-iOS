@@ -627,7 +627,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             mediaViewer.ownerId = self.user?.id
             mediaViewer.mediaPagerType = .avatar
             mediaViewer.avatarType = .user
-            self.navigationController!.pushViewController(mediaViewer, animated: false)
+//            self.navigationController!.pushViewController(mediaViewer, animated: false)
+            UIApplication.topViewController()!.presentPanModal(mediaViewer)
+
         }
     }
     

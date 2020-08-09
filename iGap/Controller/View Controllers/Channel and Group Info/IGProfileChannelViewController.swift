@@ -331,7 +331,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             mediaPager.ownerId = self.room!.id
             mediaPager.mediaPagerType = .avatar
             mediaPager.avatarType = .channel
-            self.navigationController!.pushViewController(mediaPager, animated: false)
+//            self.navigationController!.pushViewController(mediaPager, animated: false)
+            UIApplication.topViewController()!.presentPanModal(mediaPager)
+
         }
     }
     

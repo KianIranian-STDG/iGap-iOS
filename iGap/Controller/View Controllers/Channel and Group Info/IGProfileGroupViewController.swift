@@ -344,7 +344,9 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             mediaPager.ownerId = self.room!.id
             mediaPager.mediaPagerType = .avatar
             mediaPager.avatarType = .group
-            self.navigationController!.pushViewController(mediaPager, animated: false)
+//            self.navigationController!.pushViewController(mediaPager, animated: false)
+            UIApplication.topViewController()!.presentPanModal(mediaPager)
+
         }
     }
     
