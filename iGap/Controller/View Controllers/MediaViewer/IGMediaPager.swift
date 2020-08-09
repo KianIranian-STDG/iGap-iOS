@@ -69,22 +69,36 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         pagerView.register(IGMediaPagerCell.nib(), forCellWithReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier())
         self.view.addSubview(pagerView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            if Int(self.startIndex) > Int(self.mediaList!.count - 1) {
-                
-            } else {
-                DispatchQueue.main.async {
-                    self.pagerView.layoutIfNeeded()
-                    self.pagerView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            if sSelf.mediaList != nil {
+                if Int(sSelf.startIndex) <= Int(sSelf.mediaList!.count - 1) {
+                    DispatchQueue.main.async {
+                        sSelf.pagerView.layoutIfNeeded()
+                        sSelf.pagerView.reloadData()
 
-                    self.pagerView.scrollToItem(at: self.startIndex, animated: false)
-                    
+                        sSelf.pagerView.scrollToItem(at: sSelf.startIndex, animated: false)
+
+                    }
+                }
+            }else {
+                DispatchQueue.main.async {
+                    sSelf.pagerView.layoutIfNeeded()
+                    sSelf.pagerView.reloadData()
+                    sSelf.pagerView.scrollToItem(at: sSelf.startIndex, animated: false)
+
                 }
             }
+            
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            self.pagerView.fadeIn(0.35)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.pagerView.fadeIn(0.35)
         }
         
         self.manageCurrentMedia()
@@ -165,20 +179,23 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     private func fetchAvatars() {
         realmAvatarList = IGAvatar.getAvatarsLocalList(ownerId: ownerId)
-        self.avatarsObserver = realmAvatarList!.observe { (changes: RealmCollectionChange) in
+        self.avatarsObserver = realmAvatarList!.observe {[weak self] (changes: RealmCollectionChange) in
+            guard let sSelf = self else {
+                return
+            }
             switch changes {
             case .initial:
-                self.pagerView.reloadData()
+                sSelf.pagerView.reloadData()
                 break
             case .update(_, _, _, _):
-                self.avatarList = Array(self.realmAvatarList!)
+                sSelf.avatarList = Array(sSelf.realmAvatarList!)
                 // all avatar deleted so close media pager
-                if self.avatarList!.count == 0 {
-                    self.navigationController?.popViewController(animated: true)
+                if sSelf.avatarList!.count == 0 {
+                    sSelf.navigationController?.popViewController(animated: true)
                 }
-                self.totalCount = self.avatarList!.count
-                self.manageCurrentMedia()
-                self.pagerView.reloadData()
+                sSelf.totalCount = sSelf.avatarList!.count
+                sSelf.manageCurrentMedia()
+                sSelf.pagerView.reloadData()
                 break
             case .error(let err):
                 fatalError("\(err)")
@@ -389,38 +406,59 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             lable.botColor = UIColor.iGapLink()
             lable.boldColor = .white
 
-            lable.handleURLTap { url in
-                self.delegate?.didTapOnURl(url: url)
+            lable.handleURLTap {[weak self] url in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnURl(url: url)
                 return
             }
 
-            lable.handleDeepLinkTap({ (deepLink) in
-                self.delegate?.didTapOnDeepLink(url: deepLink)
+            lable.handleDeepLinkTap({[weak self] (deepLink) in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnDeepLink(url: deepLink)
                 return
             })
 
-            lable.handleEmailTap { email in
-                self.delegate?.didTapOnEmail(email: email.absoluteString)
+            lable.handleEmailTap {[weak self] email in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnEmail(email: email.absoluteString)
                 return
             }
 
-            lable.handleBotTap {bot in
-                self.delegate?.didTapOnBotAction(action: bot)
+            lable.handleBotTap {[weak self] bot in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnBotAction(action: bot)
                 return
             }
 
-            lable.handleMentionTap { mention in
-                self.delegate?.didTapOnMention(mentionText: mention )
+            lable.handleMentionTap {[weak self] mention in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnMention(mentionText: mention )
                 return
             }
 
-            lable.handleHashtagTap { hashtag in
-                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+            lable.handleHashtagTap {[weak self] hashtag in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.delegate?.didTapOnHashtag(hashtagText: hashtag)
                 return
             }
             
-            lable.handleNoneTap {
-                self.didTapOnBottomView()
+            lable.handleNoneTap {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.didTapOnBottomView()
             }
         }
     }
