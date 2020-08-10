@@ -70,7 +70,14 @@ class IGGIftPayInfoModal: BaseTableViewController {
                     
                     IGStickerViewController.waitingGiftCardInfo.giftId = buyGiftSticker.id
                     IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
-                        IGStickerViewController.waitingGiftCardInfo.orderId = giftCardPayment.info.orderID
+                        
+                        guard let orderId = giftCardPayment.info?.orderID else {
+                            IGLoading.hideLoadingPage()
+                            IGPaymentView.sharedInstance.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftCard.rawValue.localized, message: IGStringsManager.PaymentErrorMessage.rawValue.localized)
+                            return
+                        }
+                        
+                        IGStickerViewController.waitingGiftCardInfo.orderId = orderId
                         IGLoading.hideLoadingPage()
 
                         IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftStickerBuy.rawValue.localized, payment: giftCardPayment)

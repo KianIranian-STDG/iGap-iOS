@@ -170,10 +170,10 @@ class IGPaymentView: UIView {
         self.topIconLbl.textColor = ThemeManager.currentTheme.LabelColor
         
         self.titleLbl.text = title
-        self.subTitleLbl.text = payment.info.product.title
-        self.descriptionLbl.text = payment.info.product.productDescription
+        self.subTitleLbl.text = payment.info?.product?.title ?? ""
+        self.descriptionLbl.text = payment.info?.product?.productDescription ?? ""
         self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
-        self.amountLbl.text = "\(payment.info.price)".onlyDigitChars().inRialFormat()
+        self.amountLbl.text = "\(payment.info?.price ?? 0)".onlyDigitChars().inRialFormat()
         
         self.mainSV.isHidden = false
         self.statusSV.isHidden = true
@@ -187,9 +187,9 @@ class IGPaymentView: UIView {
             let feature = features[0]
             initDiscountView()
             self.priceWithFeature = feature.priceWithFeature
-            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
-            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore)".inLocalizedLanguage()
-            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
+            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount ?? 0)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore ?? 0)".inLocalizedLanguage()
+            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent ?? 0)".inLocalizedLanguage()
         } else {
             hideDiscountView()
         }
@@ -218,14 +218,14 @@ class IGPaymentView: UIView {
         self.topIconLbl.textColor = ThemeManager.currentTheme.LabelColor
         
         self.titleLbl.text = title
-        if let apiTitle = payment.info.product?.title {
+        if let apiTitle = payment.info?.product?.title {
             self.subTitleLbl.text = apiTitle
         }
-        if let description = payment.info.product?.productDescription {
+        if let description = payment.info?.product?.productDescription {
             self.descriptionLbl.text = description
         }
         self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
-        if let price = payment.info.price {
+        if let price = payment.info?.price {
             self.mainPrice = price
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
@@ -243,9 +243,9 @@ class IGPaymentView: UIView {
             let feature = features[0]
             initDiscountView()
             self.priceWithFeature = feature.priceWithFeature
-            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
-            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore)".inLocalizedLanguage()
-            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent)".inLocalizedLanguage()
+            lblDiscountAmount.text = IGStringsManager.DiscountAmount.rawValue.localized + " \(feature.discount ?? 0)".inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+            lblYourScore.text = IGStringsManager.YourScore.rawValue.localized + " : \(feature.userScore ?? 0)".inLocalizedLanguage()
+            lblSpendingScore.text = IGStringsManager.PaymentSpentScore.rawValue.localized + " \(feature.spent ?? 0)".inLocalizedLanguage()
         } else {
             hideDiscountView()
         }

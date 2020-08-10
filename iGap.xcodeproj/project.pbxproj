@@ -207,7 +207,6 @@
 		8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7312237E4A1005F6868 /* SocketRocket.framework */; };
 		8E94B7402237E4A1005F6868 /* models.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7322237E4A1005F6868 /* models.framework */; };
 		8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7352237E4A1005F6868 /* Motis.framework */; };
-		8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E94B7462237E61D005F6868 /* webServiceKey.txt */; };
 		8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A300225A2318007D8A77 /* IGRequestWallet.swift */; };
 		8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A306225B4393007D8A77 /* mainRequest.swift */; };
 		8E96A30B225B4637007D8A77 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A30A225B4637007D8A77 /* Utils.swift */; };
@@ -622,6 +621,12 @@
 		D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; };
 		D62946322349E43400FB5A08 /* PryntTrimmerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; };
 		D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; };
+		D629AB2F24E153F900FD3815 /* stickerPublicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2924E153F900FD3815 /* stickerPublicKey.txt */; };
+		D629AB3024E153F900FD3815 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2A24E153F900FD3815 /* webServiceKey.txt */; };
+		D629AB3124E153F900FD3815 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2B24E153F900FD3815 /* GoogleService-Info.plist */; };
+		D629AB3224E153F900FD3815 /* api.key in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2C24E153F900FD3815 /* api.key */; };
+		D629AB3324E153F900FD3815 /* secret.key in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2D24E153F900FD3815 /* secret.key */; };
+		D629AB3424E153F900FD3815 /* trackingId.txt in Resources */ = {isa = PBXBuildFile; fileRef = D629AB2E24E153F900FD3815 /* trackingId.txt */; };
 		D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F42403D72100E812CA /* TopupCell.swift */; };
 		D64BD2F82403EA6200E812CA /* BillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F62403EA6200E812CA /* BillCell.swift */; };
 		D64BD2F92403F60900E812CA /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64BD2F72403EA6200E812CA /* BillCell.xib */; };
@@ -779,7 +784,6 @@
 		FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C449B1DC716A20016C346 /* IGCountry.swift */; };
 		FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */; };
 		FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */; };
-		FA27F74020BD77ED00EC6A97 /* api.key in Sources */ = {isa = PBXBuildFile; fileRef = FA27F73F20BD77ED00EC6A97 /* api.key */; };
 		FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A506620ECABD9002C5322 /* IGFinancialServiceCharge.swift */; };
 		FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A506820ECAC02002C5322 /* IGFinancialServiceBill.swift */; };
 		FA3306361F445A570096031A /* IRANSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA3306351F445A570096031A /* IRANSans.ttf */; };
@@ -867,7 +871,6 @@
 		FA6F312122B8C18600DB942E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312022B8C18600DB942E /* libGoogleAnalyticsServices.a */; };
 		FA6F312322B8C37600DB942E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312222B8C37600DB942E /* libz.tbd */; };
 		FA6F312522B8C3D300DB942E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312422B8C3D200DB942E /* libsqlite3.tbd */; };
-		FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA6F312622B8E49D00DB942E /* trackingId.txt */; };
 		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
@@ -1019,7 +1022,6 @@
 		FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB623E9229526D3006DEA00 /* CardToCardCell.swift */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */; };
-		FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */; };
 		FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */; };
 		FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */; };
 		FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0F08820F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift */; };
@@ -1057,7 +1059,6 @@
 		FAE07F0222059CA400BE3593 /* IGStickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE07F0122059CA400BE3593 /* IGStickerCell.swift */; };
 		FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE07F032205A8B000BE3593 /* IGStickerSectionHeader.swift */; };
 		FAE11243204E96FA009F402B /* IGCallsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE11242204E96FA009F402B /* IGCallsTableViewController.swift */; };
-		FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAE1698E20E746DC008FE881 /* GoogleService-Info.plist */; };
 		FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062121EB39DB00F03FFC /* SwiftWebVC.swift */; };
 		FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */; };
 		FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */; };
@@ -1347,7 +1348,6 @@
 		8E94B7322237E4A1005F6868 /* models.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = models.framework; path = Carthage/Build/iOS/models.framework; sourceTree = "<group>"; };
 		8E94B7342237E4A1005F6868 /* XLPagerTabStrip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XLPagerTabStrip.framework; path = Carthage/Build/iOS/XLPagerTabStrip.framework; sourceTree = "<group>"; };
 		8E94B7352237E4A1005F6868 /* Motis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motis.framework; path = Carthage/Build/iOS/Motis.framework; sourceTree = "<group>"; };
-		8E94B7462237E61D005F6868 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
 		8E96A300225A2318007D8A77 /* IGRequestWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRequestWallet.swift; sourceTree = "<group>"; };
 		8E96A306225B4393007D8A77 /* mainRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainRequest.swift; sourceTree = "<group>"; };
 		8E96A30A225B4637007D8A77 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -1754,6 +1754,12 @@
 		D629462E2349E1B700FB5A08 /* YPImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YPImagePicker.framework; path = Carthage/Build/iOS/YPImagePicker.framework; sourceTree = "<group>"; };
 		D62946312349E43400FB5A08 /* PryntTrimmerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PryntTrimmerView.framework; path = Carthage/Build/iOS/PryntTrimmerView.framework; sourceTree = "<group>"; };
 		D62946342349E4BD00FB5A08 /* Stevia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stevia.framework; path = Carthage/Build/iOS/Stevia.framework; sourceTree = "<group>"; };
+		D629AB2924E153F900FD3815 /* stickerPublicKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stickerPublicKey.txt; sourceTree = "<group>"; };
+		D629AB2A24E153F900FD3815 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
+		D629AB2B24E153F900FD3815 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D629AB2C24E153F900FD3815 /* api.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.key; sourceTree = "<group>"; };
+		D629AB2D24E153F900FD3815 /* secret.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = secret.key; sourceTree = "<group>"; };
+		D629AB2E24E153F900FD3815 /* trackingId.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trackingId.txt; sourceTree = "<group>"; };
 		D64BD2F32403D6F700E812CA /* TopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopupCell.xib; sourceTree = "<group>"; };
 		D64BD2F42403D72100E812CA /* TopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupCell.swift; sourceTree = "<group>"; };
 		D64BD2F62403EA6200E812CA /* BillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCell.swift; sourceTree = "<group>"; };
@@ -1912,8 +1918,6 @@
 		FA1C449B1DC716A20016C346 /* IGCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGCountry.swift; sourceTree = "<group>"; };
 		FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryViewController.swift; sourceTree = "<group>"; };
 		FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryCell.swift; sourceTree = "<group>"; };
-		FA27F73F20BD77ED00EC6A97 /* api.key */ = {isa = PBXFileReference; lastKnownFileType = text; path = api.key; sourceTree = "<group>"; };
-		FA27F74120BD780300EC6A97 /* secret.key */ = {isa = PBXFileReference; lastKnownFileType = text; path = secret.key; sourceTree = "<group>"; };
 		FA2A506620ECABD9002C5322 /* IGFinancialServiceCharge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceCharge.swift; sourceTree = "<group>"; };
 		FA2A506820ECAC02002C5322 /* IGFinancialServiceBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceBill.swift; sourceTree = "<group>"; };
 		FA3306351F445A570096031A /* IRANSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANSans.ttf; sourceTree = "<group>"; };
@@ -2021,7 +2025,6 @@
 		FA6F312022B8C18600DB942E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		FA6F312222B8C37600DB942E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		FA6F312422B8C3D200DB942E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		FA6F312622B8E49D00DB942E /* trackingId.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = trackingId.txt; sourceTree = "<group>"; };
 		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
 		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
@@ -2180,7 +2183,6 @@
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		FAB8210E20D7D589003938BB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmChannelExtra.swift; sourceTree = "<group>"; };
-		FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stickerPublicKey.txt; sourceTree = "<group>"; };
 		FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGSecurityManager.swift; path = "Security Manager/IGSecurityManager.swift"; sourceTree = "<group>"; };
 		FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallAudioManager.swift; sourceTree = "<group>"; };
 		FAC0F08820F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceBillQrScanner.swift; sourceTree = "<group>"; };
@@ -2222,7 +2224,6 @@
 		FAE11242204E96FA009F402B /* IGCallsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallsTableViewController.swift; sourceTree = "<group>"; };
 		FAE11244204E9813009F402B /* IGCallListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallListTableViewCell.swift; sourceTree = "<group>"; };
 		FAE11246204E982D009F402B /* IGCallListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGCallListTableViewCell.xib; sourceTree = "<group>"; };
-		FAE1698E20E746DC008FE881 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAE6062121EB39DB00F03FFC /* SwiftWebVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVC.swift; sourceTree = "<group>"; };
 		FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivityChrome.swift; sourceTree = "<group>"; };
 		FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivitySafari.swift; sourceTree = "<group>"; };
@@ -4705,17 +4706,17 @@
 		FAF796081DAA39460030509B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D629AB2C24E153F900FD3815 /* api.key */,
+				D629AB2B24E153F900FD3815 /* GoogleService-Info.plist */,
+				D629AB2D24E153F900FD3815 /* secret.key */,
+				D629AB2924E153F900FD3815 /* stickerPublicKey.txt */,
+				D629AB2E24E153F900FD3815 /* trackingId.txt */,
+				D629AB2A24E153F900FD3815 /* webServiceKey.txt */,
 				FA752C321E1EC571008694C6 /* iGap.entitlements */,
 				FA5097D21DEDA18000A44699 /* iGap-Bridging-Header.h */,
 				FAB8210D20D7D583003938BB /* Firebase.h */,
-				FAE1698E20E746DC008FE881 /* GoogleService-Info.plist */,
 				FAF796091DAA39460030509B /* Info.plist */,
 				FAB8210E20D7D589003938BB /* module.modulemap */,
-				FA27F74120BD780300EC6A97 /* secret.key */,
-				FA27F73F20BD77ED00EC6A97 /* api.key */,
-				FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */,
-				FA6F312622B8E49D00DB942E /* trackingId.txt */,
-				8E94B7462237E61D005F6868 /* webServiceKey.txt */,
 				8EC218082259FF3500105B5A /* Model.xcdatamodeld */,
 			);
 			path = SupportingFiles;
@@ -4947,8 +4948,6 @@
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */,
-				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
-				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
@@ -4964,8 +4963,10 @@
 				D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */,
 				FA9EE5BD221ECD7100BA7735 /* MoneyTransferCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
+				D629AB3324E153F900FD3815 /* secret.key in Resources */,
 				8E7C74E52395451E00286315 /* SliderImageWithTextCVCell.xib in Resources */,
 				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
+				D629AB3424E153F900FD3815 /* trackingId.txt in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				8EA8550E23A228D400C9442F /* IGNightColors.xcassets in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
@@ -4997,6 +4998,7 @@
 				8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,
+				D629AB3024E153F900FD3815 /* webServiceKey.txt in Resources */,
 				FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */,
 				8EA8551523A22DEC00C9442F /* OrangeColorSet.xcassets in Resources */,
 				8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */,
@@ -5004,6 +5006,7 @@
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
 				8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */,
 				8E0A799323951736001A7EB6 /* News.storyboard in Resources */,
+				D629AB2F24E153F900FD3815 /* stickerPublicKey.txt in Resources */,
 				8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */,
 				FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */,
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
@@ -5034,14 +5037,15 @@
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
+				D629AB3124E153F900FD3815 /* GoogleService-Info.plist in Resources */,
 				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
 				D6C95D6F2459A7B9007AC009 /* AppIconSix.png in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
 				D6C95D712459A7B9007AC009 /* AppIconOne.png in Resources */,
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
+				D629AB3224E153F900FD3815 /* api.key in Resources */,
 				D6C95D722459A7B9007AC009 /* AppIconFour.png in Resources */,
-				8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */,
 				8EA8551D23A232F900C9442F /* RedColorSet.xcassets in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
 				8EEB1FF622C1F68B00EFD2ED /* GetGiftPopup.xib in Resources */,
@@ -5064,7 +5068,6 @@
 				8EA8552123A23A6D00C9442F /* GoldColorSet.xcassets in Resources */,
 				8EA854B7239E90BE00C9442F /* ThemeColorSet.xcassets in Resources */,
 				D247707C24D7E2980028ACF6 /* SourceSansPro-Regular.ttf in Resources */,
-				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */,
 				D6C95D702459A7B9007AC009 /* AppIconThree.png in Resources */,
 				8EC94E0D23964D05003B3510 /* IGSingleButtonTVCell.xib in Resources */,
@@ -5724,7 +5727,6 @@
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
 				8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */,
 				8E4177FA233CDABD00CEB3AF /* AKMaskFieldUtility.swift in Sources */,
-				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
 				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				D67E985323A6796B003C1516 /* Zoomable.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,

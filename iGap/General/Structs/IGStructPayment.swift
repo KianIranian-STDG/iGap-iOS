@@ -15,7 +15,7 @@ struct IGStructPayment: Decodable {
         var vendor: String?
         var orderId: String?
         
-        struct Product: Codable {
+        struct Product: Decodable {
             let title, productDescription, telNum, telCharger: String?
             let type, vendor, productRefType, refType: String?
 
@@ -36,7 +36,7 @@ struct IGStructPayment: Decodable {
         }
     }
     
-    var info: Info
+    var info: Info?
     var features: [Feature]?
     var redirectUrl: String?
     
@@ -47,11 +47,11 @@ struct IGStructPayment: Decodable {
     }
 }
 
-struct Feature: Codable {
-    let ceil, unit, floor, spent: Int
-    let type: String
-    let discount, userScore, priceWithFeature: Int
-    let title: String
+struct Feature: Decodable {
+    let ceil, unit, floor, spent: Int?
+    let type: String?
+    let discount, userScore, priceWithFeature: Int?
+    let title: String?
 }
 
 struct IGStructPaymentStatus: Decodable {
@@ -91,10 +91,10 @@ struct IGStructPaymentStatus: Decodable {
 
 
 /********************* Sticker Payment Struct *********************/
-struct IGStructGiftCardPayment: Codable {
-    let info: IGStructGiftCardPaymentInfo
+struct IGStructGiftCardPayment: Decodable {
+    let info: IGStructGiftCardPaymentInfo?
     let features: [Feature]?
-    let redirectURL: String
+    let redirectURL: String?
 
     enum CodingKeys: String, CodingKey {
         case info, features
@@ -102,10 +102,10 @@ struct IGStructGiftCardPayment: Codable {
     }
 }
 
-struct IGStructGiftCardPaymentInfo: Codable {
-    let product: Product
-    let price: Int
-    let vendor, orderID: String
+struct IGStructGiftCardPaymentInfo: Decodable {
+    let product: Product?
+    let price: Int?
+    let vendor, orderID: String?
 
     enum CodingKeys: String, CodingKey {
         case product, price, vendor
@@ -113,11 +113,11 @@ struct IGStructGiftCardPaymentInfo: Codable {
     }
 }
 
-struct Product: Codable {
-    let title, productDescription: String
-    let quantity: Int
-    let refType: String
-    let info: ProductInfo
+struct Product: Decodable {
+    let title, productDescription: String?
+    let quantity: Int?
+    let refType: String?
+    let info: ProductInfo?
 
     enum CodingKeys: String, CodingKey {
         case title
@@ -126,21 +126,21 @@ struct Product: Codable {
     }
 }
 
-struct ProductInfo: Codable {
-    let creation: Creation
-    let activation: Activation
-    let requestCount, amount: Int
-    let sticker: String
+struct ProductInfo: Decodable {
+    let creation: Creation?
+    let activation: Activation?
+    let requestCount, amount: Int?
+    let sticker: String?
     //let forwardHistory: [String]
-    let createdAt, id: String
+    let createdAt, id: String?
 }
 
-struct Activation: Codable {
-    let status: String
+struct Activation: Decodable {
+    let status: String?
 }
 
-struct Creation: Codable {
-    let status, mobileNumber, nationalCode, userId: String
+struct Creation: Decodable {
+    let status, mobileNumber, nationalCode, userId: String?
 
     enum CodingKeys: String, CodingKey {
         case status, mobileNumber, nationalCode
