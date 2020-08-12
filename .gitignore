@@ -74,3 +74,10 @@ fastlane/test_output
 Carthage
 
 ThirdParty
+
+Api.key
+secret.key
+stickerPublicKey.txt
+TrackingId.txt
+webServiceKey.txt
+GoogleService-Info.plist
